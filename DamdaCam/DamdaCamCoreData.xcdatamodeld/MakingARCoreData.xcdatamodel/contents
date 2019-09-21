@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G6030" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CustomPalette" representedClassName="CustomPalette" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="FavoritesARMotion" representedClassName="FavoritesARMotion" syncable="YES" codeGenerationType="class">
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MakingARData" representedClassName="MakingARData" syncable="YES" codeGenerationType="class">
+        <attribute name="idString" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+    </entity>
+    <entity name="StartTutorial" representedClassName="StartTutorial" syncable="YES" codeGenerationType="class">
+        <attribute name="tutorialCheck" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CustomPalette" positionX="-63" positionY="-9" width="128" height="60"/>
+        <element name="MakingARData" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="StartTutorial" positionX="-63" positionY="-9" width="128" height="60"/>
+        <element name="FavoritesARMotion" positionX="-54" positionY="0" width="128" height="60"/>
+    </elements>
+</model>

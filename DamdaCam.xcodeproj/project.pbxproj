@@ -7,132 +7,109 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E1EB1DE2293019E00EC4540 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB1DD2293019E00EC4540 /* TutorialViewController.swift */; };
-		3E3C988722621CBE00F3AB16 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C988622621CBE00F3AB16 /* HelpTableViewController.swift */; };
-		3E3C988922621CD000F3AB16 /* MadeByTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C988822621CD000F3AB16 /* MadeByTableViewController.swift */; };
-		3E3F396622460322007E2E74 /* FaceAR.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F396522460322007E2E74 /* FaceAR.scnassets */; };
-		3E3F396D22460393007E2E74 /* BGAR.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F396C22460393007E2E74 /* BGAR.scnassets */; };
-		3E3F61C321C3888C00C66C04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F61C121C3888C00C66C04 /* LaunchScreen.storyboard */; };
-		3E3F61C421C3888C00C66C04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F61C221C3888C00C66C04 /* Main.storyboard */; };
-		3E43183122887A2200321BCA /* NodeTechnique.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E43182F22887A2200321BCA /* NodeTechnique.plist */; };
-		3E43183222887A2200321BCA /* NodeRender.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E43183022887A2200321BCA /* NodeRender.metal */; };
-		3E5952E92263621B00EFC607 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5952E82263621B00EFC607 /* GalleryViewController.swift */; };
-		3E5952EB2263623800EFC607 /* MakingARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5952EA2263623700EFC607 /* MakingARViewController.swift */; };
-		3E5952ED226362D300EFC607 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5952EC226362D300EFC607 /* GalleryCollectionViewCell.swift */; };
-		3E74716522649BAE0099E489 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74716422649BAE0099E489 /* TooltipView.swift */; };
-		3E8BAED92293AB1900537E50 /* tutorialGif_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED32293AB1900537E50 /* tutorialGif_1.gif */; };
-		3E8BAEDA2293AB1900537E50 /* tutorialGif_4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED42293AB1900537E50 /* tutorialGif_4.gif */; };
-		3E8BAEDB2293AB1900537E50 /* tutorialGif_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED52293AB1900537E50 /* tutorialGif_3.gif */; };
-		3E8BAEDC2293AB1900537E50 /* logoGif_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED62293AB1900537E50 /* logoGif_1.gif */; };
-		3E8BAEDD2293AB1900537E50 /* logoGif_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED72293AB1900537E50 /* logoGif_2.gif */; };
-		3E8BAEDE2293AB1900537E50 /* tutorialGif_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8BAED82293AB1900537E50 /* tutorialGif_2.gif */; };
-		3E8F7F9322893C0600E22C01 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F7F9222893C0600E22C01 /* CustomPaletteCollectionViewCell.swift */; };
-		3E8FFD5B2279F5D4007D909D /* RadialHuePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FFD572279F5D3007D909D /* RadialHuePalette.swift */; };
-		3E8FFD5C2279F5D4007D909D /* HueColorSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FFD582279F5D3007D909D /* HueColorSliderDelegate.swift */; };
-		3E8FFD5D2279F5D4007D909D /* UISliderColorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FFD592279F5D4007D909D /* UISliderColorControl.swift */; };
-		3E8FFD5E2279F5D4007D909D /* RadialHueColorPaletteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FFD5A2279F5D4007D909D /* RadialHueColorPaletteDelegate.swift */; };
-		3EA9AF3621BBFE4E0033622F /* UI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA9AF3521BBFE4E0033622F /* UI.storyboard */; };
-		3EA9AF6121BC14CB0033622F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9AF6021BC14CB0033622F /* Utilities.swift */; };
-		3EA9AF7A21BC16430033622F /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9AF7821BC16420033622F /* Styles.swift */; };
-		3EB3F4702279B1EB00FF701F /* recordGradient in Resources */ = {isa = PBXBuildFile; fileRef = 3EB3F46F2279B1EB00FF701F /* recordGradient */; };
-		3EBDC8DC22320A7600C847CF /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC8D822320A7600C847CF /* Shaders.metal */; };
-		3EBDC8DD22320A7600C847CF /* BiquadFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC8D922320A7600C847CF /* BiquadFilter.swift */; };
-		3EBDC8DE22320A7600C847CF /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC8DA22320A7600C847CF /* LineGeometry.swift */; };
-		3EBDC8F622320C3100C847CF /* thirdPartyLicenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 3EBDC8F322320C3100C847CF /* thirdPartyLicenses.html */; };
-		3EBDC8F722320C3100C847CF /* DrawPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC8F422320C3100C847CF /* DrawPromptView.swift */; };
-		3EBDC8F822320C3100C847CF /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC8F522320C3100C847CF /* ProgressView.swift */; };
-		3EBDC90F22320CFA00C847CF /* partner_found.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EBDC90C22320CFA00C847CF /* partner_found.json */; };
-		3EBDC91022320CFA00C847CF /* stay_put.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EBDC90D22320CFA00C847CF /* stay_put.json */; };
-		3EBDC91122320CFA00C847CF /* looking_partner.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EBDC90E22320CFA00C847CF /* looking_partner.json */; };
-		3ECDD7B022648291007B1835 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECDD7AF22648291007B1835 /* ARMotionCollectionViewCell.swift */; };
-		3ECDD7B222648567007B1835 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECDD7B122648567007B1835 /* FilterCollectionViewCell.swift */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
-		3ED4BDF1227EDD1D0031E99A /* NotoSansCJKkr-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDE8227EDD1D0031E99A /* NotoSansCJKkr-Black.otf */; };
-		3ED4BDF2227EDD1D0031E99A /* NotoSansCJKkr-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDE9227EDD1D0031E99A /* NotoSansCJKkr-Bold.otf */; };
-		3ED4BDF4227EDD1D0031E99A /* NotoSansCJKkr-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDEB227EDD1D0031E99A /* NotoSansCJKkr-Light.otf */; };
-		3ED4BDF5227EDD1D0031E99A /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDEC227EDD1D0031E99A /* NotoSansCJKkr-Regular.otf */; };
-		3ED4BDF6227EDD1D0031E99A /* NotoSansCJKkr-DemiLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDED227EDD1D0031E99A /* NotoSansCJKkr-DemiLight.otf */; };
-		3ED4BDF7227EDD1D0031E99A /* NotoSansCJKkr-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDEE227EDD1D0031E99A /* NotoSansCJKkr-Medium.otf */; };
-		3ED4BDF8227EDD1D0031E99A /* NotoSansCJKkr-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ED4BDEF227EDD1D0031E99A /* NotoSansCJKkr-Thin.otf */; };
-		3EE09B892242A42F00D5D358 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE09B882242A42E00D5D358 /* ARMotionViewController.swift */; };
-		3EE165D3223398B200A0033F /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE165D2223398B200A0033F /* Stroke.swift */; };
-		3EE165D92233B00300A0033F /* InterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE165D52233B00200A0033F /* InterfaceViewController.swift */; };
-		3EE165DA2233B00300A0033F /* ViewController+ARSceneViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE165D62233B00200A0033F /* ViewController+ARSceneViewDelegate.swift */; };
-		3EE165DB2233B00300A0033F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE165D72233B00200A0033F /* ViewController.swift */; };
-		3EE165DC2233B00300A0033F /* ViewController+InterfaceViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE165D82233B00200A0033F /* ViewController+InterfaceViewControllerDelegate.swift */; };
-		3EEDE5392262084500695E23 /* SetUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEDE5382262084500695E23 /* SetUpTableViewController.swift */; };
+		3EF105A723B71B7000CCB7E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105A523B71B6F00CCB7E1 /* Main.storyboard */; };
+		3EF105A823B71B7000CCB7E1 /* UI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105A623B71B7000CCB7E1 /* UI.storyboard */; };
+		3EF105D023B71F4A00CCB7E1 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */; };
+		3EF105D123B71F4A00CCB7E1 /* MadeByTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */; };
+		3EF105D223B71F4A00CCB7E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C723B71F4A00CCB7E1 /* ViewController.swift */; };
+		3EF105D323B71F4A00CCB7E1 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */; };
+		3EF105D423B71F4A00CCB7E1 /* InterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */; };
+		3EF105D523B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */; };
+		3EF105D623B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */; };
+		3EF105D723B71F4A00CCB7E1 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */; };
+		3EF105D823B71F4A00CCB7E1 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */; };
+		3EF105D923B71F4A00CCB7E1 /* MakingARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */; };
+		3EF105DA23B71F4A00CCB7E1 /* SetUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */; };
+		3EF105E023B71F9F00CCB7E1 /* ISRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */; };
+		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
+		3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */; };
+		3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */; };
+		3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */; };
+		3EF105ED23B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */; };
+		3EF105EE23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */; };
+		3EF105EF23B71FAB00CCB7E1 /* RadialHuePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */; };
+		3EF105F023B71FAB00CCB7E1 /* UISliderColorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */; };
+		3EF105F423B71FB000CCB7E1 /* DrawPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */; };
+		3EF105F523B71FB100CCB7E1 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F223B71FB000CCB7E1 /* TooltipView.swift */; };
+		3EF105F623B71FB100CCB7E1 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F323B71FB000CCB7E1 /* ProgressView.swift */; };
+		3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105FB23B7200000CCB7E1 /* NodeRender.metal */; };
+		3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */; };
+		3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105FD23B7200100CCB7E1 /* Stroke.swift */; };
+		3EF1060923B7202900CCB7E1 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060223B7202800CCB7E1 /* Fonts */; };
+		3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060323B7202900CCB7E1 /* Tutorial Gif */; };
+		3EF1060B23B7202900CCB7E1 /* FaceAR.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060423B7202900CCB7E1 /* FaceAR.scnassets */; };
+		3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060523B7202900CCB7E1 /* BGAR.scnassets */; };
+		3EF1060D23B7202900CCB7E1 /* recordGradient in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060623B7202900CCB7E1 /* recordGradient */; };
+		3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060723B7202900CCB7E1 /* Assets.xcassets */; };
+		3EF1060F23B7202900CCB7E1 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060823B7202900CCB7E1 /* Base.lproj */; };
+		3EF1061823B7204C00CCB7E1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061123B7204B00CCB7E1 /* Utilities.swift */; };
+		3EF1061C23B7204C00CCB7E1 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061523B7204C00CCB7E1 /* Styles.swift */; };
+		3EF1062323B7205C00CCB7E1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061F23B7205C00CCB7E1 /* Shaders.metal */; };
+		3EF1062423B7205C00CCB7E1 /* BiquadFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */; };
+		3EF1062523B7205C00CCB7E1 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */; };
+		3EF1062A23B7208000CCB7E1 /* looking_partner.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062723B7207F00CCB7E1 /* looking_partner.json */; };
+		3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062823B7207F00CCB7E1 /* partner_found.json */; };
+		3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062923B7208000CCB7E1 /* stay_put.json */; };
 		3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */; };
-		3EFCD66521AE33DA00D51C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EFCD66421AE33DA00D51C0C /* Assets.xcassets */; };
-		3EFF2A5C2284A89B0003DDE2 /* ISRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF2A5B2284A89B0003DDE2 /* ISRadioButton.swift */; };
 		53495199B524324E8BBFCFCE /* Pods_DamdaCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		24C97EBDB39DDE273304CA25 /* Pods-DamdaCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.debug.xcconfig"; sourceTree = "<group>"; };
-		3E1EB1DD2293019E00EC4540 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialViewController.swift; path = "View Controllers/TutorialViewController.swift"; sourceTree = "<group>"; };
-		3E3C988622621CBE00F3AB16 /* HelpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HelpTableViewController.swift; path = "View Controllers/HelpTableViewController.swift"; sourceTree = "<group>"; };
-		3E3C988822621CD000F3AB16 /* MadeByTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MadeByTableViewController.swift; path = "View Controllers/MadeByTableViewController.swift"; sourceTree = "<group>"; };
-		3E3F396522460322007E2E74 /* FaceAR.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = FaceAR.scnassets; sourceTree = "<group>"; };
-		3E3F396C22460393007E2E74 /* BGAR.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = BGAR.scnassets; sourceTree = "<group>"; };
-		3E3F61C121C3888C00C66C04 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3E3F61C221C3888C00C66C04 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3E43182F22887A2200321BCA /* NodeTechnique.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NodeTechnique.plist; path = Model/NodeTechnique.plist; sourceTree = "<group>"; };
-		3E43183022887A2200321BCA /* NodeRender.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = NodeRender.metal; path = Model/NodeRender.metal; sourceTree = "<group>"; };
-		3E5952E82263621B00EFC607 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = "View Controllers/GalleryViewController.swift"; sourceTree = "<group>"; };
-		3E5952EA2263623700EFC607 /* MakingARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MakingARViewController.swift; path = "View Controllers/MakingARViewController.swift"; sourceTree = "<group>"; };
-		3E5952EC226362D300EFC607 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Views/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
-		3E74716422649BAE0099E489 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TooltipView.swift; path = Views/TooltipView.swift; sourceTree = "<group>"; };
-		3E8BAED32293AB1900537E50 /* tutorialGif_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tutorialGif_1.gif; path = "Tutorial Gif/tutorialGif_1.gif"; sourceTree = "<group>"; };
-		3E8BAED42293AB1900537E50 /* tutorialGif_4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tutorialGif_4.gif; path = "Tutorial Gif/tutorialGif_4.gif"; sourceTree = "<group>"; };
-		3E8BAED52293AB1900537E50 /* tutorialGif_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tutorialGif_3.gif; path = "Tutorial Gif/tutorialGif_3.gif"; sourceTree = "<group>"; };
-		3E8BAED62293AB1900537E50 /* logoGif_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = logoGif_1.gif; path = "Tutorial Gif/logoGif_1.gif"; sourceTree = "<group>"; };
-		3E8BAED72293AB1900537E50 /* logoGif_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = logoGif_2.gif; path = "Tutorial Gif/logoGif_2.gif"; sourceTree = "<group>"; };
-		3E8BAED82293AB1900537E50 /* tutorialGif_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tutorialGif_2.gif; path = "Tutorial Gif/tutorialGif_2.gif"; sourceTree = "<group>"; };
-		3E8F7F9222893C0600E22C01 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
-		3E8FFD572279F5D3007D909D /* RadialHuePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHuePalette.swift; path = "Views/Color Picker/RadialHuePalette.swift"; sourceTree = "<group>"; };
-		3E8FFD582279F5D3007D909D /* HueColorSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HueColorSliderDelegate.swift; path = "Views/Color Picker/HueColorSliderDelegate.swift"; sourceTree = "<group>"; };
-		3E8FFD592279F5D4007D909D /* UISliderColorControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISliderColorControl.swift; path = "Views/Color Picker/UISliderColorControl.swift"; sourceTree = "<group>"; };
-		3E8FFD5A2279F5D4007D909D /* RadialHueColorPaletteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHueColorPaletteDelegate.swift; path = "Views/Color Picker/RadialHueColorPaletteDelegate.swift"; sourceTree = "<group>"; };
-		3EA9AF3521BBFE4E0033622F /* UI.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UI.storyboard; sourceTree = "<group>"; };
-		3EA9AF6021BC14CB0033622F /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		3EA9AF7821BC16420033622F /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DamdaCam-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		3EB3F46F2279B1EB00FF701F /* recordGradient */ = {isa = PBXFileReference; lastKnownFileType = folder; path = recordGradient; sourceTree = "<group>"; };
-		3EBDC8D822320A7600C847CF /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = "Line Drawing/Shaders.metal"; sourceTree = "<group>"; };
-		3EBDC8D922320A7600C847CF /* BiquadFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BiquadFilter.swift; path = "Line Drawing/BiquadFilter.swift"; sourceTree = "<group>"; };
-		3EBDC8DA22320A7600C847CF /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineGeometry.swift; path = "Line Drawing/LineGeometry.swift"; sourceTree = "<group>"; };
-		3EBDC8DB22320A7600C847CF /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTypes.h; path = "Line Drawing/ShaderTypes.h"; sourceTree = "<group>"; };
-		3EBDC8F322320C3100C847CF /* thirdPartyLicenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = thirdPartyLicenses.html; path = Views/thirdPartyLicenses.html; sourceTree = "<group>"; };
-		3EBDC8F422320C3100C847CF /* DrawPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawPromptView.swift; path = Views/DrawPromptView.swift; sourceTree = "<group>"; };
-		3EBDC8F522320C3100C847CF /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressView.swift; path = Views/ProgressView.swift; sourceTree = "<group>"; };
-		3EBDC90C22320CFA00C847CF /* partner_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = partner_found.json; sourceTree = "<group>"; };
-		3EBDC90D22320CFA00C847CF /* stay_put.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stay_put.json; sourceTree = "<group>"; };
-		3EBDC90E22320CFA00C847CF /* looking_partner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = looking_partner.json; sourceTree = "<group>"; };
-		3ECDD7AF22648291007B1835 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
-		3ECDD7B122648567007B1835 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		3ED4BDD8227ECB2B0031E99A /* MakingARCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MakingARCoreData.xcdatamodel; sourceTree = "<group>"; };
-		3ED4BDE8227EDD1D0031E99A /* NotoSansCJKkr-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Black.otf"; path = "Font/NotoSansCJKkr-Black.otf"; sourceTree = "<group>"; };
-		3ED4BDE9227EDD1D0031E99A /* NotoSansCJKkr-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Bold.otf"; path = "Font/NotoSansCJKkr-Bold.otf"; sourceTree = "<group>"; };
-		3ED4BDEB227EDD1D0031E99A /* NotoSansCJKkr-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Light.otf"; path = "Font/NotoSansCJKkr-Light.otf"; sourceTree = "<group>"; };
-		3ED4BDEC227EDD1D0031E99A /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Regular.otf"; path = "Font/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
-		3ED4BDED227EDD1D0031E99A /* NotoSansCJKkr-DemiLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-DemiLight.otf"; path = "Font/NotoSansCJKkr-DemiLight.otf"; sourceTree = "<group>"; };
-		3ED4BDEE227EDD1D0031E99A /* NotoSansCJKkr-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Medium.otf"; path = "Font/NotoSansCJKkr-Medium.otf"; sourceTree = "<group>"; };
-		3ED4BDEF227EDD1D0031E99A /* NotoSansCJKkr-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansCJKkr-Thin.otf"; path = "Font/NotoSansCJKkr-Thin.otf"; sourceTree = "<group>"; };
-		3EE09B882242A42E00D5D358 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionViewController.swift; path = "View Controllers/ARMotionViewController.swift"; sourceTree = "<group>"; };
-		3EE165D2223398B200A0033F /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stroke.swift; path = Model/Stroke.swift; sourceTree = "<group>"; };
-		3EE165D52233B00200A0033F /* InterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterfaceViewController.swift; path = "View Controllers/InterfaceViewController.swift"; sourceTree = "<group>"; };
-		3EE165D62233B00200A0033F /* ViewController+ARSceneViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+ARSceneViewDelegate.swift"; path = "View Controllers/ViewController+ARSceneViewDelegate.swift"; sourceTree = "<group>"; };
-		3EE165D72233B00200A0033F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "View Controllers/ViewController.swift"; sourceTree = "<group>"; };
-		3EE165D82233B00200A0033F /* ViewController+InterfaceViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+InterfaceViewControllerDelegate.swift"; path = "View Controllers/ViewController+InterfaceViewControllerDelegate.swift"; sourceTree = "<group>"; };
-		3EEDE5382262084500695E23 /* SetUpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetUpTableViewController.swift; path = "View Controllers/SetUpTableViewController.swift"; sourceTree = "<group>"; };
+		3EF105A523B71B6F00CCB7E1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3EF105A623B71B7000CCB7E1 /* UI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UI.storyboard; sourceTree = "<group>"; };
+		3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = "View Controllers/GalleryViewController.swift"; sourceTree = "<group>"; };
+		3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MadeByTableViewController.swift; path = "View Controllers/MadeByTableViewController.swift"; sourceTree = "<group>"; };
+		3EF105C723B71F4A00CCB7E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "View Controllers/ViewController.swift"; sourceTree = "<group>"; };
+		3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionViewController.swift; path = "View Controllers/ARMotionViewController.swift"; sourceTree = "<group>"; };
+		3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterfaceViewController.swift; path = "View Controllers/InterfaceViewController.swift"; sourceTree = "<group>"; };
+		3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+ARSceneViewDelegate.swift"; path = "View Controllers/ViewController+ARSceneViewDelegate.swift"; sourceTree = "<group>"; };
+		3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+InterfaceViewControllerDelegate.swift"; path = "View Controllers/ViewController+InterfaceViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewController.swift; path = "View Controllers/TutorialViewController.swift"; sourceTree = "<group>"; };
+		3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelpTableViewController.swift; path = "View Controllers/HelpTableViewController.swift"; sourceTree = "<group>"; };
+		3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MakingARViewController.swift; path = "View Controllers/MakingARViewController.swift"; sourceTree = "<group>"; };
+		3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetUpTableViewController.swift; path = "View Controllers/SetUpTableViewController.swift"; sourceTree = "<group>"; };
+		3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISRadioButton.swift; path = DamdaCam/Views/Buttons/ISRadioButton.swift; sourceTree = SOURCE_ROOT; };
+		3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/Cells/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
+		3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/Cells/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
+		3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/Cells/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Views/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHueColorPaletteDelegate.swift; path = "Views/Color Picker/RadialHueColorPaletteDelegate.swift"; sourceTree = "<group>"; };
+		3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HueColorSliderDelegate.swift; path = "Views/Color Picker/HueColorSliderDelegate.swift"; sourceTree = "<group>"; };
+		3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHuePalette.swift; path = "Views/Color Picker/RadialHuePalette.swift"; sourceTree = "<group>"; };
+		3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISliderColorControl.swift; path = "Views/Color Picker/UISliderColorControl.swift"; sourceTree = "<group>"; };
+		3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawPromptView.swift; path = "DamdaCam/Views/Custom Views/DrawPromptView.swift"; sourceTree = SOURCE_ROOT; };
+		3EF105F223B71FB000CCB7E1 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TooltipView.swift; path = "DamdaCam/Views/Custom Views/TooltipView.swift"; sourceTree = SOURCE_ROOT; };
+		3EF105F323B71FB000CCB7E1 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressView.swift; path = "DamdaCam/Views/Custom Views/ProgressView.swift"; sourceTree = SOURCE_ROOT; };
+		3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = thirdPartyLicenses.html; sourceTree = "<group>"; };
+		3EF105FB23B7200000CCB7E1 /* NodeRender.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = NodeRender.metal; path = Model/NodeRender.metal; sourceTree = "<group>"; };
+		3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NodeTechnique.plist; path = Model/NodeTechnique.plist; sourceTree = "<group>"; };
+		3EF105FD23B7200100CCB7E1 /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stroke.swift; path = Model/Stroke.swift; sourceTree = "<group>"; };
+		3EF1060223B7202800CCB7E1 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = Resources/Fonts; sourceTree = "<group>"; };
+		3EF1060323B7202900CCB7E1 /* Tutorial Gif */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Tutorial Gif"; path = "Resources/Tutorial Gif"; sourceTree = "<group>"; };
+		3EF1060423B7202900CCB7E1 /* FaceAR.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; name = FaceAR.scnassets; path = Resources/FaceAR.scnassets; sourceTree = "<group>"; };
+		3EF1060523B7202900CCB7E1 /* BGAR.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; name = BGAR.scnassets; path = Resources/BGAR.scnassets; sourceTree = "<group>"; };
+		3EF1060623B7202900CCB7E1 /* recordGradient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = recordGradient; path = Resources/recordGradient; sourceTree = "<group>"; };
+		3EF1060723B7202900CCB7E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		3EF1060823B7202900CCB7E1 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = Resources/Base.lproj; sourceTree = "<group>"; };
+		3EF1061123B7204B00CCB7E1 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Utility/Utilities.swift; sourceTree = "<group>"; };
+		3EF1061523B7204C00CCB7E1 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Styles.swift; path = Utility/Styles.swift; sourceTree = "<group>"; };
+		3EF1061F23B7205C00CCB7E1 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = "Utility/Line Drawing/Shaders.metal"; sourceTree = "<group>"; };
+		3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BiquadFilter.swift; path = "Utility/Line Drawing/BiquadFilter.swift"; sourceTree = "<group>"; };
+		3EF1062123B7205C00CCB7E1 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTypes.h; path = "Utility/Line Drawing/ShaderTypes.h"; sourceTree = "<group>"; };
+		3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineGeometry.swift; path = "Utility/Line Drawing/LineGeometry.swift"; sourceTree = "<group>"; };
+		3EF1062723B7207F00CCB7E1 /* looking_partner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = looking_partner.json; path = "Lottie Animations/looking_partner.json"; sourceTree = "<group>"; };
+		3EF1062823B7207F00CCB7E1 /* partner_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = partner_found.json; path = "Lottie Animations/partner_found.json"; sourceTree = "<group>"; };
+		3EF1062923B7208000CCB7E1 /* stay_put.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stay_put.json; path = "Lottie Animations/stay_put.json"; sourceTree = "<group>"; };
 		3EFCD65A21AE33D900D51C0C /* DamdaCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamdaCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3EFCD66421AE33DA00D51C0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EFCD66921AE33DA00D51C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3EFF2A5B2284A89B0003DDE2 /* ISRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISRadioButton.swift; path = Views/ISRadioButton.swift; sourceTree = "<group>"; };
 		7A2FF700FA191457E5E0427B /* Pods-DamdaCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.release.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.release.xcconfig"; sourceTree = "<group>"; };
 		B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamdaCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -149,108 +126,129 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E5C181B2292AE7800255B32 /* Tutorial Gif */ = {
+		3EF105AC23B71EA100CCB7E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3E8BAED62293AB1900537E50 /* logoGif_1.gif */,
-				3E8BAED72293AB1900537E50 /* logoGif_2.gif */,
-				3E8BAED32293AB1900537E50 /* tutorialGif_1.gif */,
-				3E8BAED82293AB1900537E50 /* tutorialGif_2.gif */,
-				3E8BAED52293AB1900537E50 /* tutorialGif_3.gif */,
-				3E8BAED42293AB1900537E50 /* tutorialGif_4.gif */,
-			);
-			name = "Tutorial Gif";
-			sourceTree = "<group>";
-		};
-		3E8FFD562279F5C4007D909D /* Color Picker */ = {
-			isa = PBXGroup;
-			children = (
-				3E8FFD582279F5D3007D909D /* HueColorSliderDelegate.swift */,
-				3E8FFD5A2279F5D4007D909D /* RadialHueColorPaletteDelegate.swift */,
-				3E8FFD572279F5D3007D909D /* RadialHuePalette.swift */,
-				3E8FFD592279F5D4007D909D /* UISliderColorControl.swift */,
-			);
-			name = "Color Picker";
-			sourceTree = "<group>";
-		};
-		3EBDC8D722320A1400C847CF /* Line Drawing */ = {
-			isa = PBXGroup;
-			children = (
-				3EBDC8D922320A7600C847CF /* BiquadFilter.swift */,
-				3EBDC8DA22320A7600C847CF /* LineGeometry.swift */,
-				3EBDC8D822320A7600C847CF /* Shaders.metal */,
-				3EBDC8DB22320A7600C847CF /* ShaderTypes.h */,
-			);
-			name = "Line Drawing";
-			sourceTree = "<group>";
-		};
-		3EBDC8F222320BE100C847CF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3E8F7F9222893C0600E22C01 /* CustomPaletteCollectionViewCell.swift */,
-				3ECDD7AF22648291007B1835 /* ARMotionCollectionViewCell.swift */,
-				3ECDD7B122648567007B1835 /* FilterCollectionViewCell.swift */,
-				3E5952EC226362D300EFC607 /* GalleryCollectionViewCell.swift */,
-				3EBDC8F422320C3100C847CF /* DrawPromptView.swift */,
-				3EBDC8F522320C3100C847CF /* ProgressView.swift */,
-				3E74716422649BAE0099E489 /* TooltipView.swift */,
-				3EFF2A5B2284A89B0003DDE2 /* ISRadioButton.swift */,
-				3E8FFD562279F5C4007D909D /* Color Picker */,
-				3EBDC8F322320C3100C847CF /* thirdPartyLicenses.html */,
+				3EF105DB23B71F6E00CCB7E1 /* Buttons */,
+				3EF105DC23B71F7D00CCB7E1 /* Cells */,
+				3EF105DD23B71F8500CCB7E1 /* Color Picker */,
+				3EF105DE23B71F9100CCB7E1 /* Custom Views */,
+				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		3EBDC90522320CC800C847CF /* Lottie Animations */ = {
+		3EF105AD23B71EA400CCB7E1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3EBDC90E22320CFA00C847CF /* looking_partner.json */,
-				3EBDC90C22320CFA00C847CF /* partner_found.json */,
-				3EBDC90D22320CFA00C847CF /* stay_put.json */,
+				3EF105C723B71F4A00CCB7E1 /* ViewController.swift */,
+				3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */,
+				3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */,
+				3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */,
+				3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */,
+				3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */,
+				3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */,
+				3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */,
+				3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */,
+				3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */,
+				3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */,
 			);
-			path = "Lottie Animations";
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		3ED4BDE6227EDD040031E99A /* Font */ = {
+		3EF105DB23B71F6E00CCB7E1 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4BDE8227EDD1D0031E99A /* NotoSansCJKkr-Black.otf */,
-				3ED4BDE9227EDD1D0031E99A /* NotoSansCJKkr-Bold.otf */,
-				3ED4BDED227EDD1D0031E99A /* NotoSansCJKkr-DemiLight.otf */,
-				3ED4BDEB227EDD1D0031E99A /* NotoSansCJKkr-Light.otf */,
-				3ED4BDEE227EDD1D0031E99A /* NotoSansCJKkr-Medium.otf */,
-				3ED4BDEC227EDD1D0031E99A /* NotoSansCJKkr-Regular.otf */,
-				3ED4BDEF227EDD1D0031E99A /* NotoSansCJKkr-Thin.otf */,
+				3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */,
 			);
-			name = Font;
+			path = Buttons;
 			sourceTree = "<group>";
 		};
-		3EE165D1223398A400A0033F /* Model */ = {
+		3EF105DC23B71F7D00CCB7E1 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				3E43183022887A2200321BCA /* NodeRender.metal */,
-				3E43182F22887A2200321BCA /* NodeTechnique.plist */,
-				3EE165D2223398B200A0033F /* Stroke.swift */,
+				3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */,
+				3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */,
+				3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */,
+				3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		3EF105DD23B71F8500CCB7E1 /* Color Picker */ = {
+			isa = PBXGroup;
+			children = (
+				3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */,
+				3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */,
+				3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */,
+				3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */,
+			);
+			name = "Color Picker";
+			sourceTree = "<group>";
+		};
+		3EF105DE23B71F9100CCB7E1 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */,
+				3EF105F323B71FB000CCB7E1 /* ProgressView.swift */,
+				3EF105F223B71FB000CCB7E1 /* TooltipView.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		3EF105FA23B71FF900CCB7E1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3EF105FD23B7200100CCB7E1 /* Stroke.swift */,
+				3EF105FB23B7200000CCB7E1 /* NodeRender.metal */,
+				3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */,
 			);
 			name = Model;
 			sourceTree = "<group>";
 		};
-		3EE165D42233AFB700A0033F /* View Controllers */ = {
+		3EF1060123B7201400CCB7E1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E1EB1DD2293019E00EC4540 /* TutorialViewController.swift */,
-				3EE165D72233B00200A0033F /* ViewController.swift */,
-				3EE165D52233B00200A0033F /* InterfaceViewController.swift */,
-				3EE09B882242A42E00D5D358 /* ARMotionViewController.swift */,
-				3E5952EA2263623700EFC607 /* MakingARViewController.swift */,
-				3EE165D62233B00200A0033F /* ViewController+ARSceneViewDelegate.swift */,
-				3EE165D82233B00200A0033F /* ViewController+InterfaceViewControllerDelegate.swift */,
-				3E5952E82263621B00EFC607 /* GalleryViewController.swift */,
-				3EEDE5382262084500695E23 /* SetUpTableViewController.swift */,
-				3E3C988622621CBE00F3AB16 /* HelpTableViewController.swift */,
-				3E3C988822621CD000F3AB16 /* MadeByTableViewController.swift */,
+				3EF1060723B7202900CCB7E1 /* Assets.xcassets */,
+				3EF1060823B7202900CCB7E1 /* Base.lproj */,
+				3EF1060523B7202900CCB7E1 /* BGAR.scnassets */,
+				3EF1060423B7202900CCB7E1 /* FaceAR.scnassets */,
+				3EF1060223B7202800CCB7E1 /* Fonts */,
+				3EF1060623B7202900CCB7E1 /* recordGradient */,
+				3EF1060323B7202900CCB7E1 /* Tutorial Gif */,
 			);
-			name = "View Controllers";
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3EF1061023B7204200CCB7E1 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3EF1061523B7204C00CCB7E1 /* Styles.swift */,
+				3EF1061123B7204B00CCB7E1 /* Utilities.swift */,
+				3EF1061E23B7205500CCB7E1 /* Line Drawing */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		3EF1061E23B7205500CCB7E1 /* Line Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */,
+				3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */,
+				3EF1061F23B7205C00CCB7E1 /* Shaders.metal */,
+				3EF1062123B7205C00CCB7E1 /* ShaderTypes.h */,
+			);
+			name = "Line Drawing";
+			sourceTree = "<group>";
+		};
+		3EF1062623B7207800CCB7E1 /* Lottie Animations */ = {
+			isa = PBXGroup;
+			children = (
+				3EF1062723B7207F00CCB7E1 /* looking_partner.json */,
+				3EF1062823B7207F00CCB7E1 /* partner_found.json */,
+				3EF1062923B7208000CCB7E1 /* stay_put.json */,
+			);
+			name = "Lottie Animations";
 			sourceTree = "<group>";
 		};
 		3EFCD65121AE33D900D51C0C = {
@@ -274,24 +272,16 @@
 		3EFCD65C21AE33D900D51C0C /* DamdaCam */ = {
 			isa = PBXGroup;
 			children = (
+				3EF105A523B71B6F00CCB7E1 /* Main.storyboard */,
+				3EF105A623B71B7000CCB7E1 /* UI.storyboard */,
 				3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */,
-				3EA9AF3521BBFE4E0033622F /* UI.storyboard */,
-				3E3F61C221C3888C00C66C04 /* Main.storyboard */,
-				3EE165D42233AFB700A0033F /* View Controllers */,
-				3EBDC8D722320A1400C847CF /* Line Drawing */,
-				3EBDC8F222320BE100C847CF /* Views */,
-				3EE165D1223398A400A0033F /* Model */,
-				3EBDC90522320CC800C847CF /* Lottie Animations */,
-				3EA9AF6021BC14CB0033622F /* Utilities.swift */,
-				3EFCD66421AE33DA00D51C0C /* Assets.xcassets */,
-				3E3F396522460322007E2E74 /* FaceAR.scnassets */,
-				3E3F396C22460393007E2E74 /* BGAR.scnassets */,
-				3EB3F46F2279B1EB00FF701F /* recordGradient */,
-				3E5C181B2292AE7800255B32 /* Tutorial Gif */,
-				3ED4BDE6227EDD040031E99A /* Font */,
-				3E3F61C121C3888C00C66C04 /* LaunchScreen.storyboard */,
-				3EA9AF7821BC16420033622F /* Styles.swift */,
 				3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */,
+				3EF105AD23B71EA400CCB7E1 /* View Controllers */,
+				3EF105AC23B71EA100CCB7E1 /* Views */,
+				3EF105FA23B71FF900CCB7E1 /* Model */,
+				3EF1060123B7201400CCB7E1 /* Resources */,
+				3EF1061023B7204200CCB7E1 /* Utility */,
+				3EF1062623B7207800CCB7E1 /* Lottie Animations */,
 				3EFCD66921AE33DA00D51C0C /* Info.plist */,
 				3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */,
 			);
@@ -381,31 +371,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3F61C321C3888C00C66C04 /* LaunchScreen.storyboard in Resources */,
-				3ED4BDF7227EDD1D0031E99A /* NotoSansCJKkr-Medium.otf in Resources */,
-				3EBDC90F22320CFA00C847CF /* partner_found.json in Resources */,
-				3E8BAEDB2293AB1900537E50 /* tutorialGif_3.gif in Resources */,
-				3E43183122887A2200321BCA /* NodeTechnique.plist in Resources */,
-				3E8BAEDA2293AB1900537E50 /* tutorialGif_4.gif in Resources */,
-				3E3F61C421C3888C00C66C04 /* Main.storyboard in Resources */,
-				3EFCD66521AE33DA00D51C0C /* Assets.xcassets in Resources */,
-				3EBDC91022320CFA00C847CF /* stay_put.json in Resources */,
-				3E8BAEDD2293AB1900537E50 /* logoGif_2.gif in Resources */,
-				3EB3F4702279B1EB00FF701F /* recordGradient in Resources */,
-				3ED4BDF5227EDD1D0031E99A /* NotoSansCJKkr-Regular.otf in Resources */,
-				3E3F396622460322007E2E74 /* FaceAR.scnassets in Resources */,
-				3EBDC91122320CFA00C847CF /* looking_partner.json in Resources */,
-				3ED4BDF1227EDD1D0031E99A /* NotoSansCJKkr-Black.otf in Resources */,
-				3EBDC8F622320C3100C847CF /* thirdPartyLicenses.html in Resources */,
-				3ED4BDF2227EDD1D0031E99A /* NotoSansCJKkr-Bold.otf in Resources */,
-				3ED4BDF8227EDD1D0031E99A /* NotoSansCJKkr-Thin.otf in Resources */,
-				3E8BAEDE2293AB1900537E50 /* tutorialGif_2.gif in Resources */,
-				3E8BAED92293AB1900537E50 /* tutorialGif_1.gif in Resources */,
-				3ED4BDF6227EDD1D0031E99A /* NotoSansCJKkr-DemiLight.otf in Resources */,
-				3E8BAEDC2293AB1900537E50 /* logoGif_1.gif in Resources */,
-				3ED4BDF4227EDD1D0031E99A /* NotoSansCJKkr-Light.otf in Resources */,
-				3E3F396D22460393007E2E74 /* BGAR.scnassets in Resources */,
-				3EA9AF3621BBFE4E0033622F /* UI.storyboard in Resources */,
+				3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */,
+				3EF105A723B71B7000CCB7E1 /* Main.storyboard in Resources */,
+				3EF1060B23B7202900CCB7E1 /* FaceAR.scnassets in Resources */,
+				3EF105A823B71B7000CCB7E1 /* UI.storyboard in Resources */,
+				3EF1060D23B7202900CCB7E1 /* recordGradient in Resources */,
+				3EF1060923B7202900CCB7E1 /* Fonts in Resources */,
+				3EF1062A23B7208000CCB7E1 /* looking_partner.json in Resources */,
+				3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */,
+				3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */,
+				3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */,
+				3EF1060F23B7202900CCB7E1 /* Base.lproj in Resources */,
+				3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */,
+				3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,38 +471,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E5952EB2263623800EFC607 /* MakingARViewController.swift in Sources */,
-				3E3C988722621CBE00F3AB16 /* HelpTableViewController.swift in Sources */,
-				3E3C988922621CD000F3AB16 /* MadeByTableViewController.swift in Sources */,
-				3EE165DA2233B00300A0033F /* ViewController+ARSceneViewDelegate.swift in Sources */,
-				3ECDD7B222648567007B1835 /* FilterCollectionViewCell.swift in Sources */,
-				3E8FFD5C2279F5D4007D909D /* HueColorSliderDelegate.swift in Sources */,
-				3EE165D3223398B200A0033F /* Stroke.swift in Sources */,
-				3E5952E92263621B00EFC607 /* GalleryViewController.swift in Sources */,
-				3EA9AF6121BC14CB0033622F /* Utilities.swift in Sources */,
-				3EEDE5392262084500695E23 /* SetUpTableViewController.swift in Sources */,
-				3E1EB1DE2293019E00EC4540 /* TutorialViewController.swift in Sources */,
+				3EF105D923B71F4A00CCB7E1 /* MakingARViewController.swift in Sources */,
+				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
+				3EF1061823B7204C00CCB7E1 /* Utilities.swift in Sources */,
+				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,
+				3EF105F523B71FB100CCB7E1 /* TooltipView.swift in Sources */,
+				3EF105ED23B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift in Sources */,
+				3EF1061C23B7204C00CCB7E1 /* Styles.swift in Sources */,
+				3EF105D823B71F4A00CCB7E1 /* HelpTableViewController.swift in Sources */,
+				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
+				3EF1062423B7205C00CCB7E1 /* BiquadFilter.swift in Sources */,
+				3EF105D223B71F4A00CCB7E1 /* ViewController.swift in Sources */,
+				3EF105EF23B71FAB00CCB7E1 /* RadialHuePalette.swift in Sources */,
+				3EF105DA23B71F4A00CCB7E1 /* SetUpTableViewController.swift in Sources */,
+				3EF105D623B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift in Sources */,
+				3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */,
+				3EF105E023B71F9F00CCB7E1 /* ISRadioButton.swift in Sources */,
+				3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */,
+				3EF105F623B71FB100CCB7E1 /* ProgressView.swift in Sources */,
+				3EF105EE23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift in Sources */,
+				3EF105D723B71F4A00CCB7E1 /* TutorialViewController.swift in Sources */,
+				3EF1062523B7205C00CCB7E1 /* LineGeometry.swift in Sources */,
+				3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */,
+				3EF105D023B71F4A00CCB7E1 /* GalleryViewController.swift in Sources */,
+				3EF105F423B71FB000CCB7E1 /* DrawPromptView.swift in Sources */,
+				3EF105D423B71F4A00CCB7E1 /* InterfaceViewController.swift in Sources */,
+				3EF105F023B71FAB00CCB7E1 /* UISliderColorControl.swift in Sources */,
 				3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */,
-				3EBDC8DC22320A7600C847CF /* Shaders.metal in Sources */,
-				3EBDC8DE22320A7600C847CF /* LineGeometry.swift in Sources */,
-				3EBDC8F722320C3100C847CF /* DrawPromptView.swift in Sources */,
-				3EE165DC2233B00300A0033F /* ViewController+InterfaceViewControllerDelegate.swift in Sources */,
-				3E8FFD5D2279F5D4007D909D /* UISliderColorControl.swift in Sources */,
-				3EFF2A5C2284A89B0003DDE2 /* ISRadioButton.swift in Sources */,
-				3E74716522649BAE0099E489 /* TooltipView.swift in Sources */,
-				3EE09B892242A42F00D5D358 /* ARMotionViewController.swift in Sources */,
-				3E8FFD5B2279F5D4007D909D /* RadialHuePalette.swift in Sources */,
-				3E8F7F9322893C0600E22C01 /* CustomPaletteCollectionViewCell.swift in Sources */,
-				3EE165DB2233B00300A0033F /* ViewController.swift in Sources */,
-				3E5952ED226362D300EFC607 /* GalleryCollectionViewCell.swift in Sources */,
-				3EA9AF7A21BC16430033622F /* Styles.swift in Sources */,
-				3E43183222887A2200321BCA /* NodeRender.metal in Sources */,
-				3EE165D92233B00300A0033F /* InterfaceViewController.swift in Sources */,
-				3E8FFD5E2279F5D4007D909D /* RadialHueColorPaletteDelegate.swift in Sources */,
+				3EF105D523B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,
-				3EBDC8DD22320A7600C847CF /* BiquadFilter.swift in Sources */,
-				3EBDC8F822320C3100C847CF /* ProgressView.swift in Sources */,
-				3ECDD7B022648291007B1835 /* ARMotionCollectionViewCell.swift in Sources */,
+				3EF1062323B7205C00CCB7E1 /* Shaders.metal in Sources */,
+				3EF105D123B71F4A00CCB7E1 /* MadeByTableViewController.swift in Sources */,
+				3EF105D323B71F4A00CCB7E1 /* ARMotionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,18 +631,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 2K97JK6ZSZ;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G5RZ7AYRC2;
 				INFOPLIST_FILE = DamdaCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.swu.Damda;
+				PRODUCT_BUNDLE_IDENTIFIER = student.ybKim.Damda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Yebin'sWildcardProfile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DamdaCam/DamdaCam-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -678,18 +656,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 2K97JK6ZSZ;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G5RZ7AYRC2;
 				INFOPLIST_FILE = DamdaCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.swu.Damda;
+				PRODUCT_BUNDLE_IDENTIFIER = student.ybKim.Damda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Yebin'sWildcardProfile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DamdaCam/DamdaCam-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

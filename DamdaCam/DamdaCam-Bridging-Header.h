@@ -19,5 +19,5 @@
 //
 
 //#import "GNSMessages.h"
-#import "ShaderTypes.h"
+#import "Utility/Line Drawing/ShaderTypes.h"
 #import <ARCore/ARCore.h>

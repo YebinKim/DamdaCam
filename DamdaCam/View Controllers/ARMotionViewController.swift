@@ -904,16 +904,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    func startVideoRecording(){
+    func startVideoRecording() {
         session!.addOutput(fileOutput)
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as! NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let outputPath = "\(documentsPath)/output.mp4"
         let outputFileUrl = NSURL(fileURLWithPath: outputPath)
         
         fileOutput.startRecording(to: outputFileUrl as URL, recordingDelegate: self)
     }
     
-    func stopVideoRecording(){
+    func stopVideoRecording() {
         fileOutput.stopRecording()
     }
     

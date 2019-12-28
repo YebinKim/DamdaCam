@@ -97,8 +97,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     var halfHeight: CGFloat!
     
     // Main view for showing camera content.
-//    @IBOutlet var previewView: UIView!
-    @IBOutlet var previewView: UIImageView!
+    @IBOutlet var previewView: UIView!
+//    @IBOutlet var previewView: UIImageView!
     @IBOutlet var iconView: UIView!
     
 //    var MA_x = Queue<Float>()
@@ -217,7 +217,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
     
-    @IBOutlet var filterBack: UIButton!
+    @IBOutlet var filterBack: UIView!
     @IBOutlet var filterTemp1: UIButton!
     @IBOutlet var filterTemp2: UIButton!
     @IBOutlet var filterTemp3: UIButton!
@@ -412,7 +412,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: false)
         
         filterBack.isUserInteractionEnabled = false
-        filterBack.applyGradient_rect(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
+        filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1266,7 +1266,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
             
             if let image = context.createCGImage(ciImage, from: imageRect) {
-                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
+                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .leftMirrored)
             }
             
         }
@@ -1297,8 +1297,14 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             takePhoto = !takePhoto
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-            
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                
+                let snapShot = ARView.snapshot()
+                let ARMotionImage = self.composite(image: image, overlay: snapShot, scaleOverlay: true)
+                
+//                let filterShot = UIImage.init(view: self.filterBack)
+//                let filteredImage = self.composite(image: ARMotionImage!, overlay: filterShot, scaleOverlay: true)
+                
+                UIImageWriteToSavedPhotosAlbum(ARMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         
         }
@@ -1324,6 +1330,17 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 //            let filteredImage = UIImage(cgImage: filteredImage)
 //            self.previewView.image = filteredImage
 //        }
+    }
+    
+    func composite(image:UIImage, overlay:(UIImage), scaleOverlay: Bool = false) -> UIImage? {
+        UIGraphicsBeginImageContext(image.size)
+        var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        image.draw(in: rect)
+        if scaleOverlay == false {
+            rect = CGRect(x: 0, y: 0, width: overlay.size.width, height: overlay.size.height)
+        }
+        overlay.draw(in: rect)
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -1408,10 +1425,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 3.5
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/z_prepare_head.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/z_prepare_head.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "z_prepare_head", recursively: true))!
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/z_prepare_nose.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/z_prepare_nose.scn")!
         noseNode = (selectScene.rootNode.childNode(withName: "z_prepare_nose", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1593,7 +1610,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 3.5
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Heart.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Heart.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Heart", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1604,7 +1621,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 0
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Angel.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Angel.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Angel", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1615,10 +1632,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 3.5
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Rabbit_head.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Rabbit_head.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Rabbit_head", recursively: true))!
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Rabbit_nose.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Rabbit_nose.scn")!
         noseNode = (selectScene.rootNode.childNode(withName: "Rabbit_nose", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1630,10 +1647,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 3.5
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Cat_head.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Cat_head.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Cat_head", recursively: true))!
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Cat_nose.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Cat_nose.scn")!
         noseNode = (selectScene.rootNode.childNode(withName: "Cat_nose", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1645,10 +1662,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 3.5
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Mouse_head.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Mouse_head.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Mouse_head", recursively: true))!
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Mouse_nose.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Mouse_nose.scn")!
         noseNode = (selectScene.rootNode.childNode(withName: "Mouse_nose", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1660,7 +1677,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 4.35
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Peach.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Peach.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "Peach", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1671,7 +1688,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 4
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/BAAAM.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/BAAAM.scn")!
         headNode = (selectScene.rootNode.childNode(withName: "BAAAM", recursively: true))!
         
         ARscene.rootNode.addChildNode(headNode)
@@ -1685,10 +1702,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         if checkedBlink {
             self.ARMotionDelete()
             
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom1_head.scn")!
+            selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Mushroom1_head.scn")!
             headNode = (selectScene.rootNode.childNode(withName: "Mushroom1_head", recursively: true))!
             
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom1_nose.scn")!
+            selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Mushroom1_nose.scn")!
             noseNode = (selectScene.rootNode.childNode(withName: "Mushroom1_nose", recursively: true))!
             
             ARscene.rootNode.addChildNode(headNode)
@@ -1698,7 +1715,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         } else {
             self.ARMotionDelete()
         
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom2.scn")!
+            selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Mushroom2.scn")!
             headNode = (selectScene.rootNode.childNode(withName: "Mushroom2", recursively: true))!
         
             ARscene.rootNode.addChildNode(headNode)
@@ -1710,7 +1727,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = -4
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Doughnut1.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Doughnut1.scn")!
         eatNode = (selectScene.rootNode.childNode(withName: "Doughnut1", recursively: true))!
         
         ARscene.rootNode.addChildNode(eatNode)
@@ -1721,17 +1738,17 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARNode_y = 0
         ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Flower3.scn")!
+        selectScene = SCNScene(named: "Resources/FaceAR.scnassets/Flower3.scn")!
         noseNode = (selectScene.rootNode.childNode(withName: "Flower3", recursively: true))!
         
         ARscene.rootNode.addChildNode(noseNode)
     }
     
     func ARMotionSelected_Snow() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Snow_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Snow_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Snow_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Snow_4.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Snow_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Snow_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Snow_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Snow_4.scnp", inDirectory: nil)
 //        particle1?.loops = true // 반복함
 //        particle2?.loops = true // 반복함
 //        particle3?.loops = true // 반복함
@@ -1746,9 +1763,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Blossom() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_3.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Blossom_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Blossom_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Blossom_3.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -1758,11 +1775,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Rain() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Rain_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Rain_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Rain_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Rain_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Rain_5.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Rain_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Rain_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Rain_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Rain_4.scnp", inDirectory: nil)
+        let particle5 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Rain_5.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -1774,11 +1791,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Fish() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Fish_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Fish_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Fish_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Fish_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Fish_5.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fish_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fish_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fish_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fish_4.scnp", inDirectory: nil)
+        let particle5 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fish_5.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -1790,10 +1807,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Greenery() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_4.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Greenery_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Greenery_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Greenery_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Greenery_4.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -1804,11 +1821,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Fruits() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_5.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fruit_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fruit_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fruit_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fruit_4.scnp", inDirectory: nil)
+        let particle5 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Fruit_5.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -1820,10 +1837,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionSelected_Glow() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Glow_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Glow_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Glow_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Glow_4.scnp", inDirectory: nil)
+        let particle1 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Glow_1.scnp", inDirectory: nil)
+        let particle2 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Glow_2.scnp", inDirectory: nil)
+        let particle3 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Glow_3.scnp", inDirectory: nil)
+        let particle4 = SCNParticleSystem(named: "Resources/BGAR.scnassets/Glow_4.scnp", inDirectory: nil)
         
         BGNode.addParticleSystem(particle1!)
         BGNode.addParticleSystem(particle2!)
@@ -2632,16 +2649,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBAction func filterTempAction(_ sender: UIButton) {
         if sender == filterTemp1 {
             filterPowerSlider.isHidden = true
-            filterBack.applyGradient_rect(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)
         } else if sender == filterTemp2 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
         } else if sender == filterTemp3 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
         } else if sender == filterTemp4 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: true)
         }
     }
     
@@ -2657,13 +2674,13 @@ extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
             return
         }
         
-        if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-            let image = UIImage(data: dataImage)!
+//        if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
+//            let image = UIImage(data: dataImage)!
 //            CustomPhotoAlbum.sharedInstance.save(image: image)
 //            self.takenImage.image = image
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-
-        }
+            
+//            UIImageWriteToSavedPhotosAlbum(snapShot, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+//        }
     }
     
 //    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -2686,6 +2703,39 @@ extension FileManager {
             }
         } catch {
             print(error)
+        }
+    }
+}
+
+extension UIImage {
+    convenience init(view: UIView) {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.init(cgImage: (image?.cgImage)!)
+    }
+}
+
+extension UIView {
+    func applyGradient_view(colors: [CGColor], state: Bool)
+    {
+        if (state) {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
 }

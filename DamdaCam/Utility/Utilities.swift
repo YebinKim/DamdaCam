@@ -327,8 +327,32 @@ extension UIColor {
             // Couldn't work.
             return a
         }
-        
     }
+    
+}
+
+extension UIView {
+    
+    func applyGradient_view(colors: [CGColor], state: Bool) {
+        if (state) {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    }
+    
 }
 
 extension UIImageView {
@@ -355,6 +379,14 @@ extension UIImageView {
 }
 
 extension UIImage {
+    
+    convenience init(view: UIView) {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.init(cgImage: (image?.cgImage)!)
+    }
     
     public class func gif(data: Data) -> UIImage? {
         // Create source from data
@@ -543,6 +575,81 @@ extension UIImage {
                                               duration: Double(duration) / 1000.0)
         
         return animation
+    }
+}
+
+extension FileManager {
+    
+    func clearTmpDirectory() {
+        do {
+            let tmpDirectory = try contentsOfDirectory(atPath: NSTemporaryDirectory())
+            try tmpDirectory.forEach {[unowned self] file in
+                let path = String.init(format: "%@%@", NSTemporaryDirectory(), file)
+                try self.removeItem(atPath: path)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+}
+
+// Clip View Set
+extension UIButton {
+    
+    func applyGradient(colors: [CGColor], state: Bool) {
+        if (state) {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            gradientLayer.cornerRadius = 20
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            gradientLayer.cornerRadius = 20
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    }
+    
+    func applyGradient_rect(colors: [CGColor], state: Bool) {
+        if (state) {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.frame = self.bounds
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    }
+    
+}
+
+// Text View
+extension UITextView {
+    
+    func centerVertically() {
+        let fittingSize = CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)
+        let size = sizeThatFits(fittingSize)
+        let topOffset = (bounds.size.height - size.height * zoomScale) / 2
+        let positiveTopOffset = max(1, topOffset)
+        contentOffset.y = -positiveTopOffset
     }
     
 }

@@ -2693,53 +2693,6 @@ extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
 //    }
 }
 
-extension FileManager {
-    func clearTmpDirectory() {
-        do {
-            let tmpDirectory = try contentsOfDirectory(atPath: NSTemporaryDirectory())
-            try tmpDirectory.forEach {[unowned self] file in
-                let path = String.init(format: "%@%@", NSTemporaryDirectory(), file)
-                try self.removeItem(atPath: path)
-            }
-        } catch {
-            print(error)
-        }
-    }
-}
-
-extension UIImage {
-    convenience init(view: UIView) {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.init(cgImage: (image?.cgImage)!)
-    }
-}
-
-extension UIView {
-    func applyGradient_view(colors: [CGColor], state: Bool)
-    {
-        if (state) {
-            self.layer.sublayers?[0].removeFromSuperlayer()
-            
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = colors
-            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-            gradientLayer.frame = self.bounds
-            self.layer.insertSublayer(gradientLayer, at: 0)
-        } else {
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = colors
-            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-            gradientLayer.frame = self.bounds
-            self.layer.insertSublayer(gradientLayer, at: 0)
-        }
-    }
-}
-
 
 //// MARK: - ReplayKit Preview Delegate
 //extension ARMotionViewController : RPPreviewViewControllerDelegate {

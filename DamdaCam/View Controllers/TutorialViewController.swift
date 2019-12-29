@@ -44,7 +44,8 @@ class TutorialViewController: UIViewController {
         tutorialView.isHidden = false
         tutorialBG.image = UIImage(named: "launch_bg")
         tutorialLaunchGif.isHidden = false
-        tutorialLaunchGif.loadGif(name: "Resources/logoGif_1")
+        tutorialLaunchGif.loadGif(name: "logoGif_1")
+        tutorialLaunchGif.loadGif(name: "Tutorial Gif/logoGif_1")
         tutorialLaunchLogo.isHidden = false
         tutorialGifView.isHidden = true
         tutorialLaunchButton.isHidden = false
@@ -59,18 +60,21 @@ class TutorialViewController: UIViewController {
     }
     
     @IBAction func tutorialFlowControlButton(_ sender: UIButton) {
+        
         if sender == tutorialLaunchButton {
             tutorialBG.image = UIImage(named: "tutorial_1")
             tutorialLaunchGif.isHidden = true
             tutorialLaunchLogo.isHidden = true
             tutorialGifView.isHidden = false
-            tutorialGifView.loadGif(name: "Resources/tutorialGif_1")
+            tutorialGifView.loadGif(name: "tutorialGif_1")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_1")
             tutorialLaunchButton.isHidden = true
             tutorialSkipButton.isHidden = false
             tutorialRightButton.isHidden = false
             tutorialFlowCircle.isHidden = false
             tutirialLogoGif.isHidden = false
-            tutirialLogoGif.loadGif(name: "Resources/logoGif_2")
+            tutirialLogoGif.loadGif(name: "logoGif_2")
+            tutirialLogoGif.loadGif(name: "Tutorial Gif/logoGif_2")
             tutorialLogo.isHidden = false
             tutorialState = 1
         }
@@ -81,10 +85,10 @@ class TutorialViewController: UIViewController {
             } else if tutorialState == 3 {
                 tutorialState += 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-                tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialRightButton.isHidden = true
                 tutorialStartButton.isHidden = false
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x += 30
@@ -96,9 +100,9 @@ class TutorialViewController: UIViewController {
             } else {
                 tutorialState += 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-                tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialLeftButton.isHidden = false
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x += 30
@@ -116,9 +120,9 @@ class TutorialViewController: UIViewController {
             } else if tutorialState == 2 {
                 tutorialState -= 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-                tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialLeftButton.isHidden = true
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x -= 30
@@ -130,7 +134,8 @@ class TutorialViewController: UIViewController {
             } else {
                 tutorialState -= 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-                tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialRightButton.isHidden = false
                 tutorialStartButton.isHidden = true
                 
@@ -156,15 +161,16 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    @objc func swipeRight(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func swipeRight(gestureRecognizer: UISwipeGestureRecognizer) {
+        
         if tutorialState == 1 {
             
         } else if tutorialState == 2 {
             tutorialState -= 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-            tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialLeftButton.isHidden = true
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x -= 30
@@ -176,10 +182,10 @@ class TutorialViewController: UIViewController {
         } else if (tutorialState == 3) || (tutorialState == 4) {
             tutorialState -= 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-            tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialRightButton.isHidden = false
             tutorialStartButton.isHidden = true
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x -= 30
@@ -191,16 +197,17 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    @objc func swipeLeft(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func swipeLeft(gestureRecognizer: UISwipeGestureRecognizer) {
+        
         if tutorialState == 4 {
             
         } else if tutorialState == 3 {
             tutorialState += 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-            tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialRightButton.isHidden = true
             tutorialStartButton.isHidden = false
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x += 30
@@ -212,9 +219,9 @@ class TutorialViewController: UIViewController {
         } else if (tutorialState == 2) || (tutorialState == 1) {
             tutorialState += 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
-            tutorialGifView.loadGif(name: "Resources/tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialLeftButton.isHidden = false
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x += 30

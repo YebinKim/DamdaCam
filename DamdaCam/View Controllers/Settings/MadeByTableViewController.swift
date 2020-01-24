@@ -10,6 +10,8 @@ import UIKit
 
 class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    static let identifier: String = "MadeByTableViewController"
+    
     @IBOutlet var navigationBar: UINavigationBar!
     
     let myLove: [String] = ["김예빈", "김지연", "안다은", "이정은", "고혜영"]

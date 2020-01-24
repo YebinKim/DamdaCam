@@ -1,5 +1,5 @@
 //
-//  SetUpTableViewController.swift
+//  SettingTableViewController.swift
 //  DamdaCam
 //
 //  Created by 김예빈 on 2019. 4. 13..
@@ -8,8 +8,10 @@
 
 import UIKit
 
-class SetUpTableViewController: UITableViewController {
+class SettingTableViewController: UITableViewController {
 
+    static let identifier: String = "SettingTableViewController"
+    
     let numSection: [Int] = [2, 2, 5]
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var ratioLabel: UILabel!

@@ -13,6 +13,8 @@ private let reuseIdentifier = "ImageCell"
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    static let identifier: String = "GalleryViewController"
+    
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
@@ -28,7 +30,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)!, .foregroundColor: UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)]
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0) ?? UIFont.systemFont(ofSize: 15.0), .foregroundColor: UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)]
         navigationBar.barTintColor = UIColor.white
         
         // delegate, datasource set
@@ -65,8 +67,6 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
     }
-    
-    
     
     // MARK:- View Controller Lifecycle
     

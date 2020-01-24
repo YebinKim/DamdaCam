@@ -12,6 +12,8 @@ import FlexColorPicker
 
 class MakingARViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    static let identifier: String = "MakingARViewController"
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
@@ -1196,7 +1198,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
-//        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

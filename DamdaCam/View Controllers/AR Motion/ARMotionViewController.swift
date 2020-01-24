@@ -80,6 +80,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 //        }
 //    }
     
+    static let identifier: String = "ARMotionViewController"
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
@@ -524,6 +526,22 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     @objc func modeVideo(gestureRecognizer: UISwipeGestureRecognizer){
         self.changeModeVideo()
+    }
+    
+    @IBAction func changeButtonTapped(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func makingARButtonTapped(_ sender: UIButton) {
+        self.showStoryboard(MakingARViewController.identifier)
+    }
+    
+    @IBAction func settingButtonTapped(_ sender: UIButton) {
+        self.showStoryboard(SettingTableViewController.identifier)
+    }
+    
+    @IBAction func galleryButtonTapped(_ sender: UIButton) {
+        self.showStoryboard(GalleryViewController.identifier)
     }
     
     func changeModePhoto() {
@@ -1559,7 +1577,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         let angle = theta1 - theta2
         
-        return CGFloat(Double(angle) / M_PI * 180)
+        return CGFloat(Double(angle) / .pi * 180)
     }
     
     // 두 점 사이의 거리
@@ -2664,6 +2682,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     @IBAction func filterPowerSet(_ sender: UISlider) {
         filterBack.alpha = CGFloat(sender.value)
+    }
+    
+    func showStoryboard(_ name: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+        if let nextView = storyboard.instantiateInitialViewController() {
+            present(nextView, animated: true, completion: nil)
+        }
     }
 }
 

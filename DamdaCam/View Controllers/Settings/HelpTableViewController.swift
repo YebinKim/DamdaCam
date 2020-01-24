@@ -10,6 +10,8 @@ import UIKit
 
 class HelpTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    static let identifier: String = "HelpTableViewController"
+    
     @IBOutlet var navigationBar: UINavigationBar!
     
     override func viewDidLoad() {

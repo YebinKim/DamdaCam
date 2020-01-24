@@ -10,6 +10,8 @@ import UIKit
 
 class TutorialViewController: UIViewController {
     
+    static let identifier: String = "TutorialViewController"
+    
     // Tutorial View
     @IBOutlet var tutorialView: UIView!
     @IBOutlet var tutorialBG: UIImageView!
@@ -25,10 +27,10 @@ class TutorialViewController: UIViewController {
     @IBOutlet var tutirialLogoGif: UIImageView!
     @IBOutlet var tutorialLogo: UIImageView!
     var tutorialState: Int = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setTutorial()
         
         let swipeTutorialRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
@@ -45,6 +47,7 @@ class TutorialViewController: UIViewController {
         tutorialBG.image = UIImage(named: "launch_bg")
         tutorialLaunchGif.isHidden = false
         tutorialLaunchGif.loadGif(name: "logoGif_1")
+        tutorialLaunchGif.loadGif(name: "Tutorial Gif/logoGif_1")
         tutorialLaunchLogo.isHidden = false
         tutorialGifView.isHidden = true
         tutorialLaunchButton.isHidden = false
@@ -58,19 +61,30 @@ class TutorialViewController: UIViewController {
         tutorialState = 0
     }
     
+    @IBAction func startButtonTapped(_ sender: UIButton) {
+        self.showStoryboard(ARDrawingViewController.identifier)
+    }
+    
+    @IBAction func skipButtonTapped(_ sender: UIButton) {
+        self.showStoryboard(ARDrawingViewController.identifier)
+    }
+    
     @IBAction func tutorialFlowControlButton(_ sender: UIButton) {
+        
         if sender == tutorialLaunchButton {
             tutorialBG.image = UIImage(named: "tutorial_1")
             tutorialLaunchGif.isHidden = true
             tutorialLaunchLogo.isHidden = true
             tutorialGifView.isHidden = false
             tutorialGifView.loadGif(name: "tutorialGif_1")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_1")
             tutorialLaunchButton.isHidden = true
             tutorialSkipButton.isHidden = false
             tutorialRightButton.isHidden = false
             tutorialFlowCircle.isHidden = false
             tutirialLogoGif.isHidden = false
             tutirialLogoGif.loadGif(name: "logoGif_2")
+            tutirialLogoGif.loadGif(name: "Tutorial Gif/logoGif_2")
             tutorialLogo.isHidden = false
             tutorialState = 1
         }
@@ -82,9 +96,9 @@ class TutorialViewController: UIViewController {
                 tutorialState += 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
                 tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialRightButton.isHidden = true
                 tutorialStartButton.isHidden = false
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x += 30
@@ -97,8 +111,8 @@ class TutorialViewController: UIViewController {
                 tutorialState += 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
                 tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialLeftButton.isHidden = false
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x += 30
@@ -117,8 +131,8 @@ class TutorialViewController: UIViewController {
                 tutorialState -= 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
                 tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialLeftButton.isHidden = true
-                
                 tutorialFlowCircle.isHidden = true
                 tutorialFlowCircle.alpha = 0.0
                 tutorialFlowCircle.frame.origin.x -= 30
@@ -131,6 +145,7 @@ class TutorialViewController: UIViewController {
                 tutorialState -= 1
                 tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
                 tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
                 tutorialRightButton.isHidden = false
                 tutorialStartButton.isHidden = true
                 
@@ -156,15 +171,16 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    @objc func swipeRight(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func swipeRight(gestureRecognizer: UISwipeGestureRecognizer) {
+        
         if tutorialState == 1 {
             
         } else if tutorialState == 2 {
             tutorialState -= 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
             tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialLeftButton.isHidden = true
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x -= 30
@@ -177,9 +193,9 @@ class TutorialViewController: UIViewController {
             tutorialState -= 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
             tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialRightButton.isHidden = false
             tutorialStartButton.isHidden = true
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x -= 30
@@ -191,16 +207,17 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    @objc func swipeLeft(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func swipeLeft(gestureRecognizer: UISwipeGestureRecognizer) {
+        
         if tutorialState == 4 {
             
         } else if tutorialState == 3 {
             tutorialState += 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
             tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialRightButton.isHidden = true
             tutorialStartButton.isHidden = false
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x += 30
@@ -213,8 +230,8 @@ class TutorialViewController: UIViewController {
             tutorialState += 1
             tutorialBG.image = UIImage(named: "tutorial_\(tutorialState)")
             tutorialGifView.loadGif(name: "tutorialGif_\(tutorialState)")
+            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
             tutorialLeftButton.isHidden = false
-            
             tutorialFlowCircle.isHidden = true
             tutorialFlowCircle.alpha = 0.0
             tutorialFlowCircle.frame.origin.x += 30
@@ -223,6 +240,13 @@ class TutorialViewController: UIViewController {
                 self.tutorialFlowCircle.isHidden = false
                 self.tutorialFlowCircle.alpha = 1.0
             })
+        }
+    }
+    
+    func showStoryboard(_ name: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+        if let nextView = storyboard.instantiateInitialViewController() {
+            present(nextView, animated: true, completion: nil)
         }
     }
 }

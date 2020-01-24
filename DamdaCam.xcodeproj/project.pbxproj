@@ -7,32 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */; };
+		3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */; };
+		3E38F5F523DAE71F002AAAB4 /* MakingARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */; };
+		3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F623DAE724002AAAB4 /* GalleryViewController.swift */; };
+		3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F823DAE729002AAAB4 /* HelpTableViewController.swift */; };
+		3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F923DAE729002AAAB4 /* MadeByTableViewController.swift */; };
+		3E38F5FD23DAE729002AAAB4 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5FA23DAE729002AAAB4 /* SettingTableViewController.swift */; };
+		3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5FE23DAE72E002AAAB4 /* TutorialViewController.swift */; };
+		3E38F60123DAE7FD002AAAB4 /* ARDrawingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */; };
+		3E38F60323DAE825002AAAB4 /* ARDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */; };
+		3E38F60523DAEDE0002AAAB4 /* ARMotionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */; };
+		3E38F60723DAEE3C002AAAB4 /* MakingARViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */; };
+		3E38F60923DAEEB0002AAAB4 /* SettingTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */; };
+		3E38F60B23DAEED8002AAAB4 /* GalleryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60A23DAEED8002AAAB4 /* GalleryViewController.storyboard */; };
+		3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60C23DAF0C1002AAAB4 /* TutorialViewController.storyboard */; };
+		3E38F61623DAF291002AAAB4 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61423DAF290002AAAB4 /* Styles.swift */; };
+		3E38F61723DAF291002AAAB4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61523DAF291002AAAB4 /* Utilities.swift */; };
+		3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61823DAF29F002AAAB4 /* UISliderColorControl.swift */; };
+		3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61923DAF29F002AAAB4 /* RadialHuePalette.swift */; };
+		3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61A23DAF29F002AAAB4 /* HueColorSliderDelegate.swift */; };
+		3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61B23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift */; };
+		3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62023DAF2A5002AAAB4 /* ISRadioButton.swift */; };
+		3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */; };
+		3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */; };
+		3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */; };
+		3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62823DAF2B8002AAAB4 /* BiquadFilter.swift */; };
+		3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62923DAF2B8002AAAB4 /* Shaders.metal */; };
+		3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */; };
+		3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
-		3EF105A723B71B7000CCB7E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105A523B71B6F00CCB7E1 /* Main.storyboard */; };
-		3EF105A823B71B7000CCB7E1 /* UI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105A623B71B7000CCB7E1 /* UI.storyboard */; };
-		3EF105D023B71F4A00CCB7E1 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */; };
-		3EF105D123B71F4A00CCB7E1 /* MadeByTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */; };
-		3EF105D223B71F4A00CCB7E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C723B71F4A00CCB7E1 /* ViewController.swift */; };
-		3EF105D323B71F4A00CCB7E1 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */; };
-		3EF105D423B71F4A00CCB7E1 /* InterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */; };
-		3EF105D523B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */; };
-		3EF105D623B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */; };
-		3EF105D723B71F4A00CCB7E1 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */; };
-		3EF105D823B71F4A00CCB7E1 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */; };
-		3EF105D923B71F4A00CCB7E1 /* MakingARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */; };
-		3EF105DA23B71F4A00CCB7E1 /* SetUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */; };
-		3EF105E023B71F9F00CCB7E1 /* ISRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
 		3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */; };
 		3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */; };
 		3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */; };
-		3EF105ED23B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */; };
-		3EF105EE23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */; };
-		3EF105EF23B71FAB00CCB7E1 /* RadialHuePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */; };
-		3EF105F023B71FAB00CCB7E1 /* UISliderColorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */; };
-		3EF105F423B71FB000CCB7E1 /* DrawPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */; };
-		3EF105F523B71FB100CCB7E1 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F223B71FB000CCB7E1 /* TooltipView.swift */; };
-		3EF105F623B71FB100CCB7E1 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105F323B71FB000CCB7E1 /* ProgressView.swift */; };
 		3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105FB23B7200000CCB7E1 /* NodeRender.metal */; };
 		3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */; };
 		3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105FD23B7200100CCB7E1 /* Stroke.swift */; };
@@ -42,12 +50,6 @@
 		3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060523B7202900CCB7E1 /* BGAR.scnassets */; };
 		3EF1060D23B7202900CCB7E1 /* recordGradient in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060623B7202900CCB7E1 /* recordGradient */; };
 		3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060723B7202900CCB7E1 /* Assets.xcassets */; };
-		3EF1060F23B7202900CCB7E1 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1060823B7202900CCB7E1 /* Base.lproj */; };
-		3EF1061823B7204C00CCB7E1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061123B7204B00CCB7E1 /* Utilities.swift */; };
-		3EF1061C23B7204C00CCB7E1 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061523B7204C00CCB7E1 /* Styles.swift */; };
-		3EF1062323B7205C00CCB7E1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1061F23B7205C00CCB7E1 /* Shaders.metal */; };
-		3EF1062423B7205C00CCB7E1 /* BiquadFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */; };
-		3EF1062523B7205C00CCB7E1 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */; };
 		3EF1062A23B7208000CCB7E1 /* looking_partner.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062723B7207F00CCB7E1 /* looking_partner.json */; };
 		3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062823B7207F00CCB7E1 /* partner_found.json */; };
 		3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062923B7208000CCB7E1 /* stay_put.json */; };
@@ -57,36 +59,45 @@
 
 /* Begin PBXFileReference section */
 		24C97EBDB39DDE273304CA25 /* Pods-DamdaCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.debug.xcconfig"; sourceTree = "<group>"; };
+		3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARDrawingViewController+extension.swift"; sourceTree = "<group>"; };
+		3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMotionViewController.swift; sourceTree = "<group>"; };
+		3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakingARViewController.swift; sourceTree = "<group>"; };
+		3E38F5F623DAE724002AAAB4 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		3E38F5F823DAE729002AAAB4 /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
+		3E38F5F923DAE729002AAAB4 /* MadeByTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadeByTableViewController.swift; sourceTree = "<group>"; };
+		3E38F5FA23DAE729002AAAB4 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		3E38F5FE23DAE72E002AAAB4 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARDrawingViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawingViewController.swift; sourceTree = "<group>"; };
+		3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARMotionViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MakingARViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingTableViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60A23DAEED8002AAAB4 /* GalleryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GalleryViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60C23DAF0C1002AAAB4 /* TutorialViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialViewController.storyboard; sourceTree = "<group>"; };
+		3E38F61423DAF290002AAAB4 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		3E38F61523DAF291002AAAB4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		3E38F61823DAF29F002AAAB4 /* UISliderColorControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderColorControl.swift; sourceTree = "<group>"; };
+		3E38F61923DAF29F002AAAB4 /* RadialHuePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialHuePalette.swift; sourceTree = "<group>"; };
+		3E38F61A23DAF29F002AAAB4 /* HueColorSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HueColorSliderDelegate.swift; sourceTree = "<group>"; };
+		3E38F61B23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialHueColorPaletteDelegate.swift; sourceTree = "<group>"; };
+		3E38F62023DAF2A5002AAAB4 /* ISRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISRadioButton.swift; sourceTree = "<group>"; };
+		3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
+		3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawPromptView.swift; sourceTree = "<group>"; };
+		3E38F62823DAF2B8002AAAB4 /* BiquadFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiquadFilter.swift; sourceTree = "<group>"; };
+		3E38F62923DAF2B8002AAAB4 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGeometry.swift; sourceTree = "<group>"; };
+		3E38F62B23DAF2B8002AAAB4 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DamdaCam-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3ED4BDD8227ECB2B0031E99A /* MakingARCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MakingARCoreData.xcdatamodel; sourceTree = "<group>"; };
-		3EF105A523B71B6F00CCB7E1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3EF105A623B71B7000CCB7E1 /* UI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UI.storyboard; sourceTree = "<group>"; };
-		3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = "View Controllers/GalleryViewController.swift"; sourceTree = "<group>"; };
-		3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MadeByTableViewController.swift; path = "View Controllers/MadeByTableViewController.swift"; sourceTree = "<group>"; };
-		3EF105C723B71F4A00CCB7E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "View Controllers/ViewController.swift"; sourceTree = "<group>"; };
-		3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionViewController.swift; path = "View Controllers/ARMotionViewController.swift"; sourceTree = "<group>"; };
-		3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterfaceViewController.swift; path = "View Controllers/InterfaceViewController.swift"; sourceTree = "<group>"; };
-		3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+ARSceneViewDelegate.swift"; path = "View Controllers/ViewController+ARSceneViewDelegate.swift"; sourceTree = "<group>"; };
-		3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+InterfaceViewControllerDelegate.swift"; path = "View Controllers/ViewController+InterfaceViewControllerDelegate.swift"; sourceTree = "<group>"; };
-		3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewController.swift; path = "View Controllers/TutorialViewController.swift"; sourceTree = "<group>"; };
-		3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelpTableViewController.swift; path = "View Controllers/HelpTableViewController.swift"; sourceTree = "<group>"; };
-		3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MakingARViewController.swift; path = "View Controllers/MakingARViewController.swift"; sourceTree = "<group>"; };
-		3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetUpTableViewController.swift; path = "View Controllers/SetUpTableViewController.swift"; sourceTree = "<group>"; };
-		3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISRadioButton.swift; path = DamdaCam/Views/Buttons/ISRadioButton.swift; sourceTree = SOURCE_ROOT; };
 		3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/Cells/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/Cells/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/Cells/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Views/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
-		3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHueColorPaletteDelegate.swift; path = "Views/Color Picker/RadialHueColorPaletteDelegate.swift"; sourceTree = "<group>"; };
-		3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HueColorSliderDelegate.swift; path = "Views/Color Picker/HueColorSliderDelegate.swift"; sourceTree = "<group>"; };
-		3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadialHuePalette.swift; path = "Views/Color Picker/RadialHuePalette.swift"; sourceTree = "<group>"; };
-		3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISliderColorControl.swift; path = "Views/Color Picker/UISliderColorControl.swift"; sourceTree = "<group>"; };
-		3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawPromptView.swift; path = "DamdaCam/Views/Custom Views/DrawPromptView.swift"; sourceTree = SOURCE_ROOT; };
-		3EF105F223B71FB000CCB7E1 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TooltipView.swift; path = "DamdaCam/Views/Custom Views/TooltipView.swift"; sourceTree = SOURCE_ROOT; };
-		3EF105F323B71FB000CCB7E1 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressView.swift; path = "DamdaCam/Views/Custom Views/ProgressView.swift"; sourceTree = SOURCE_ROOT; };
 		3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = thirdPartyLicenses.html; sourceTree = "<group>"; };
 		3EF105FB23B7200000CCB7E1 /* NodeRender.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = NodeRender.metal; path = Model/NodeRender.metal; sourceTree = "<group>"; };
 		3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NodeTechnique.plist; path = Model/NodeTechnique.plist; sourceTree = "<group>"; };
@@ -97,13 +108,6 @@
 		3EF1060523B7202900CCB7E1 /* BGAR.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; name = BGAR.scnassets; path = Resources/BGAR.scnassets; sourceTree = "<group>"; };
 		3EF1060623B7202900CCB7E1 /* recordGradient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = recordGradient; path = Resources/recordGradient; sourceTree = "<group>"; };
 		3EF1060723B7202900CCB7E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
-		3EF1060823B7202900CCB7E1 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = Resources/Base.lproj; sourceTree = "<group>"; };
-		3EF1061123B7204B00CCB7E1 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Utility/Utilities.swift; sourceTree = "<group>"; };
-		3EF1061523B7204C00CCB7E1 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Styles.swift; path = Utility/Styles.swift; sourceTree = "<group>"; };
-		3EF1061F23B7205C00CCB7E1 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = "Utility/Line Drawing/Shaders.metal"; sourceTree = "<group>"; };
-		3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BiquadFilter.swift; path = "Utility/Line Drawing/BiquadFilter.swift"; sourceTree = "<group>"; };
-		3EF1062123B7205C00CCB7E1 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTypes.h; path = "Utility/Line Drawing/ShaderTypes.h"; sourceTree = "<group>"; };
-		3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineGeometry.swift; path = "Utility/Line Drawing/LineGeometry.swift"; sourceTree = "<group>"; };
 		3EF1062723B7207F00CCB7E1 /* looking_partner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = looking_partner.json; path = "Lottie Animations/looking_partner.json"; sourceTree = "<group>"; };
 		3EF1062823B7207F00CCB7E1 /* partner_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = partner_found.json; path = "Lottie Animations/partner_found.json"; sourceTree = "<group>"; };
 		3EF1062923B7208000CCB7E1 /* stay_put.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stay_put.json; path = "Lottie Animations/stay_put.json"; sourceTree = "<group>"; };
@@ -126,42 +130,135 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E38F5E323DAE288002AAAB4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5E423DAE2D1002AAAB4 /* AR Drawing */,
+				3E38F5E523DAE2D9002AAAB4 /* AR Motion */,
+				3E38F5E723DAE2E6002AAAB4 /* Making AR */,
+				3E38F5E623DAE2DF002AAAB4 /* Gallery */,
+				3E38F5E823DAE2EE002AAAB4 /* Settings */,
+				3E38F5E923DAE2F5002AAAB4 /* Tutorial */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3E38F5E423DAE2D1002AAAB4 /* AR Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */,
+				3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */,
+				3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */,
+			);
+			path = "AR Drawing";
+			sourceTree = "<group>";
+		};
+		3E38F5E523DAE2D9002AAAB4 /* AR Motion */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */,
+				3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */,
+			);
+			path = "AR Motion";
+			sourceTree = "<group>";
+		};
+		3E38F5E623DAE2DF002AAAB4 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5F623DAE724002AAAB4 /* GalleryViewController.swift */,
+				3E38F60A23DAEED8002AAAB4 /* GalleryViewController.storyboard */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		3E38F5E723DAE2E6002AAAB4 /* Making AR */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */,
+				3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */,
+			);
+			path = "Making AR";
+			sourceTree = "<group>";
+		};
+		3E38F5E823DAE2EE002AAAB4 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5FA23DAE729002AAAB4 /* SettingTableViewController.swift */,
+				3E38F5F823DAE729002AAAB4 /* HelpTableViewController.swift */,
+				3E38F5F923DAE729002AAAB4 /* MadeByTableViewController.swift */,
+				3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3E38F5E923DAE2F5002AAAB4 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F5FE23DAE72E002AAAB4 /* TutorialViewController.swift */,
+				3E38F60C23DAF0C1002AAAB4 /* TutorialViewController.storyboard */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		3E38F60F23DAF239002AAAB4 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F61223DAF25C002AAAB4 /* Color Picker */,
+				3E38F61323DAF262002AAAB4 /* Custom Buttons */,
+				3E38F61123DAF254002AAAB4 /* Custom Views */,
+				3E38F61023DAF24D002AAAB4 /* Line Drawing */,
+				3E38F61423DAF290002AAAB4 /* Styles.swift */,
+				3E38F61523DAF291002AAAB4 /* Utilities.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		3E38F61023DAF24D002AAAB4 /* Line Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F62823DAF2B8002AAAB4 /* BiquadFilter.swift */,
+				3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */,
+				3E38F62923DAF2B8002AAAB4 /* Shaders.metal */,
+				3E38F62B23DAF2B8002AAAB4 /* ShaderTypes.h */,
+			);
+			path = "Line Drawing";
+			sourceTree = "<group>";
+		};
+		3E38F61123DAF254002AAAB4 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */,
+				3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */,
+				3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		3E38F61223DAF25C002AAAB4 /* Color Picker */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F61A23DAF29F002AAAB4 /* HueColorSliderDelegate.swift */,
+				3E38F61B23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift */,
+				3E38F61923DAF29F002AAAB4 /* RadialHuePalette.swift */,
+				3E38F61823DAF29F002AAAB4 /* UISliderColorControl.swift */,
+			);
+			path = "Color Picker";
+			sourceTree = "<group>";
+		};
+		3E38F61323DAF262002AAAB4 /* Custom Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				3E38F62023DAF2A5002AAAB4 /* ISRadioButton.swift */,
+			);
+			path = "Custom Buttons";
+			sourceTree = "<group>";
+		};
 		3EF105AC23B71EA100CCB7E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3EF105DB23B71F6E00CCB7E1 /* Buttons */,
 				3EF105DC23B71F7D00CCB7E1 /* Cells */,
-				3EF105DD23B71F8500CCB7E1 /* Color Picker */,
-				3EF105DE23B71F9100CCB7E1 /* Custom Views */,
-				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		3EF105AD23B71EA400CCB7E1 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3EF105C723B71F4A00CCB7E1 /* ViewController.swift */,
-				3EF105C923B71F4A00CCB7E1 /* InterfaceViewController.swift */,
-				3EF105C823B71F4A00CCB7E1 /* ARMotionViewController.swift */,
-				3EF105CE23B71F4A00CCB7E1 /* MakingARViewController.swift */,
-				3EF105CC23B71F4A00CCB7E1 /* TutorialViewController.swift */,
-				3EF105C523B71F4A00CCB7E1 /* GalleryViewController.swift */,
-				3EF105CD23B71F4A00CCB7E1 /* HelpTableViewController.swift */,
-				3EF105C623B71F4A00CCB7E1 /* MadeByTableViewController.swift */,
-				3EF105CF23B71F4A00CCB7E1 /* SetUpTableViewController.swift */,
-				3EF105CA23B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift */,
-				3EF105CB23B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		3EF105DB23B71F6E00CCB7E1 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				3EF105DF23B71F9F00CCB7E1 /* ISRadioButton.swift */,
-			);
-			path = Buttons;
 			sourceTree = "<group>";
 		};
 		3EF105DC23B71F7D00CCB7E1 /* Cells */ = {
@@ -173,27 +270,6 @@
 				3EF105E423B71FA500CCB7E1 /* GalleryCollectionViewCell.swift */,
 			);
 			name = Cells;
-			sourceTree = "<group>";
-		};
-		3EF105DD23B71F8500CCB7E1 /* Color Picker */ = {
-			isa = PBXGroup;
-			children = (
-				3EF105EA23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift */,
-				3EF105E923B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift */,
-				3EF105EB23B71FAB00CCB7E1 /* RadialHuePalette.swift */,
-				3EF105EC23B71FAB00CCB7E1 /* UISliderColorControl.swift */,
-			);
-			name = "Color Picker";
-			sourceTree = "<group>";
-		};
-		3EF105DE23B71F9100CCB7E1 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				3EF105F123B71FB000CCB7E1 /* DrawPromptView.swift */,
-				3EF105F323B71FB000CCB7E1 /* ProgressView.swift */,
-				3EF105F223B71FB000CCB7E1 /* TooltipView.swift */,
-			);
-			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 		3EF105FA23B71FF900CCB7E1 /* Model */ = {
@@ -210,7 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				3EF1060723B7202900CCB7E1 /* Assets.xcassets */,
-				3EF1060823B7202900CCB7E1 /* Base.lproj */,
 				3EF1060523B7202900CCB7E1 /* BGAR.scnassets */,
 				3EF1060423B7202900CCB7E1 /* FaceAR.scnassets */,
 				3EF1060223B7202800CCB7E1 /* Fonts */,
@@ -218,27 +293,6 @@
 				3EF1060323B7202900CCB7E1 /* Tutorial Gif */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		3EF1061023B7204200CCB7E1 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				3EF1061523B7204C00CCB7E1 /* Styles.swift */,
-				3EF1061123B7204B00CCB7E1 /* Utilities.swift */,
-				3EF1061E23B7205500CCB7E1 /* Line Drawing */,
-			);
-			name = Utility;
-			sourceTree = "<group>";
-		};
-		3EF1061E23B7205500CCB7E1 /* Line Drawing */ = {
-			isa = PBXGroup;
-			children = (
-				3EF1062023B7205C00CCB7E1 /* BiquadFilter.swift */,
-				3EF1062223B7205C00CCB7E1 /* LineGeometry.swift */,
-				3EF1061F23B7205C00CCB7E1 /* Shaders.metal */,
-				3EF1062123B7205C00CCB7E1 /* ShaderTypes.h */,
-			);
-			name = "Line Drawing";
 			sourceTree = "<group>";
 		};
 		3EF1062623B7207800CCB7E1 /* Lottie Animations */ = {
@@ -272,16 +326,16 @@
 		3EFCD65C21AE33D900D51C0C /* DamdaCam */ = {
 			isa = PBXGroup;
 			children = (
-				3EF105A523B71B6F00CCB7E1 /* Main.storyboard */,
-				3EF105A623B71B7000CCB7E1 /* UI.storyboard */,
 				3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */,
 				3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */,
-				3EF105AD23B71EA400CCB7E1 /* View Controllers */,
+				3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */,
+				3E38F5E323DAE288002AAAB4 /* View Controllers */,
 				3EF105AC23B71EA100CCB7E1 /* Views */,
 				3EF105FA23B71FF900CCB7E1 /* Model */,
 				3EF1060123B7201400CCB7E1 /* Resources */,
-				3EF1061023B7204200CCB7E1 /* Utility */,
+				3E38F60F23DAF239002AAAB4 /* Utility */,
 				3EF1062623B7207800CCB7E1 /* Lottie Animations */,
+				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
 				3EFCD66921AE33DA00D51C0C /* Info.plist */,
 				3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */,
 			);
@@ -372,16 +426,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */,
-				3EF105A723B71B7000CCB7E1 /* Main.storyboard in Resources */,
+				3E38F60B23DAEED8002AAAB4 /* GalleryViewController.storyboard in Resources */,
 				3EF1060B23B7202900CCB7E1 /* FaceAR.scnassets in Resources */,
-				3EF105A823B71B7000CCB7E1 /* UI.storyboard in Resources */,
+				3E38F60723DAEE3C002AAAB4 /* MakingARViewController.storyboard in Resources */,
+				3E38F60523DAEDE0002AAAB4 /* ARMotionViewController.storyboard in Resources */,
 				3EF1060D23B7202900CCB7E1 /* recordGradient in Resources */,
+				3E38F60923DAEEB0002AAAB4 /* SettingTableViewController.storyboard in Resources */,
+				3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */,
 				3EF1060923B7202900CCB7E1 /* Fonts in Resources */,
 				3EF1062A23B7208000CCB7E1 /* looking_partner.json in Resources */,
 				3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */,
 				3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */,
+				3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */,
+				3E38F60123DAE7FD002AAAB4 /* ARDrawingViewController.storyboard in Resources */,
 				3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */,
-				3EF1060F23B7202900CCB7E1 /* Base.lproj in Resources */,
 				3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */,
 				3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */,
 			);
@@ -471,38 +529,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF105D923B71F4A00CCB7E1 /* MakingARViewController.swift in Sources */,
+				3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */,
+				3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */,
 				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
-				3EF1061823B7204C00CCB7E1 /* Utilities.swift in Sources */,
 				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,
-				3EF105F523B71FB100CCB7E1 /* TooltipView.swift in Sources */,
-				3EF105ED23B71FAB00CCB7E1 /* RadialHueColorPaletteDelegate.swift in Sources */,
-				3EF1061C23B7204C00CCB7E1 /* Styles.swift in Sources */,
-				3EF105D823B71F4A00CCB7E1 /* HelpTableViewController.swift in Sources */,
+				3E38F60323DAE825002AAAB4 /* ARDrawingViewController.swift in Sources */,
+				3E38F5FD23DAE729002AAAB4 /* SettingTableViewController.swift in Sources */,
+				3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */,
+				3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */,
 				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
-				3EF1062423B7205C00CCB7E1 /* BiquadFilter.swift in Sources */,
-				3EF105D223B71F4A00CCB7E1 /* ViewController.swift in Sources */,
-				3EF105EF23B71FAB00CCB7E1 /* RadialHuePalette.swift in Sources */,
-				3EF105DA23B71F4A00CCB7E1 /* SetUpTableViewController.swift in Sources */,
-				3EF105D623B71F4A00CCB7E1 /* ViewController+InterfaceViewControllerDelegate.swift in Sources */,
+				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
+				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
+				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
+				3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */,
+				3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */,
+				3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */,
+				3E38F61623DAF291002AAAB4 /* Styles.swift in Sources */,
 				3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */,
-				3EF105E023B71F9F00CCB7E1 /* ISRadioButton.swift in Sources */,
+				3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */,
 				3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */,
-				3EF105F623B71FB100CCB7E1 /* ProgressView.swift in Sources */,
-				3EF105EE23B71FAB00CCB7E1 /* HueColorSliderDelegate.swift in Sources */,
-				3EF105D723B71F4A00CCB7E1 /* TutorialViewController.swift in Sources */,
-				3EF1062523B7205C00CCB7E1 /* LineGeometry.swift in Sources */,
+				3E38F5F523DAE71F002AAAB4 /* MakingARViewController.swift in Sources */,
+				3E38F61723DAF291002AAAB4 /* Utilities.swift in Sources */,
 				3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */,
-				3EF105D023B71F4A00CCB7E1 /* GalleryViewController.swift in Sources */,
-				3EF105F423B71FB000CCB7E1 /* DrawPromptView.swift in Sources */,
-				3EF105D423B71F4A00CCB7E1 /* InterfaceViewController.swift in Sources */,
-				3EF105F023B71FAB00CCB7E1 /* UISliderColorControl.swift in Sources */,
 				3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */,
-				3EF105D523B71F4A00CCB7E1 /* ViewController+ARSceneViewDelegate.swift in Sources */,
+				3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */,
+				3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,
-				3EF1062323B7205C00CCB7E1 /* Shaders.metal in Sources */,
-				3EF105D123B71F4A00CCB7E1 /* MadeByTableViewController.swift in Sources */,
-				3EF105D323B71F4A00CCB7E1 /* ARMotionViewController.swift in Sources */,
+				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
+				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,
+				3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */,
+				3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

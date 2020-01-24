@@ -1,8 +1,8 @@
 //
-//  RadialHuePalette.swift
+//  HueColorSliderDelegate.swift
 //  FlexColorPickerDemo
 //
-//  Created by Rastislav Mirek on 8/6/18.
+//  Created by Rastislav Mirek on 9/6/18.
 //  
 //	MIT License
 //  Copyright (c) 2018 Rastislav Mirek
@@ -26,26 +26,15 @@
 //  SOFTWARE.
 //
 
-import UIKit
 import FlexColorPicker
 
-let radialHuePaletteStripWidth: CGFloat = 28
-
-@IBDesignable
-class RadialHueControl: ColorPaletteControl {
-    public override func commonInit() {
-        paletteDelegate = RadialHueColorPaletteDelegate()
-        thumbView.autoDarken = false
-        super.commonInit()
+struct HueColorSliderDelegate: ColorSliderDelegate {
+    
+    public func modifiedColor(from color: HSBColor, with value: CGFloat) -> HSBColor {
+        return color.withHue(value)
     }
 
-    override func updatePaletteImagesAndThumb(isInteractive interactive: Bool) {
-        super.updatePaletteImagesAndThumb(isInteractive: interactive)
-        thumbView.setColor(selectedHSBColor.withSaturation(1, andBrightness: 1).toUIColor(), animateBorderColor: false)
-    }
-
-    override func setSelectedHSBColor(_ hsbColor: HSBColor, isInteractive interactive: Bool) {
-        super.setSelectedHSBColor(hsbColor, isInteractive: interactive)
-        thumbView.setColor(selectedHSBColor.withSaturation(1, andBrightness: 1).toUIColor(), animateBorderColor: false)
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
+        return (color.hue, color.withHue(0).toUIColor(), color.withHue(1).toUIColor())
     }
 }

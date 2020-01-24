@@ -653,3 +653,80 @@ extension UITextView {
     }
     
 }
+
+extension Int {
+    
+    var degreesToRadians: Double { return Double(self) * .pi/180}
+}
+
+extension SCNNode {
+    func setHighlighted( _ highlighted : Bool = true, _ highlightedBitMask : Int = 2 ) {
+        categoryBitMask = highlightedBitMask
+        for child in self.childNodes {
+            child.setHighlighted()
+        }
+    }
+}
+
+extension UIColor {
+    
+    convenience init?(hex: String) {
+        var hexNormalized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexNormalized = hexNormalized.replacingOccurrences(of: "#", with: "")
+        
+        // Helpers
+        var rgb: UInt32 = 0
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 1.0
+        let length = hexNormalized.count
+        
+        // Create Scanner
+        Scanner(string: hexNormalized).scanHexInt32(&rgb)
+        
+        if length == 6 {
+            r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+            g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+            b = CGFloat(rgb & 0x0000FF) / 255.0
+            
+        } else if length == 8 {
+            r = CGFloat((rgb & 0xFF000000) >> 24) / 255.0
+            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255.0
+            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255.0
+            a = CGFloat(rgb & 0x000000FF) / 255.0
+            
+        } else {
+            return nil
+        }
+        
+        self.init(red: r, green: g, blue: b, alpha: a)
+    }
+}
+
+extension CGColor {
+    var red: Float {
+        let ciColor = CIColor(cgColor: self)
+        return Float(ciColor.red)
+    }
+    
+    var green: Float {
+        let ciColor = CIColor(cgColor: self)
+        return Float(ciColor.green)
+    }
+    
+    var blue: Float {
+        let ciColor = CIColor(cgColor: self)
+        return Float(ciColor.blue)
+    }
+    
+    var alpha: Float {
+        let ciColor = CIColor(cgColor: self)
+        return Float(ciColor.alpha)
+    }
+    
+    var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        let ciColor = CIColor(cgColor: self)
+        return (ciColor.red, ciColor.green, ciColor.blue, ciColor.alpha)
+    }
+}

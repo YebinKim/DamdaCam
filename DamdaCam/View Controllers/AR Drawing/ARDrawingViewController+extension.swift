@@ -1,14 +1,16 @@
 //
-//  ViewController+ARSceneViewDelegate.swift
+//  ARDrawingViewController+extension.swift
 //  DamdaCam
 //
-//  Created by 김예빈 on 2018. 12. 8..
-//  Copyright © 2018년 김예빈. All rights reserved.
+//  Created by Yebin Kim on 2020/01/24.
+//  Copyright © 2020 김예빈. All rights reserved.
 //
 
 import ARKit
+import ReplayKit
 
-extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
+extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         node.simdTransform = anchor.transform
         
@@ -44,11 +46,11 @@ extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
             }
             stroke.cleanup()
             
-//            print("Stroke removed.  Total strokes=\(strokes.count)")
+            //            print("Stroke removed.  Total strokes=\(strokes.count)")
             
             DispatchQueue.main.async {
-                self.uiViewController?.clearAllButton.isHidden = self.shouldHideTrashButton()
-                if (self.mode == .DRAW && self.strokes.count == 0) { self.uiViewController?.showDrawingPrompt() }
+                self.clearAllButton.isHidden = self.shouldHideTrashButton()
+                if (self.mode == .DRAW && self.strokes.count == 0) { self.showDrawingPrompt() }
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: nil)
             }
         }
@@ -198,20 +200,20 @@ extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
                 alertController.dismiss(animated: true, completion: nil)
             }
             alertController.addAction(okAction)
-            uiViewController?.present(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
         
         //        displayErrorMessage(title: "We're sorry!", message: sessionErrorMsg, allowRestart: isRecoverable)
     }
     
     func registerGestureRecognizers(view: UIView) {
-//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(nodePan))
+        //        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(nodePan))
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(nodeRemove))
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(nodeScale))
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(nodeMove))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2     // 더블탭
         longPressGestureRecognizer.minimumPressDuration = 0.2   // longPress 딜레이 시간 설정
-//        view.addGestureRecognizer(panGestureRecognizer)
+        //        view.addGestureRecognizer(panGestureRecognizer)
         view.addGestureRecognizer(doubleTapGestureRecognizer)
         view.addGestureRecognizer(pinchGestureRecognizer)
         view.addGestureRecognizer(longPressGestureRecognizer)
@@ -230,17 +232,17 @@ extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
         let hitTest = sceneView.hitTest(panLocation)
         
         if !hitTest.isEmpty {
-//            if(movingNow){
-                let result = hitTest.first!
+            //            if(movingNow){
+            let result = hitTest.first!
             result.node.position = frontOfCamera
-//                tappedObjectNode.position = result
-//            } else {
-                // view is the view containing the sceneView
-//                let hitResults = sceneView.hitTest(sender.location(in: view), options: nil)
-//                if hitResults.count > 0 {
-//                    movingNow = false
-//                }
-//            }
+            //                tappedObjectNode.position = result
+            //            } else {
+            // view is the view containing the sceneView
+            //                let hitResults = sceneView.hitTest(sender.location(in: view), options: nil)
+            //                if hitResults.count > 0 {
+            //                    movingNow = false
+            //                }
+            //            }
         }
     }
     
@@ -280,13 +282,13 @@ extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
             let result = hitTest.first!
             if sender.state != .ended {
                 result.node.position = frontOfCamera
-//                movingNow = true
-//                tappedObjectNode = result.node
-//                let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 1)
-//                let forever = SCNAction.repeatForever(rotation)
-//                result.node.runAction(forever)  // 오브젝트 회전
+                //                movingNow = true
+                //                tappedObjectNode = result.node
+                //                let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 1)
+                //                let forever = SCNAction.repeatForever(rotation)
+                //                result.node.runAction(forever)  // 오브젝트 회전
             } else {
-//                result.node.removeAllActions()
+                //                result.node.removeAllActions()
             }
         }
         
@@ -317,6 +319,44 @@ extension ViewController: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             sender.cancelsTouchesInView = true
+        }
+    }
+}
+
+// MARK: - ReplayKit Preview Delegate
+extension ARDrawingViewController : RPPreviewViewControllerDelegate {
+    
+    func previewController(_ previewController: RPPreviewViewController, didFinishWithActivityTypes activityTypes: Set<String>) {
+        if activityTypes.contains(UIActivity.ActivityType.postToVimeo.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.postToFlickr.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.postToWeibo.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.postToTwitter.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.postToFacebook.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.mail.rawValue)
+            || activityTypes.contains(UIActivity.ActivityType.message.rawValue) {
+            
+        }
+        
+        //        progressCircle.reset()
+        //        recordBackgroundView.alpha = 0
+        
+        previewController.dismiss(animated: true) {
+            
+            self.uiWindow?.isHidden = false
+            
+        }
+    }
+}
+
+// MARK: - RPScreenRecorderDelegate
+extension ARDrawingViewController: RPScreenRecorderDelegate {
+    func screenRecorderDidChangeAvailability(_ screenRecorder: RPScreenRecorder) {
+        if screenRecorder.isAvailable == false {
+            let alert = UIAlertController.init(title: "Screen Recording Failed", message: "Screen Recorder is no longer available.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(self, animated: true, completion: nil)
         }
     }
 }

@@ -31,6 +31,7 @@ import FlexColorPicker
 
 @IBDesignable
 class UISliderColorControl: UISlider, ColorControl {
+    
     var selectedHSBColor: HSBColor = UIColor.white.hsbColor
     var delegate: ColorSliderDelegate {
         return BrightnessSliderDelegate()

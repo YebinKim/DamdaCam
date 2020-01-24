@@ -10,6 +10,7 @@
 import UIKit
 
 class ProgressView: UIView {
+    
     let circle: UIView
     let progressCircle: CAShapeLayer
     let lineWidth:CGFloat = 5.0

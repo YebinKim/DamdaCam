@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WPR-Dl-nJq">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tutorial View Controller-->
+        <scene sceneID="IMp-Qb-470">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="WPR-Dl-nJq" customClass="TutorialViewController" customModule="DamdaCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Fy-a6-u9D">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gQ9-Gr-59D">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_bg" translatesAutoresizingMaskIntoConstraints="NO" id="vlN-Nr-8Ns">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCL-JT-HN1">
+                                        <rect key="frame" x="36" y="530" width="303" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="launch_start"/>
+                                        <connections>
+                                            <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="Imj-ME-I5M"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FyJ-oc-0M0">
+                                        <rect key="frame" x="46" y="288" width="300" height="91"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-Gi-UoK">
+                                        <rect key="frame" x="143" y="287" width="89" height="86.5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIp-eI-hYk">
+                                        <rect key="frame" x="327" y="26" width="30" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="tutorial_skip"/>
+                                        <connections>
+                                            <action selector="skipButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="l0d-bb-USg"/>
+                                            <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="wFc-Io-oS4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdp-wb-PrP">
+                                        <rect key="frame" x="30" y="597" width="16" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="tutorial_left"/>
+                                        <connections>
+                                            <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="Ygd-Ph-FVV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9t-fG-Wwv">
+                                        <rect key="frame" x="328" y="597" width="16" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="tutorial_right"/>
+                                        <connections>
+                                            <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="kwA-kt-6aH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6r-oT-907">
+                                        <rect key="frame" x="321" y="601" width="31" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="tutorial_start"/>
+                                        <connections>
+                                            <action selector="startButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="QRC-9y-JrU"/>
+                                            <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="b8f-ea-TOc"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tutorial_on" translatesAutoresizingMaskIntoConstraints="NO" id="GZn-m0-jeb">
+                                        <rect key="frame" x="137" y="608" width="11" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPk-aL-lil">
+                                        <rect key="frame" x="42" y="163" width="290" height="273"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3pG-ZK-93G">
+                                        <rect key="frame" x="46" y="34" width="300" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tutorial_logo" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-GH-Pso">
+                                        <rect key="frame" x="152" y="53" width="71" height="62"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Ke9-8d-fCv"/>
+                    </view>
+                    <connections>
+                        <outlet property="tutirialLogoGif" destination="3pG-ZK-93G" id="yIM-Zx-fHh"/>
+                        <outlet property="tutorialBG" destination="vlN-Nr-8Ns" id="aK9-om-EMi"/>
+                        <outlet property="tutorialFlowCircle" destination="GZn-m0-jeb" id="dnw-Sb-pn1"/>
+                        <outlet property="tutorialGifView" destination="dPk-aL-lil" id="CW8-Tc-usa"/>
+                        <outlet property="tutorialLaunchButton" destination="XCL-JT-HN1" id="rCH-Gn-6pu"/>
+                        <outlet property="tutorialLaunchGif" destination="FyJ-oc-0M0" id="u9g-ng-jkd"/>
+                        <outlet property="tutorialLaunchLogo" destination="Ofm-Gi-UoK" id="ASU-8s-37L"/>
+                        <outlet property="tutorialLeftButton" destination="vdp-wb-PrP" id="ceR-ny-Ddw"/>
+                        <outlet property="tutorialLogo" destination="0Zk-GH-Pso" id="i2L-D9-ddV"/>
+                        <outlet property="tutorialRightButton" destination="F9t-fG-Wwv" id="aAV-4i-g0g"/>
+                        <outlet property="tutorialSkipButton" destination="GIp-eI-hYk" id="MUr-tE-FVa"/>
+                        <outlet property="tutorialStartButton" destination="f6r-oT-907" id="Jfy-vJ-dDQ"/>
+                        <outlet property="tutorialView" destination="gQ9-Gr-59D" id="pAU-gn-sDb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Krr-o5-rP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-662" y="27"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launch_bg" width="375" height="667"/>
+        <image name="launch_logo" width="89" height="87"/>
+        <image name="launch_start" width="292" height="54"/>
+        <image name="tutorial_left" width="11" height="19"/>
+        <image name="tutorial_logo" width="89" height="80"/>
+        <image name="tutorial_on" width="11" height="11"/>
+        <image name="tutorial_right" width="11" height="19"/>
+        <image name="tutorial_skip" width="28" height="22.5"/>
+        <image name="tutorial_start" width="32" height="22"/>
+    </resources>
+</document>

@@ -15,70 +15,6 @@ import Metron
 import CoreData
 
 class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
-
-//    public struct Queue<T> {
-//        internal var data = Array<T>()
-//        public init() {}
-//
-//        var avg: Float = 0
-//        var sum: Float = 0
-//        let multiplier = Float(pow(10.0, 4.0))
-//
-//        public mutating func dequeue() -> T? {
-//            return data.removeFirst()
-//        }
-//
-//        public func peek() -> T? {
-//            return data.first
-//        }
-//
-//        public mutating func enqueue(element: T) {
-//            data.append(element)
-//
-//            if data.count == 60 {
-//                data.removeFirst()
-//            }
-//
-//            sum = element as! Float
-//            sum = round(sum * multiplier) / multiplier
-//
-//            for _ in 1 ... data.count {
-//                avg += sum
-//            }
-//
-//            avg /= Float(data.count)
-//            avg = round(avg * multiplier) / multiplier
-//        }
-//
-//        public mutating func clear() {
-//            data.removeAll()
-//        }
-//
-//        public var count: Int {
-//            return data.count
-//        }
-//
-//        public var capacity: Int {
-//            get {
-//                return data.capacity
-//            }
-//            set {
-//                data.reserveCapacity(newValue)
-//            }
-//        }
-//
-//        public func isFull() -> Bool {
-//            return count == data.capacity
-//        }
-//
-//        public func isEmpty() -> Bool {
-//            return data.isEmpty
-//        }
-//
-//        public mutating func getMoveAverage() -> Float {
-//            return avg
-//        }
-//    }
     
     static let identifier: String = "ARMotionViewController"
     
@@ -91,7 +27,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     var headNode = SCNNode()
     var noseNode = SCNNode()
     var eatNode = SCNNode()
-    var selectScene = SCNScene()
     
     var BGNode = SCNNode()
     
@@ -100,19 +35,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // Main view for showing camera content.
     @IBOutlet var previewView: UIView!
-//    @IBOutlet var previewView: UIImageView!
     @IBOutlet var iconView: UIView!
     
-//    var MA_x = Queue<Float>()
-//    var MA_y = Queue<Float>()
-//    var MA_yaw = Queue<Float>()
-//    var MA_roll = Queue<Float>()
-//    var MA_Pitch = Queue<Float>()
-    
-    var ARNode_x: Float! = 0
-    var ARNode_y: Float! = 0
-    var ARNode_z: Float! = 0
-    var checkedBlink = false // true -> 체크할 수 있는 상태
+    var ARNode_x: Float = 0
+    var ARNode_y: Float = 0
+    var ARNode_z: Float = 0
+    var isBlink = false // true -> 체크할 수 있는 상태
     
     // Face Position Detection
     var leftEye: [CGPoint] = []
@@ -1439,18 +1367,18 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // ARMotion Set
     func ARMotionCreate() {
-        ARNode_x = 0
-        ARNode_y = 3.5
-        ARNode_z = -5
+        self.ARNode_x = 0
+        self.ARNode_y = 3.5
+        self.ARNode_z = -5
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/z_prepare_head.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "z_prepare_head", recursively: true))!
+        guard let headScene = SCNScene(named: "FaceAR.scnassets/z_prepare_head.scn"),
+              let noseScene = SCNScene(named: "FaceAR.scnassets/z_prepare_nose.scn") else { return }
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/z_prepare_nose.scn")!
-        noseNode = (selectScene.rootNode.childNode(withName: "z_prepare_nose", recursively: true))!
+        self.headNode = headScene.rootNode.childNode(withName: "z_prepare_head", recursively: false) ?? SCNNode()
+        self.noseNode = noseScene.rootNode.childNode(withName: "z_prepare_nose", recursively: false) ?? SCNNode()
         
-        ARscene.rootNode.addChildNode(headNode)
-        ARscene.rootNode.addChildNode(noseNode)
+        self.ARscene.rootNode.addChildNode(headNode)
+        self.ARscene.rootNode.addChildNode(noseNode)
         
         ARView.scene = ARscene
     }
@@ -1505,9 +1433,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         // BGNode
         BGNode.simdEulerAngles = float3(0, faceYaw, 0)
         
-        if checkedBlink {
+        if isBlink {
             if detectMouthBlink() {
-                ARMotionSelected_Mushroom()
+//                ARMotionSelected_Mushroom()
                 
 //                UIView.animate(withDuration: 0, delay: 3.0, options: [.curveLinear], animations: {
 //                    self.checkedBlink = true
@@ -1623,249 +1551,54 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    func ARMotionSelected_Heart() {
-        ARNode_x = 0
-        ARNode_y = 3.5
-        ARNode_z = -5
+    func loadARMotionNode(_ name: String, position: SCNVector3, isHead: Bool) {
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Heart.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Heart", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-    }
-    
-    func ARMotionSelected_Angel() {
-        ARNode_x = 0
-        ARNode_y = 0
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Angel.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Angel", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-    }
-    
-    func ARMotionSelected_Rabbit() {
-        ARNode_x = 0
-        ARNode_y = 3.5
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Rabbit_head.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Rabbit_head", recursively: true))!
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Rabbit_nose.scn")!
-        noseNode = (selectScene.rootNode.childNode(withName: "Rabbit_nose", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-        ARscene.rootNode.addChildNode(noseNode)
-    }
-    
-    func ARMotionSelected_Cat() {
-        ARNode_x = 0
-        ARNode_y = 3.5
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Cat_head.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Cat_head", recursively: true))!
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Cat_nose.scn")!
-        noseNode = (selectScene.rootNode.childNode(withName: "Cat_nose", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-        ARscene.rootNode.addChildNode(noseNode)
-    }
-    
-    func ARMotionSelected_Mouse() {
-        ARNode_x = 0
-        ARNode_y = 3.5
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Mouse_head.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Mouse_head", recursively: true))!
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Mouse_nose.scn")!
-        noseNode = (selectScene.rootNode.childNode(withName: "Mouse_nose", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-        ARscene.rootNode.addChildNode(noseNode)
-    }
-    
-    func ARMotionSelected_Peach() {
-        ARNode_x = 0
-        ARNode_y = 4.35
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/Peach.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "Peach", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-    }
-    
-    func ARMotionSelected_BAAAM() {
-        ARNode_x = 0
-        ARNode_y = 4
-        ARNode_z = -5
-        
-        selectScene = SCNScene(named: "FaceAR.scnassets/BAAAM.scn")!
-        headNode = (selectScene.rootNode.childNode(withName: "BAAAM", recursively: true))!
-        
-        ARscene.rootNode.addChildNode(headNode)
-    }
-    
-    func ARMotionSelected_Mushroom() {
-        ARNode_x = 0
-        ARNode_y = 2.5
-        ARNode_z = -5
-        
-        if checkedBlink {
-            self.ARMotionDelete()
+        if isHead {
+            guard let headScene = SCNScene(named: "FaceAR.scnassets/\(name)_head.scn"),
+                  let noseScene = SCNScene(named: "FaceAR.scnassets/\(name)_nose.scn") else { return }
             
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom1_head.scn")!
-            headNode = (selectScene.rootNode.childNode(withName: "Mushroom1_head", recursively: true))!
+            self.ARNode_x = position.x
+            self.ARNode_y = position.y
+            self.ARNode_z = position.z
             
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom1_nose.scn")!
-            noseNode = (selectScene.rootNode.childNode(withName: "Mushroom1_nose", recursively: true))!
+            self.headNode = headScene.rootNode.childNode(withName: "\(name)_head", recursively: false) ?? SCNNode()
+            self.noseNode = noseScene.rootNode.childNode(withName: "\(name)_nose", recursively: false) ?? SCNNode()
             
-            ARscene.rootNode.addChildNode(headNode)
-            ARscene.rootNode.addChildNode(noseNode)
+            self.headNode.position = position
+            self.noseNode.position = position
             
-            checkedBlink = false
+            self.ARscene.rootNode.addChildNode(headNode)
+            self.ARscene.rootNode.addChildNode(noseNode)
         } else {
-            self.ARMotionDelete()
-        
-            selectScene = SCNScene(named: "FaceAR.scnassets/Mushroom2.scn")!
-            headNode = (selectScene.rootNode.childNode(withName: "Mushroom2", recursively: true))!
-        
-            ARscene.rootNode.addChildNode(headNode)
+            loadARMotionNode(name, position: position)
         }
     }
     
-    func ARMotionSelected_Doughnut() {
-        ARNode_x = 0
-        ARNode_y = -4
-        ARNode_z = -5
+    func loadARMotionNode(_ name: String, position: SCNVector3) {
+        guard let scene = SCNScene(named: "FaceAR.scnassets/\(name).scn") else { return }
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Doughnut1.scn")!
-        eatNode = (selectScene.rootNode.childNode(withName: "Doughnut1", recursively: true))!
+        self.ARNode_x = position.x
+        self.ARNode_y = position.y
+        self.ARNode_z = position.z
         
-        ARscene.rootNode.addChildNode(eatNode)
+        self.headNode = scene.rootNode.childNode(withName: "\(name)", recursively: false) ?? SCNNode()
+        self.headNode.position = position
+        self.ARscene.rootNode.addChildNode(self.headNode)
     }
     
-    func ARMotionSelected_Flower() {
-        ARNode_x = 0
-        ARNode_y = 0
-        ARNode_z = -5
+    func loadBGMotionNode(_ name: String) {
         
-        selectScene = SCNScene(named: "FaceAR.scnassets/Flower3.scn")!
-        noseNode = (selectScene.rootNode.childNode(withName: "Flower3", recursively: true))!
+        self.BGNode = SCNNode()
+        var count = 1
         
-        ARscene.rootNode.addChildNode(noseNode)
-    }
-    
-    func ARMotionSelected_Snow() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Snow_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Snow_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Snow_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Snow_4.scnp", inDirectory: nil)
-//        particle1?.loops = true // 반복함
-//        particle2?.loops = true // 반복함
-//        particle3?.loops = true // 반복함
-//        particle4?.loops = true // 반복함
+        if let particle = SCNParticleSystem(named: "BGAR.scnassets/\(name)_\(count).scnp", inDirectory: nil) {
+            self.BGNode.addParticleSystem(particle)
+            count += 1
+        }
         
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Blossom() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Blossom_3.scnp", inDirectory: nil)
+        self.BGNode.position = SCNVector3Zero
         
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Rain() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Rain_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Rain_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Rain_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Rain_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Rain_5.scnp", inDirectory: nil)
-        
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.addParticleSystem(particle5!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Fish() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Fish_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Fish_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Fish_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Fish_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Fish_5.scnp", inDirectory: nil)
-        
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.addParticleSystem(particle5!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Greenery() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Greenery_4.scnp", inDirectory: nil)
-        
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Fruits() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_4.scnp", inDirectory: nil)
-        let particle5 = SCNParticleSystem(named: "BGAR.scnassets/Fruit_5.scnp", inDirectory: nil)
-        
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.addParticleSystem(particle5!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
-    }
-    
-    func ARMotionSelected_Glow() {
-        let particle1 = SCNParticleSystem(named: "BGAR.scnassets/Glow_1.scnp", inDirectory: nil)
-        let particle2 = SCNParticleSystem(named: "BGAR.scnassets/Glow_2.scnp", inDirectory: nil)
-        let particle3 = SCNParticleSystem(named: "BGAR.scnassets/Glow_3.scnp", inDirectory: nil)
-        let particle4 = SCNParticleSystem(named: "BGAR.scnassets/Glow_4.scnp", inDirectory: nil)
-        
-        BGNode.addParticleSystem(particle1!)
-        BGNode.addParticleSystem(particle2!)
-        BGNode.addParticleSystem(particle3!)
-        BGNode.addParticleSystem(particle4!)
-        BGNode.position = SCNVector3(0, 0, 0)
-        ARscene.rootNode.addChildNode(BGNode)
+        self.ARscene.rootNode.addChildNode(self.BGNode)
     }
     
     func ARMotionSelected_MakingAR(index: Int) {
@@ -2533,89 +2266,96 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             let BGARMotionIndex = FaceARMotionArray.count
             
             self.ARMotionDelete()
-            checkedBlink = false
             
             if myARMotionButton.isSelected {
                 
             } else if AllARMotionButton.isSelected {
                 if (indexPath.row == 0) {
-                    self.ARMotionSelected_Heart()
+                    self.loadARMotionNode("Heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 1) {
-                    self.ARMotionSelected_Angel()
+                    self.loadARMotionNode("Angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if (indexPath.row == 2) {
-                    self.ARMotionSelected_Rabbit()
+                    self.loadARMotionNode("Rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 3) {
-                    self.ARMotionSelected_Cat()
+                    self.loadARMotionNode("Cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 4) {
-                    self.ARMotionSelected_Mouse()
+                    self.loadARMotionNode("Mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 5) {
-                    self.ARMotionSelected_Peach()
+                    self.loadARMotionNode("Peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if (indexPath.row == 6) {
-                    self.ARMotionSelected_BAAAM()
+                    self.loadARMotionNode("BAAAM", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if (indexPath.row == 7) {
-                    self.ARMotionSelected_Mushroom()
-                    checkedBlink = true
+                    if isBlink {
+                        self.loadARMotionNode("Mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                    } else {
+                        self.loadARMotionNode("Mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                    }
+                    isBlink = !isBlink
                 } else if (indexPath.row == 8) {
-                    self.ARMotionSelected_Doughnut()
+                    self.loadARMotionNode("Doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if (indexPath.row == 9) {
-                    self.ARMotionSelected_Flower()
+                    self.loadARMotionNode("Flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if (indexPath.row == BGARMotionIndex) {
-                    self.ARMotionSelected_Snow()
+                    self.loadBGMotionNode("Snow")
                 } else if (indexPath.row == BGARMotionIndex + 1) {
-                    self.ARMotionSelected_Blossom()
+                    self.loadBGMotionNode("Blossom")
                 } else if (indexPath.row == BGARMotionIndex + 2) {
-                    self.ARMotionSelected_Rain()
+                    self.loadBGMotionNode("Rain")
                 } else if (indexPath.row == BGARMotionIndex + 3) {
-                    self.ARMotionSelected_Fish()
+                    self.loadBGMotionNode("Fish")
                 } else if (indexPath.row == BGARMotionIndex + 4) {
-                    self.ARMotionSelected_Greenery()
+                    self.loadBGMotionNode("Greenery")
                 } else if (indexPath.row == BGARMotionIndex + 5) {
-                    self.ARMotionSelected_Fruits()
+                    self.loadBGMotionNode("Fruits")
                 } else if (indexPath.row == BGARMotionIndex + 6) {
-                    self.ARMotionSelected_Glow()
+                    self.loadBGMotionNode("Glow")
                 } else {
                     self.ARMotionSelected_MakingAR(index: indexPath.row)
                 }
             } else if FaceARMotionButton.isSelected {
                 if (indexPath.row == 0) {
-                    self.ARMotionSelected_Heart()
+                    self.loadARMotionNode("Heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 1) {
-                    self.ARMotionSelected_Angel()
+                    self.loadARMotionNode("Angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if (indexPath.row == 2) {
-                    self.ARMotionSelected_Rabbit()
+                    self.loadARMotionNode("Rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 3) {
-                    self.ARMotionSelected_Cat()
+                    self.loadARMotionNode("Cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 4) {
-                    self.ARMotionSelected_Mouse()
+                    self.loadARMotionNode("Mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 5) {
-                    self.ARMotionSelected_Peach()
+                    self.loadARMotionNode("Peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if (indexPath.row == 6) {
-                    self.ARMotionSelected_BAAAM()
+                    self.loadARMotionNode("BAAAM", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if (indexPath.row == 7) {
-                    self.ARMotionSelected_Mushroom()
-                    checkedBlink = true
+                    if isBlink {
+                        self.loadARMotionNode("Mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                    } else {
+                        self.loadARMotionNode("Mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                    }
+                    isBlink = !isBlink
                 } else if (indexPath.row == 8) {
-                    self.ARMotionSelected_Doughnut()
+                    self.loadARMotionNode("Doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if (indexPath.row == 9) {
-                    self.ARMotionSelected_Flower()
+                    self.loadARMotionNode("Flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else {
                     self.ARMotionSelected_MakingAR(index: indexPath.row)
                 }
             } else {    // if BGARMotionButton.isSelected
                 if (indexPath.row == 0) {
-                    self.ARMotionSelected_Snow()
+                    self.loadBGMotionNode("Snow")
                 } else if (indexPath.row == 1) {
-                    self.ARMotionSelected_Blossom()
+                    self.loadBGMotionNode("Blossom")
                 } else if (indexPath.row == 2) {
-                    self.ARMotionSelected_Rain()
+                    self.loadBGMotionNode("Rain")
                 } else if (indexPath.row == 3) {
-                    self.ARMotionSelected_Fish()
+                    self.loadBGMotionNode("Fish")
                 } else if (indexPath.row == 4) {
-                    self.ARMotionSelected_Greenery()
+                    self.loadBGMotionNode("Greenery")
                 } else if (indexPath.row == 5) {
-                    self.ARMotionSelected_Fruits()
+                    self.loadBGMotionNode("Fruits")
                 } else if (indexPath.row == 6) {
-                    self.ARMotionSelected_Glow()
+                    self.loadBGMotionNode("Glow")
                 }
             }
         }

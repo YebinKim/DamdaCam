@@ -1393,7 +1393,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func ARMotionMove() {
-        let yaw_L = getAngle(first: (leftEye[0]), second: (medianLine[4]), third: (medianLine[0]))
+        let yaw_L = getAngle(first: (leftEye[4]), second: (medianLine[4]), third: (medianLine[0]))
         let yaw_R = getAngle(first: (rightEye[4]), second: (medianLine[4]), third: (medianLine[0]))
         let yaw = Float(yaw_L + yaw_R)
         let faceYaw = -normalizationYaw(source: yaw)
@@ -1762,11 +1762,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             plusClipButton.setTitleColor(UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0), for: .normal)
             plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: true)
         }
-        
-        print(oneClipState)
-        print(twoClipState)
-        print(threeClipState)
-        print(plusClipState)
     }
     
     

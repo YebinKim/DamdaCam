@@ -21,7 +21,14 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
-    let ARView = SCNView()
+    var ARView: SCNView {
+        let ARView = SCNView()
+        ARView.frame = self.view.bounds
+        ARView.backgroundColor = UIColor.clear
+        ARView.scene = self.ARscene
+        
+        return ARView
+    }
     let ARscene = SCNScene()
     
     var headNode = SCNNode()
@@ -182,8 +189,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ARView.frame = self.view.bounds
-        ARView.backgroundColor = UIColor.clear
         previewLayer?.frame = self.view.bounds
         self.view.addSubview(ARView)
         
@@ -417,7 +422,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.menuView.alpha = 0.0
         
         // ARmotion Set
-        ARMotionCreate()
+        self.loadARMotionNode("z_prepare", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             if self.toARMotionNO {
@@ -1363,24 +1368,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func exifOrientationForCurrentDeviceOrientation() -> CGImagePropertyOrientation {
         return exifOrientationForDeviceOrientation(UIDevice.current.orientation)
-    }
-    
-    // ARMotion Set
-    func ARMotionCreate() {
-        self.ARNode_x = 0
-        self.ARNode_y = 3.5
-        self.ARNode_z = -5
-        
-        guard let headScene = SCNScene(named: "FaceAR.scnassets/z_prepare_head.scn"),
-              let noseScene = SCNScene(named: "FaceAR.scnassets/z_prepare_nose.scn") else { return }
-        
-        self.headNode = headScene.rootNode.childNode(withName: "z_prepare_head", recursively: false) ?? SCNNode()
-        self.noseNode = noseScene.rootNode.childNode(withName: "z_prepare_nose", recursively: false) ?? SCNNode()
-        
-        self.ARscene.rootNode.addChildNode(headNode)
-        self.ARscene.rootNode.addChildNode(noseNode)
-        
-        ARView.scene = ARscene
     }
     
     func ARMotionDelete() {

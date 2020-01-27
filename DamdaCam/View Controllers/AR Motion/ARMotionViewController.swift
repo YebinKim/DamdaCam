@@ -14,7 +14,7 @@ import SceneKit
 import Metron
 import CoreData
 
-class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ARMotionViewController: UIViewController {
     
     static let identifier: String = "ARMotionViewController"
     
@@ -79,8 +79,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     var takePhoto = false
     let fileOutput = AVCaptureMovieFileOutput()
     
-//    var screenRecorder: RPScreenRecorder?
-//    var isRecording: Bool = false
+    //    var screenRecorder: RPScreenRecorder?
+    //    var isRecording: Bool = false
     
     // Icon
     @IBOutlet var settingButton: UIButton!
@@ -148,7 +148,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet var filterPowerSlider: UISlider!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
-//    var filterArray: [UIImage]!
+    //    var filterArray: [UIImage]!
     var filterViewState: Bool = false
     let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant", "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectTonal", "CIPhotoEffectFade", "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
     let filterContext = CIContext()
@@ -172,9 +172,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // Layer UI for drawing Vision results
     var rootLayer: CALayer?
-//    var detectionOverlayLayer: CALayer?
-//    var detectedFaceRectangleShapeLayer: CAShapeLayer?
-//    var detectedFaceLandmarksShapeLayer: CAShapeLayer?
+    //    var detectionOverlayLayer: CALayer?
+    //    var detectedFaceRectangleShapeLayer: CAShapeLayer?
+    //    var detectedFaceLandmarksShapeLayer: CAShapeLayer?
     
     var recordingTimer: Timer?
     
@@ -198,13 +198,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.view.bringSubviewToFront(iconView)
         
         self.session = self.setupAVCaptureSession()
-//        self.photoOutput = AVCapturePhotoOutput()
-//        self.session!.sessionPreset = AVCaptureSession.Preset.photo
-//        self.session?.startRunning()
+        //        self.photoOutput = AVCapturePhotoOutput()
+        //        self.session!.sessionPreset = AVCaptureSession.Preset.photo
+        //        self.session?.startRunning()
         
-//        screenRecorder = RPScreenRecorder.shared()
-//        screenRecorder?.isCameraEnabled = true
-//        screenRecorder?.isMicrophoneEnabled = true
+        //        screenRecorder = RPScreenRecorder.shared()
+        //        screenRecorder?.isCameraEnabled = true
+        //        screenRecorder?.isMicrophoneEnabled = true
         
         // camera mode set
         let swipeModeRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modePhoto))
@@ -323,12 +323,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         // ARMotion View Set
         createARMotionArray()
-        ARMotionCollectionView.delegate = self
-        ARMotionCollectionView.dataSource = self
+        self.initializePickerView()
         
         let deleteCell: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ARMotionCellLongPress))
         deleteCell.minimumPressDuration = 0.5
-//        setFavorites.delegate = self
+        //        setFavorites.delegate = self
         deleteCell.delaysTouchesBegan = true
         self.ARMotionCollectionView?.addGestureRecognizer(deleteCell)
         
@@ -337,11 +336,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.ARMotionCollectionView?.addGestureRecognizer(favoriteCell)
         
         // Filter Set
-        filterCollectionView.delegate = self
-        filterCollectionView.dataSource = self
-        filterPowerSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-//        self.view.addSubview(filterCollectionView)
+        self.initializeCollectionView()
+        self.filterPowerSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        //        self.view.addSubview(filterCollectionView)
         
+        // FIXME: Temp Spec
         filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor], state: false)
         filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor], state: false)
         filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: false)
@@ -519,324 +518,101 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         })
     }
     
-//    override var shouldAutorotate: Bool {
-//        get {
-//            if let del = touchDelegate, del.shouldAutorotate == false { return false }
-//            return true
-//        }
-//    }
+    // MARK: Accessibility
+    //    func configureAccessibility() {
+    //        let key = NSAttributedString.Key.accessibilitySpeechIPANotation
+    //
+    //        let attributedString = NSAttributedString(
+    //            string: NSLocalizedString("content_description_record", comment: "Record"), attributes: [key: "record"]
+    //        )
+    //
+    //        recordButton.accessibilityAttributedLabel = attributedString
+    //        recordButton.accessibilityHint = NSLocalizedString("content_description_record_accessible", comment: "Tap to record a video for ten seconds.")
+    //
+    //        NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
+    //
+    //        voiceOverStatusChanged()
+    //    }
     
-    func configureAccessibility() {
-        let key = NSAttributedString.Key.accessibilitySpeechIPANotation
-
-        let attributedString = NSAttributedString(
-            string: NSLocalizedString("content_description_record", comment: "Record"), attributes: [key: "record"]
-        )
-
-        recordButton.accessibilityAttributedLabel = attributedString
-        recordButton.accessibilityHint = NSLocalizedString("content_description_record_accessible", comment: "Tap to record a video for ten seconds.")
-
-        NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
-
-        voiceOverStatusChanged()
-    }
+    //    @objc func voiceOverStatusChanged() {
+    //        sizeButtonStackView.alpha = (UIAccessibility.isVoiceOverRunning) ? 1 : 0
+    //    }
     
-    @objc func voiceOverStatusChanged() {
-        //        sizeButtonStackView.alpha = (UIAccessibility.isVoiceOverRunning) ? 1 : 0
-    }
+    // MARK: Check access
+    //    fileprivate func checkCameraAccess() {
+    //        var isCameraAuthStatusIsAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.authorized)
+    //        var isMicAuthStatusIsAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == AVAuthorizationStatus.authorized)
+    //
+    //        if isCameraAuthStatusIsAuthorized && isMicAuthStatusIsAuthorized {
+    //            initCamera()
+    //        } else {
+    //
+    //            var camSelected = false
+    //            var micSelected = false
+    //
+    //            AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
+    //                camSelected = true
+    //                if response {
+    //                    isCameraAuthStatusIsAuthorized = true
+    //                }
+    //
+    //                if micSelected {
+    //                    DispatchQueue.main.async {
+    //                        self.accessAlert(isCameraAuthStatusIsAuthorized, isMicAuthStatusIsAuthorized)
+    //                    }
+    //                }
+    //            }
+    //
+    //            AVCaptureDevice.requestAccess(for: AVMediaType.audio) { response in
+    //                micSelected = true
+    //                if response {
+    //                    isMicAuthStatusIsAuthorized = true
+    //                }
+    //
+    //                if camSelected {
+    //                    DispatchQueue.main.async {
+    //                        self.accessAlert(isCameraAuthStatusIsAuthorized, isMicAuthStatusIsAuthorized)
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //
+    //    fileprivate func accessAlert(_ isCameraAuthStatusIsAuthorized: Bool, _ isMicAuthStatusIsAuthorized: Bool) {
+    //        var alertDescription = ""
+    //
+    //        if isCameraAuthStatusIsAuthorized && isMicAuthStatusIsAuthorized {
+    //            initCamera()
+    //        } else if isCameraAuthStatusIsAuthorized == isMicAuthStatusIsAuthorized {
+    //            alertDescription = "Нужен доступ к камере и микрофону"
+    //        } else if isCameraAuthStatusIsAuthorized {
+    //            alertDescription = "Нужен доступ к микрофону"
+    //        } else if isMicAuthStatusIsAuthorized {
+    //            alertDescription = "Нужен доступ к камере"
+    //        }
+    //
+    //        if (alertDescription != "") {
+    //            let alert = UIAlertController(title: "Вы можете открыть доступ в Настройках", message: alertDescription, preferredStyle: UIAlertController.Style.alert)
+    //            alert.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (alert) -> Void in
+    //                self.dismiss(animated: true, completion: nil)
+    //            }))
+    //
+    //            alert.addAction(UIAlertAction(title: "Настройки", style: .cancel, handler: { (alert) -> Void in
+    //                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { (void) -> Void in
+    //                    self.dismiss(animated: true, completion: nil)
+    //                })
+    //            }))
+    //
+    //            present(alert, animated: true, completion: nil)
+    //        }
+    //    }
+    //
     
-//    //MARK: - Check access
-//    fileprivate func checkCameraAccess() {
-//        var isCameraAuthStatusIsAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.authorized)
-//        var isMicAuthStatusIsAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == AVAuthorizationStatus.authorized)
-//
-//        if isCameraAuthStatusIsAuthorized && isMicAuthStatusIsAuthorized {
-//            initCamera()
-//        } else {
-//
-//            var camSelected = false
-//            var micSelected = false
-//
-//            AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
-//                camSelected = true
-//                if response {
-//                    isCameraAuthStatusIsAuthorized = true
-//                }
-//
-//                if micSelected {
-//                    DispatchQueue.main.async {
-//                        self.accessAlert(isCameraAuthStatusIsAuthorized, isMicAuthStatusIsAuthorized)
-//                    }
-//                }
-//            }
-//
-//            AVCaptureDevice.requestAccess(for: AVMediaType.audio) { response in
-//                micSelected = true
-//                if response {
-//                    isMicAuthStatusIsAuthorized = true
-//                }
-//
-//                if camSelected {
-//                    DispatchQueue.main.async {
-//                        self.accessAlert(isCameraAuthStatusIsAuthorized, isMicAuthStatusIsAuthorized)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func accessAlert(_ isCameraAuthStatusIsAuthorized: Bool, _ isMicAuthStatusIsAuthorized: Bool) {
-//        var alertDescription = ""
-//
-//        if isCameraAuthStatusIsAuthorized && isMicAuthStatusIsAuthorized {
-//            initCamera()
-//        } else if isCameraAuthStatusIsAuthorized == isMicAuthStatusIsAuthorized {
-//            alertDescription = "Нужен доступ к камере и микрофону"
-//        } else if isCameraAuthStatusIsAuthorized {
-//            alertDescription = "Нужен доступ к микрофону"
-//        } else if isMicAuthStatusIsAuthorized {
-//            alertDescription = "Нужен доступ к камере"
-//        }
-//
-//        if (alertDescription != "") {
-//            let alert = UIAlertController(title: "Вы можете открыть доступ в Настройках", message: alertDescription, preferredStyle: UIAlertController.Style.alert)
-//            alert.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (alert) -> Void in
-//                self.dismiss(animated: true, completion: nil)
-//            }))
-//
-//            alert.addAction(UIAlertAction(title: "Настройки", style: .cancel, handler: { (alert) -> Void in
-//                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { (void) -> Void in
-//                    self.dismiss(animated: true, completion: nil)
-//                })
-//            }))
-//
-//            present(alert, animated: true, completion: nil)
-//        }
-//    }
-//
-//    //MARK: - Camera initialization
-//    fileprivate func initCamera() {
-////        do {
-////            try frontCaptureDeviceInput = AVCaptureDeviceInput(device: cameraWithPosition(position : .front)!)
-////        } catch {
-////            print(error.localizedDescription)
-////        }
-////        do {
-////            try backCaptureDeviceInput = AVCaptureDeviceInput(device: cameraWithPosition(position : .back)!)
-////        } catch {
-////            print(error.localizedDescription)
-////        }
-//
-//        //remove loaded inputs to prevent app crush
-//        if let inputs = session!.inputs as? [AVCaptureDeviceInput] {
-//            for input in inputs {
-//                session!.removeInput(input)
-//            }
-//        }
-//
-//        session!.sessionPreset = AVCaptureSession.Preset.high
-////        self.session!.addInput(self.backCaptureDeviceInput)
-//        if let audioInput = AVCaptureDevice.default(for: AVMediaType.audio) {
-//            do {
-//
-//                try self.session!.addInput(AVCaptureDeviceInput(device: audioInput))
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//
-////        previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-////        self.cameraView.frame = CGRect(x: 0, y: 0, width: self.screenWidth, height: self.screenHeight)
-////        self.previewLayer?.frame = self.cameraView.frame
-////        self.cameraView.layer.addSublayer(self.previewLayer!)
-////        setDeviceOrientation()
-////        session!.addOutput(self.movieFileOutput)
-////        session!.addOutput(self.photoOutput)
-//    }
-//
-//    fileprivate func deviceOrientation() -> AVCaptureVideoOrientation {
-//        return .portrait
-//    }
-//
-//    //MARK: - Toggle flashlight
-//    func toggleTorch(on: Bool) {
-//        guard let device = AVCaptureDevice.default(for: AVMediaType.video)
-//            else {return}
-//
-//        if device.hasTorch {
-//            do {
-//                try device.lockForConfiguration()
-//
-//                if on == true {
-//                    device.torchMode = .on
-//                } else {
-//                    device.torchMode = .off
-//                }
-//
-//                device.unlockForConfiguration()
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        } else {
-//            print("Torch is not available")
-//        }
-//    }
-//
-    // MARK: - AVFondation Delegate & DataSource methods
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-//        videoClipsPath.append(outputFileURL)
-//        videoClipsDuration.append(output.recordedDuration.seconds)
-//
-//        if isStopButtonPressed || maxRecordDuration().seconds <= 1 {
-//            mergeVideoClips()
-//        }
-//        else {
-//            print("CameraVC: file location ", videoFileLocation())
-//            movieFileOutput.maxRecordedDuration = maxRecordDuration()
-//            movieFileOutput.startRecording(to: URL(fileURLWithPath: videoFileLocation()), recordingDelegate: self)
-//        }
-    }
-    
-    func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-        print("capture output: started recording to \(fileURL)")
-    }
-//
-//    //MARK: - Video clip merge and save
-//    fileprivate func mergeVideoClips() {
-//        let composition = AVMutableComposition()
-//        let videoTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
-//        let audioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-//        var time: Double = 0.0
-//
-////        stopCaptureTimer()
-//        isStopButtonPressed = true
-//
-//        for duration in self.videoClipsDuration {
-//            print("CameraVC: duration", duration)
-//        }
-//
-//        for video in self.videoClipsPath {
-//            let asset = AVAsset(url: video)
-//
-//            if let videoAssetTrack = asset.tracks(withMediaType: AVMediaType.video).first {
-//                let audioAssetTrack = asset.tracks(withMediaType: AVMediaType.audio).first!
-//                let atTime = CMTime(seconds: time, preferredTimescale:0)
-//
-//                do {
-//                    try videoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: asset.duration) , of: videoAssetTrack, at: atTime)
-//                    try audioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: asset.duration) , of: audioAssetTrack, at: atTime)
-//                } catch let error {
-//                    print(error.localizedDescription)
-//                }
-//
-//                time +=  asset.duration.seconds
-//            }
-//        }
-//
-//        videoTrack!.preferredTransform = (videoTrack?.preferredTransform.rotated(by: .pi / 2))!
-//
-//
-//
-//        let url = URL(fileURLWithPath: NSTemporaryDirectory().appending("video").appending(".mov"))
-//        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-//
-//        exporter?.outputURL = url
-//        exporter?.shouldOptimizeForNetworkUse = true
-//        exporter?.outputFileType = AVFileType.mov
-//        exporter?.exportAsynchronously(completionHandler: { () -> Void in
-//            DispatchQueue.main.async(execute: { () -> Void in
-//                if self.isClosed == false {
-//                    self.outputFileLocation = exporter?.outputURL
-////                    if let destinationVC = UIStoryboard(name: "PreviewVC", bundle: nil).instantiateViewController(withIdentifier: "PreviewVC") as? PreviewVC {
-////                        destinationVC.fileLocation = self.outputFileLocation
-////                        self.present(destinationVC, animated: false, completion: nil)
-////                    }
-//                }
-//            })
-//        })
-//    }
-//
-//
-//    //MARK: - Video configure
-//    fileprivate func maxRecordDuration() -> CMTime {
-//        var current = 0.0
-//        for duration in videoClipsDuration {
-//            current += duration
-//        }
-//        let seconds = max(videoMaxDuration - Int(current),0)
-//        let preferredTimeScale: Int32 = 1
-//        return CMTimeMake(value: Int64(seconds), timescale: preferredTimeScale)
-//    }
-//    fileprivate func videoFileLocation() -> String {
-//        return NSTemporaryDirectory().appending("mediafile").appending(String(videoClipsPath.count)).appending(".mov")
-//    }
-////    func startCaptureTimer() {
-////        if capturePrgsTimer == nil {
-////            capturePrgsTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(CameraVC.updateProgressView), userInfo: nil, repeats: true)
-////        }
-////    }
-////    func stopCaptureTimer() {
-////        if capturePrgsTimer != nil {
-////            capturePrgsTimer?.invalidate()
-////            capturePrgsTimer = nil
-////            progressView.progress = 0.0
-////        }
-////    }
-//
-//    //MARK: - Shoot action
-//    func shootButtonPressed() {
-//        isStopButtonPressed = !isStopButtonPressed
-//        if isStopButtonPressed {
-////            stopCaptureTimer()
-////            recBtnInteraction(isEnabled: false)
-//            movieFileOutput.stopRecording()
-//        }
-//        else {
-//            FileManager.default.clearTmpDirectory()
-//            videoClipsPath.removeAll()
-//            videoClipsDuration.removeAll()
-//            movieFileOutput.maxRecordedDuration = maxRecordDuration()
-//            movieFileOutput.startRecording(to: URL(fileURLWithPath: videoFileLocation()), recordingDelegate: self)
-////            startCaptureTimer()
-////            updateRecordButtonTitle()
-//        }
-//    }
-//
-//    //MARK: - Get image from buffer
-//    func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage? {
-//        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
-//            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-//            let context = CIContext()
-//
-//            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
-//
-//            if let image = context.createCGImage(ciImage, from: imageRect) {
-//                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
-//            }
-//
-//        }
-//
-//        return nil
-//    }
-//
     @IBAction func recordTapped(_ sender: UIButton) {
         if selectedMode {
-            
             takePhoto = true
-            
-//            let settings = AVCapturePhotoSettings()
-//            let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-//            let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-//                                 kCVPixelBufferWidthKey as String: 300,
-//                                 kCVPixelBufferHeightKey as String: 300]
-//            settings.previewPhotoFormat = previewFormat
-//            self.photoOutput.capturePhoto(with: settings, delegate: self)
-            //            sessionOutput.capturePhoto(with: sessionOutputSetting, delegate: self as! AVCapturePhotoCaptureDelegate)
         } else {
             if !videoState {
-//                recordTapped(sender: sender)
-                
                 startVideoRecording()
                 
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse, .allowUserInteraction], animations: {
@@ -844,9 +620,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
                     self.recordButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 })
             } else {
-//                stopRecording()
-                
-                stopVideoRecording()
+                self.stopVideoRecording()
                 
                 recordButton.layer.removeAllAnimations()
             }
@@ -856,16 +630,18 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func startVideoRecording() {
-        session!.addOutput(fileOutput)
+        guard let session = self.session else { return }
+        
+        session.addOutput(self.fileOutput)
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let outputPath = "\(documentsPath)/output.mp4"
         let outputFileUrl = NSURL(fileURLWithPath: outputPath)
         
-        fileOutput.startRecording(to: outputFileUrl as URL, recordingDelegate: self)
+        self.fileOutput.startRecording(to: outputFileUrl as URL, recordingDelegate: self)
     }
     
     func stopVideoRecording() {
-        fileOutput.stopRecording()
+        self.fileOutput.stopRecording()
     }
     
     func recordBackgroundGradient() {
@@ -875,73 +651,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.recordGradient.animationDuration = 3.0
         self.recordGradient.startAnimating()
     }
-    
-//    func recordTapped(sender: UIButton?) {
-//        if screenRecorder?.isRecording == true {
-//            // Reset record button accessibility label to original value
-//            configureAccessibility()
-//
-//            stopRecording()
-//        } else {
-//            sender?.accessibilityLabel = NSLocalizedString("content_description_record_stop", comment: "Stop Recording")
-//            startRecording()
-//        }
-//    }
-//
-//    func startRecording() {
-//        screenRecorder?.startRecording(handler: { (error) in
-//            guard error == nil else {
-//                return
-//            }
-//            self.recordingWillStart()
-//
-//        })
-//    }
-//
-//    func stopRecording() {
-//        screenRecorder?.stopRecording(handler: { (previewViewController, error) in
-//            DispatchQueue.main.async {
-//                guard error == nil, let preview = previewViewController else {
-//                    return
-//                }
-//                self.recordingHasEnded()
-//                previewViewController?.previewControllerDelegate = self
-//                previewViewController?.modalPresentationStyle = .overFullScreen
-//
-//                self.present(preview, animated: true, completion:nil)
-////                self.uiWindow?.isHidden = true
-//            }
-//        })
-//    }
-//
-//
-//    func recordingWillStart() {
-//        if clipTime != 0.0 {
-//            DispatchQueue.main.async {
-//                self.recordingTimer = Timer.scheduledTimer(withTimeInterval: self.clipTime, repeats: false, block: { (timer) in
-//                    DispatchQueue.main.async {
-//                        print(self.clipTime)
-//                        self.stopRecording()
-//                        self.recordButton.layer.removeAllAnimations()
-//                        self.recordButton.isEnabled = true
-//                    }
-//                })
-//
-//                self.recordButton.isEnabled = false
-//            }
-//        }
-//    }
-//
-//    func recordingHasUpdated() {
-//
-//    }
-//
-//    func recordingHasEnded() {
-//        if let timer = recordingTimer {
-//            timer.invalidate()
-//        }
-//        recordingTimer = nil
-//    }
     
     // Face Position Datection
     func clear() {
@@ -1099,280 +808,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         ARMotionMove()
     }
     
-    // MARK: AVCapture Setup
-    
-    /// - Tag: CreateCaptureSession
-    fileprivate func setupAVCaptureSession() -> AVCaptureSession? {
-        let captureSession = AVCaptureSession()
-        do {
-            let inputDevice = try self.configureFrontCamera(for: captureSession)
-            self.configureVideoDataOutput(for: inputDevice.device, resolution: inputDevice.resolution, captureSession: captureSession)
-            self.designatePreviewLayer(for: captureSession)
-            return captureSession
-        } catch let executionError as NSError {
-            self.presentError(executionError)
-        } catch {
-            self.presentErrorAlert(message: "An unexpected failure has occured")
-        }
-        
-        self.teardownAVCapture()
-        
-        return nil
-    }
-    
-    /// - Tag: ConfigureDeviceResolution
-    fileprivate func highestResolution420Format(for device: AVCaptureDevice) -> (format: AVCaptureDevice.Format, resolution: CGSize)? {
-        var highestResolutionFormat: AVCaptureDevice.Format? = nil
-        var highestResolutionDimensions = CMVideoDimensions(width: 0, height: 0)
-        
-        for format in device.formats {
-            let deviceFormat = format as AVCaptureDevice.Format
-            
-            let deviceFormatDescription = deviceFormat.formatDescription
-            if CMFormatDescriptionGetMediaSubType(deviceFormatDescription) == kCVPixelFormatType_420YpCbCr8BiPlanarFullRange {
-                let candidateDimensions = CMVideoFormatDescriptionGetDimensions(deviceFormatDescription)
-                if (highestResolutionFormat == nil) || (candidateDimensions.width > highestResolutionDimensions.width) {
-                    highestResolutionFormat = deviceFormat
-                    highestResolutionDimensions = candidateDimensions
-                }
-            }
-        }
-        
-        if highestResolutionFormat != nil {
-            let resolution = CGSize(width: CGFloat(highestResolutionDimensions.width), height: CGFloat(highestResolutionDimensions.height))
-            return (highestResolutionFormat!, resolution)
-        }
-        
-        return nil
-    }
-    
-    fileprivate func configureFrontCamera(for captureSession: AVCaptureSession) throws -> (device: AVCaptureDevice, resolution: CGSize) {
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .front)
-        
-        if let device = deviceDiscoverySession.devices.first {
-            
-//            session?.sessionPreset = AVCaptureSession.Preset.hd1280x720
-            
-            if let deviceInput = try? AVCaptureDeviceInput(device: device) {
-                if captureSession.canAddInput(deviceInput) {
-                    captureSession.addInput(deviceInput)
-                }
-                
-                if let highestResolution = self.highestResolution420Format(for: device) {
-                    try device.lockForConfiguration()
-                    device.activeFormat = highestResolution.format
-                    device.unlockForConfiguration()
-                    
-                    return (device, highestResolution.resolution)
-                }
-            }
-        }
-        
-        throw NSError(domain: "ViewController", code: 1, userInfo: nil)
-    }
-    
-    /// - Tag: CreateSerialDispatchQueue
-    fileprivate func configureVideoDataOutput(for inputDevice: AVCaptureDevice, resolution: CGSize, captureSession: AVCaptureSession) {
-        
-        let videoDataOutput = AVCaptureVideoDataOutput()
-        videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value:kCVPixelFormatType_32BGRA)] as [String : Any]
-        
-        videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        
-        // Create a serial dispatch queue used for the sample buffer delegate as well as when a still image is captured.
-        // A serial dispatch queue must be used to guarantee that video frames will be delivered in order.
-        let videoDataOutputQueue = DispatchQueue(label: "com.example.apple-samplecode.VisionFaceTrack")
-//        videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer delegate", attributes: []))
-        
-        if captureSession.canAddOutput(videoDataOutput) {
-            captureSession.addOutput(videoDataOutput)
-        }
-        
-        captureSession.commitConfiguration()
-        
-//        captureSession.addOutput(self.movieFileOutput)
-//        captureSession.addOutput(self.photoOutput)
-        
-        videoDataOutput.connection(with: .video)?.isEnabled = true
-        
-        if let captureConnection = videoDataOutput.connection(with: AVMediaType.video) {
-            if captureConnection.isCameraIntrinsicMatrixDeliverySupported {
-                captureConnection.isCameraIntrinsicMatrixDeliveryEnabled = true
-            }
-        }
-        
-        self.videoDataOutput = videoDataOutput
-        self.videoDataOutputQueue = videoDataOutputQueue
-        
-        self.captureDevice = inputDevice
-        self.captureDeviceResolution = resolution
-    }
-    
-    func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage? {
-        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-            let context = CIContext()
-            
-            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
-            
-            if let image = context.createCGImage(ciImage, from: imageRect) {
-                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .leftMirrored)
-            }
-            
-        }
-        
-        return nil
-    }
-    
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // 1
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            return
-        }
-        
-        // 2
-        let detectFaceRequest = VNDetectFaceLandmarksRequest(completionHandler: detectedFace)
-        
-        // 3
-        do {
-            try sequenceRequestHandler.perform(
-                [detectFaceRequest],
-                on: imageBuffer,
-                orientation: .downMirrored) // 정규화되는 방향
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        if takePhoto {
-            takePhoto = !takePhoto
-            
-            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-                
-                let snapShot = ARView.snapshot()
-                let ARMotionImage = self.composite(image: image, overlay: snapShot, scaleOverlay: true)
-                
-//                let filterShot = UIImage.init(view: self.filterBack)
-//                let filteredImage = self.composite(image: ARMotionImage!, overlay: filterShot, scaleOverlay: true)
-                
-                UIImageWriteToSavedPhotosAlbum(ARMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-            }
-        
-        }
-        
-//        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-//        let cameraImage = CIImage(cvImageBuffer: pixelBuffer!)
-//
-//        selectedFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
-//
-//        let cgImage = self.filterContext.createCGImage(selectedFilter!.outputImage!, from: cameraImage.extent)!
-//
-//        DispatchQueue.main.async {
-//            let filteredImage = UIImage(cgImage: cgImage)
-//            self.previewView.image = filteredImage
-//        }
-        
-//        let cameraImage = CIImage(cvImageBuffer: imageBuffer)
-//        selectedFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
-//        let cgImage = filterContext.createCGImage(selectedFilter!.outputImage!, from: cameraImage.extent)!
-//        let filteredImage = UIImage(ciImage: selectedFilter!.value(forKey: kCIOutputImageKey) as! CIImage)
-        
-//        DispatchQueue.main.async {
-//            let filteredImage = UIImage(cgImage: filteredImage)
-//            self.previewView.image = filteredImage
-//        }
-    }
-    
-    func composite(image:UIImage, overlay:(UIImage), scaleOverlay: Bool = false) -> UIImage? {
-        UIGraphicsBeginImageContext(image.size)
-        var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        image.draw(in: rect)
-        if scaleOverlay == false {
-            rect = CGRect(x: 0, y: 0, width: overlay.size.width, height: overlay.size.height)
-        }
-        overlay.draw(in: rect)
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
-    
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        
-        if let error = error {
-            print("Error Saving ARMotion Scene \(error)")
-        } else {
-            print("ARMotion Scene Successfully Saved")
-        }
-    }
-    
-    /// - Tag: DesignatePreviewLayer
-    fileprivate func designatePreviewLayer(for captureSession: AVCaptureSession) {
-        let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.previewLayer = videoPreviewLayer
-        
-        videoPreviewLayer.name = "CameraPreview"
-        videoPreviewLayer.backgroundColor = UIColor.black.cgColor
-        videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
-        if let previewRootLayer = self.previewView?.layer {
-            self.rootLayer = previewRootLayer
-            
-            previewRootLayer.masksToBounds = true
-            videoPreviewLayer.frame = previewRootLayer.bounds
-            previewRootLayer.addSublayer(videoPreviewLayer)
-        }
-    }
-    
-    // Removes infrastructure for AVCapture as part of cleanup.
-    fileprivate func teardownAVCapture() {
-        self.videoDataOutput = nil
-        self.videoDataOutputQueue = nil
-        
-        if let previewLayer = self.previewLayer {
-            previewLayer.removeFromSuperlayer()
-            self.previewLayer = nil
-        }
-    }
-    
-    // MARK: Helper Methods for Error Presentation
-    
-    fileprivate func presentErrorAlert(withTitle title: String = "Unexpected Failure", message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        self.present(alertController, animated: true)
-    }
-    
-    fileprivate func presentError(_ error: NSError) {
-        self.presentErrorAlert(withTitle: "Failed with error \(error.code)", message: error.localizedDescription)
-    }
-    
-    // MARK: Helper Methods for Handling Device Orientation & EXIF
-    
-    fileprivate func radiansForDegrees(_ degrees: CGFloat) -> CGFloat {
-        return CGFloat(Double(degrees) * Double.pi / 180.0)
-    }
-    
-    func exifOrientationForDeviceOrientation(_ deviceOrientation: UIDeviceOrientation) -> CGImagePropertyOrientation {
-        
-        switch deviceOrientation {
-        case .portraitUpsideDown:
-            return .rightMirrored
-            
-        case .landscapeLeft:
-            return .downMirrored
-            
-        case .landscapeRight:
-            return .upMirrored
-            
-        default:
-            return .leftMirrored
-        }
-    }
-    
-    func exifOrientationForCurrentDeviceOrientation() -> CGImagePropertyOrientation {
-        return exifOrientationForDeviceOrientation(UIDevice.current.orientation)
-    }
-    
     func ARMotionDelete() {
-//        selectScene.rootNode.enumerateChildNodes { (node, stop) in
-//            node.removeFromParentNode() }
+        //        selectScene.rootNode.enumerateChildNodes { (node, stop) in
+        //            node.removeFromParentNode() }
         ARscene.rootNode.enumerateChildNodes { (node, stop) in
             node.removeFromParentNode()
             node.removeAllParticleSystems()
@@ -1422,11 +860,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         if isBlink {
             if detectMouthBlink() {
-//                ARMotionSelected_Mushroom()
+                //                ARMotionSelected_Mushroom()
                 
-//                UIView.animate(withDuration: 0, delay: 3.0, options: [.curveLinear], animations: {
-//                    self.checkedBlink = true
-//                })
+                //                UIView.animate(withDuration: 0, delay: 3.0, options: [.curveLinear], animations: {
+                //                    self.checkedBlink = true
+                //                })
             }
         }
     }
@@ -1459,7 +897,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         var result: Float
         
         result = source * (.pi / 100)
-
+        
         return result
     }
     
@@ -1473,9 +911,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func normalizationRoll(source: Float) -> Float {
         var result: Float
-
+        
         result = source * (.pi / 400)
-
+        
         return result
     }
     
@@ -1521,10 +959,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         return Triangle.init(a: first, b: second, c: third).circumcenter
     }
     
-//    func detectEyeBlink() -> Bool {
-//        let blink = leftEye[6].y - leftEye[2].y
-//        return
-//    }
+    //    func detectEyeBlink() -> Bool {
+    //        let blink = leftEye[6].y - leftEye[2].y
+    //        return
+    //    }
     
     func detectMouthBlink() -> Bool {
         let blink = innerLips[4].y - innerLips[1].y
@@ -1542,7 +980,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         if isHead {
             guard let headScene = SCNScene(named: "FaceAR.scnassets/\(name)_head.scn"),
-                  let noseScene = SCNScene(named: "FaceAR.scnassets/\(name)_nose.scn") else { return }
+                let noseScene = SCNScene(named: "FaceAR.scnassets/\(name)_nose.scn") else { return }
             
             self.ARNode_x = position.x
             self.ARNode_y = position.y
@@ -1926,18 +1364,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func MakingARbuttonTapped(_ sender: UIButton) {
-//        let storyboard = UIStoryboard(name: "UI", bundle: nil)
-//        let nextView = storyboard.instantiateViewController(withIdentifier: "MakingARView")
-//        nextView.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-//        nextView.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        
         makingARButtonState = true
         ARMotionButtonState = false
         filterButtonState = false
         
         self.menuButtonStateCheck()
     }
-
+    
     @IBAction func ARMotionbuttonTapped(_ sender: UIButton) {
         let indexPaths = [IndexPath]()
         ARMotionCollectionView.reloadItems(at: indexPaths)
@@ -1999,7 +1432,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             button.layer.shadowOpacity = 0.0
         }
     }
-
+    
     func iconDropShadow(button: UIButton, state: Bool) {
         if state {
             button.layer.shadowColor = UIColor.black.cgColor
@@ -2057,36 +1490,36 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     func menuButtonStateCheck() {
         if (makingARButtonState) {
             UIView.animate(withDuration: 0.1) {
-//                self.menuMakingARLabel.alpha = 1.0
+                //                self.menuMakingARLabel.alpha = 1.0
             }
             self.menuSelectedOn(button: self.menuMakingARButton, changeImage: UIImage(named: "ic_makingAR_on")!)
         } else {
             UIView.animate(withDuration: 0.1) {
-//                self.menuMakingARLabel.alpha = 0.0
+                //                self.menuMakingARLabel.alpha = 0.0
             }
             self.menuSelectedOff(button: self.menuMakingARButton, changeImage: UIImage(named: "ic_makingAR_off")!)
         }
         
         if (ARMotionButtonState) {
             UIView.animate(withDuration: 0.1) {
-//                self.menuARMotionLabel.alpha = 1.0
+                //                self.menuARMotionLabel.alpha = 1.0
             }
             self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion_on")!)
         } else {
             UIView.animate(withDuration: 0.1) {
-//                self.menuARMotionLabel.alpha = 0.0
+                //                self.menuARMotionLabel.alpha = 0.0
             }
             self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion_off")!)
         }
         
         if (filterButtonState) {
             UIView.animate(withDuration: 0.1) {
-//                self.menuFilterLabel.alpha = 1.0
+                //                self.menuFilterLabel.alpha = 1.0
             }
             self.menuSelectedOn(button: self.menuFilterButton, changeImage: UIImage(named: "ic_filter_on")!)
         } else {
             UIView.animate(withDuration: 0.1) {
-//                self.menuFilterLabel.alpha = 0.0
+                //                self.menuFilterLabel.alpha = 0.0
             }
             self.menuSelectedOff(button: self.menuFilterButton, changeImage: UIImage(named: "ic_filter_off")!)
         }
@@ -2109,9 +1542,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         createARMotionArray()
         
         UIView.animate(withDuration: 0.2) {
-//            self.blurView.alpha = 0.8
-//            self.buttonHide()
-//            self.ARMotionView.center += CGPoint(x: 0, y: 230)
+            //            self.blurView.alpha = 0.8
+            //            self.buttonHide()
+            //            self.ARMotionView.center += CGPoint(x: 0, y: 230)
             
             self.ARMotionDelete()
         }
@@ -2184,8 +1617,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         if collectionView == self.ARMotionCollectionView {
             let ARMotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as! ARMotionCollectionViewCell
             
-//            ARMotionCell.stateChangeButton.isHidden = true
-//            ARMotionCell.stateChangeButton.alpha = 0.0
+            //            ARMotionCell.stateChangeButton.isHidden = true
+            //            ARMotionCell.stateChangeButton.alpha = 0.0
             
             ARMotionCell.layer.shadowOpacity = 0.6
             ARMotionCell.layer.shadowRadius = 1
@@ -2359,12 +1792,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             
             if (AllARMotionButton.isSelected || FaceARMotionButton.isSelected) {
                 if (indexPath.row > 9) {
-//                    ARMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
-//                    ARMotionCell.stateChangeButton.isHidden = false
+                    //                    ARMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
+                    //                    ARMotionCell.stateChangeButton.isHidden = false
                     
-//                    UIView.animate(withDuration: Double(0.5), animations: {
-//                        ARMotionCell.stateChangeButton.alpha = 1.0
-//                    })
+                    //                    UIView.animate(withDuration: Double(0.5), animations: {
+                    //                        ARMotionCell.stateChangeButton.alpha = 1.0
+                    //                    })
                 }
             }
             print(indexPath)
@@ -2413,68 +1846,3 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
 }
-
-extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        
-//        if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-//            let image = UIImage(data: dataImage)!
-//            CustomPhotoAlbum.sharedInstance.save(image: image)
-//            self.takenImage.image = image
-            
-//            UIImageWriteToSavedPhotosAlbum(snapShot, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-//        }
-    }
-    
-//    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-//
-//        if let error = error {
-//            print("Error Saving ARMotion Scene \(error)")
-//        } else {
-//            print("ARMotion Scene Successfully Saved")
-//        }
-//    }
-}
-
-
-//// MARK: - ReplayKit Preview Delegate
-//extension ARMotionViewController : RPPreviewViewControllerDelegate {
-//
-//    func previewController(_ previewController: RPPreviewViewController, didFinishWithActivityTypes activityTypes: Set<String>) {
-//        if activityTypes.contains(UIActivity.ActivityType.postToVimeo.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.postToFlickr.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.postToWeibo.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.postToTwitter.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.postToFacebook.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.mail.rawValue)
-//            || activityTypes.contains(UIActivity.ActivityType.message.rawValue) {
-//
-//        }
-//
-//        //        uiViewController?.progressCircle.reset()
-//        //        uiViewController?.recordBackgroundView.alpha = 0
-//
-//        previewController.dismiss(animated: true) {
-//
-////            self.uiWindow?.isHidden = false
-//
-//        }
-//    }
-//}
-//
-//// MARK: - RPScreenRecorderDelegate
-//extension ARMotionViewController: RPScreenRecorderDelegate {
-//    func screenRecorderDidChangeAvailability(_ screenRecorder: RPScreenRecorder) {
-//        if screenRecorder.isAvailable == false {
-//            let alert = UIAlertController.init(title: "Screen Recording Failed", message: "Screen Recorder is no longer available.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-//                self.dismiss(animated: true, completion: nil)
-//            }))
-//            self.present(self, animated: true, completion: nil)
-//        }
-//    }
-//}

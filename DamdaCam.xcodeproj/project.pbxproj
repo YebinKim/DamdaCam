@@ -36,7 +36,6 @@
 		3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62923DAF2B8002AAAB4 /* Shaders.metal */; };
 		3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */; };
 		3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */; };
-		3E610E9F23DEA33600551C96 /* ARMotionViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E610E9E23DEA33600551C96 /* ARMotionViewController+extension.swift */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
 		3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */; };
@@ -90,7 +89,6 @@
 		3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGeometry.swift; sourceTree = "<group>"; };
 		3E38F62B23DAF2B8002AAAB4 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3E610E9E23DEA33600551C96 /* ARMotionViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARMotionViewController+extension.swift"; sourceTree = "<group>"; };
 		3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DamdaCam-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -159,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */,
-				3E610E9E23DEA33600551C96 /* ARMotionViewController+extension.swift */,
 				3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */,
 			);
 			path = "AR Motion";
@@ -543,7 +540,6 @@
 				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
 				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
-				3E610E9F23DEA33600551C96 /* ARMotionViewController+extension.swift in Sources */,
 				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
 				3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */,
 				3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */,

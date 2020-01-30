@@ -198,9 +198,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     @IBOutlet var figureCircleButton: UIButton!
     @IBOutlet var figureTriangleButton: UIButton!
     @IBOutlet var figureHeartButton: UIButton!
-    var figureWidth: CGFloat = 2.0
-    var figureDepth: CGFloat = 2.0
-    var figureShape: String!
+    var figure = Figure()
     
     // Brush Set
     @IBOutlet var brushView: UIView!
@@ -492,7 +490,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         figureWidthSlider.isEnabled = false
         figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         figureDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-        figureShape = "Rectangle"
         
         // Brush Set
         addBackView(view: brushView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
@@ -1500,7 +1497,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         drawingPenButton.layer.borderWidth = 0
         
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
         
         figurePreviewColor.backgroundColor = colorPicker.selectedColor
         figureWidthLabel.text = String(Int(figureWidthSlider.value))
@@ -1776,113 +1773,53 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             figureWidthSlider.isEnabled = true
         }
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
     }
     
     @IBAction func figureWidthChanged(_ sender: UISlider) {
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
         figureWidthLabel.text = String(Int(sender.value))
         
-        figureWidth = CGFloat(sender.value)
+        figure.width = CGFloat(sender.value)
     }
     
     @IBAction func figureDepthChanged(_ sender: UISlider) {
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
         figureDepthLabel.text = String(Int(sender.value))
         
-        figureDepth = CGFloat(sender.value)
+        figure.depth = CGFloat(sender.value)
     }
     
     @IBAction func figureShapedSelected(_ sender: UIButton) {
         if sender == figureRectangleButton {
-            figureShape = "Rectangle"
+            figure.shape = .rectangle
         }
         
         if sender == figureRoundedButton {
-            figureShape = "Rounded"
+            figure.shape = .rounded
         }
         
         if sender == figureCircleButton {
-            figureShape = "Circle"
+            figure.shape = .circle
         }
         
         if sender == figureTriangleButton {
-            figureShape = "Triangle"
+            figure.shape = .triangle
         }
         
         if sender == figureHeartButton {
-            figureShape = "Heart"
+            figure.shape = .heart
         }
         
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
     }
     
-    func drawShape(shape: String) {
+    func drawShape(_ figure: Figure) {
         let layer = CAShapeLayer()
-        var path = UIBezierPath()
-        let originalRect = CGRect(x: 90.5, y: 23, width: 71.0, height: 71.0)
-        
-        if shape == "Rectangle" {
-            path = UIBezierPath(rect: originalRect)
-        }
-        
-        if shape == "Rounded" {
-            path = UIBezierPath(roundedRect: originalRect, cornerRadius: 10.0)
-        }
-        
-        if shape == "Circle" {
-            path = UIBezierPath(arcCenter: CGPoint(x: originalRect.midX, y: originalRect.midY), radius: originalRect.width / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2.0), clockwise: true)
-        }
-        
-        if shape == "Triangle" {
-            path = UIBezierPath()
-            path.move(to: CGPoint(x: originalRect.minX, y: originalRect.maxY))
-            path.addLine(to: CGPoint(x: originalRect.maxX, y: originalRect.maxY))
-            path.addLine(to: CGPoint(x: originalRect.midX, y: originalRect.minY))
-            path.close()
-        }
-        
-        if shape == "Heart" {
-            path = UIBezierPath()
-            let scale: Double = 1.0
-            
-            let scaledWidth = (originalRect.size.width * CGFloat(scale))
-            let scaledXValue = originalRect.minX
-            let scaledHeight = (originalRect.size.height * CGFloat(scale))
-            let scaledYValue = originalRect.minY
-            
-            let scaledRect = CGRect(x: scaledXValue, y: scaledYValue, width: scaledWidth, height: scaledHeight)
-            
-            path.move(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height))
-            
-            
-            path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                          controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
-                          controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
-            
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                        radius: (scaledRect.size.width/4),
-                        startAngle: CGFloat(Double.pi),
-                        endAngle: 0,
-                        clockwise: true)
-            
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                        radius: (scaledRect.size.width/4),
-                        startAngle: CGFloat(Double.pi),
-                        endAngle: 0,
-                        clockwise: true)
-            
-            path.addCurve(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height),
-                          controlPoint1: CGPoint(x: scaledRect.origin.x + scaledRect.size.width, y: scaledRect.origin.y + (scaledRect.size.height/2)),
-                          controlPoint2: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) )
-            
-            path.close()
-        }
-        
-        layer.path = path.cgPath
+        layer.path = figure.shape.path.cgPath
         
         if figureFillButton.isSelected {
             layer.fillColor = colorPicker.selectedColor.cgColor
@@ -1891,7 +1828,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         } else if figureStrokeButton.isSelected {
             layer.fillColor = UIColor.clear.cgColor
             layer.strokeColor = colorPicker.selectedColor.cgColor
-            layer.lineWidth = figureWidth
+            layer.lineWidth = figure.width
         }
         
         figurePreview.layer.addSublayer(layer)
@@ -1924,7 +1861,8 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             }
         }
         
-        create3DFigure(shape: figureShape, fillState: figureFillButton.isSelected, width: figureWidth, depth: figureDepth, color: pickedColor)
+        figure.color = pickedColor
+        create3DFigure(figure)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -2270,7 +2208,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         figurePreviewColor.backgroundColor = colorPicker.selectedColor
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
-        drawShape(shape: figureShape)
+        drawShape(figure)
         
         textPreviewColor.backgroundColor = colorPicker.selectedColor
         textField.textColor = colorPicker.selectedColor
@@ -2549,7 +2487,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     // Figure Set
-    func create3DFigure(shape: String, fillState: Bool, width: CGFloat, depth: CGFloat, color: UIColor) {
+    func create3DFigure(_ figure: Figure) {
         guard let pointOfView = sceneView.pointOfView else {return}
         let transform = pointOfView.transform
         let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)
@@ -2559,30 +2497,24 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let node = SCNNode()
         let layer = CALayer()
         
-        let centerPoint = CGPoint(x: CGFloat(frontOfCamera.x), y: CGFloat(frontOfCamera.y))
-        let path = draw3DShape(shape: shape, centerPoint: centerPoint)
-        let nodeShape = SCNShape(path: path, extrusionDepth: depth)
-        
-        if shape == "Rectangle" {
-            node.geometry = SCNBox(width: 5.0, height: 5.0, length: depth, chamferRadius: 0.0)
+        switch figure.shape {
+        case .rectangle:
+            node.geometry = SCNBox(width: 5.0, height: 5.0, length: figure.depth, chamferRadius: 0.0)
             layer.frame = CGRect(x: 0, y: 0, width: 5.0, height: 5.0)
-        }
-        
-        if shape == "Rounded" {
-            node.geometry = SCNBox(width: 5.0, height: 5.0, length: depth, chamferRadius: 2.0)
+        case .rounded:
+            node.geometry = SCNBox(width: 5.0, height: 5.0, length: figure.depth, chamferRadius: 2.0)
             layer.frame = CGRect(x: 0, y: 0, width: 5.0, height: 5.0)
             layer.cornerRadius = 2.0
-        }
-        
-        if shape == "Circle" {
-            node.geometry = SCNSphere(radius: width)
-        }
-        
-        if shape == "Triangle" || shape == "Heart" {
+        case .circle:
+            node.geometry = SCNSphere(radius: figure.width)
+        case .triangle, .heart:
+            let centerPoint = CGPoint(x: CGFloat(frontOfCamera.x), y: CGFloat(frontOfCamera.y))
+            let path = draw3DShape(figure, centerPoint: centerPoint)
+            let nodeShape = SCNShape(path: path, extrusionDepth: figure.depth)
             node.geometry = nodeShape
         }
         
-        if fillState {
+        if figure.fillState {
             //            layer.backgroundColor = color.cgColor
             
             let material = SCNMaterial()
@@ -2617,19 +2549,20 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         sceneView.scene.rootNode.addChildNode(node)
     }
     
-    func draw3DShape(shape: String, centerPoint: CGPoint) -> UIBezierPath {
+    func draw3DShape(_ figure: Figure, centerPoint: CGPoint) -> UIBezierPath {
         var path = UIBezierPath()
         let originalRect = CGRect(center: centerPoint, size: CGSize(width: 5.0, height: 5.0))
         
-        if shape == "Triangle" {
+        switch figure.shape {
+        case .triangle:
             path = UIBezierPath()
             path.move(to: CGPoint(x: originalRect.minX, y: originalRect.minY))
             path.addLine(to: CGPoint(x: originalRect.maxX, y: originalRect.minY))
             path.addLine(to: CGPoint(x: originalRect.midX, y: originalRect.maxX))
             path.close()
-        }
-        
-        if shape == "Heart" {
+            break
+            
+        case .heart:
             path = UIBezierPath()
             let scale: Double = 1.0
             
@@ -2665,6 +2598,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             
             path.close()
             path.apply(CGAffineTransform(rotationAngle: .pi))
+            break
+            
+        default: break
         }
         
         return path

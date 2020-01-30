@@ -37,6 +37,7 @@
 		3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */; };
 		3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
+		3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BB9B23E30FC100ABC30E /* Figure.swift */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
 		3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */; };
 		3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */; };
@@ -94,6 +95,7 @@
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3ED4BDD8227ECB2B0031E99A /* MakingARCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MakingARCoreData.xcdatamodel; sourceTree = "<group>"; };
+		3ED5BB9B23E30FC100ABC30E /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Figure.swift; path = Model/Figure.swift; sourceTree = "<group>"; };
 		3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/Cells/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/Cells/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/Cells/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		3EF105FA23B71FF900CCB7E1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3ED5BB9B23E30FC100ABC30E /* Figure.swift */,
 				3EF105FD23B7200100CCB7E1 /* Stroke.swift */,
 				3EF105FB23B7200000CCB7E1 /* NodeRender.metal */,
 				3EF105FC23B7200000CCB7E1 /* NodeTechnique.plist */,
@@ -530,6 +533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */,
+				3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */,
 				3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */,
 				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
 				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,

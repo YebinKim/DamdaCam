@@ -355,6 +355,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         // Set accessibility
         self.configureAccessibility()
         
+        // Set notification observers
+        self.addObservers()
+        
         // Register gesture recognizer
         self.registerUIGestureRecognizers()
         self.registerNodeGestureRecognizers(view: editView)
@@ -449,17 +452,17 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         super.viewWillDisappear(animated)
         
         // Pause the view's session
-        sceneView.session.pause()
+        self.sceneView.session.pause()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
-        resetTouches()
+        self.resetTouches()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        touchPoint = .zero
+        self.touchPoint = .zero
     }
     
     private func registerUIGestureRecognizers() {
@@ -490,6 +493,17 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         menuView.addGestureRecognizer(tapMenuView)
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
+            self.touchPoint = .zero
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     private func initializeDrawingView() {
         // Set the view's delegate
         self.sceneView.delegate = self
@@ -509,10 +523,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         ambientLight.position = SCNVector3(x: 0,y: 5,z: 0)
         self.sceneView.scene.rootNode.addChildNode(ambientLight)
         self.sceneView.automaticallyUpdatesLighting = true   // lighting 설정
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
-            self.touchPoint = .zero
-        }
         
         // Neon Set
         if let path = Bundle.main.path(forResource: "NodeTechnique", ofType: "plist") {
@@ -647,9 +657,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         self.alignSet(tapped: textAlignCenterButton)
         
         self.textDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         addBackView(view: self.textView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
     }
@@ -837,17 +844,8 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         })
     }
     
-    //    override func viewDidLayoutSubviews() {
-    //        orientation = AVCaptureVideoOrientation(rawValue: UIApplication.shared.statusBarOrientation.rawValue)!
-    //    }
-    
     func configureAccessibility() {
         clearAllButton.accessibilityLabel = NSLocalizedString("menu_clear", comment: "Clear Drawing")
-        //        undoButton.accessibilityLabel = NSLocalizedString("content_description_undo", comment: "Undo")
-        //        chooseSizeButton.accessibilityLabel = NSLocalizedString("content_description_select_brush", comment: "Choose Brush Size")
-        //        largeBrushButton.accessibilityLabel = NSLocalizedString("content_description_large_brush", comment: "Large Brush")
-        //        mediumBrushButton.accessibilityLabel = NSLocalizedString("content_description_medium_brush", comment: "Medium Brush")
-        //        smallBrushButton.accessibilityLabel = NSLocalizedString("content_description_small_brush", comment: "Small Brush")
         
         let key = NSAttributedString.Key.accessibilitySpeechIPANotation
         
@@ -857,8 +855,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         recordButton.accessibilityAttributedLabel = attributedString
         recordButton.accessibilityHint = NSLocalizedString("content_description_record_accessible", comment: "Tap to record a video for ten seconds.")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
         
         voiceOverStatusChanged()
     }
@@ -1132,60 +1128,11 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         clipTime = (Double(plusClipPicker.selectedRow(inComponent: 0)) * 60.0) + Double(plusClipPicker.selectedRow(inComponent: 1))
     }
     
-    //    @IBAction func smallSizeTapped(_ sender: UIButton) {
-    //        selectSize(.small)
-    //    }
-    //
-    //    @IBAction func mediumSizeTapped(_ sender: UIButton) {
-    //        selectSize(.medium)
-    //    }
-    //
-    //    @IBAction func largeSizeTapped(_ sender: UIButton) {
-    //        selectSize(.large)
-    //    }
-    
-    //    func selectSize(_ size: Radius) {
-    //        UIView.animate(withDuration: 0.25, animations: {
-    //            self.sizeButtonStackView.alpha = (UIAccessibility.isVoiceOverRunning) ? 1 : 0
-    //            if (self.sizeButtonStackView.alpha == 0) {
-    //                self.sizeStackViewBottomConstraint.constant = 10
-    //            }
-    //            self.view.layoutIfNeeded()
-    //        }) { (success) in
-    //            self.sizeStackViewBottomConstraint.constant = 18
-    //            switch size {
-    //            case .small:
-    //                self.chooseSizeButton.setImage(UIImage(named:"brushSmall"), for: .normal)
-    //
-    //            case .medium:
-    //                self.chooseSizeButton.setImage(UIImage(named:"brushMedium"), for: .normal)
-    //
-    //            case .large:
-    //                self.chooseSizeButton.setImage(UIImage(named:"brushLarge"), for: .normal)
-    //
-    //            }
-    //            self.strokeSizeChanged(size)
-    //        }
-    //    }
-    
     func drawingUIHidden(_ isHidden: Bool) {
-        //        var forceHidden: Bool = false
-        //#if JOIN_GLOBAL_ROOM
-        //forceHidden = true
-        //#endif
-        
-        // hide record from stage version only
-        //        recordButton.isHidden = (forceHidden) ? true : isHidden
-        //        touchView.isHidden = isHidden
-        //        chooseSizeButton.isHidden = isHidden
-        //        sizeButtonStackView.isHidden = isHidden
-        
-        // trash and undo are dependent on strokes for the visibility
         clearAllButton.isHidden = (isHidden == true) ? true : shouldHideTrashButton()
         //            undoButton.isHidden = (isHidden == true) ? true : delegate.shouldHideUndoButton()
     }
@@ -1233,8 +1180,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             self.trackingStartView.isHidden = false
         }
         
-        ///        trackingPromptContainer.alpha = 0
-        ///        trackingPromptContainer.isHidden = false
         trackingPromptLabel.accessibilityLabel = trackingPromptLabel.text
         
         hideDrawingPrompt()
@@ -1286,21 +1231,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
                 })
                 
                 self.recordButton.isEnabled = false
-                
-                //                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {
-                //                    self.recordButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                //                    self.recordButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                //                })
-                
-                //            self.recordBackgroundView.alpha = 1
-                //            self.recordBackgroundView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                //
-                //            UIView.animate(withDuration: 0.25, animations: {
-                //                self.recordBackgroundView.transform = .identity
-                //                self.recordIconView.layer.cornerRadius = 0
-                //            }, completion: { (success) in
-                //                self.progressCircle.play(duration: 10.0)
-                //            })
             }
         }
     }
@@ -1314,14 +1244,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             timer.invalidate()
         }
         recordingTimer = nil
-        
-        //        DispatchQueue.main.async {
-        //            UIView.animate(withDuration: 0.25, animations: {
-        //                self.recordIconView.layer.cornerRadius = 6
-        //                self.recordBackgroundView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        //            }, completion: { (success) in
-        //            })
-        //        }
     }
     
     func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {
@@ -1724,14 +1646,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     @IBAction func textAlignTapped(_ sender: UIButton) {
         self.alignSet(tapped: sender)
     }
-    
-    //    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-    //        if (text == "\n") {
-    //            self.textView.endEditing(true)
-    //            textView.resignFirstResponder()
-    //        }
-    //        return true
-    //    }
     
     @IBAction func textDepthChanged(_ sender: UISlider) {
         textDepthLabel.text = String(Int(sender.value))
@@ -2362,8 +2276,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         })
     }
     
-    /// Remove anchor for last stroke.
-    /// Stroke cleanup in renderer(renderer:didRemove:for:) delegate call
     func undoLastStroke(sender: UIButton?) {
         resetTouches()
         
@@ -2374,33 +2286,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         }
     }
     
-    /// Loops through strokes removing anchor for each stroke.
-    /// Stroke cleanup in renderer(renderer:didRemove:for:) delegate call
     func clearStrokesTapped(sender: UIButton?) {
-        resetTouches()
-        
-        //        let clearMessageKey = "드로잉을 모두 지울까요?"
-        //        let clearTitleKey = "드로잉 지우기"
-        //
-        //        let alertController = UIAlertController(
-        //            title: NSLocalizedString(clearTitleKey, comment: "Clear Drawing"),
-        //            message: NSLocalizedString(clearMessageKey, comment: "Clear your drawing?"),
-        //            preferredStyle: .alert)
-        //        let cancelAction = UIAlertAction(title: NSLocalizedString("아니요", comment: "Cancel"), style: .cancel) { (cancelAction) in
-        //            alertController.dismiss(animated: true, completion: nil)
-        //        }
-        //
-        //        let okAction = UIAlertAction(title: NSLocalizedString("네", comment: "Clear"), style: .destructive) { (okAction) in
-        //            alertController.dismiss(animated: true, completion: nil)
+        self.resetTouches()
         self.clearAllStrokes()
-        //
-        //            if self.mode == .DRAW {
-        //                self.showDrawingPrompt()
-        //            }
-        //        }
-        //        alertController.addAction(cancelAction)
-        //        alertController.addAction(okAction)
-        //        self.present(alertController, animated: true, completion: nil)
     }
     
     func clearAllStrokes() {
@@ -2448,7 +2336,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             return false
         }
         return true
-        //        return false
     }
     
     func shouldHideUndoButton()->Bool {
@@ -2470,7 +2357,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         text.alignmentMode = CATextLayerAlignmentMode.center.rawValue
         
         guard let pointOfView = sceneView.pointOfView else {return}
-        let transform = pointOfView.transform   // 변환행렬
+        let transform = pointOfView.transform   // 변환 행렬
         let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)   // 방향은 3번째 열에 정보를 담고 있음, 일반적인 오른손잡이 규칙에 따를 수 있게 값을 뒤집어줌
         let location = SCNVector3(transform.m41, transform.m42, transform.m43)  // 위치는 4번째 열에 정보를 담고 있음
         let frontOfCamera = orientation + location  // CNVector 타입에 일반적인 + 연산자 사용 불가능하기 때문에 연산자 오버로딩, 드로잉이 될 위치

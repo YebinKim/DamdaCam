@@ -115,17 +115,17 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         // Message Set
         drawingStartView.alpha = 0.0
         drawingStartView.layer.cornerRadius = 17
-        viewDropShadow(view: drawingStartView)
+        self.drawingStartView.dropShadow()
         drawingStartState = false
         
         // menu set
         self.menuButtonStateCheck()
-        self.buttonDropShadow(button: menuDrawerButton)
-        self.buttonDropShadow(button: menuARMotionButton)
-        self.buttonDropShadow(button: menuPaletteButton)
-        self.buttonDropShadow(button: menuBrushButton)
-        self.buttonDropShadow(button: menuFigureButton)
-        self.buttonDropShadow(button: menuEraserButton)
+        self.menuDrawerButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.menuARMotionButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.menuPaletteButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.menuBrushButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.menuFigureButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.menuEraserButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         ARMotionButtonCenter = menuARMotionButton.center
         paletteButtonCenter = menuPaletteButton.center
         brushButtonCenter = menuBrushButton.center
@@ -150,15 +150,15 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         saveMessageView.layer.cornerRadius = 10
         saveMessageButtonView.layer.cornerRadius = 10
         saveMessageButtonView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        viewDropShadow(view: topView)
-        viewDropShadow(view: saveMessageView)
-        viewDropShadow(view: saveMessageButtonView)
+        self.topView.dropShadow()
+        self.saveMessageView.dropShadow()
+        self.saveMessageButtonView.dropShadow()
 
         // Palette Set
         addBackView(view: paletteView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
         paletteView.alpha = 0.0
         paletteView.layer.cornerRadius = 10
-        viewDropShadow(view: paletteRadialPicker)
+        self.paletteRadialPicker.dropShadow()
         createCustomPaletteArray()
         colorPicker.selectedColor = pickedColor
         
@@ -183,7 +183,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         
         // Preview Color Set
         previewPaletteView.layer.cornerRadius = 18
-        viewDropShadow(view: previewPaletteView)
+        self.previewPaletteView.dropShadow()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.buttonAnimation(button: self.menuARMotionButton, position: self.drawerButtonCenter, size: 0.5)
@@ -490,11 +490,11 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
                 self.menuDrawerButtonOn.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                 self.menuDrawerButtonOn.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 
-                self.buttonDropShadow(button: self.menuARMotionButton)
-                self.buttonDropShadow(button: self.menuPaletteButton)
-                self.buttonDropShadow(button: self.menuBrushButton)
-                self.buttonDropShadow(button: self.menuFigureButton)
-                self.buttonDropShadow(button: self.menuEraserButton)
+                self.menuARMotionButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+                self.menuPaletteButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+                self.menuBrushButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+                self.menuFigureButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+                self.menuEraserButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
             })
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
@@ -626,20 +626,6 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         UIView.animate(withDuration: 0.1) {
             button.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
-    }
-    
-    func viewDropShadow(view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.15
-    }
-    
-    func buttonDropShadow(button: UIButton) {
-        button.layer.shadowOpacity = 0.16
-        button.layer.shadowRadius = 10.0
-        button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        button.layer.shadowColor = UIColor.black.cgColor
     }
     
     func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {

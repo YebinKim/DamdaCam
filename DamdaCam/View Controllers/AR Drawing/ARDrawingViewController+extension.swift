@@ -206,7 +206,7 @@ extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
         //        displayErrorMessage(title: "We're sorry!", message: sessionErrorMsg, allowRestart: isRecoverable)
     }
     
-    func registerGestureRecognizers(view: UIView) {
+    func registerNodeGestureRecognizers(view: UIView) {
         //        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(nodePan))
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(nodeRemove))
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(nodeScale))

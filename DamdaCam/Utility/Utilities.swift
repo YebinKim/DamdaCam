@@ -333,6 +333,41 @@ extension UIColor {
 
 extension UIView {
     
+    func dropShadow() {
+        let opacity: Float = 0.15
+        self.dropShadow(opacity: opacity)
+    }
+    
+    func dropShadow(opacity: Float) {
+        let radius: CGFloat = 1.0
+        self.dropShadow(opacity: opacity, radius: radius)
+    }
+    
+    func dropShadow(opacity: Float, radius: CGFloat) {
+        let offset = CGSize.zero
+        self.dropShadow(opacity: opacity, radius: radius, offset: offset)
+    }
+    
+    func dropShadow(opacity: Float, radius: CGFloat, offset: CGSize) {
+        let color = UIColor.black.cgColor
+        self.dropShadow(opacity: opacity, radius: radius, offset: offset, color: color)
+    }
+    
+    func dropShadow(opacity: Float, radius: CGFloat, offset: CGSize, color: CGColor) {
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+        self.layer.shadowOffset = offset
+        self.layer.shadowColor = color
+    }
+    
+    func dropShadow(state: Bool) {
+        if state {
+            self.dropShadow(opacity: 0.3)
+        } else {
+            self.dropShadow(opacity: 0)
+        }
+    }
+    
     func applyGradient_view(colors: [CGColor], state: Bool) {
         if (state) {
             self.layer.sublayers?[0].removeFromSuperlayer()
@@ -594,7 +629,6 @@ extension FileManager {
     
 }
 
-// Clip View Set
 extension UIButton {
     
     func applyGradient(colors: [CGColor], state: Bool) {

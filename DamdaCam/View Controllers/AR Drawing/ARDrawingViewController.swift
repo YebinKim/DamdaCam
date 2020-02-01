@@ -17,15 +17,17 @@ import ReplayKit
 
 import FlexColorPicker
 
-let sm = "float u = _surface.diffuseTexcoord.x; \n" +
-    "float v = _surface.diffuseTexcoord.y; \n" +
-    "int u100 = int(u * 100); \n" +
-    "int v100 = int(v * 100); \n" +
-    "if (u100 % 99 == 0 || v100 % 99 == 0) { \n" +
-    "  // do nothing \n" +
-    "} else { \n" +
-    "    discard_fragment(); \n" +
-"} \n"
+let sm = """
+    float u = _surface.diffuseTexcoord.x;
+    float v = _surface.diffuseTexcoord.y;
+    int u100 = int(u * 100);
+    int v100 = int(v * 100);
+    if (u100 % 99 == 0 || v100 % 99 == 0) {
+      // do nothing
+    } else {
+        discard_fragment();
+    }
+    """
 
 enum ViewMode {
     case DRAW
@@ -334,9 +336,133 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 히히
-        textField.text = "Text"
+        // Set drawing scene view
+        self.touchView.touchDelegate = self
+        self.initializeDrawingView()
+        self.drawingUIHidden(false)
         
+        DispatchQueue.main.async {
+            // Set message
+            self.initializeMessageView()
+            // Set drawing pen stack view
+            self.initializeDrawingPenView()
+            // Set clip View
+            self.initializeClipView()
+            // Set menu view
+            self.initializeMenuView()
+        }
+        
+        // Set accessibility
+        self.configureAccessibility()
+        
+        // Register gesture recognizer
+        self.registerUIGestureRecognizers()
+        self.registerNodeGestureRecognizers(view: editView)
+        
+        // Set record
+        self.screenRecorder = RPScreenRecorder.shared()
+        self.screenRecorder?.isMicrophoneEnabled = true
+        self.initializeRecordButton()
+        
+        // FIXME: deleete remove3DView
+        self.remove3DView.isHidden = true
+        self.remove3DView.alpha = 0.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.configureARSession()
+        
+        self.setPreviewSize()
+        
+        // Set ui icon
+        if previewSize == 0 {
+            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
+            self.settingButton.dropShadow(state: true)
+            self.clipButton.dropShadow(state: true)
+            self.changeButton.dropShadow(state: true)
+            self.galleryButton.dropShadow(state: true)
+            self.menuButton.dropShadow(state: true)
+            
+            self.recordModePhoto.titleLabel?.textColor = UIColor.white
+            self.recordModeVideo.titleLabel?.textColor = UIColor.white
+            
+            self.recordMoveButton.isHidden = false
+            
+        } else if previewSize == 1 {
+            self.settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            self.recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            self.recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            
+            self.recordMoveButton.isHidden = true
+            
+        } else {
+            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            self.recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            self.recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            
+            self.recordMoveButton.isHidden = true
+        }
+        
+        // Menu Set
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.buttonAnimation(button: self.menuTextButton, label: self.menuTextLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuFigureButton, label: self.menuFigureLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuBrushButton, label: self.menuBrushLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuPaletteButton, label: self.menuPaletteLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.menuView.alpha = 0.0
+        }
+        
+        self.stopTrackingAnimation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Pause the view's session
+        sceneView.session.pause()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+        resetTouches()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        touchPoint = .zero
+    }
+    
+    private func registerUIGestureRecognizers() {
         // camera mode set
         let swipeModeRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modePhoto))
         swipeModeRight.direction = .right
@@ -359,77 +485,114 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         swipeButtonUp.direction = .up
         self.recordMoveButton.addGestureRecognizer(swipeButtonUp)
         
-        self.recordButton.layer.cornerRadius = 27.5
-        self.recordBackgroundGradient()
+        // menu set
+        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
+        menuView.addGestureRecognizer(tapMenuView)
+    }
+    
+    private func initializeDrawingView() {
+        // Set the view's delegate
+        self.sceneView.delegate = self
+        self.sceneView.scene = SCNScene()
         
-        touchView.touchDelegate = self
+        self.hitNode = SCNNode()
+        self.hitNode!.position = SCNVector3Make(0, 0, -0.4)  // 드로잉 거리 조절
+        self.sceneView.pointOfView?.addChildNode(hitNode!)
+        
         self.setStrokeSize(brushWidth)
         
-        // Message Set
-        trackingStartView.isHidden = true
-        trackingStartView.alpha = 0.0
-        trackingStartView.layer.cornerRadius = 17
-        viewDropShadow(view: trackingStartView)
+        let ambientLight = SCNNode()
+        ambientLight.light = SCNLight()
+        ambientLight.light?.shadowMode = .deferred
+        ambientLight.light?.color = UIColor.white
+        ambientLight.light?.type = SCNLight.LightType.ambient
+        ambientLight.position = SCNVector3(x: 0,y: 5,z: 0)
+        self.sceneView.scene.rootNode.addChildNode(ambientLight)
+        self.sceneView.automaticallyUpdatesLighting = true   // lighting 설정
         
-        drawingStartView.isHidden = true
-        drawingStartView.alpha = 0.0
-        drawingStartView.layer.cornerRadius = 17
-        viewDropShadow(view: drawingStartView)
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
+            self.touchPoint = .zero
+        }
         
-        remove3DView.isHidden = true
-        remove3DView.alpha = 0.0
+        // Neon Set
+        if let path = Bundle.main.path(forResource: "NodeTechnique", ofType: "plist") {
+            if let dict = NSDictionary(contentsOfFile: path)  {
+                let dict2 = dict as! [String : AnyObject]
+                let technique = SCNTechnique(dictionary:dict2)
+                self.sceneView.technique = technique
+            }
+        }
         
-        //        sizeButtonStackView.alpha = 0
-        drawPromptContainer.alpha = 0
+        self.clearAllButton.layer.cornerRadius = 13
+        self.clearAllButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+    }
+    
+    private func initializeMessageView() {
+        self.drawPromptContainer.alpha = 0
+        self.initializeTrackingStartView()
+        self.initializeDrawingStartView()
+    }
+    
+    private func initializeTrackingStartView() {
+        self.trackingStartView.isHidden = true
+        self.trackingStartView.alpha = 0.0
+        self.trackingStartView.layer.cornerRadius = 17
+        self.trackingStartView.dropShadow()
+    }
+    
+    private func initializeDrawingStartView() {
+        self.drawingStartView.isHidden = true
+        self.drawingStartView.alpha = 0.0
+        self.drawingStartView.layer.cornerRadius = 17
+        self.drawingStartView.dropShadow()
+    }
+    
+    private func initializeRecordButton() {
+        self.recordButton.layer.cornerRadius = 27.5
+        self.recordBackgroundGradient()
+    }
+    
+    private func initializeDrawingPenView() {
+        self.drawingPenButton.layer.cornerRadius = 11
+        self.drawingPenButton.backgroundColor = colorPicker.selectedColor
+        self.drawingPenButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        self.drawingPenButton.layer.borderWidth = 2
+        self.drawingPenButton.layer.borderColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5).cgColor
         
-        // forces hiding of recording ui for global version
-        drawingUIHidden(false)
+        self.drawingPenOne.layer.cornerRadius = 11
+        self.drawingPenOne.backgroundColor = UIColor(red: 20/255, green: 126/255, blue: 250/255, alpha: 1.0)
+        self.drawingPenOne.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
-        //        selectSize(.medium)
+        self.drawingPenTwo.layer.cornerRadius = 11
+        self.drawingPenTwo.backgroundColor = UIColor(red: 252/255, green: 210/255, blue: 40/255, alpha: 1.0)
+        self.drawingPenTwo.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
-        configureAccessibility()
+        self.drawingPenThree.layer.cornerRadius = 11
+        self.drawingPenThree.backgroundColor = UIColor(red: 252/255, green: 50/255, blue: 66/255, alpha: 1.0)
+        self.drawingPenThree.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+    }
+    
+    private func initializeClipView() {
+        self.clipButton.isHidden = true
+        self.clipView.alpha = 0.0
+        self.clipView.layer.cornerRadius = 5
         
-        //        setupDevice()
-        //setupInputOutput()
+        self.oneClipButton.layer.cornerRadius = 20
+        self.twoClipButton.layer.cornerRadius = 20
+        self.threeClipButton.layer.cornerRadius = 20
+        self.plusClipButton.layer.cornerRadius = 20
         
-        registerGestureRecognizers(view: editView)
+        self.oneClipButton.dropShadow(state: true)
+        self.twoClipButton.dropShadow(state: true)
+        self.threeClipButton.dropShadow(state: true)
+        self.plusClipButton.dropShadow(state: true)
         
-        // Drawing Set
-        drawingPenButton.layer.cornerRadius = 11
-        drawingPenButton.backgroundColor = colorPicker.selectedColor
-        buttonDropShadow(button: drawingPenButton)
-        drawingPenButton.layer.borderWidth = 2
-        drawingPenButton.layer.borderColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5).cgColor
-        drawingPenOne.layer.cornerRadius = 11
-        drawingPenOne.backgroundColor = UIColor(red: 20/255, green: 126/255, blue: 250/255, alpha: 1.0)
-        buttonDropShadow(button: drawingPenOne)
-        drawingPenTwo.layer.cornerRadius = 11
-        drawingPenTwo.backgroundColor = UIColor(red: 252/255, green: 210/255, blue: 40/255, alpha: 1.0)
-        buttonDropShadow(button: drawingPenTwo)
-        drawingPenThree.layer.cornerRadius = 11
-        drawingPenThree.backgroundColor = UIColor(red: 252/255, green: 50/255, blue: 66/255, alpha: 1.0)
-        buttonDropShadow(button: drawingPenThree)
+        self.oneClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.twoClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.threeClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
         
-        clearAllButton.layer.cornerRadius = 13
-        buttonDropShadow(button: clearAllButton)
-        
-        // Clip Set
-        clipButton.isHidden = true
-        clipView.alpha = 0.0
-        clipView.layer.cornerRadius = 5
-        plusClipPicker.selectRow(5, inComponent: 0, animated: false)
-        oneClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: oneClipButton, state: true)
-        twoClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: twoClipButton, state: true)
-        threeClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: threeClipButton, state: true)
-        plusClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: plusClipButton, state: true)
-        oneClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        twoClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        threeClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         secLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
@@ -446,198 +609,91 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         minLabel.sizeToFit()
         minLabel.frame = CGRect(x: 210.0, y: 49.0, width: minLabel.bounds.width, height: minLabel.bounds.height)
         plusClipPicker.addSubview(minLabel)
+    }
+    
+    private func initializeMenuView() {
+        self.textButtonCenter = self.menuTextButton.center
+        self.figureButtonCenter = self.menuFigureButton.center
+        self.brushButtonCenter = self.menuBrushButton.center
+        self.paletteButtonCenter = self.menuPaletteButton.center
+        self.textLabelCenter = self.menuTextLabel.center
+        self.figureLabelCenter = self.menuFigureLabel.center
+        self.brushLabelCenter = self.menuBrushLabel.center
+        self.paletteLabelCenter = self.menuPaletteLabel.center
+        self.menuTextLabel.alpha = 0.0
+        self.menuFigureLabel.alpha = 0.0
+        self.menuBrushLabel.alpha = 0.0
+        self.menuPaletteLabel.alpha = 0.0
         
-        // Menu Set
-        textButtonCenter = menuTextButton.center
-        figureButtonCenter = menuFigureButton.center
-        brushButtonCenter = menuBrushButton.center
-        paletteButtonCenter = menuPaletteButton.center
-        textLabelCenter = menuTextLabel.center
-        figureLabelCenter = menuFigureLabel.center
-        brushLabelCenter = menuBrushLabel.center
-        paletteLabelCenter = menuPaletteLabel.center
-        menuTextLabel.alpha = 0.0
-        menuFigureLabel.alpha = 0.0
-        menuBrushLabel.alpha = 0.0
-        menuPaletteLabel.alpha = 0.0
+        self.menuView.isHidden = true
+        self.menuView.alpha = 0.0
+        addBackView(view: self.menuView, color: UIColor.black, alpha: 0.6, cornerRadius: 0)
         
-        menuView.isHidden = true
-        menuView.alpha = 0.0
-        addBackView(view: menuView, color: UIColor.black, alpha: 0.6, cornerRadius: 0)
-        
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
-        menuView.addGestureRecognizer(tapMenuView)
-        
+        self.initializeTextView()
+        self.initializeFigureView()
+        self.initializeBrushView()
+        self.initializePalleteView()
+    }
+    
+    private func initializeTextView() {
         // Text Set
-        addBackView(view: textView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
-        textView.alpha = 0.0
-        textView.layer.cornerRadius = 10
-        textField.delegate = self as UITextViewDelegate
-        textField.textAlignment = .center
-        textField.centerVertically()
-        alignSet(tapped: textAlignCenterButton)
-        textDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        self.textView.alpha = 0.0
+        self.textView.layer.cornerRadius = 10
+        
+        self.textField.delegate = self as UITextViewDelegate
+        self.textField.text = "Text"
+        self.textField.textAlignment = .center
+        self.textField.centerVertically()
+        self.alignSet(tapped: textAlignCenterButton)
+        
+        self.textDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        addBackView(view: self.textView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+    }
+    
+    private func initializeFigureView() {
         // Figure Set
-        addBackView(view: figureView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
-        figureView.alpha = 0.0
-        figureView.layer.cornerRadius = 10
-        figureFillButton.isSelected = true
-        figureWidthTitle.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
-        figureWidthLabel.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
-        figureWidthSlider.isEnabled = false
-        figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        self.figureView.alpha = 0.0
+        self.figureView.layer.cornerRadius = 10
+        
+        self.figureFillButton.isSelected = true
+        self.figureWidthTitle.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
+        self.figureWidthLabel.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
+        self.figureWidthSlider.isEnabled = false
+        self.figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         figureDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         
+        addBackView(view: self.figureView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+    }
+    
+    private func initializeBrushView() {
         // Brush Set
-        addBackView(view: brushView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
-        brushView.alpha = 0.0
-        brushView.layer.cornerRadius = 10
-        brushBasicButton.isSelected = true
-        brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        self.brushView.alpha = 0.0
+        self.brushView.layer.cornerRadius = 10
         
+        self.brushBasicButton.isSelected = true
+        self.brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        
+        addBackView(view: self.brushView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+    }
+    
+    private func initializePalleteView() {
         // Palette Set
-        addBackView(view: paletteView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
-        paletteView.alpha = 0.0
-        paletteView.layer.cornerRadius = 10
-        viewDropShadow(view: paletteRadialPicker)
-        createCustomPaletteArray()
-        colorPicker.selectedColor = pickedColor
+        self.paletteView.alpha = 0.0
+        self.paletteView.layer.cornerRadius = 10
+        self.paletteRadialPicker.dropShadow()
+        
+        self.createCustomPaletteArray()
+        self.colorPicker.selectedColor = pickedColor
         
         // Preview Color Set
-        previewPaletteView.layer.cornerRadius = 18
-        viewDropShadow(view: previewPaletteView)
+        self.previewPaletteView.layer.cornerRadius = 18
+        self.previewPaletteView.dropShadow()
         
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Create a new scene
-        let scene = SCNScene()
-        
-        // Set the scene to the view
-        sceneView.scene = scene
-        
-        hitNode = SCNNode()
-        hitNode!.position = SCNVector3Make(0, 0, -0.4)  // 드로잉 거리 조절
-        sceneView.pointOfView?.addChildNode(hitNode!)
-        
-        //        self.registerGestureRecognizers()
-        
-        let ambientLight = SCNNode()
-        ambientLight.light = SCNLight()
-        ambientLight.light?.shadowMode = .deferred
-        ambientLight.light?.color = UIColor.white
-        ambientLight.light?.type = SCNLight.LightType.ambient
-        ambientLight.position = SCNVector3(x: 0,y: 5,z: 0)
-        sceneView.scene.rootNode.addChildNode(ambientLight)
-        sceneView.automaticallyUpdatesLighting = true   // lighting 설정
-        
-        screenRecorder = RPScreenRecorder.shared()
-        screenRecorder?.isMicrophoneEnabled = true
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
-            self.touchPoint = .zero
-        }
-        
-        // Neon Set
-        if let path = Bundle.main.path(forResource: "NodeTechnique", ofType: "plist") {
-            if let dict = NSDictionary(contentsOfFile: path)  {
-                let dict2 = dict as! [String : AnyObject]
-                let technique = SCNTechnique(dictionary:dict2)
-                sceneView.technique = technique
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        configureARSession()
-        
-        setPreviewSize()
-        
-        // Icon Set
-        if previewSize == 0 {
-            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
-            iconDropShadow(button: settingButton, state: true)
-            iconDropShadow(button: clipButton, state: true)
-            iconDropShadow(button: changeButton, state: true)
-            iconDropShadow(button: galleryButton, state: true)
-            iconDropShadow(button: menuButton, state: true)
-            
-            recordModePhoto.titleLabel?.textColor = UIColor.white
-            recordModeVideo.titleLabel?.textColor = UIColor.white
-            
-            recordMoveButton.isHidden = false
-        } else if previewSize == 1 {
-            settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            iconDropShadow(button: settingButton, state: false)
-            iconDropShadow(button: clipButton, state: false)
-            iconDropShadow(button: changeButton, state: false)
-            iconDropShadow(button: galleryButton, state: false)
-            iconDropShadow(button: menuButton, state: false)
-            
-            recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            
-            recordMoveButton.isHidden = true
-        } else {
-            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            iconDropShadow(button: settingButton, state: false)
-            iconDropShadow(button: clipButton, state: false)
-            iconDropShadow(button: changeButton, state: false)
-            iconDropShadow(button: galleryButton, state: false)
-            iconDropShadow(button: menuButton, state: false)
-            
-            recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            
-            recordMoveButton.isHidden = true
-        }
-        
-        // Menu Set
-        self.buttonAnimation(button: self.menuTextButton, label: self.menuTextLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuFigureButton, label: self.menuFigureLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuBrushButton, label: self.menuBrushLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuPaletteButton, label: self.menuPaletteLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.menuView.alpha = 0.0
-        
-        stopTrackingAnimation()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-        resetTouches()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        touchPoint = .zero
+        addBackView(view: self.paletteView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
     }
     
     // MARK: - View Configuration
@@ -1268,42 +1324,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         //        }
     }
     
-    func iconDropShadow(button: UIButton, state: Bool) {
-        if state {
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 0)
-            button.layer.shadowRadius = 1
-            button.layer.shadowOpacity = 0.3
-        } else {
-            button.layer.shadowOpacity = 0
-        }
-    }
-    
-    func labelDropShadow(label: UIButton, state: Bool) {
-        if state {
-            label.layer.shadowColor = UIColor.black.cgColor
-            label.layer.shadowOffset = CGSize(width: 0, height: 0)
-            label.layer.shadowRadius = 1
-            label.layer.shadowOpacity = 0.3
-        } else {
-            label.layer.shadowOpacity = 0
-        }
-    }
-    
-    func viewDropShadow(view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.15
-    }
-    
-    func buttonDropShadow(button: UIButton) {
-        button.layer.shadowOpacity = 0.16
-        button.layer.shadowRadius = 10.0
-        button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        button.layer.shadowColor = UIColor.black.cgColor
-    }
-    
     func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {
         let backView = UIView()
         backView.frame = view.bounds
@@ -1581,7 +1601,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         UIView.animate(withDuration: 0.1) {
             button.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
             button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            self.buttonDropShadow(button: button)
+            button.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         }
     }
     

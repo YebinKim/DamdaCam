@@ -207,22 +207,26 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.recordBackgroundGradient()
         
         // Clip Set
-        clipButton.isHidden = true
-        clipView.alpha = 0.0
-        clipView.layer.cornerRadius = 5
-        plusClipPicker.selectRow(5, inComponent: 0, animated: false)
-        oneClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: oneClipButton, state: true)
-        twoClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: twoClipButton, state: true)
-        threeClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: threeClipButton, state: true)
-        plusClipButton.layer.cornerRadius = 20
-        self.iconDropShadow(button: plusClipButton, state: true)
-        oneClipButton.applyGradient_rect(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        twoClipButton.applyGradient_rect(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        threeClipButton.applyGradient_rect(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        plusClipButton.applyGradient_rect(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.clipButton.isHidden = true
+        self.clipView.alpha = 0.0
+        self.clipView.layer.cornerRadius = 5
+        
+        self.oneClipButton.layer.cornerRadius = 20
+        self.twoClipButton.layer.cornerRadius = 20
+        self.threeClipButton.layer.cornerRadius = 20
+        self.plusClipButton.layer.cornerRadius = 20
+        
+        self.oneClipButton.dropShadow(state: true)
+        self.twoClipButton.dropShadow(state: true)
+        self.threeClipButton.dropShadow(state: true)
+        self.plusClipButton.dropShadow(state: true)
+        
+        self.oneClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.twoClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.threeClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        
+        self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         secLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
@@ -348,11 +352,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
             galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
             menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
-            iconDropShadow(button: settingButton, state: true)
-            iconDropShadow(button: clipButton, state: true)
-            iconDropShadow(button: changeButton, state: true)
-            iconDropShadow(button: galleryButton, state: true)
-            iconDropShadow(button: menuButton, state: true)
+            self.settingButton.dropShadow(state: true)
+            self.clipButton.dropShadow(state: true)
+            self.changeButton.dropShadow(state: true)
+            self.galleryButton.dropShadow(state: true)
+            self.menuButton.dropShadow(state: true)
             
             recordModePhoto.titleLabel?.textColor = UIColor.white
             recordModeVideo.titleLabel?.textColor = UIColor.white
@@ -364,11 +368,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
             galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
             menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            iconDropShadow(button: settingButton, state: false)
-            iconDropShadow(button: clipButton, state: false)
-            iconDropShadow(button: changeButton, state: false)
-            iconDropShadow(button: galleryButton, state: false)
-            iconDropShadow(button: menuButton, state: false)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
             
             recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
             recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
@@ -380,11 +384,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
             galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
             menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            iconDropShadow(button: settingButton, state: false)
-            iconDropShadow(button: clipButton, state: false)
-            iconDropShadow(button: changeButton, state: false)
-            iconDropShadow(button: galleryButton, state: false)
-            iconDropShadow(button: menuButton, state: false)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
             
             recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
             recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
@@ -1712,7 +1716,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         UIView.animate(withDuration: 0.1) {
             button.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
             button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            self.buttonDropShadow(button: button)
+            button.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         }
     }
     
@@ -1723,42 +1727,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             button.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             button.layer.shadowOpacity = 0.0
         }
-    }
-    
-    func iconDropShadow(button: UIButton, state: Bool) {
-        if state {
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 0)
-            button.layer.shadowRadius = 1
-            button.layer.shadowOpacity = 0.3
-        } else {
-            button.layer.shadowOpacity = 0
-        }
-    }
-    
-    func labelDropShadow(label: UIButton, state: Bool) {
-        if state {
-            label.layer.shadowColor = UIColor.black.cgColor
-            label.layer.shadowOffset = CGSize(width: 0, height: 0)
-            label.layer.shadowRadius = 1
-            label.layer.shadowOpacity = 0.3
-        } else {
-            label.layer.shadowOpacity = 0
-        }
-    }
-    
-    func viewDropShadow(view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.15
-    }
-    
-    func buttonDropShadow(button: UIButton) {
-        button.layer.shadowOpacity = 0.16
-        button.layer.shadowRadius = 10.0
-        button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        button.layer.shadowColor = UIColor.black.cgColor
     }
     
     func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {

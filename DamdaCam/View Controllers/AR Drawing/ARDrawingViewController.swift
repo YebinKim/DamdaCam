@@ -2360,7 +2360,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let transform = pointOfView.transform   // 변환 행렬
         let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)   // 방향은 3번째 열에 정보를 담고 있음, 일반적인 오른손잡이 규칙에 따를 수 있게 값을 뒤집어줌
         let location = SCNVector3(transform.m41, transform.m42, transform.m43)  // 위치는 4번째 열에 정보를 담고 있음
-        let frontOfCamera = orientation + location  // CNVector 타입에 일반적인 + 연산자 사용 불가능하기 때문에 연산자 오버로딩, 드로잉이 될 위치
+        let frontOfCamera: SCNVector3 = orientation + location  // CNVector 타입에 일반적인 + 연산자 사용 불가능하기 때문에 연산자 오버로딩, 드로잉이 될 위치
         
         let node = SCNNode()
         node.position = frontOfCamera
@@ -2399,7 +2399,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let transform = pointOfView.transform
         let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)
         let location = SCNVector3(transform.m41, transform.m42, transform.m43)
-        let frontOfCamera = orientation + location
+        let frontOfCamera: SCNVector3 = orientation + location
         
         let node = SCNNode()
         let layer = CALayer()
@@ -2519,10 +2519,4 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             present(nextView, animated: true, completion: nil)
         }
     }
-}
-
-func +(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
-    
-    return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
-    
 }

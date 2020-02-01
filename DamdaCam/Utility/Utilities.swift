@@ -30,6 +30,15 @@ import ImageIO
 
 // MARK: - AHC Float3 extension
 extension SCNVector3{
+    
+    static func +(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+        return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
+    }
+    
+    static func -(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+        return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
+    }
+    
     func distance(to receiver:SCNVector3) -> Float{
         let xd = receiver.x - self.x
         let yd = receiver.y - self.y
@@ -42,6 +51,7 @@ extension SCNVector3{
             return (distance)
         }
     }
+    
 }
 
 

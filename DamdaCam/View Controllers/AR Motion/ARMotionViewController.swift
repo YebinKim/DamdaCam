@@ -171,6 +171,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
+    private lazy var halfWidth = self.view.bounds.width / 2
+    private lazy var halfHeight = self.view.bounds.height / 2
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
@@ -1178,11 +1181,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     func normalizationPos(source: CGPoint) -> CGPoint {
         var result: CGPoint = CGPoint.init()
         
-        let halfWidth = self.view.bounds.width / 2
         result.x = source.x - halfWidth
         result.x *= 3.5 / halfWidth
         
-        let halfHeight = self.view.bounds.height / 2
         result.y = source.y - halfHeight
         result.y *= 6.2 / halfHeight
         

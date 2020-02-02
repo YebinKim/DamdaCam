@@ -9,6 +9,7 @@
 import UIKit
 
 final class Color {
+    
     let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     let black = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
     let gray = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1.0)
@@ -28,4 +29,5 @@ final class Color {
     let drawingPen_red = UIColor(red: 252/255, green: 50/255, blue: 66/255, alpha: 1.0)
     let drawingPen_green = UIColor(red: 252/255, green: 210/255, blue: 40/255, alpha: 1.0)
     let drawingPen_blue = UIColor(red: 20/255, green: 126/255, blue: 250/255, alpha: 1.0)
+    
 }

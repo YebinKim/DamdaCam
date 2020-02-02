@@ -604,7 +604,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        secLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
+        secLabel.font = Properties.shared.font.bold(13.0)
         secLabel.textColor = Properties.shared.color.darkGray
         secLabel.text = "m"
         secLabel.sizeToFit()
@@ -612,7 +612,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         plusClipPicker.addSubview(secLabel)
         
         let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        minLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
+        minLabel.font = Properties.shared.font.bold(13.0)
         minLabel.textColor = Properties.shared.color.darkGray
         minLabel.text = "s"
         minLabel.sizeToFit()
@@ -1120,7 +1120,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let title = UILabel()
-        title.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
+        title.font = Properties.shared.font.regular(15.0)
         title.textColor = UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         title.text = String(row)
         title.textAlignment = .center
@@ -2359,7 +2359,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     func create3DText(message: String, depth: CGFloat, color: UIColor, align: Int) {
         let text = SCNText(string: message, extrusionDepth: depth)
         text.firstMaterial?.diffuse.contents = color
-        text.font = UIFont(name: "NotoSansCJKkr-Regular", size: 5.0)
+        text.font = Properties.shared.font.regular(5.0)
         text.alignmentMode = CATextLayerAlignmentMode.center.rawValue
         
         guard let pointOfView = sceneView.pointOfView else {return}

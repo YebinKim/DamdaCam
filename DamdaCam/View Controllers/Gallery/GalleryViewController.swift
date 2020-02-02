@@ -30,7 +30,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0) ?? UIFont.systemFont(ofSize: 15.0), .foregroundColor: Properties.shared.color.darkGray]
+        guard let font = Properties.shared.font.regular(15.0) else { return }
+        
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
         navigationBar.barTintColor = Properties.shared.color.white
         
         // delegate, datasource set

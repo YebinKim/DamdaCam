@@ -16,7 +16,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         if isSelected {
-            self.galleryImageView.layer.borderColor = (UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1) as! CGColor)
+            self.galleryImageView.layer.borderColor = Properties.shared.color.lightGray.cgColor
             self.galleryImageView.layer.borderWidth = 3
         } else {
             self.galleryImageView.layer.borderColor = UIColor.clear.cgColor

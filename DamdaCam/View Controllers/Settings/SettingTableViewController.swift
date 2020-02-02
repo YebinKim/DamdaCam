@@ -26,15 +26,10 @@ class SettingTableViewController: UITableViewController {
         } else if previewSize == 2 {
             ratioLabel.text = "3:4"
         }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-//        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: 375, height: 47.5)
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)!, .foregroundColor: Properties.shared.color.darkGray]
+        guard let font = Properties.shared.font.regular(15.0) else { return }
+        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
         self.navigationController!.navigationBar.barTintColor = Properties.shared.color.white
     }
 

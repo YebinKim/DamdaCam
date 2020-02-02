@@ -232,7 +232,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        secLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
+        secLabel.font = Properties.shared.font.bold(13.0)
         secLabel.textColor = Properties.shared.color.darkGray
         secLabel.text = "m"
         secLabel.sizeToFit()
@@ -240,7 +240,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         plusClipPicker.addSubview(secLabel)
         
         let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        minLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
+        minLabel.font = Properties.shared.font.bold(13.0)
         minLabel.textColor = Properties.shared.color.darkGray
         minLabel.text = "s"
         minLabel.sizeToFit()
@@ -1501,7 +1501,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let title = UILabel()
-        title.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
+        title.font = Properties.shared.font.regular(15.0)
         title.textColor = Properties.shared.color.darkGray
         title.text = String(row)
         title.textAlignment = .center

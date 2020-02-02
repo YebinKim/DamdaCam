@@ -19,14 +19,12 @@
  Utility functions and type extensions used throughout the projects.
  */
 //
-// AR Drawing
 
 import Foundation
 import ARKit
 
 import UIKit
 import ImageIO
-
 
 // MARK: - AHC Float3 extension
 extension SCNVector3{

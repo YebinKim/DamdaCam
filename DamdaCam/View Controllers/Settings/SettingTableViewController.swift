@@ -34,8 +34,8 @@ class SettingTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
 //        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: 375, height: 47.5)
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)!, .foregroundColor: UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)]
-        self.navigationController!.navigationBar.barTintColor = UIColor.white
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)!, .foregroundColor: Properties.shared.color.darkGray]
+        self.navigationController!.navigationBar.barTintColor = Properties.shared.color.white
     }
 
     // MARK: - Table view data source

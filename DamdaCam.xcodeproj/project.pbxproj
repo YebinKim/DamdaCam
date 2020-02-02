@@ -54,6 +54,8 @@
 		3EF1062A23B7208000CCB7E1 /* looking_partner.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062723B7207F00CCB7E1 /* looking_partner.json */; };
 		3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062823B7207F00CCB7E1 /* partner_found.json */; };
 		3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */ = {isa = PBXBuildFile; fileRef = 3EF1062923B7208000CCB7E1 /* stay_put.json */; };
+		3EF7963F23E6A59300C56DDB /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7963E23E6A59300C56DDB /* Properties.swift */; };
+		3EF7964123E6A59C00C56DDB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7964023E6A59C00C56DDB /* Color.swift */; };
 		3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */; };
 		53495199B524324E8BBFCFCE /* Pods_DamdaCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */; };
 /* End PBXBuildFile section */
@@ -113,6 +115,8 @@
 		3EF1062723B7207F00CCB7E1 /* looking_partner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = looking_partner.json; path = "Lottie Animations/looking_partner.json"; sourceTree = "<group>"; };
 		3EF1062823B7207F00CCB7E1 /* partner_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = partner_found.json; path = "Lottie Animations/partner_found.json"; sourceTree = "<group>"; };
 		3EF1062923B7208000CCB7E1 /* stay_put.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stay_put.json; path = "Lottie Animations/stay_put.json"; sourceTree = "<group>"; };
+		3EF7963E23E6A59300C56DDB /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		3EF7964023E6A59C00C56DDB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3EFCD65A21AE33D900D51C0C /* DamdaCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamdaCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EFCD66921AE33DA00D51C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 				3E38F61023DAF24D002AAAB4 /* Line Drawing */,
 				3E38F61423DAF290002AAAB4 /* Styles.swift */,
 				3E38F61523DAF291002AAAB4 /* Utilities.swift */,
+				3EF7963E23E6A59300C56DDB /* Properties.swift */,
+				3EF7964023E6A59C00C56DDB /* Color.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -534,6 +540,7 @@
 			files = (
 				3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */,
 				3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */,
+				3EF7964123E6A59C00C56DDB /* Color.swift in Sources */,
 				3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */,
 				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
 				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,
@@ -556,6 +563,7 @@
 				3E38F61723DAF291002AAAB4 /* Utilities.swift in Sources */,
 				3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */,
 				3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */,
+				3EF7963F23E6A59300C56DDB /* Properties.swift in Sources */,
 				3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */,
 				3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,

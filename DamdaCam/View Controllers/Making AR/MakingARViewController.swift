@@ -19,7 +19,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     
     var lastPoint: CGPoint!
     var lineSize: CGFloat = 2.0
-    var lineColor = UIColor.black.cgColor
+    var lineColor = Properties.shared.color.white.cgColor
     
     @IBOutlet var drawingView: UIImageView!
     
@@ -155,7 +155,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         self.saveMessageButtonView.dropShadow()
 
         // Palette Set
-        addBackView(view: paletteView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
         paletteView.alpha = 0.0
         paletteView.layer.cornerRadius = 10
         self.paletteRadialPicker.dropShadow()
@@ -163,19 +163,19 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         colorPicker.selectedColor = pickedColor
         
         // Brush Set
-        addBackView(view: brushView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: brushView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
         brushView.alpha = 0.0
         brushView.layer.cornerRadius = 10
         brushBasicButton.isSelected = true
         brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         
         // Figure Set
-        addBackView(view: figureView, color: UIColor.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: figureView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
         figureView.alpha = 0.0
         figureView.layer.cornerRadius = 10
         figureFillButton.isSelected = true
-        figureWidthTitle.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
-        figureWidthLabel.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
+        figureWidthTitle.textColor = Properties.shared.color.text_disable
+        figureWidthLabel.textColor = Properties.shared.color.text_disable
         figureWidthSlider.isEnabled = false
         figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         figureShape = "Rectangle"
@@ -334,7 +334,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
             } else {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 네온 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(UIColor.white.cgColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(Properties.shared.color.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 7.0, color: lineColor)
             }
             
@@ -378,7 +378,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
             } else {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 네온 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(UIColor.white.cgColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(Properties.shared.color.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 7.0, color: lineColor)
             }
             
@@ -789,10 +789,11 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         
         if indexPath.row < customPaletteArray.count {
             CustomColor.customColor.backgroundColor = customPaletteArray[indexPath.row]
+            CustomColor.customColor.layer.borderColor = UIColor.clear.cgColor
         } else {
             CustomColor.customColor.backgroundColor = UIColor.clear
             CustomColor.customColor.layer.borderWidth = 1
-            CustomColor.customColor.layer.borderColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1.0).cgColor
+            CustomColor.customColor.layer.borderColor = Properties.shared.color.gray.cgColor
         }
         
         return CustomColor
@@ -898,7 +899,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
             shapeLayer.shadowRadius = 0
             shapeLayer.shadowOpacity = 0
         } else {
-            shapeLayer.strokeColor = UIColor.white.cgColor
+            shapeLayer.strokeColor = Properties.shared.color.white.cgColor
             shapeLayer.shadowOffset = .zero
             shapeLayer.shadowColor = colorPicker.selectedColor.cgColor
             shapeLayer.shadowRadius = 7
@@ -944,12 +945,12 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     // Figure Set
     @IBAction func figureStateTapped(_ sender: UIButton) {
         if sender == figureFillButton {
-            figureWidthTitle.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
-            figureWidthLabel.textColor = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1.0)
+            figureWidthTitle.textColor = Properties.shared.color.text_disable
+            figureWidthLabel.textColor = Properties.shared.color.text_disable
             figureWidthSlider.isEnabled = false
         } else {
-            figureWidthTitle.textColor = UIColor.white
-            figureWidthLabel.textColor = UIColor.white
+            figureWidthTitle.textColor = Properties.shared.color.white
+            figureWidthLabel.textColor = Properties.shared.color.white
             figureWidthSlider.isEnabled = true
         }
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()

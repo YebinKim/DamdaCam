@@ -224,16 +224,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.threeClipButton.dropShadow(state: true)
         self.plusClipButton.dropShadow(state: true)
         
-        self.oneClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        self.twoClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        self.threeClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
-        self.plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: false)
+        self.oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
         
         self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         secLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
-        secLabel.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+        secLabel.textColor = Properties.shared.color.darkGray
         secLabel.text = "m"
         secLabel.sizeToFit()
         secLabel.frame = CGRect(x: 81.0, y: 49.0, width: secLabel.bounds.width, height: secLabel.bounds.height)
@@ -241,7 +241,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         minLabel.font = UIFont(name: "NotoSansCJKkr-Bold", size: 13.0)
-        minLabel.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+        minLabel.textColor = Properties.shared.color.darkGray
         minLabel.text = "s"
         minLabel.sizeToFit()
         minLabel.frame = CGRect(x: 210.0, y: 49.0, width: minLabel.bounds.width, height: minLabel.bounds.height)
@@ -260,7 +260,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         menuView.isHidden = true
         menuView.alpha = 0.0
-        addBackView(view: menuView, color: UIColor.black, alpha: 0.6, cornerRadius: 0)
+        addBackView(view: menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
         
         self.view.addSubview(tapGestureView)
         tapGestureView.isHidden = true
@@ -279,11 +279,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let BGBlack = UIView()
         BGBlack.frame = ARMotionView.bounds
         BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBlack.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        BGBlack.backgroundColor = Properties.shared.color.view_background
         let BGBar = UIView()
         BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
         BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        BGBar.backgroundColor = Properties.shared.color.bar_background
         ARMotionView.addSubview(BGBlack)
         ARMotionView.sendSubviewToBack(BGBlack)
         ARMotionView.addSubview(BGBar)
@@ -292,11 +292,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let BGFilter = UIView()
         BGFilter.frame = filterView.bounds
         BGFilter.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGFilter.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        BGFilter.backgroundColor = Properties.shared.color.view_background
         let BGfilterBar = UIView()
         BGfilterBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
         BGfilterBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGfilterBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        BGfilterBar.backgroundColor = Properties.shared.color.bar_background
         filterView.addSubview(BGFilter)
         filterView.sendSubviewToBack(BGFilter)
         filterView.addSubview(BGfilterBar)
@@ -361,8 +361,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.galleryButton.dropShadow(state: true)
             self.menuButton.dropShadow(state: true)
             
-            recordModePhoto.titleLabel?.textColor = UIColor.white
-            recordModeVideo.titleLabel?.textColor = UIColor.white
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
             
             recordMoveButton.isHidden = false
         } else if previewSize == 1 {
@@ -377,8 +377,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.galleryButton.dropShadow(state: false)
             self.menuButton.dropShadow(state: false)
             
-            recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
             
             recordMoveButton.isHidden = true
         } else {
@@ -393,8 +393,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.galleryButton.dropShadow(state: false)
             self.menuButton.dropShadow(state: false)
             
-            recordModePhoto.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
-            recordModeVideo.titleLabel?.textColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0)
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
             
             recordMoveButton.isHidden = true
         }
@@ -1040,7 +1040,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.previewLayer = videoPreviewLayer
         
         videoPreviewLayer.name = "CameraPreview"
-        videoPreviewLayer.backgroundColor = UIColor.black.cgColor
+        videoPreviewLayer.backgroundColor = Properties.shared.color.black.cgColor
         videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         if let previewRootLayer = self.previewView?.layer {
@@ -1454,35 +1454,35 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func clipButtonStateCheck() {
         if (oneClipState) {
-            oneClipButton.setTitleColor(UIColor.white, for: .normal)
-            oneClipButton.applyGradient(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 1.0).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 1.0).cgColor], state: true)
+            oneClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
+            oneClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
-            oneClipButton.setTitleColor(UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0), for: .normal)
-            oneClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: true)
+            oneClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
+            oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
         if (twoClipState) {
-            twoClipButton.setTitleColor(UIColor.white, for: .normal)
-            twoClipButton.applyGradient(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 1.0).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 1.0).cgColor], state: true)
+            twoClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
+            twoClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
-            twoClipButton.setTitleColor(UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0), for: .normal)
-            twoClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: true)
+            twoClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
+            twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
         if (threeClipState) {
-            threeClipButton.setTitleColor(UIColor.white, for: .normal)
-            threeClipButton.applyGradient(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 1.0).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 1.0).cgColor], state: true)
+            threeClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
+            threeClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
-            threeClipButton.setTitleColor(UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0), for: .normal)
-            threeClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: true)
+            threeClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
+            threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
         if (plusClipState) {
-            plusClipButton.setTitleColor(UIColor.white, for: .normal)
-            plusClipButton.applyGradient(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 1.0).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 1.0).cgColor], state: true)
+            plusClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
+            plusClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
-            plusClipButton.setTitleColor(UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1.0), for: .normal)
-            plusClipButton.applyGradient(colors: [UIColor.white.cgColor, UIColor.white.cgColor], state: true)
+            plusClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
+            plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
     }
     
@@ -1502,7 +1502,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let title = UILabel()
         title.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
-        title.textColor = UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)
+        title.textColor = Properties.shared.color.darkGray
         title.text = String(row)
         title.textAlignment = .center
         
@@ -1817,24 +1817,24 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         FaceARMotionButton.isSelected = false
         BGARMotionButton.isSelected = false
         
-        AllARMotionButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.38)
-        FaceARMotionButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.38)
-        BGARMotionButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.38)
+        AllARMotionButton.backgroundColor = Properties.shared.color.button_background
+        FaceARMotionButton.backgroundColor = Properties.shared.color.button_background
+        BGARMotionButton.backgroundColor = Properties.shared.color.button_background
         
         if sender == myARMotionButton {
             myARMotionButton.isSelected = true
             
         } else if sender == AllARMotionButton {
             AllARMotionButton.isSelected = true
-            AllARMotionButton.backgroundColor = UIColor.white
+            AllARMotionButton.backgroundColor = Properties.shared.color.white
             
         } else if sender == FaceARMotionButton {
             FaceARMotionButton.isSelected = true
-            FaceARMotionButton.backgroundColor = UIColor.white
+            FaceARMotionButton.backgroundColor = Properties.shared.color.white
             
         } else if sender == BGARMotionButton {
             BGARMotionButton.isSelected = true
-            BGARMotionButton.backgroundColor = UIColor.white
+            BGARMotionButton.backgroundColor = Properties.shared.color.white
         }
         
         DispatchQueue.main.async {
@@ -1883,7 +1883,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             
             ARMotionCell.layer.shadowOpacity = 0.6
             ARMotionCell.layer.shadowRadius = 1
-            ARMotionCell.layer.shadowColor = UIColor.darkGray.cgColor
+            ARMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
             ARMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
             if myARMotionButton.isSelected {
@@ -2081,6 +2081,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func filterTempAction(_ sender: UIButton) {
+        // FIXME: Temp Spec
         if sender == filterTemp1 {
             filterPowerSlider.isHidden = true
             filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)

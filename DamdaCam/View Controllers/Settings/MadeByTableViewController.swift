@@ -20,8 +20,8 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)!, .foregroundColor: UIColor(red: 84.0/255.0, green: 84.0/255.0, blue: 84.0/255.0, alpha: 1.0)]
-        navigationBar.barTintColor = UIColor.white
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NotoSansCJKkr-Regular", size: 15.0) ?? UIFont.systemFont(ofSize: 15.0), .foregroundColor: Properties.shared.color.darkGray]
+        navigationBar.barTintColor = Properties.shared.color.white
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
@@ -34,9 +34,9 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.backgroundColor = UIColor.white
+            headerView.backgroundColor = Properties.shared.color.white
             headerView.textLabel?.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
-            headerView.textLabel?.textColor = UIColor(red: 112.0/255.0, green: 112.0/255.0, blue: 112.0/255.0, alpha: 1.0)
+            headerView.textLabel?.textColor = Properties.shared.color.lightGray
         }
     }
     
@@ -54,11 +54,11 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.textLabel!.text = myLove[indexPath.row]
         cell.textLabel!.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
-        cell.textLabel!.textColor = UIColor(red: 112.0/255.0, green: 112.0/255.0, blue: 112.0/255.0, alpha: 1.0)
+        cell.textLabel!.textColor = Properties.shared.color.lightGray
         
         cell.detailTextLabel!.text = mySunshine[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "NotoSansCJKkr-Regular", size: 10.0)
-        cell.detailTextLabel!.textColor = UIColor(red: 112.0/255.0, green: 112.0/255.0, blue: 112.0/255.0, alpha: 1.0)
+        cell.detailTextLabel!.textColor = Properties.shared.color.lightGray
         
         return cell
     }

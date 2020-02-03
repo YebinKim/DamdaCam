@@ -69,7 +69,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     
     static let identifier: String = "ARDrawingViewController"
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
     @IBOutlet var sceneView: ARSCNView!
@@ -692,7 +691,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         self.paletteView.layer.cornerRadius = 10
         self.paletteRadialPicker.dropShadow()
         
-        self.createCustomPaletteArray()
+        self.customPaletteArray = DamdaData.shared.customPaletteArray
         self.colorPicker.selectedColor = pickedColor
         
         // Preview Color Set
@@ -1505,7 +1504,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         paletteCustomCollectionView.reloadData()
         pickedColor = colorPicker.selectedColor
-        createCustomPaletteArray()
+        self.customPaletteArray = DamdaData.shared.customPaletteArray
         
         textButtonState = false
         figureButtonState = false
@@ -1983,28 +1982,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         }
     }
     
-    func getContext() -> NSManagedObjectContext {
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-    func createCustomPaletteArray() {
-        customPaletteArray = Array()
-        let context = self.getContext()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CustomPalette")
-        
-        do {
-            localRecords = try context.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        for index in 0 ..< localRecords.count {
-            let localRecord = localRecords[index]
-            let hexToColor = UIColor(hex: localRecord.value(forKey: "colorHex") as! String)
-            customPaletteArray.append(hexToColor!)
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
         
@@ -2053,7 +2030,8 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     @IBAction func paletteViewCheckTapped(_ sender: UIButton) {
-        let context = self.getContext()
+        // FIXME: CoreData 모델화 진행중, CustomPalette save
+        let context = DamdaData.shared.context
         let entity = NSEntityDescription.entity(forEntityName: "CustomPalette", in: context)
         
         // 중복 저장 방지
@@ -2117,7 +2095,8 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     @IBAction func previewPaletteXTapped(_ sender: UIButton) {
-        let context = self.getContext()
+        // FIXME: CoreData 모델화 진행중, CustomPalette save
+        let context = DamdaData.shared.context
         let entity = NSEntityDescription.entity(forEntityName: "CustomPalette", in: context)
         
         // 중복 저장 방지

@@ -18,7 +18,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 
     static let identifier: String = "ARMotionViewController"
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
     let ARView = SCNView()
@@ -171,6 +170,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
+    // FIXME: main thread only
     private lazy var halfWidth = self.view.bounds.width / 2
     private lazy var halfHeight = self.view.bounds.height / 2
     
@@ -1842,11 +1842,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    // ARMotion View + Filter View
-    func getContext() -> NSManagedObjectContext {
-        return appDelegate.persistentContainer.viewContext
-    }
-    
+    // FIXME: CoreData 모델화 진행중
     func createARMotionArray() {
         AllARMotionArray = Array()
         FaceARMotionArray = Array()
@@ -1856,22 +1852,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         BGARMotionArray = [UIImage(named: "BGAR_Snow")!, UIImage(named: "BGAR_Blossom")!, UIImage(named: "BGAR_Rain")!, UIImage(named: "BGAR_Fish")!, UIImage(named: "BGAR_Greenery")!, UIImage(named: "BGAR_Fruits")!, UIImage(named: "BGAR_Glow")!]
         
-        let MakingARInstance = MakingARViewController()
-        let context = self.getContext()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MakingARData")
-        
-        do {
-            localRecords = try context.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        for index in 0 ..< localRecords.count {
-            let localRecord = localRecords[index]
-            FaceARMotionArray.append(MakingARInstance.loadImageFromDiskWith(fileName: localRecord.value(forKey: "idString") as! String)!)
-        }
-        
-        AllARMotionArray = FaceARMotionArray + BGARMotionArray
+        AllARMotionArray = DamdaData.shared.makingARArray
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

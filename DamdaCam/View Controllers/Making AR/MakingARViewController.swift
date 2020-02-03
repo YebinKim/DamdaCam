@@ -159,7 +159,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         paletteView.alpha = 0.0
         paletteView.layer.cornerRadius = 10
         self.paletteRadialPicker.dropShadow()
-        createCustomPaletteArray()
+        self.customPaletteArray = DamdaData.shared.customPaletteArray
         colorPicker.selectedColor = pickedColor
         
         // Brush Set
@@ -210,11 +210,6 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         super.viewWillDisappear(animated)
     }
     
-    // Drawing Set
-    func getContext() -> NSManagedObjectContext {
-        return appDelegate.persistentContainer.viewContext
-    }
-    
     @IBAction func deleteDrawing(_ sender: UIButton) {
         drawingView.image = nil
     }
@@ -238,7 +233,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         guard let data = image.pngData() else { return }
         
-        let context = self.getContext()
+        let context = DamdaData.shared.context
         let entity = NSEntityDescription.entity(forEntityName: "MakingARData", in: context)
 
         // LocalRecord record를 새로 생성함
@@ -268,21 +263,6 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         } catch let error {
             print("error saving file with error", error)
         }
-    }
-    
-    func loadImageFromDiskWith(fileName: String) -> UIImage? {
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        
-        if let dirPath = paths.first {
-            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
-            let image = UIImage(contentsOfFile: imageUrl.path)
-            return image
-        }
-        
-        return nil
     }
     
     func saveAsImage() -> UIImage? {
@@ -526,7 +506,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBAction func palettebuttonTapped(_ sender: UIButton) {
         pickedColor = colorPicker.selectedColor
-        createCustomPaletteArray()
+        self.customPaletteArray = DamdaData.shared.customPaletteArray
         
         backView.isHidden = false
         paletteView.isHidden = false
@@ -764,24 +744,6 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         }
     }
     
-    func createCustomPaletteArray() {
-        customPaletteArray = Array()
-        let context = self.getContext()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CustomPalette")
-        
-        do {
-            localRecords = try context.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        for index in 0 ..< localRecords.count {
-            let localRecord = localRecords[index]
-            let hexToColor = UIColor(hex: localRecord.value(forKey: "colorHex") as! String)
-            customPaletteArray.append(hexToColor!)
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
         
@@ -831,7 +793,8 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func paletteViewCheckTapped(_ sender: UIButton) {
-        let context = self.getContext()
+        // FIXME: CoreData 모델화 진행중, CustomPalette save
+        let context = DamdaData.shared.context
         let entity = NSEntityDescription.entity(forEntityName: "CustomPalette", in: context)
         
         // 중복 저장 방지
@@ -1143,7 +1106,8 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func previewPaletteXTapped(_ sender: UIButton) {
-        let context = self.getContext()
+        // FIXME: CoreData 모델화 진행중, CustomPalette save
+        let context = DamdaData.shared.context
         let entity = NSEntityDescription.entity(forEntityName: "CustomPalette", in: context)
         
         // 중복 저장 방지

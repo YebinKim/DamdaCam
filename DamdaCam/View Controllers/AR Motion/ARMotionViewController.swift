@@ -1848,9 +1848,17 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         FaceARMotionArray = Array()
         BGARMotionArray = Array()
         
-        FaceARMotionArray = [UIImage(named: "FaceAR_Heart")!, UIImage(named: "FaceAR_Angel")!, UIImage(named: "FaceAR_Rabbit")!, UIImage(named: "FaceAR_Cat")!, UIImage(named: "FaceAR_Mouse")!, UIImage(named: "FaceAR_Peach")!, UIImage(named: "FaceAR_BAAAM")!, UIImage(named: "FaceAR_Mushroom")!, UIImage(named: "FaceAR_Doughnut")!, UIImage(named: "FaceAR_Flower")!]
+        for kind in FaceARMotion.Kind.allCases {
+            if let image = UIImage(named: "FaceAR_\(kind)") {
+                FaceARMotionArray.append(image)
+            }
+        }
         
-        BGARMotionArray = [UIImage(named: "BGAR_Snow")!, UIImage(named: "BGAR_Blossom")!, UIImage(named: "BGAR_Rain")!, UIImage(named: "BGAR_Fish")!, UIImage(named: "BGAR_Greenery")!, UIImage(named: "BGAR_Fruits")!, UIImage(named: "BGAR_Glow")!]
+        for kind in BGARMotion.Kind.allCases {
+            if let image = UIImage(named: "BGAR_\(kind)") {
+                BGARMotionArray.append(image)
+            }
+        }
         
         AllARMotionArray = DamdaData.shared.makingARArray
     }

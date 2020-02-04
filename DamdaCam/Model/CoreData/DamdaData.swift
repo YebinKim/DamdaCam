@@ -41,11 +41,21 @@ final class DamdaData {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MakingARData")
         var makingARRecords = [NSManagedObject]()
         var makingARArray = [UIImage]()
+        var FaceARMotionArray = [UIImage]()
+        var BGARMotionArray = [UIImage]()
         
-        // FIXME: String 관리 효율화 필요
-        var FaceARMotionArray = [UIImage(named: "FaceAR_Heart")!, UIImage(named: "FaceAR_Angel")!, UIImage(named: "FaceAR_Rabbit")!, UIImage(named: "FaceAR_Cat")!, UIImage(named: "FaceAR_Mouse")!, UIImage(named: "FaceAR_Peach")!, UIImage(named: "FaceAR_BAAAM")!, UIImage(named: "FaceAR_Mushroom")!, UIImage(named: "FaceAR_Doughnut")!, UIImage(named: "FaceAR_Flower")!]
+        // FIXME: 모델화 작업 진행
+        for kind in FaceARMotion.Kind.allCases {
+            if let image = UIImage(named: "FaceAR_\(kind)") {
+                FaceARMotionArray.append(image)
+            }
+        }
         
-        let BGARMotionArray = [UIImage(named: "BGAR_Snow")!, UIImage(named: "BGAR_Blossom")!, UIImage(named: "BGAR_Rain")!, UIImage(named: "BGAR_Fish")!, UIImage(named: "BGAR_Greenery")!, UIImage(named: "BGAR_Fruits")!, UIImage(named: "BGAR_Glow")!]
+        for kind in BGARMotion.Kind.allCases {
+            if let image = UIImage(named: "BGAR_\(kind)") {
+                BGARMotionArray.append(image)
+            }
+        }
         
         do {
             makingARRecords = try context.fetch(fetchRequest)

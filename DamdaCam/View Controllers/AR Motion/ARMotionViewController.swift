@@ -170,9 +170,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
-    // FIXME: main thread only
-    private lazy var halfWidth = self.view.bounds.width / 2
-    private lazy var halfHeight = self.view.bounds.height / 2
+    private var halfWidth: CGFloat {
+        return self.view.bounds.width / 2
+    }
+    private var halfHeight: CGFloat {
+        return self.view.bounds.height / 2
+    }
     
     // MARK: UIViewController overrides
     

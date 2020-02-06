@@ -29,6 +29,42 @@ let sm = """
     }
     """
 
+protocol ARDrawingViewControllerDelegate {
+    
+    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+    func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
+    
+    var shouldAutorotate: Bool { get }
+    func resetTouches()
+    func shouldHideTrashButton()->Bool
+    func shouldHideUndoButton()->Bool
+    
+    func setPreviewSize()
+    
+    func takePhoto()
+    func recordTapped(sender: UIButton?)
+    func stopRecording()
+    
+    func clearStrokesTapped(sender: UIButton?)
+    func undoLastStroke(sender: UIButton?)
+    func setTouchState(_ state: Bool)
+    func getTouchState() -> Bool
+    func setStrokeSize(_ radius: Float)
+    func getStrokeSize() -> Float
+    func setStrokeNeon(_ state: Bool)
+    func getStrokeNeon() -> Bool
+    func setStrokeColor(_ selectedColor: CGColor)
+    func getStrokeColor() -> CGColor
+    
+    func create3DText(message: String, depth: CGFloat, color: UIColor, align: Int)
+    func create3DFigure(_ figure: Figure)
+    
+    func registerNodeGestureRecognizers(view: UIView)
+    
+}
+
 enum ViewMode {
     case DRAW
     case TRACKING
@@ -69,12 +105,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     
     static let identifier: String = "ARDrawingViewController"
     
-    var localRecords: [NSManagedObject] = []
-    
-    @IBOutlet var sceneView: ARSCNView!
-    let configuration = ARWorldTrackingConfiguration()
-    
+    // ARViewController touch delegate
     @IBOutlet weak var touchView: TouchView!
+    var touchDelegate: ARDrawingViewControllerDelegate?
     
     // Record UI
     @IBOutlet var recordView: UIView!
@@ -236,100 +269,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     var hasDrawnInSession: Bool = false
     var recordingTimer: Timer?
     
-    // AR Drawing
-    /// store current touch location in view
-    var touchPoint: CGPoint = .zero
-    var touchState: Bool = true
-    var movingNow = false
-    var tappedObjectNode = SCNNode()
-    
-    /// SCNNode floating in front of camera the distance drawing begins
-    var hitNode: SCNNode?
-    
-    /// array of strokes a user has drawn in current session
-    var strokes: [Stroke] = [Stroke]()
-    
-    var shouldRetryAnchorResolve = false
-    
-    /// Currently selected stroke size
-    var strokeSize: Float = 0.0010
-    
-    var neonState: Bool = false
-    var color: CGColor = Properties.shared.color.white.cgColor
-    
-    /// After 3 seconds of tracking changes trackingMessage to escalated value
-    var trackingMessageTimer: Timer?
-    
-    /// When session returns from interruption, hold time to limit relocalization
-    var resumeFromInterruptionTimer: Timer?
-    
-    /// When in limited tracking mode, hold previous mode to return to
-    var modeBeforeTracking: ViewMode?
-    
-    /// Most situations we show the looking message, but when relocalizing and currently paired, show anchorLost type
-    var trackingMessage: TrackingMessageType = .looking
-    
-    /// capture first time establish tracking
-    var hasInitialTracking = false
-    
-    var mode: ViewMode = .DRAW {
-        didSet {
-            switch mode {
-            case .DRAW:
-                if (strokes.count > 0) {
-                    hideDrawingPrompt()
-                } else {
-                    showDrawingPrompt()
-                }
-                
-                drawingUIHidden(false)
-                stopTrackingAnimation()
-                messagesContainerView?.isHidden = true
-                setStrokeVisibility(isHidden: false)
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: touchView)
-                
-                //#if DEBUG
-                //sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
-                //#else
-                sceneView.debugOptions = []
-                //#endif
-                
-            case .TRACKING:
-                hideDrawingPrompt()
-                startTrackingAnimation(trackingMessage)
-                
-                // hiding fullBackground hides everything except close button
-                setStrokeVisibility(isHidden: true)
-                touchView.isHidden = true
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: trackingPromptLabel)
-            }
-            
-            // if we're tracking and the mode changes, update our previous mode state
-            if (modeBeforeTracking != nil && mode != .TRACKING) {
-                print("Updating mode to return to after tracking: \(mode)")
-                modeBeforeTracking = mode
-            }
-        }
-    }
-    
-    // MARK: UI
-    /// window with UI elements to keep them out of screen recording
-    var uiWindow: UIWindow?
-    
-    // Video
-    
-    /// ReplayKit shared screen recorder
-    var screenRecorder: RPScreenRecorder?
-    
-    /// writes CMSampleBuffer for screen recording
-    var assetWriter: AVAssetWriter?
-    
-    /// holds asset writer settings for media
-    var assetWriterInput: AVAssetWriterInput?
-    
-    /// temporary bool for toggling recording state
-    var isRecording: Bool = false
-    
     // MARK: - View State
     
     override func viewDidLoad() {
@@ -337,7 +276,8 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         // Set drawing scene view
         self.touchView.touchDelegate = self
-        self.initializeDrawingView()
+        self.touchDelegate?.setStrokeSize(brushWidth)
+        
         self.drawingUIHidden(false)
         
         DispatchQueue.main.async {
@@ -359,12 +299,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         // Register gesture recognizer
         self.registerUIGestureRecognizers()
-        self.registerNodeGestureRecognizers(view: editView)
         
-        // Set record
-        self.screenRecorder = RPScreenRecorder.shared()
-        self.screenRecorder?.isMicrophoneEnabled = true
-        self.initializeRecordButton()
+        self.clearAllButton.layer.cornerRadius = 13
+        self.clearAllButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
         // FIXME: deleete remove3DView
         self.remove3DView.isHidden = true
@@ -374,9 +311,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.configureARSession()
-        
-        self.setPreviewSize()
+        self.touchDelegate?.setPreviewSize()
         
         // Set ui icon
         if previewSize == 0 {
@@ -450,17 +385,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Pause the view's session
-        self.sceneView.session.pause()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-        self.resetTouches()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.touchPoint = .zero
     }
     
     private func registerUIGestureRecognizers() {
@@ -492,47 +416,10 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     private func addObservers() {
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
-            self.touchPoint = .zero
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func initializeDrawingView() {
-        // Set the view's delegate
-        self.sceneView.delegate = self
-        self.sceneView.scene = SCNScene()
-        
-        self.hitNode = SCNNode()
-        self.hitNode!.position = SCNVector3Make(0, 0, -0.4)  // 드로잉 거리 조절
-        self.sceneView.pointOfView?.addChildNode(hitNode!)
-        
-        self.setStrokeSize(brushWidth)
-        
-        let ambientLight = SCNNode()
-        ambientLight.light = SCNLight()
-        ambientLight.light?.shadowMode = .deferred
-        ambientLight.light?.color = UIColor.white
-        ambientLight.light?.type = SCNLight.LightType.ambient
-        ambientLight.position = SCNVector3(x: 0,y: 5,z: 0)
-        self.sceneView.scene.rootNode.addChildNode(ambientLight)
-        self.sceneView.automaticallyUpdatesLighting = true   // lighting 설정
-        
-        // Neon Set
-        if let path = Bundle.main.path(forResource: "NodeTechnique", ofType: "plist") {
-            if let dict = NSDictionary(contentsOfFile: path)  {
-                let dict2 = dict as! [String : AnyObject]
-                let technique = SCNTechnique(dictionary:dict2)
-                self.sceneView.technique = technique
-            }
-        }
-        
-        self.clearAllButton.layer.cornerRadius = 13
-        self.clearAllButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
     }
     
     private func initializeMessageView() {
@@ -701,113 +588,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         addBackView(view: self.paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
     }
     
-    // MARK: - View Configuration
-    
-    func configureARSession(runOptions: ARSession.RunOptions = []) {
-        // Create a session configuration
-        configuration.planeDetection = [.horizontal]
-        //  configuration.isAutoFocusEnabled = false
-        
-        // Run the view's session
-        sceneView.session.run(configuration, options: runOptions)
-        sceneView.session.delegate = self
-    }
-    
-    // MARK: - Stroke Code
-    
-    /// Places anchor on hitNode plane at point
-    func makeAnchor(at point: CGPoint) -> ARAnchor? {
-        
-        guard let hitNode = hitNode else {
-            return nil
-        }
-        let projectedOrigin = sceneView.projectPoint(hitNode.worldPosition)
-        let offset = sceneView.unprojectPoint(SCNVector3Make(Float(point.x), Float(point.y), projectedOrigin.z))
-        
-        var blankTransform = matrix_float4x4(1)
-        //        var transform = hitNode.simdWorldTransform
-        blankTransform.columns.3.x = offset.x
-        blankTransform.columns.3.y = offset.y
-        blankTransform.columns.3.z = offset.z
-        
-        return ARAnchor(transform: blankTransform)
-    }
-    
-    /// Updates stroke with new SCNVector3 point, and regenerates line geometry
-    func updateLine(for stroke: Stroke) {
-        if touchState {
-            guard let _ = stroke.points.last, let strokeNode = stroke.node else {
-                return
-            }
-            let offset = unprojectedPosition(for: stroke, at: touchPoint)
-            let newPoint = strokeNode.convertPosition(offset, from: sceneView.scene.rootNode)
-            
-            stroke.lineWidth = strokeSize
-            if (stroke.add(point: newPoint, neonState: neonState)) {
-                updateGeometry(stroke)
-            }
-            //            print("Total Points: \(stroke.points.count)")
-        }
-    }
-    
-    func updateGeometry(_ stroke: Stroke) {
-        if touchState {
-            if stroke.positionsVec3.count > 4 {
-                let vectors = stroke.positionsVec3
-                let sides = stroke.mSide
-                let width = stroke.mLineWidth
-                let lengths = stroke.mLength
-                let totalLength = (stroke.drawnLocally) ? stroke.totalLength : stroke.animatedLength
-                let line = LineGeometry(vectors: vectors,
-                                        sides: sides,
-                                        width: width,
-                                        lengths: lengths,
-                                        endCapPosition: totalLength,
-                                        color: color)
-                
-                stroke.node?.geometry = line
-                hasDrawnInSession = true
-                hideDrawingPrompt()
-            }
-        }
-    }
-    
-    // Stroke Helper Methods
-    func unprojectedPosition(for stroke: Stroke, at touch: CGPoint) -> SCNVector3 {
-        guard let hitNode = self.hitNode else {
-            return SCNVector3Zero
-        }
-        
-        let projectedOrigin = sceneView.projectPoint(hitNode.worldPosition)
-        let offset = sceneView.unprojectPoint(SCNVector3Make(Float(touch.x), Float(touch.y), projectedOrigin.z))
-        
-        return offset
-    }
-    
-    /// Checks user's strokes for match, then partner's strokes
-    func getStroke(for anchor: ARAnchor) -> Stroke? {
-        let matchStrokeArray = strokes.filter { (stroke) -> Bool in
-            return stroke.anchor == anchor
-        }
-        
-        return matchStrokeArray.first
-    }
-    
-    /// Checks user's strokes for match, then partner's strokes
-    func getStroke(for node: SCNNode) -> Stroke? {
-        let matchStrokeArray = strokes.filter { (stroke) -> Bool in
-            return stroke.node == node
-        }
-        
-        return matchStrokeArray.first
-    }
-    
-    func setStrokeVisibility(isHidden: Bool) {
-        strokes.forEach { stroke in
-            stroke.node?.isHidden = isHidden
-        }
-    }
-    
     @IBAction func changeButtonTapped(_ sender: UIButton) {
         self.showStoryboard(ARMotionViewController.identifier)
     }
@@ -861,21 +641,39 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         //        sizeButtonStackView.alpha = (UIAccessibility.isVoiceOverRunning) ? 1 : 0
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.touchDelegate?.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.touchDelegate?.touchesMoved(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let delegate = self.touchDelegate {
+            delegate.touchesEnded(touches, with: event)
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.touchDelegate?.touchesCancelled(touches, with: event)
+    }
+    
     @IBAction func recordTapped(_ sender: UIButton) {
         if selectedMode {
             print("still")
-            takePhoto()
+            self.touchDelegate?.takePhoto()
             //            sessionOutput.capturePhoto(with: sessionOutputSetting, delegate: self as! AVCapturePhotoCaptureDelegate)
         } else {
             if !videoState {
-                recordTapped(sender: sender)
+                self.touchDelegate?.recordTapped(sender: sender)
                 
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse, .allowUserInteraction], animations: {
                     self.recordButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                     self.recordButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 })
             } else {
-                stopRecording()
+                self.touchDelegate?.stopRecording()
                 recordButton.layer.removeAllAnimations()
             }
             
@@ -915,7 +713,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             }
         }
         
-        setTouchState(true)
+        self.touchDelegate?.setTouchState(true)
         editView.isHidden = true
         drawingPenButton.layer.borderWidth = 2
     }
@@ -925,24 +723,24 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             pickedColor = Properties.shared.color.drawingPen_blue
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.setStrokeColor(pickedColor.cgColor)
+            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenTwo {
             pickedColor = Properties.shared.color.drawingPen_green
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.setStrokeColor(pickedColor.cgColor)
+            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenThree {
             pickedColor = Properties.shared.color.drawingPen_red
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.setStrokeColor(pickedColor.cgColor)
+            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         }
         
-        setTouchState(true)
+        self.touchDelegate?.setTouchState(true)
         editView.isHidden = true
         drawingPenButton.layer.borderWidth = 2
     }
@@ -952,11 +750,11 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     @IBAction func clearAllStrokes(_ sender: UIButton) {
-        clearStrokesTapped(sender: sender)
+        self.touchDelegate?.clearStrokesTapped(sender: sender)
     }
     
     @IBAction func undoLastStroke(_ sender: UIButton) {
-        undoLastStroke(sender: sender)
+        self.touchDelegate?.undoLastStroke(sender: sender)
     }
     
     // Clip Set
@@ -1137,8 +935,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     func drawingUIHidden(_ isHidden: Bool) {
-        clearAllButton.isHidden = (isHidden == true) ? true : shouldHideTrashButton()
-        //            undoButton.isHidden = (isHidden == true) ? true : delegate.shouldHideUndoButton()
+        if let delegate = touchDelegate {
+            self.clearAllButton.isHidden = (isHidden == true) ? true : delegate.shouldHideTrashButton()
+        }
     }
     
     func showDrawingPrompt(isPaired: Bool = false) {
@@ -1228,7 +1027,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
                 self.recordingTimer = Timer.scheduledTimer(withTimeInterval: self.clipTime, repeats: false, block: { (timer) in
                     DispatchQueue.main.async {
                         print(self.clipTime)
-                        self.stopRecording()
+                        self.touchDelegate?.stopRecording()
                         self.recordButton.layer.removeAllAnimations()
                         self.recordButton.isEnabled = true
                     }
@@ -1316,7 +1115,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     @IBAction func menuTapped(_ sender: UIButton) {
-        setTouchState(false)
+        self.touchDelegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1409,7 +1208,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        setTouchState(false)
+        self.touchDelegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1438,7 +1237,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        setTouchState(false)
+        self.touchDelegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1470,7 +1269,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        setTouchState(false)
+        self.touchDelegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1498,7 +1297,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        setTouchState(false)
+        self.touchDelegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1684,7 +1483,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             }
         }
         
-        create3DText(message: textField.text, depth: CGFloat(textDepth), color: pickedColor, align: textField!.textAlignment.rawValue)
+        self.touchDelegate?.create3DText(message: textField.text, depth: CGFloat(textDepth), color: pickedColor, align: textField!.textAlignment.rawValue)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1800,7 +1599,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         }
         
         figure.color = pickedColor
-        create3DFigure(figure)
+        self.touchDelegate?.create3DFigure(figure)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1819,7 +1618,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         brushPreview.layer.sublayers?[0].removeFromSuperlayer()
         drawLineShape()
         
-        self.setStrokeNeon(brushNeonButton.isSelected)
+        self.touchDelegate?.setStrokeNeon(brushNeonButton.isSelected)
     }
     
     @IBAction func brushWidthChanged(_ sender: UISlider) {
@@ -1854,7 +1653,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     @IBAction func brushViewXTapped(_ sender: UIButton) {
-        brushWidth = self.getStrokeSize()
+        brushWidth = self.touchDelegate!.getStrokeSize()
         
         buttonHide(state: false)
         
@@ -1866,14 +1665,14 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.brushView.isHidden = true
             
-            self.setTouchState(true)
+            self.touchDelegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
     }
     
     @IBAction func brushViewCheckTapped(_ sender: UIButton) {
-        self.setStrokeSize(brushWidth)
+        self.touchDelegate?.setStrokeSize(brushWidth)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1885,7 +1684,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.brushView.isHidden = true
             
-            self.setTouchState(true)
+            self.touchDelegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
@@ -1987,6 +1786,9 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         CustomColor.customColor.layer.cornerRadius = 4
         
+        // FIXME
+        self.customPaletteArray = DamdaData.shared.customPaletteArray
+        
         if indexPath.row < customPaletteArray.count {
             CustomColor.customColor.backgroundColor = customPaletteArray[indexPath.row]
             CustomColor.customColor.layer.borderColor = UIColor.clear.cgColor
@@ -2010,7 +1812,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
             pickedColor = customPaletteArray[indexPath.row]
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.setStrokeColor(pickedColor.cgColor)
+            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         }
     }
     
@@ -2058,7 +1860,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         pickedColor = colorPicker.selectedColor
         drawingPenButton.backgroundColor = pickedColor
-        self.setStrokeColor(pickedColor.cgColor)
+        self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -2070,7 +1872,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.paletteView.isHidden = true
             
-            self.setTouchState(true)
+            self.touchDelegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
@@ -2123,7 +1925,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         
         pickedColor = colorPicker.selectedColor
         drawingPenButton.backgroundColor = pickedColor
-        self.setStrokeColor(pickedColor.cgColor)
+        self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
         
         figurePreviewColor.backgroundColor = colorPicker.selectedColor
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
@@ -2139,363 +1941,6 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.previewPaletteView.isHidden = true
         }
-    }
-    
-    // MARK: - Handle Touch
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touchInView = touches.first?.location(in: sceneView), mode == .DRAW else {
-            return
-        }
-        
-        // hold onto touch location for projection
-        touchPoint = touchInView
-        
-        // begin a neㅇ stroke
-        let stroke = Stroke()
-        print("Touch")
-        if let anchor = makeAnchor(at:touchPoint) {
-            stroke.anchor = anchor
-            stroke.points.append(SCNVector3Zero)
-            stroke.touchStart = touchPoint
-            stroke.lineWidth = strokeSize
-            
-            strokes.append(stroke)
-            //            self.undoButton.isHidden = shouldHideUndoButton()
-            //            self.clearAllButton.isHidden = shouldHideTrashButton()
-            sceneView.session.add(anchor: anchor)
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touchInView = touches.first?.location(in: sceneView), mode == .DRAW, touchPoint != .zero else {
-            return
-        }
-        
-        // hold onto touch location for projection
-        touchPoint = touchInView
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchPoint = CGPoint.zero
-        strokes.last?.resetMemory()
-        
-        // for some reason putting this in the touchesBegan does not trigger
-        UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: nil)
-        
-    }
-    
-    override var shouldAutorotate: Bool {
-        get {
-            if let recorder = screenRecorder, recorder.isRecording { return false }
-            return true
-        }
-    }
-    
-    func setPreviewSize() {
-        if previewSize == 0 {
-            sceneView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
-        } else if previewSize == 1 {
-            sceneView.frame = CGRect(x: 0, y: 60, width: 375, height: 440)
-        } else if previewSize == 2 {
-            sceneView.frame = CGRect(x: 0, y: 0, width: 375, height: 500)
-        }
-    }
-    
-    // MARK: - UI Methods
-    
-    func takePhoto() {
-        //1. Create A Snapshot
-        let snapShot = sceneView.snapshot()
-        
-        //2. Save It The Photos Album
-        UIImageWriteToSavedPhotosAlbum(snapShot, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-    }
-    
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        
-        if let error = error {
-            print("Error Saving ARDrawing Scene \(error)")
-        } else {
-            print("ARDrawing Scene Successfully Saved")
-        }
-    }
-    
-    func recordTapped(sender: UIButton?) {
-        resetTouches()
-        
-        if screenRecorder?.isRecording == true {
-            // Reset record button accessibility label to original value
-            configureAccessibility()
-            
-            stopRecording()
-        } else {
-            sender?.accessibilityLabel = NSLocalizedString("content_description_record_stop", comment: "Stop Recording")
-            startRecording()
-        }
-    }
-    
-    func startRecording() {
-        screenRecorder?.startRecording(handler: { (error) in
-            guard error == nil else {
-                return
-            }
-            self.recordingWillStart()
-            
-        })
-    }
-    
-    func stopRecording() {
-        //        progressCircle.stop()
-        screenRecorder?.stopRecording(handler: { (previewViewController, error) in
-            DispatchQueue.main.async {
-                guard error == nil, let preview = previewViewController else {
-                    return
-                }
-                self.recordingHasEnded()
-                previewViewController?.previewControllerDelegate = self as RPPreviewViewControllerDelegate
-                previewViewController?.modalPresentationStyle = .overFullScreen
-                
-                self.present(preview, animated: true, completion:nil)
-                self.uiWindow?.isHidden = true
-            }
-        })
-    }
-    
-    func undoLastStroke(sender: UIButton?) {
-        resetTouches()
-        
-        if let lastStroke = strokes.last {
-            if let anchor = lastStroke.anchor {
-                sceneView.session.remove(anchor: anchor)
-            }
-        }
-    }
-    
-    func clearStrokesTapped(sender: UIButton?) {
-        self.resetTouches()
-        self.clearAllStrokes()
-    }
-    
-    func clearAllStrokes() {
-        for stroke in self.strokes {
-            if let anchor = stroke.anchor {
-                self.sceneView.session.remove(anchor: anchor)
-            }
-        }
-    }
-    
-    func setTouchState(_ state: Bool) {
-        touchState = state
-    }
-    
-    func getTouchState() -> Bool {
-        return touchState
-    }
-    
-    func setStrokeSize(_ radius: Float) {
-        strokeSize = radius
-    }
-    
-    func getStrokeSize() -> Float {
-        return strokeSize
-    }
-    
-    func setStrokeNeon(_ state: Bool) {
-        neonState = state
-    }
-    
-    func getStrokeNeon() -> Bool {
-        return neonState
-    }
-    
-    func setStrokeColor(_ selectedColor: CGColor) {
-        color = selectedColor
-    }
-    
-    func getStrokeColor() -> CGColor {
-        return color
-    }
-    
-    func shouldHideTrashButton()->Bool {
-        if (strokes.count > 0) {
-            return false
-        }
-        return true
-    }
-    
-    func shouldHideUndoButton()->Bool {
-        if (strokes.count > 0) {
-            return false
-        }
-        return true
-    }
-    
-    func resetTouches() {
-        touchPoint = .zero
-    }
-    
-    // Text Set
-    func create3DText(message: String, depth: CGFloat, color: UIColor, align: Int) {
-        let text = SCNText(string: message, extrusionDepth: depth)
-        text.firstMaterial?.diffuse.contents = color
-        text.font = Properties.shared.font.regular(5.0)
-        text.alignmentMode = CATextLayerAlignmentMode.center.rawValue
-        
-        guard let pointOfView = sceneView.pointOfView else {return}
-        let transform = pointOfView.transform   // 변환 행렬
-        let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)   // 방향은 3번째 열에 정보를 담고 있음, 일반적인 오른손잡이 규칙에 따를 수 있게 값을 뒤집어줌
-        let location = SCNVector3(transform.m41, transform.m42, transform.m43)  // 위치는 4번째 열에 정보를 담고 있음
-        let frontOfCamera: SCNVector3 = orientation + location  // CNVector 타입에 일반적인 + 연산자 사용 불가능하기 때문에 연산자 오버로딩, 드로잉이 될 위치
-        
-        let node = SCNNode()
-        node.position = frontOfCamera
-        node.orientation = pointOfView.orientation
-        node.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05)
-        node.geometry = text
-        
-        node.light = SCNLight()
-        node.light?.type = SCNLight.LightType.directional
-        node.light?.color = UIColor.white
-        node.light?.castsShadow = true
-        node.light?.automaticallyAdjustsShadowProjection = true
-        node.light?.shadowSampleCount = 64
-        node.light?.shadowRadius = 16
-        node.light?.shadowMode = .deferred
-        node.light?.shadowMapSize = CGSize(width: 2048, height: 2048)
-        node.light?.shadowColor = UIColor.black.withAlphaComponent(0.75)
-        
-        if align == 0 {
-            let (minVec, maxVec) = node.boundingBox
-            node.pivot = SCNMatrix4MakeTranslation(0, (maxVec.y - minVec.y) / 2 + minVec.y, 0)
-        } else if align == 1 {
-            let (minVec, maxVec) = node.boundingBox
-            node.pivot = SCNMatrix4MakeTranslation((maxVec.x - minVec.x) / 2 + minVec.x, (maxVec.y - minVec.y) / 2 + minVec.y, 0)
-        } else if align == 2 {
-            let (minVec, maxVec) = node.boundingBox
-            node.pivot = SCNMatrix4MakeTranslation(maxVec.x, (maxVec.y - minVec.y) / 2 + minVec.y, 0)
-        }
-        
-        sceneView.scene.rootNode.addChildNode(node)
-    }
-    
-    // Figure Set
-    func create3DFigure(_ figure: Figure) {
-        guard let pointOfView = sceneView.pointOfView else {return}
-        let transform = pointOfView.transform
-        let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)
-        let location = SCNVector3(transform.m41, transform.m42, transform.m43)
-        let frontOfCamera: SCNVector3 = orientation + location
-        
-        let node = SCNNode()
-        let layer = CALayer()
-        
-        switch figure.shape {
-        case .rectangle:
-            node.geometry = SCNBox(width: 5.0, height: 5.0, length: figure.depth, chamferRadius: 0.0)
-            layer.frame = CGRect(x: 0, y: 0, width: 5.0, height: 5.0)
-        case .rounded:
-            node.geometry = SCNBox(width: 5.0, height: 5.0, length: figure.depth, chamferRadius: 2.0)
-            layer.frame = CGRect(x: 0, y: 0, width: 5.0, height: 5.0)
-            layer.cornerRadius = 2.0
-        case .circle:
-            node.geometry = SCNSphere(radius: figure.width)
-        case .triangle, .heart:
-            let centerPoint = CGPoint(x: CGFloat(frontOfCamera.x), y: CGFloat(frontOfCamera.y))
-            let path = draw3DShape(figure, centerPoint: centerPoint)
-            let nodeShape = SCNShape(path: path, extrusionDepth: figure.depth)
-            node.geometry = nodeShape
-        }
-        
-        if figure.fillState {
-            //            layer.backgroundColor = color.cgColor
-            
-            let material = SCNMaterial()
-            material.diffuse.contents = color
-            material.isDoubleSided = true
-            node.geometry!.materials = [material]
-        } else {
-            //            layer.borderColor = color.cgColor
-            //            layer.borderWidth = width * 100
-            
-            let material = SCNMaterial()
-            material.diffuse.contents = color
-            material.isDoubleSided = true
-            node.geometry!.materials = [material]
-        }
-        
-        node.position = frontOfCamera
-        node.orientation = pointOfView.orientation
-        node.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05)
-        
-        node.light = SCNLight()
-        node.light?.type = SCNLight.LightType.directional
-        node.light?.color = UIColor.white
-        node.light?.castsShadow = true
-        node.light?.automaticallyAdjustsShadowProjection = true
-        node.light?.shadowSampleCount = 64
-        node.light?.shadowRadius = 16
-        node.light?.shadowMode = .deferred
-        node.light?.shadowMapSize = CGSize(width: 2048, height: 2048)
-        node.light?.shadowColor = UIColor.black.withAlphaComponent(0.75)
-        
-        sceneView.scene.rootNode.addChildNode(node)
-    }
-    
-    func draw3DShape(_ figure: Figure, centerPoint: CGPoint) -> UIBezierPath {
-        var path = UIBezierPath()
-        let originalRect = CGRect(center: centerPoint, size: CGSize(width: 5.0, height: 5.0))
-        
-        switch figure.shape {
-        case .triangle:
-            path = UIBezierPath()
-            path.move(to: CGPoint(x: originalRect.minX, y: originalRect.minY))
-            path.addLine(to: CGPoint(x: originalRect.maxX, y: originalRect.minY))
-            path.addLine(to: CGPoint(x: originalRect.midX, y: originalRect.maxX))
-            path.close()
-            break
-            
-        case .heart:
-            path = UIBezierPath()
-            let scale: Double = 1.0
-            
-            let scaledWidth = (originalRect.size.width * CGFloat(scale))
-            let scaledXValue = originalRect.minX
-            let scaledHeight = (originalRect.size.height * CGFloat(scale))
-            let scaledYValue = originalRect.minY
-            
-            let scaledRect = CGRect(x: scaledXValue, y: scaledYValue, width: scaledWidth, height: scaledHeight)
-            
-            path.move(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height))
-            
-            
-            path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                          controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
-                          controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
-            
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                        radius: (scaledRect.size.width/4),
-                        startAngle: CGFloat(Double.pi),
-                        endAngle: 0,
-                        clockwise: true)
-            
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                        radius: (scaledRect.size.width/4),
-                        startAngle: CGFloat(Double.pi),
-                        endAngle: 0,
-                        clockwise: true)
-            
-            path.addCurve(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height),
-                          controlPoint1: CGPoint(x: scaledRect.origin.x + scaledRect.size.width, y: scaledRect.origin.y + (scaledRect.size.height/2)),
-                          controlPoint2: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) )
-            
-            path.close()
-            path.apply(CGAffineTransform(rotationAngle: .pi))
-            break
-            
-        default: break
-        }
-        
-        return path
     }
     
     func showStoryboard(_ name: String) {

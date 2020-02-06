@@ -62,11 +62,11 @@ class TutorialViewController: UIViewController {
     }
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(ARDrawingViewController.identifier)
+        self.presentNextVC()
     }
     
     @IBAction func skipButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(ARDrawingViewController.identifier)
+        self.presentNextVC()
     }
     
     @IBAction func tutorialFlowControlButton(_ sender: UIButton) {
@@ -243,10 +243,9 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    func showStoryboard(_ name: String) {
-        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
-        if let nextView = storyboard.instantiateInitialViewController() {
-            present(nextView, animated: true, completion: nil)
-        }
+    func presentNextVC() {
+        let nexVC = ARViewController()
+        nexVC.modalPresentationStyle = .fullScreen
+        self.present(nexVC, animated: true, completion: nil)
     }
 }

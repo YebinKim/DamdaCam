@@ -37,6 +37,7 @@
 		3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62923DAF2B8002AAAB4 /* Shaders.metal */; };
 		3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */; };
 		3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */; };
+		3E6D61F323EC656900A9E4BB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3E6D61F223EC656900A9E4BB /* .swiftlint.yml */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
 		3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BB9B23E30FC100ABC30E /* Figure.swift */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
@@ -98,6 +99,7 @@
 		3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGeometry.swift; sourceTree = "<group>"; };
 		3E38F62B23DAF2B8002AAAB4 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3E6D61F223EC656900A9E4BB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3EA9AF8E21BC2B6F0033622F /* DamdaCam-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DamdaCam-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -370,6 +372,7 @@
 				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
 				3EFCD66921AE33DA00D51C0C /* Info.plist */,
 				3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */,
+				3E6D61F223EC656900A9E4BB /* .swiftlint.yml */,
 			);
 			path = DamdaCam;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				CB886B9332BF1604BD41A7BC /* [CP] Embed Pods Frameworks */,
 				A1106D6618A30DF3D74D3F54 /* [CP] Copy Pods Resources */,
 				3EE8F6F422B7268F00B66CEC /* Run Script */,
+				3E30338823EC61A40058E875 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -457,6 +461,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6D61F323EC656900A9E4BB /* .swiftlint.yml in Resources */,
 				3EF1062B23B7208000CCB7E1 /* partner_found.json in Resources */,
 				3E38F60B23DAEED8002AAAB4 /* GalleryViewController.storyboard in Resources */,
 				3EF1060B23B7202900CCB7E1 /* FaceAR.scnassets in Resources */,
@@ -480,6 +485,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3E30338823EC61A40058E875 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		3EE8F6F422B7268F00B66CEC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

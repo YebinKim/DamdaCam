@@ -22,6 +22,9 @@ def pods_all_targets
     
   # Color Picker frameworks
   pod 'FlexColorPicker', '~> 1.2.1'
+  
+  # Lint
+  pod 'SwiftLint'
 
 end
 

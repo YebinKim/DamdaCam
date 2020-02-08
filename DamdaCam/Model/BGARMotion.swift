@@ -11,13 +11,13 @@ import UIKit
 struct BGARMotion {
     
     enum Kind: CaseIterable {
-        case Snow
-        case Blossom
-        case Rain
-        case Fish
-        case Greenery
-        case Fruits
-        case Glow
+        case snow
+        case blossom
+        case rain
+        case fish
+        case greenery
+        case fruits
+        case glow
         
         var name: String {
             String(describing: self)

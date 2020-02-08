@@ -11,38 +11,38 @@ import UIKit
 struct FaceARMotion {
     
     enum Kind: CaseIterable {
-        case Heart
-        case Angel
-        case Rabbit
-        case Cat
-        case Mouse
-        case Peach
-        case BAAAM
-        case Mushroom
-        case Doughnut
-        case Flower
+        case heart
+        case angel
+        case rabbit
+        case cat
+        case mouse
+        case peach
+        case baaam
+        case mushroom
+        case doughnut
+        case flower
         
         var position: SCNVector3 {
             switch self {
-            case .Heart:
+            case .heart:
                 return SCNVector3(x: 0, y: 3.5, z: -5)
-            case .Angel:
+            case .angel:
                 return SCNVector3(x: 0, y: 0, z: -5)
-            case .Rabbit:
+            case .rabbit:
                 return SCNVector3(x: 0, y: 3.5, z: -5)
-            case .Cat:
+            case .cat:
                 return SCNVector3(x: 0, y: 3.5, z: -5)
-            case .Mouse:
+            case .mouse:
                 return SCNVector3(x: 0, y: 3.5, z: -5)
-            case .Peach:
+            case .peach:
                 return SCNVector3(x: 0, y: 4.35, z: -5)
-            case .BAAAM:
+            case .baaam:
                 return SCNVector3(x: 0, y: 4, z: -5)
-            case .Mushroom:
+            case .mushroom:
                 return SCNVector3(x: 0, y: 2.5, z: -5)
-            case .Doughnut:
+            case .doughnut:
                 return SCNVector3(x: 0, y: -4, z: -5)
-            case .Flower:
+            case .flower:
                 return SCNVector3(x: 0, y: 0, z: -5)
             }
         }

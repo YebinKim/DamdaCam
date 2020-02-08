@@ -14,7 +14,6 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
 
     static let identifier: String = "MakingARViewController"
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var localRecords: [NSManagedObject] = []
     
     var lastPoint: CGPoint!
@@ -745,7 +744,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
+        guard let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as? CustomPaletteCollectionViewCell else { return UICollectionViewCell() }
         
         CustomColor.customColor.layer.cornerRadius = 4
         
@@ -766,7 +765,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let _ = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
+        guard collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) is CustomPaletteCollectionViewCell else { return }
         
         if indexPath.row < customPaletteArray.count {
             pickedColor = customPaletteArray[indexPath.row]
@@ -1045,7 +1044,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
             figureDrawView.endPoint = sender.location(in: figureDrawView)
             figureDrawView.isHidden = true
             figureDrawView.setTouchEnded(sendState: true)
-        } else{
+        } else {
             figureDrawView.endPoint = sender.location(in: figureDrawView)
             figureDrawView.setTouchEnded(sendState: false)
         }
@@ -1153,13 +1152,13 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "toARMotionNO") {
-            let destVC = segue.destination as! ARMotionViewController
+        if segue.identifier == "toARMotionNO" {
+            guard let destVC = segue.destination as? ARMotionViewController else { return }
             destVC.toARMotionNO = true
         }
         
-        if (segue.identifier == "toARMotionYES") {
-            let destVC = segue.destination as! ARMotionViewController
+        if segue.identifier == "toARMotionYES" {
+            guard let destVC = segue.destination as? ARMotionViewController else { return }
             destVC.toARMotionYES = true
         }
     }

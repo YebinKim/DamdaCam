@@ -1,7 +1,0 @@
-disabled_rules:
-- trailing_whitespace
-
-included:
-
-excluded:
-- Pods

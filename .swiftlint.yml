@@ -1,0 +1,17 @@
+disabled_rules:
+- trailing_whitespace
+- file_length
+- identifier_name
+- large_tuple
+
+### Remove
+- type_body_length
+- function_body_length
+- cyclomatic_complexity
+
+included:
+
+excluded:
+- Pods
+
+line_length: 180

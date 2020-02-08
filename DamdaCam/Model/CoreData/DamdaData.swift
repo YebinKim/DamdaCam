@@ -41,19 +41,19 @@ final class DamdaData {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MakingARData")
         var makingARRecords = [NSManagedObject]()
         var makingARArray = [UIImage]()
-        var FaceARMotionArray = [UIImage]()
-        var BGARMotionArray = [UIImage]()
+        var faceARMotionArray = [UIImage]()
+        var bgARMotionArray = [UIImage]()
         
         // FIXME: 모델화 작업 진행
         for kind in FaceARMotion.Kind.allCases {
             if let image = UIImage(named: "FaceAR_\(kind)") {
-                FaceARMotionArray.append(image)
+                faceARMotionArray.append(image)
             }
         }
         
         for kind in BGARMotion.Kind.allCases {
             if let image = UIImage(named: "BGAR_\(kind)") {
-                BGARMotionArray.append(image)
+                bgARMotionArray.append(image)
             }
         }
         
@@ -68,10 +68,10 @@ final class DamdaData {
             
             guard let fileName = makingARRecord.value(forKey: "idString") as? String,
                   let image = loadImageFromDiskWith(fileName: fileName) else { return nil }
-            FaceARMotionArray.append(image)
+            faceARMotionArray.append(image)
         }
         
-        makingARArray = FaceARMotionArray + BGARMotionArray
+        makingARArray = faceARMotionArray + bgARMotionArray
         
         return makingARArray
     }

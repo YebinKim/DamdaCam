@@ -65,7 +65,7 @@ class ARViewController: UIViewController {
         didSet {
             switch mode {
             case .DRAW:
-                if (strokes.count > 0) {
+                if strokes.count > 0 {
                     uiViewController?.hideDrawingPrompt()
                 } else {
                     uiViewController?.showDrawingPrompt()
@@ -94,7 +94,7 @@ class ARViewController: UIViewController {
             }
             
             // if we're tracking and the mode changes, update our previous mode state
-            if (modeBeforeTracking != nil && mode != .TRACKING) {
+            if modeBeforeTracking != nil && mode != .TRACKING {
                 print("Updating mode to return to after tracking: \(mode)")
                 modeBeforeTracking = mode
             }
@@ -199,7 +199,7 @@ class ARViewController: UIViewController {
         ambientLight.light?.shadowMode = .deferred
         ambientLight.light?.color = UIColor.white
         ambientLight.light?.type = SCNLight.LightType.ambient
-        ambientLight.position = SCNVector3(x: 0,y: 5,z: 0)
+        ambientLight.position = SCNVector3(x: 0, y: 5, z: 0)
         
         self.sceneView.scene.rootNode.addChildNode(ambientLight)
         self.sceneView.automaticallyUpdatesLighting = true
@@ -212,9 +212,8 @@ class ARViewController: UIViewController {
     
     private func setupNeon() {
         if let path = Bundle.main.path(forResource: "NodeTechnique", ofType: "plist") {
-            if let dict = NSDictionary(contentsOfFile: path)  {
-                let dict2 = dict as! [String : AnyObject]
-                let technique = SCNTechnique(dictionary:dict2)
+            if let dict = NSDictionary(contentsOfFile: path), let dict2 = dict as? [String : AnyObject] {
+                let technique = SCNTechnique(dictionary : dict2)
                 sceneView.technique = technique
             }
         }
@@ -269,14 +268,14 @@ class ARViewController: UIViewController {
     /// Updates stroke with new SCNVector3 point, and regenerates line geometry
     func updateLine(for stroke: Stroke) {
         if touchState {
-            guard let _ = stroke.points.last, let strokeNode = stroke.node else {
+            guard stroke.points.last != nil, let strokeNode = stroke.node else {
                 return
             }
             let offset = unprojectedPosition(for: stroke, at: touchPoint)
             let newPoint = strokeNode.convertPosition(offset, from: sceneView.scene.rootNode)
             
             stroke.lineWidth = strokeSize
-            if (stroke.add(point: newPoint, neonState: neonState)) {
+            if stroke.add(point: newPoint, neonState: neonState) {
                 updateGeometry(stroke)
             }
 //            print("Total Points: \(stroke.points.count)")

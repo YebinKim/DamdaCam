@@ -357,7 +357,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="ic_delete"/>
                                                 <connections>
-                                                    <action selector="ARMotionDeleteButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="RLr-Kz-Yks"/>
+                                                    <action selector="arMotionDeleteButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="vJg-0g-rCu"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaT-8L-91E">
@@ -368,7 +368,7 @@
                                                 </state>
                                                 <state key="selected" image="ic_favorites_on"/>
                                                 <connections>
-                                                    <action selector="ARMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="ROD-rM-68T"/>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="0r0-iG-dQJ"/>
                                                 </connections>
                                             </button>
                                             <view alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Ws-7pU">
@@ -389,7 +389,7 @@
                                                     <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="ARMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="VjX-CK-gaV"/>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="ikF-c3-9L7"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-HM-dhw">
@@ -405,7 +405,7 @@
                                                     <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="ARMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="SsD-ZV-diO"/>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="aGw-YB-8b8"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcJ-HN-lxl">
@@ -421,7 +421,7 @@
                                                     <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="ARMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="zxD-0b-IqL"/>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="XGc-hW-YG7"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -580,17 +580,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="NW2-Ae-7H8"/>
                     <connections>
-                        <outlet property="ARMotionCollectionView" destination="5Jj-78-cQy" id="ova-5H-qQz"/>
-                        <outlet property="ARMotionView" destination="zYt-bo-8QJ" id="WRc-UV-xaR"/>
+                        <outlet property="ARMotionView" destination="zYt-bo-8QJ" id="NAW-Ld-OR8"/>
                         <outlet property="ARMotionViewFlowLayout" destination="g2M-Aw-4ZR" id="2Ir-2T-yMR"/>
-                        <outlet property="AllARMotionButton" destination="vP2-Ap-0nA" id="WbF-H8-NvE"/>
-                        <outlet property="BGARMotionButton" destination="jcJ-HN-lxl" id="Fnj-Ex-taO"/>
-                        <outlet property="FaceARMotionButton" destination="gTF-HM-dhw" id="wzM-aN-kks"/>
+                        <outlet property="allARMotionButton" destination="vP2-Ap-0nA" id="eDf-pJ-Ocn"/>
+                        <outlet property="arMotionCollectionView" destination="5Jj-78-cQy" id="cAj-Y8-mV4"/>
+                        <outlet property="bgARMotionButton" destination="jcJ-HN-lxl" id="NGA-xl-RF7"/>
                         <outlet property="changeButton" destination="X72-nM-WkF" id="Usg-XB-G21"/>
                         <outlet property="clipButton" destination="dgI-Ly-8rU" id="fQZ-w1-V9I"/>
                         <outlet property="clipView" destination="yNr-Mg-jzZ" id="7WV-cu-HBE"/>
                         <outlet property="clipViewDivideBar" destination="IEL-mr-qxN" id="HAK-gg-UQJ"/>
                         <outlet property="deleteARMotionButton" destination="w1D-yr-jxn" id="wzE-Gh-Zl9"/>
+                        <outlet property="faceARMotionButton" destination="gTF-HM-dhw" id="fOz-or-uzh"/>
                         <outlet property="filterBack" destination="hkq-Lk-9mc" id="tZE-zg-4VB"/>
                         <outlet property="filterBackView" destination="bav-m5-9JP" id="EZE-5W-qmJ"/>
                         <outlet property="filterCollectionView" destination="ide-VY-oS3" id="GvU-Qr-xGr"/>

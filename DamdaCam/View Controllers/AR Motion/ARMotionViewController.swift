@@ -1,5 +1,5 @@
 //
-//  ARMotionViewController.swift
+//  arMotionViewController.swift
 //  DamdaCam
 //
 //  Created by 김예빈 on 2019. 3. 21..
@@ -16,26 +16,26 @@ import CoreData
 
 class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    static let identifier: String = "ARMotionViewController"
+    static let identifier: String = "arMotionViewController"
     
     var localRecords: [NSManagedObject] = []
     
-    let ARView = SCNView()
-    let ARscene = SCNScene()
+    let arView = SCNView()
+    let arScene = SCNScene()
     
     var headNode = SCNNode()
     var noseNode = SCNNode()
     var eatNode = SCNNode()
     
-    var BGNode = SCNNode()
+    var bgNode = SCNNode()
     
     // Main view for showing camera content.
     @IBOutlet var previewView: UIView!
     @IBOutlet var iconView: UIView!
     
-    var ARNode_x: Float = 0
-    var ARNode_y: Float = 0
-    var ARNode_z: Float = 0
+    var arNode_x: Float = 0
+    var arNode_y: Float = 0
+    var arNode_z: Float = 0
     var isBlink = false // true -> 체크할 수 있는 상태
     
     // Face Position Detection
@@ -95,38 +95,38 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet var menuXButton: UIButton!
     @IBOutlet var menuXButtonOn: UIButton!
     @IBOutlet var menuMakingARButton: UIButton!
-    @IBOutlet var menuARMotionButton: UIButton!
+    @IBOutlet var menuarMotionButton: UIButton!
     @IBOutlet var menuFilterButton: UIButton!
     @IBOutlet var menuMakingARLabel: UILabel!
-    @IBOutlet var menuARMotionLabel: UILabel!
+    @IBOutlet var menuarMotionLabel: UILabel!
     @IBOutlet var menuFilterLabel: UILabel!
     var makingARButtonCenter: CGPoint!
-    var ARMotionButtonCenter: CGPoint!
+    var arMotionButtonCenter: CGPoint!
     var filterButtonCenter: CGPoint!
     var makingARLabelCenter: CGPoint!
-    var ARMotionLabelCenter: CGPoint!
+    var arMotionLabelCenter: CGPoint!
     var filterLabelCenter: CGPoint!
     var makingARButtonState: Bool = false
-    var ARMotionButtonState: Bool = false
+    var arMotionButtonState: Bool = false
     var filterButtonState: Bool = false
     let tapGestureView = UIView()
     
-    // ARMotion View
-    @IBOutlet var ARMotionView: UIView!
-    @IBOutlet var deleteARMotionButton: UIButton!
-    @IBOutlet var myARMotionButton: UIButton!
-    @IBOutlet var AllARMotionButton: UIButton!
-    @IBOutlet var FaceARMotionButton: UIButton!
-    @IBOutlet var BGARMotionButton: UIButton!
-    @IBOutlet var ARMotionCollectionView: UICollectionView!
-    @IBOutlet weak var ARMotionViewFlowLayout: UICollectionViewFlowLayout!
-    var myARMotionArray: [UIImage]!
-    var AllARMotionArray: [UIImage]!
-    var FaceARMotionArray: [UIImage]!
-    var BGARMotionArray: [UIImage]!
-    var ARMotionViewState: Bool = false
-    var toARMotionNO: Bool = false // toARMotionNO
-    var toARMotionYES: Bool = false // toARMotionYES
+    // arMotion View
+    @IBOutlet var arMotionView: UIView!
+    @IBOutlet var deletearMotionButton: UIButton!
+    @IBOutlet var myarMotionButton: UIButton!
+    @IBOutlet var allarMotionButton: UIButton!
+    @IBOutlet var facearMotionButton: UIButton!
+    @IBOutlet var bgarMotionButton: UIButton!
+    @IBOutlet var arMotionCollectionView: UICollectionView!
+    @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
+    var myarMotionArray: [UIImage]!
+    var allarMotionArray: [UIImage]!
+    var facearMotionArray: [UIImage]!
+    var bgarMotionArray: [UIImage]!
+    var arMotionViewState: Bool = false
+    var toARMotionNO: Bool = false // toarMotionNO
+    var toARMotionYES: Bool = false // toarMotionYES
     
     // Filter View
     @IBOutlet var filterView: UIView!
@@ -182,10 +182,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.initializeARView()
+        self.initializearView()
         
         previewLayer?.frame = self.view.bounds
-        self.view.addSubview(ARView)
+        self.view.addSubview(arView)
         
         self.view.bringSubviewToFront(iconView)
         
@@ -252,13 +252,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         // Menu Set
         makingARButtonCenter = menuMakingARButton.center
-        ARMotionButtonCenter = menuARMotionButton.center
+        arMotionButtonCenter = menuarMotionButton.center
         filterButtonCenter = menuFilterButton.center
         makingARLabelCenter = menuMakingARLabel.center
-        ARMotionLabelCenter = menuARMotionLabel.center
+        arMotionLabelCenter = menuarMotionLabel.center
         filterLabelCenter = menuFilterLabel.center
         menuMakingARLabel.alpha = 0.0
-        menuARMotionLabel.alpha = 0.0
+        menuarMotionLabel.alpha = 0.0
         menuFilterLabel.alpha = 0.0
         
         menuView.isHidden = true
@@ -271,26 +271,26 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
         menuView.addGestureRecognizer(tapMenuView)
         
-        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ARMotionViewSwipe))
-        swipeARMotionView.direction = .down
-        ARMotionView.addGestureRecognizer(swipeARMotionView)
+        let swipearMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
+        swipearMotionView.direction = .down
+        arMotionView.addGestureRecognizer(swipearMotionView)
         
         let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(filterViewSwipe))
         swipeFilterView.direction = .down
         filterView.addGestureRecognizer(swipeFilterView)
         
         let BGBlack = UIView()
-        BGBlack.frame = ARMotionView.bounds
+        BGBlack.frame = arMotionView.bounds
         BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         BGBlack.backgroundColor = Properties.shared.color.view_background
         let BGBar = UIView()
         BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
         BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         BGBar.backgroundColor = Properties.shared.color.bar_background
-        ARMotionView.addSubview(BGBlack)
-        ARMotionView.sendSubviewToBack(BGBlack)
-        ARMotionView.addSubview(BGBar)
-        ARMotionView.sendSubviewToBack(BGBar)
+        arMotionView.addSubview(BGBlack)
+        arMotionView.sendSubviewToBack(BGBlack)
+        arMotionView.addSubview(BGBar)
+        arMotionView.sendSubviewToBack(BGBar)
         
         let BGFilter = UIView()
         BGFilter.frame = filterView.bounds
@@ -305,25 +305,25 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         filterView.addSubview(BGfilterBar)
         filterView.sendSubviewToBack(BGfilterBar)
         
-        ARMotionSelectButtonTapped(AllARMotionButton)
-        AllARMotionButton.layer.cornerRadius = 14
-        FaceARMotionButton.layer.cornerRadius = 14
-        BGARMotionButton.layer.cornerRadius = 14
+        arMotionSelectButtonTapped(allarMotionButton)
+        allarMotionButton.layer.cornerRadius = 14
+        facearMotionButton.layer.cornerRadius = 14
+        bgarMotionButton.layer.cornerRadius = 14
         
-        // ARMotion View Set
-        createARMotionArray()
-        self.ARMotionCollectionView.delegate = self
-        self.ARMotionCollectionView.dataSource = self
+        // arMotion View Set
+        createarMotionArray()
+        self.arMotionCollectionView.delegate = self
+        self.arMotionCollectionView.dataSource = self
         
-        let deleteCell: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ARMotionCellLongPress))
+        let deleteCell: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(arMotionCellLongPress))
         deleteCell.minimumPressDuration = 0.5
         //        setFavorites.delegate = self
         deleteCell.delaysTouchesBegan = true
-        self.ARMotionCollectionView?.addGestureRecognizer(deleteCell)
+        self.arMotionCollectionView?.addGestureRecognizer(deleteCell)
         
-        let favoriteCell = UITapGestureRecognizer(target: self, action: #selector(ARMotionCellDoubleTab))
+        let favoriteCell = UITapGestureRecognizer(target: self, action: #selector(arMotionCellDoubleTab))
         favoriteCell.numberOfTapsRequired = 2
-        self.ARMotionCollectionView?.addGestureRecognizer(favoriteCell)
+        self.arMotionCollectionView?.addGestureRecognizer(favoriteCell)
         
         // Filter Set
         self.filterCollectionView.delegate = self
@@ -407,21 +407,21 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.menuXButtonOn.alpha = 1.0
         
         self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         self.menuView.alpha = 0.0
         
         // ARmotion Set
-        self.ARMotionCreate()
+        self.arMotionCreate()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             if self.toARMotionNO {
-                self.ARMotionbuttonTapped(self.menuARMotionButton)
+                self.arMotionbuttonTapped(self.menuarMotionButton)
                 self.toARMotionNO = false
             }
             
             if self.toARMotionYES {
-                self.ARMotionSelected_newMakingAR()
+                self.arMotionSelected_newMakingAR()
                 self.toARMotionYES = false
             }
         }
@@ -443,9 +443,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         return .portrait
     }
     
-    private func initializeARView() {
-        self.ARView.frame = self.view.bounds
-        self.ARView.backgroundColor = UIColor.clear
+    private func initializearView() {
+        self.arView.frame = self.view.bounds
+        self.arView.backgroundColor = UIColor.clear
     }
     
     @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer){
@@ -829,7 +829,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.noseCrest = noseCrest
         }
         
-        ARMotionMove()
+        arMotionMove()
     }
     
     // MARK: AVCapture Setup
@@ -982,13 +982,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
                 
-                let snapShot = ARView.snapshot()
-                let ARMotionImage = self.composite(image: image, overlay: snapShot, scaleOverlay: true)
+                let snapShot = arView.snapshot()
+                let arMotionImage = self.composite(image: image, overlay: snapShot, scaleOverlay: true)
                 
 //                let filterShot = UIImage.init(view: self.filterBack)
-//                let filteredImage = self.composite(image: ARMotionImage!, overlay: filterShot, scaleOverlay: true)
+//                let filteredImage = self.composite(image: arMotionImage!, overlay: filterShot, scaleOverlay: true)
                 
-                UIImageWriteToSavedPhotosAlbum(ARMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                UIImageWriteToSavedPhotosAlbum(arMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         
         }
@@ -1031,9 +1031,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         
         if let error = error {
-            print("Error Saving ARMotion Scene \(error)")
+            print("Error Saving arMotion Scene \(error)")
         } else {
-            print("ARMotion Scene Successfully Saved")
+            print("arMotion Scene Successfully Saved")
         }
     }
     
@@ -1104,11 +1104,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         return exifOrientationForDeviceOrientation(UIDevice.current.orientation)
     }
     
-    // ARMotion Set
-    func ARMotionCreate() {
-        self.ARNode_x = 0
-        self.ARNode_y = 3.5
-        self.ARNode_z = -5
+    // arMotion Set
+    func arMotionCreate() {
+        self.arNode_x = 0
+        self.arNode_y = 3.5
+        self.arNode_z = -5
         
         guard let headScene = SCNScene(named: "FaceAR.scnassets/z_prepare_head.scn"),
               let noseScene = SCNScene(named: "FaceAR.scnassets/z_prepare_nose.scn") else { return }
@@ -1116,20 +1116,20 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.headNode = headScene.rootNode.childNode(withName: "z_prepare_head", recursively: false) ?? SCNNode()
         self.noseNode = noseScene.rootNode.childNode(withName: "z_prepare_nose", recursively: false) ?? SCNNode()
         
-        self.ARscene.rootNode.addChildNode(headNode)
-        self.ARscene.rootNode.addChildNode(noseNode)
+        self.arScene.rootNode.addChildNode(headNode)
+        self.arScene.rootNode.addChildNode(noseNode)
         
-        ARView.scene = ARscene
+        arView.scene = arScene
     }
     
-    func ARMotionDelete() {
-        ARscene.rootNode.enumerateChildNodes { (node, stop) in
+    func arMotionDelete() {
+        arScene.rootNode.enumerateChildNodes { (node, stop) in
             node.removeFromParentNode()
             node.removeAllParticleSystems()
         }
     }
     
-    func ARMotionMove() {
+    func arMotionMove() {
         let yaw_L = getAngle(first: (leftEye[4]), second: (medianLine[4]), third: (medianLine[0]))
         let yaw_R = getAngle(first: (rightEye[4]), second: (medianLine[4]), third: (medianLine[0]))
         let yaw = Float(yaw_L + yaw_R)
@@ -1153,26 +1153,26 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let faceCenter = normalizationPos(source: nose[4])
         
         // head
-        headNode.position = SCNVector3Make(pos_x + ARNode_x, pos_y + (ARNode_y * Float(faceSize * 2.0)), ARNode_z)
+        headNode.position = SCNVector3Make(pos_x + arNode_x, pos_y + (arNode_y * Float(faceSize * 2.0)), arNode_z)
         headNode.scale = SCNVector3(faceSize, faceSize, faceSize)
         headNode.simdEulerAngles = float3(pitch, faceYaw, faceRoll)
         
         // nose
-        noseNode.position = SCNVector3Make(Float(faceCenter.x), -Float(faceCenter.y - 1.3), ARNode_z)
+        noseNode.position = SCNVector3Make(Float(faceCenter.x), -Float(faceCenter.y - 1.3), arNode_z)
         noseNode.scale = SCNVector3(faceSize, faceSize, faceSize)
         noseNode.simdEulerAngles = float3(pitch, faceYaw, faceRoll)
         
         // eat
-        eatNode.position = SCNVector3Make(ARNode_x, ARNode_y, ARNode_z)
+        eatNode.position = SCNVector3Make(arNode_x, arNode_y, arNode_z)
         eatNode.scale = SCNVector3(faceSize, faceSize, faceSize)
         eatNode.simdEulerAngles = float3(pitch - 1.0, faceYaw, faceRoll)
         
-        // BGNode
-        BGNode.simdEulerAngles = float3(0, faceYaw, 0)
+        // bgNode
+        bgNode.simdEulerAngles = float3(0, faceYaw, 0)
         
         if isBlink {
             if detectMouthBlink() {
-                //                ARMotionSelected_Mushroom()
+                //                arMotionSelected_Mushroom()
                 
                 //                UIView.animate(withDuration: 0, delay: 3.0, options: [.curveLinear], animations: {
                 //                    self.checkedBlink = true
@@ -1276,15 +1276,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    func loadARMotionNode(_ name: String, position: SCNVector3, isHead: Bool) {
+    func loadarMotionNode(_ name: String, position: SCNVector3, isHead: Bool) {
         
         if isHead {
             guard let headScene = SCNScene(named: "FaceAR.scnassets/\(name)_head.scn"),
                 let noseScene = SCNScene(named: "FaceAR.scnassets/\(name)_nose.scn") else { return }
             
-            self.ARNode_x = position.x
-            self.ARNode_y = position.y
-            self.ARNode_z = position.z
+            self.arNode_x = position.x
+            self.arNode_y = position.y
+            self.arNode_z = position.z
             
             self.headNode = headScene.rootNode.childNode(withName: "\(name)_head", recursively: false) ?? SCNNode()
             self.noseNode = noseScene.rootNode.childNode(withName: "\(name)_nose", recursively: false) ?? SCNNode()
@@ -1292,56 +1292,56 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.headNode.position = position
             self.noseNode.position = position
             
-            self.ARscene.rootNode.addChildNode(headNode)
-            self.ARscene.rootNode.addChildNode(noseNode)
+            self.arScene.rootNode.addChildNode(headNode)
+            self.arScene.rootNode.addChildNode(noseNode)
         } else {
-            loadARMotionNode(name, position: position)
+            loadarMotionNode(name, position: position)
         }
     }
     
-    func loadARMotionNode(_ name: String, position: SCNVector3) {
+    func loadarMotionNode(_ name: String, position: SCNVector3) {
         guard let scene = SCNScene(named: "FaceAR.scnassets/\(name).scn") else { return }
         
-        self.ARNode_x = position.x
-        self.ARNode_y = position.y
-        self.ARNode_z = position.z
+        self.arNode_x = position.x
+        self.arNode_y = position.y
+        self.arNode_z = position.z
         
         self.headNode = scene.rootNode.childNode(withName: "\(name)", recursively: false) ?? SCNNode()
         self.headNode.position = position
-        self.ARscene.rootNode.addChildNode(self.headNode)
+        self.arScene.rootNode.addChildNode(self.headNode)
     }
     
     func loadBGMotionNode(_ name: String) {
         
-        self.BGNode = SCNNode()
+        self.bgNode = SCNNode()
         var count = 1
         
         if let particle = SCNParticleSystem(named: "BGAR.scnassets/\(name)_\(count).scnp", inDirectory: nil) {
-            self.BGNode.addParticleSystem(particle)
+            self.bgNode.addParticleSystem(particle)
             count += 1
         }
         
-        self.BGNode.position = SCNVector3Zero
+        self.bgNode.position = SCNVector3Zero
         
-        self.ARscene.rootNode.addChildNode(self.BGNode)
+        self.arScene.rootNode.addChildNode(self.bgNode)
     }
     
-    func ARMotionSelected_MakingAR(index: Int) {
+    func arMotionSelected_MakingAR(index: Int) {
         let node = SCNNode(geometry: SCNPlane(width: 10.0, height: 17.7))
-        node.geometry?.materials.first?.diffuse.contents = FaceARMotionArray[index]
+        node.geometry?.materials.first?.diffuse.contents = facearMotionArray[index]
         
         noseNode = node
         
-        ARscene.rootNode.addChildNode(noseNode)
+        arScene.rootNode.addChildNode(noseNode)
     }
     
-    func ARMotionSelected_newMakingAR() {
+    func arMotionSelected_newMakingAR() {
         let node = SCNNode(geometry: SCNPlane(width: 10.0, height: 17.7))
-        node.geometry?.materials.first?.diffuse.contents = FaceARMotionArray[FaceARMotionArray.count - 1]
+        node.geometry?.materials.first?.diffuse.contents = facearMotionArray[facearMotionArray.count - 1]
         
         noseNode = node
         
-        ARscene.rootNode.addChildNode(noseNode)
+        arScene.rootNode.addChildNode(noseNode)
     }
     
     // Clip Set
@@ -1526,12 +1526,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer){
         XbuttonTapped(menuXButtonOn)
         
-        if (ARMotionViewState) {
-            ARMotionViewState = false
+        if (arMotionViewState) {
+            arMotionViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
-                self.ARMotionView.center += CGPoint(x: 0, y: 230)
+                self.arMotionView.center += CGPoint(x: 0, y: 230)
                 
                 self.view.layoutIfNeeded()
             })
@@ -1551,15 +1551,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @objc func ARMotionViewSwipe(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func arMotionViewSwipe(gestureRecognizer: UISwipeGestureRecognizer){
         XbuttonTapped(menuXButtonOn)
         
-        if (ARMotionViewState) {
-            ARMotionViewState = false
+        if (arMotionViewState) {
+            arMotionViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
-                self.ARMotionView.center += CGPoint(x: 0, y: 230)
+                self.arMotionView.center += CGPoint(x: 0, y: 230)
                 
                 self.view.layoutIfNeeded()
             })
@@ -1603,7 +1603,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.makingARButtonCenter, size: 1.0, labelPosition: self.makingARLabelCenter)
         })
         UIView.animate(withDuration: 0.15, delay: 0.4, options: [.curveLinear], animations: {
-            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.ARMotionButtonCenter, size: 1.0, labelPosition: self.ARMotionLabelCenter)
+            self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.arMotionButtonCenter, size: 1.0, labelPosition: self.arMotionLabelCenter)
         })
         UIView.animate(withDuration: 0.15, delay: 0.5, options: [.curveLinear], animations: {
             self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.filterButtonCenter, size: 1.0, labelPosition: self.filterLabelCenter)
@@ -1614,7 +1614,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.menuXButtonOn.alpha = 0.0
             
             self.menuMakingARLabel.alpha = 1.0
-            self.menuARMotionLabel.alpha = 1.0
+            self.menuarMotionLabel.alpha = 1.0
             self.menuFilterLabel.alpha = 1.0
         })
         
@@ -1632,7 +1632,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         UIView.animate(withDuration: 0.15, delay: 0.0, options: [.curveLinear], animations: {
             self.menuMakingARLabel.alpha = 0.0
-            self.menuARMotionLabel.alpha = 0.0
+            self.menuarMotionLabel.alpha = 0.0
             self.menuFilterLabel.alpha = 0.0
             
             self.menuXButtonOn.alpha = 1.0
@@ -1644,7 +1644,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         })
         UIView.animate(withDuration: 0.15, delay: 0.1, options: [.curveLinear], animations: {
-            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         })
         UIView.animate(withDuration: 0.15, delay: 0.2, options: [.curveLinear], animations: {
             self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
@@ -1665,15 +1665,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     @IBAction func MakingARbuttonTapped(_ sender: UIButton) {
         makingARButtonState = true
-        ARMotionButtonState = false
+        arMotionButtonState = false
         filterButtonState = false
         
         self.menuButtonStateCheck()
     }
     
-    @IBAction func ARMotionbuttonTapped(_ sender: UIButton) {
+    @IBAction func arMotionbuttonTapped(_ sender: UIButton) {
         let indexPaths = [IndexPath]()
-        ARMotionCollectionView.reloadItems(at: indexPaths)
+        arMotionCollectionView.reloadItems(at: indexPaths)
         
         let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
         tapGestureView.addGestureRecognizer(tapMenuView)
@@ -1681,14 +1681,14 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         
         makingARButtonState = false
-        ARMotionButtonState = true
+        arMotionButtonState = true
         filterButtonState = false
         
         UIView.animate(withDuration: 0.2) {
             self.menuView.alpha = 0.0
             self.buttonHide(state: true)
-            self.ARMotionView.center -= CGPoint(x: 0, y: 230)
-            self.ARMotionViewState = true
+            self.arMotionView.center -= CGPoint(x: 0, y: 230)
+            self.arMotionViewState = true
         }
         
         self.menuButtonStateCheck()
@@ -1701,7 +1701,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         
         makingARButtonState = false
-        ARMotionButtonState = false
+        arMotionButtonState = false
         filterButtonState = true
         
         UIView.animate(withDuration: 0.2) {
@@ -1764,16 +1764,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.menuSelectedOff(button: self.menuMakingARButton, changeImage: UIImage(named: "ic_makingAR_off")!)
         }
         
-        if (ARMotionButtonState) {
+        if (arMotionButtonState) {
             UIView.animate(withDuration: 0.1) {
-                //                self.menuARMotionLabel.alpha = 1.0
+                //                self.menuarMotionLabel.alpha = 1.0
             }
-            self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion_on")!)
+            self.menuSelectedOn(button: self.menuarMotionButton, changeImage: UIImage(named: "ic_arMotion_on")!)
         } else {
             UIView.animate(withDuration: 0.1) {
-                //                self.menuARMotionLabel.alpha = 0.0
+                //                self.menuarMotionLabel.alpha = 0.0
             }
-            self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion_off")!)
+            self.menuSelectedOff(button: self.menuarMotionButton, changeImage: UIImage(named: "ic_arMotion_off")!)
         }
         
         if (filterButtonState) {
@@ -1793,110 +1793,110 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         menuXButton.isHidden = state
         menuXButtonOn.isHidden = state
         menuMakingARButton.isHidden = state
-        menuARMotionButton.isHidden = state
+        menuarMotionButton.isHidden = state
         menuFilterButton.isHidden = state
         
         menuMakingARLabel.isHidden = state
-        menuARMotionLabel.isHidden = state
+        menuarMotionLabel.isHidden = state
         menuFilterLabel.isHidden = state
     }
     
-    // ARMotion View
-    @IBAction func ARMotionDeleteButtonTapped(_ sender: UIButton) {
-        createARMotionArray()
+    // arMotion View
+    @IBAction func arMotionDeleteButtonTapped(_ sender: UIButton) {
+        createarMotionArray()
         
         UIView.animate(withDuration: 0.2) {
             //            self.blurView.alpha = 0.8
             //            self.buttonHide()
-            //            self.ARMotionView.center += CGPoint(x: 0, y: 230)
+            //            self.arMotionView.center += CGPoint(x: 0, y: 230)
             
-            self.ARMotionDelete()
+            self.arMotionDelete()
         }
     }
     
-    @IBAction func ARMotionSelectButtonTapped(_ sender: UIButton) {
-        myARMotionButton.isSelected = false
-        AllARMotionButton.isSelected = false
-        FaceARMotionButton.isSelected = false
-        BGARMotionButton.isSelected = false
+    @IBAction func arMotionSelectButtonTapped(_ sender: UIButton) {
+        myarMotionButton.isSelected = false
+        allarMotionButton.isSelected = false
+        facearMotionButton.isSelected = false
+        bgarMotionButton.isSelected = false
         
-        AllARMotionButton.backgroundColor = Properties.shared.color.button_background
-        FaceARMotionButton.backgroundColor = Properties.shared.color.button_background
-        BGARMotionButton.backgroundColor = Properties.shared.color.button_background
+        allarMotionButton.backgroundColor = Properties.shared.color.button_background
+        facearMotionButton.backgroundColor = Properties.shared.color.button_background
+        bgarMotionButton.backgroundColor = Properties.shared.color.button_background
         
-        if sender == myARMotionButton {
-            myARMotionButton.isSelected = true
+        if sender == myarMotionButton {
+            myarMotionButton.isSelected = true
             
-        } else if sender == AllARMotionButton {
-            AllARMotionButton.isSelected = true
-            AllARMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == allarMotionButton {
+            allarMotionButton.isSelected = true
+            allarMotionButton.backgroundColor = Properties.shared.color.white
             
-        } else if sender == FaceARMotionButton {
-            FaceARMotionButton.isSelected = true
-            FaceARMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == facearMotionButton {
+            facearMotionButton.isSelected = true
+            facearMotionButton.backgroundColor = Properties.shared.color.white
             
-        } else if sender == BGARMotionButton {
-            BGARMotionButton.isSelected = true
-            BGARMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == bgarMotionButton {
+            bgarMotionButton.isSelected = true
+            bgarMotionButton.backgroundColor = Properties.shared.color.white
         }
         
         DispatchQueue.main.async {
-            self.ARMotionCollectionView.reloadData()
+            self.arMotionCollectionView.reloadData()
         }
     }
     
     // FIXME: CoreData 모델화 진행중
-    func createARMotionArray() {
-        AllARMotionArray = Array()
-        FaceARMotionArray = Array()
-        BGARMotionArray = Array()
+    func createarMotionArray() {
+        allarMotionArray = Array()
+        facearMotionArray = Array()
+        bgarMotionArray = Array()
         
         for kind in FaceARMotion.Kind.allCases {
             if let image = UIImage(named: "FaceAR_\(kind)") {
-                FaceARMotionArray.append(image)
+                facearMotionArray.append(image)
             }
         }
         
         for kind in BGARMotion.Kind.allCases {
             if let image = UIImage(named: "BGAR_\(kind)") {
-                BGARMotionArray.append(image)
+                bgarMotionArray.append(image)
             }
         }
         
-        AllARMotionArray = DamdaData.shared.makingARArray
+        allarMotionArray = DamdaData.shared.makingARArray
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.ARMotionCollectionView {
-            let ARMotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as! ARMotionCollectionViewCell
+        if collectionView == self.arMotionCollectionView {
+            guard let arMotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return UICollectionViewCell() }
             
-            //            ARMotionCell.stateChangeButton.isHidden = true
-            //            ARMotionCell.stateChangeButton.alpha = 0.0
+            //            arMotionCell.stateChangeButton.isHidden = true
+            //            arMotionCell.stateChangeButton.alpha = 0.0
             
-            ARMotionCell.layer.shadowOpacity = 0.6
-            ARMotionCell.layer.shadowRadius = 1
-            ARMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
-            ARMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
+            arMotionCell.layer.shadowOpacity = 0.6
+            arMotionCell.layer.shadowRadius = 1
+            arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
+            arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
-            if myARMotionButton.isSelected {
-                ARMotionCell.previewImage.image = myARMotionArray[indexPath.row]
+            if myarMotionButton.isSelected {
+                arMotionCell.previewImage.image = myarMotionArray[indexPath.row]
                 
-                return ARMotionCell
-            } else if AllARMotionButton.isSelected {
-                ARMotionCell.previewImage.image = AllARMotionArray[indexPath.row]
+                return arMotionCell
+            } else if allarMotionButton.isSelected {
+                arMotionCell.previewImage.image = allarMotionArray[indexPath.row]
                 
-                return ARMotionCell
-            } else if FaceARMotionButton.isSelected {
-                ARMotionCell.previewImage.image = FaceARMotionArray[indexPath.row]
+                return arMotionCell
+            } else if facearMotionButton.isSelected {
+                arMotionCell.previewImage.image = facearMotionArray[indexPath.row]
                 
-                return ARMotionCell
-            } else {    // if BGARMotionButton.isSelected
-                ARMotionCell.previewImage.image = BGARMotionArray[indexPath.row]
+                return arMotionCell
+            } else {    // if BGarMotionButton.isSelected
+                arMotionCell.previewImage.image = bgarMotionArray[indexPath.row]
                 
-                return ARMotionCell
+                return arMotionCell
             }
         } else {
-            let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCollectionViewCell
+            guard let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCollectionViewCell else { return UICollectionViewCell() }
             
             filterCell.filterPreviewImage.image = UIImage(named: "filter_image")
             if indexPath.row > 0 {
@@ -1908,15 +1908,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.ARMotionCollectionView {
-            if myARMotionButton.isSelected {
-                return myARMotionArray.count
-            } else if AllARMotionButton.isSelected {
-                return AllARMotionArray.count
-            } else if FaceARMotionButton.isSelected {
-                return FaceARMotionArray.count
-            } else if BGARMotionButton.isSelected {
-                return BGARMotionArray.count
+        if collectionView == self.arMotionCollectionView {
+            if myarMotionButton.isSelected {
+                return myarMotionArray.count
+            } else if allarMotionButton.isSelected {
+                return allarMotionArray.count
+            } else if facearMotionButton.isSelected {
+                return facearMotionArray.count
+            } else if bgarMotionButton.isSelected {
+                return bgarMotionArray.count
             }
         }
         
@@ -1928,128 +1928,124 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.ARMotionCollectionView {
-            _ = collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as! ARMotionCollectionViewCell
+        if collectionView == self.arMotionCollectionView {
+            guard collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) is ARMotionCollectionViewCell else { return }
             
-            let BGARMotionIndex = FaceARMotionArray.count
+            let BGarMotionIndex = facearMotionArray.count
             
-            self.ARMotionDelete()
+            self.arMotionDelete()
             
-            if myARMotionButton.isSelected {
+            if myarMotionButton.isSelected {
                 
-            } else if AllARMotionButton.isSelected {
+            } else if allarMotionButton.isSelected {
                 if (indexPath.row == 0) {
-                    self.loadARMotionNode("Heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 1) {
-                    self.loadARMotionNode("Angel", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if (indexPath.row == 2) {
-                    self.loadARMotionNode("Rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 3) {
-                    self.loadARMotionNode("Cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 4) {
-                    self.loadARMotionNode("Mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 5) {
-                    self.loadARMotionNode("Peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
+                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if (indexPath.row == 6) {
-                    self.loadARMotionNode("BAAAM", position: SCNVector3(x: 0, y: 4, z: -5))
+                    self.loadarMotionNode("baaan", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if (indexPath.row == 7) {
                     if isBlink {
-                        self.loadARMotionNode("Mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
-                        self.loadARMotionNode("Mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
                 } else if (indexPath.row == 8) {
-                    self.loadARMotionNode("Doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
+                    self.loadarMotionNode("soughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if (indexPath.row == 9) {
-                    self.loadARMotionNode("Flower3", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if (indexPath.row == BGARMotionIndex) {
-                    self.loadBGMotionNode("Snow")
-                } else if (indexPath.row == BGARMotionIndex + 1) {
-                    self.loadBGMotionNode("Blossom")
-                } else if (indexPath.row == BGARMotionIndex + 2) {
-                    self.loadBGMotionNode("Rain")
-                } else if (indexPath.row == BGARMotionIndex + 3) {
-                    self.loadBGMotionNode("Fish")
-                } else if (indexPath.row == BGARMotionIndex + 4) {
-                    self.loadBGMotionNode("Greenery")
-                } else if (indexPath.row == BGARMotionIndex + 5) {
-                    self.loadBGMotionNode("Fruits")
-                } else if (indexPath.row == BGARMotionIndex + 6) {
-                    self.loadBGMotionNode("Glow")
+                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
+                } else if (indexPath.row == BGarMotionIndex) {
+                    self.loadBGMotionNode("snow")
+                } else if (indexPath.row == BGarMotionIndex + 1) {
+                    self.loadBGMotionNode("blossom")
+                } else if (indexPath.row == BGarMotionIndex + 2) {
+                    self.loadBGMotionNode("rain")
+                } else if (indexPath.row == BGarMotionIndex + 3) {
+                    self.loadBGMotionNode("fish")
+                } else if (indexPath.row == BGarMotionIndex + 4) {
+                    self.loadBGMotionNode("greenery")
+                } else if (indexPath.row == BGarMotionIndex + 5) {
+                    self.loadBGMotionNode("fruits")
+                } else if (indexPath.row == BGarMotionIndex + 6) {
+                    self.loadBGMotionNode("glow")
                 } else {
-                    self.ARMotionSelected_MakingAR(index: indexPath.row)
+                    self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
-            } else if FaceARMotionButton.isSelected {
+            } else if facearMotionButton.isSelected {
                 if (indexPath.row == 0) {
-                    self.loadARMotionNode("Heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 1) {
-                    self.loadARMotionNode("Angel", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if (indexPath.row == 2) {
-                    self.loadARMotionNode("Rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if (indexPath.row == 3) {
-                    self.loadARMotionNode("Cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 4) {
-                    self.loadARMotionNode("Mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if (indexPath.row == 5) {
-                    self.loadARMotionNode("Peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
+                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if (indexPath.row == 6) {
-                    self.loadARMotionNode("BAAAM", position: SCNVector3(x: 0, y: 4, z: -5))
+                    self.loadarMotionNode("baaam", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if (indexPath.row == 7) {
                     if isBlink {
-                        self.loadARMotionNode("Mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
-                        self.loadARMotionNode("Mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
                 } else if (indexPath.row == 8) {
-                    self.loadARMotionNode("Doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
+                    self.loadarMotionNode("doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if (indexPath.row == 9) {
-                    self.loadARMotionNode("Flower3", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else {
-                    self.ARMotionSelected_MakingAR(index: indexPath.row)
+                    self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
-            } else {    // if BGARMotionButton.isSelected
+            } else {    // if BGarMotionButton.isSelected
                 if (indexPath.row == 0) {
-                    self.loadBGMotionNode("Snow")
+                    self.loadBGMotionNode("snow")
                 } else if (indexPath.row == 1) {
-                    self.loadBGMotionNode("Blossom")
+                    self.loadBGMotionNode("blossom")
                 } else if (indexPath.row == 2) {
-                    self.loadBGMotionNode("Rain")
+                    self.loadBGMotionNode("rain")
                 } else if (indexPath.row == 3) {
-                    self.loadBGMotionNode("Fish")
+                    self.loadBGMotionNode("fish")
                 } else if (indexPath.row == 4) {
-                    self.loadBGMotionNode("Greenery")
+                    self.loadBGMotionNode("greenery")
                 } else if (indexPath.row == 5) {
-                    self.loadBGMotionNode("Fruits")
+                    self.loadBGMotionNode("fruits")
                 } else if (indexPath.row == 6) {
-                    self.loadBGMotionNode("Glow")
+                    self.loadBGMotionNode("glow")
                 }
             }
         }
     }
     
-    @objc func ARMotionCellLongPress(gesture : UILongPressGestureRecognizer!) {
+    @objc func arMotionCellLongPress(gesture : UILongPressGestureRecognizer!) {
         if gesture.state != .ended {
             return
         }
         
-        let p = gesture.location(in: self.ARMotionCollectionView)
+        let p = gesture.location(in: self.arMotionCollectionView)
         
-        if let indexPath = self.ARMotionCollectionView.indexPathForItem(at: p) {
-            // get the cell at indexPath (the one you long pressed)
-            let cell = self.ARMotionCollectionView.cellForItem(at: indexPath)
-            // do stuff with the cell
+        if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {
+            guard let arMotionCell = arMotionCollectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return }
             
-            let ARMotionCell = ARMotionCollectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as! ARMotionCollectionViewCell
-            
-            if (AllARMotionButton.isSelected || FaceARMotionButton.isSelected) {
+            if allarMotionButton.isSelected || facearMotionButton.isSelected {
                 if (indexPath.row > 9) {
-                    //                    ARMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
-                    //                    ARMotionCell.stateChangeButton.isHidden = false
+                    //                    arMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
+                    //                    arMotionCell.stateChangeButton.isHidden = false
                     
                     //                    UIView.animate(withDuration: Double(0.5), animations: {
-                    //                        ARMotionCell.stateChangeButton.alpha = 1.0
+                    //                        arMotionCell.stateChangeButton.alpha = 1.0
                     //                    })
                 }
             }
@@ -2059,12 +2055,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @objc func ARMotionCellDoubleTab(gesture : UITapGestureRecognizer!) {
-        let p = gesture.location(in: self.ARMotionCollectionView)
+    @objc func arMotionCellDoubleTab(gesture : UITapGestureRecognizer!) {
+        let p = gesture.location(in: self.arMotionCollectionView)
         
-        if let indexPath = self.ARMotionCollectionView.indexPathForItem(at: p) {
+        if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {
             // get the cell at indexPath (the one you long pressed)
-            let cell = self.ARMotionCollectionView.cellForItem(at: indexPath)
+            let cell = self.arMotionCollectionView.cellForItem(at: indexPath)
             // do stuff with the cell
             print(indexPath)
         } else {
@@ -2109,5 +2105,5 @@ extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
             return
         }
     }
-    
+
 }

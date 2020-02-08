@@ -1782,7 +1782,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
+        guard let CustomColor = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as? CustomPaletteCollectionViewCell else { return UICollectionViewCell() }
         
         CustomColor.customColor.layer.cornerRadius = 4
         
@@ -1806,7 +1806,7 @@ class ARDrawingViewController: UIViewController, AVCapturePhotoCaptureDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let _ = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) as! CustomPaletteCollectionViewCell
+        guard collectionView.dequeueReusableCell(withReuseIdentifier: "CustomColor", for: indexPath) is CustomPaletteCollectionViewCell else { return }
         
         if indexPath.row < customPaletteArray.count {
             pickedColor = customPaletteArray[indexPath.row]

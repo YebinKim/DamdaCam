@@ -19,7 +19,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     
-    var sizeOfImage:CGSize? // PrevieImageView의 CGSzie
+    var sizeOfImage: CGSize? // PrevieImageView의 CGSzie
     
     var assetsFetchResults: PHFetchResult<PHAsset>?
     var imageManger: PHCachingImageManager?
@@ -70,8 +70,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    // MARK:- View Controller Lifecycle
-    
+    // MARK: - View Controller Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -117,7 +116,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var completePickImageFromPhotoAlbum: UIBarButtonItem!
     
     func setFlowLayout() {
-        let space:CGFloat = 3.0
+        let space: CGFloat = 3.0
         
         // the size of the main view, wihich is dependent upon screen size.
         let dimension = (view.frame.size.width - (2 * space)) / 3.0
@@ -133,36 +132,25 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return (self.assetsFetchResults?.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         // Configure the cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GalleryCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell() }
         
         // cell frame CGSize만큼 asset 을 설정하여 photoImageView에 set
         let asset: PHAsset = self.assetsFetchResults![indexPath.item]
-        self.imageManger?.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: {
-            (result : UIImage?, info) in
-            
+        self.imageManger?.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: { (result : UIImage?, info) in
             cell.galleryImageView.image = result
-            
-            
         })
         
         return cell
     }
     
-    
-    
-    
     // MARK: UICollectionViewDelegate
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         currentSelectedIndex = indexPath.item
     }
     

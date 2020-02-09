@@ -15,4 +15,4 @@ included:
 excluded:
 - Pods
 
-line_length: 400
+line_length: 200

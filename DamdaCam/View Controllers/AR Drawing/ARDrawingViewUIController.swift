@@ -303,7 +303,7 @@ class ARDrawingUIViewController: UIViewController, AVCapturePhotoCaptureDelegate
         self.clearAllButton.layer.cornerRadius = 13
         self.clearAllButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
-        // FIXME: deleete remove3DView
+        // FIXME: delete remove3DView
         self.remove3DView.isHidden = true
         self.remove3DView.alpha = 0.0
     }

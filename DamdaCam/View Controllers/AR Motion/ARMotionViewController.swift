@@ -332,9 +332,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         //        self.view.addSubview(filterCollectionView)
         
         // FIXME: Temp Spec
-        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor], state: false)
-        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor], state: false)
-        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: false)
+        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                state: false)
+        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                state: false)
+        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
+                                                state: false)
         
         filterBack.isUserInteractionEnabled = false
         filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
@@ -2070,13 +2076,19 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)
         } else if sender == filterTemp2 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                   UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                   state: true)
         } else if sender == filterTemp3 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor, UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                   UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                   state: true)
         } else if sender == filterTemp4 {
             filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor], state: true)
+            filterBack.applyGradient_view(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
+                                                   UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
+                                                   state: true)
         }
     }
     
@@ -2094,7 +2106,12 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 
 extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
     
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+    func photoOutput(_ output: AVCapturePhotoOutput,
+                     didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
+                     previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
+                     resolvedSettings: AVCaptureResolvedPhotoSettings,
+                     bracketSettings: AVCaptureBracketedStillImageSettings?,
+                     error: Error?) {
         if let error = error {
             print(error.localizedDescription)
             return

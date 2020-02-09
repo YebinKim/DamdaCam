@@ -26,7 +26,12 @@ final class Figure: NSObject {
                 return UIBezierPath(roundedRect: self.originalRect, cornerRadius: 10.0)
                 
             case .circle:
-                return UIBezierPath(arcCenter: CGPoint(x: self.originalRect.midX, y: self.originalRect.midY), radius: self.originalRect.width / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2.0), clockwise: true)
+                return UIBezierPath(arcCenter: CGPoint(x: self.originalRect.midX,
+                                                       y: self.originalRect.midY),
+                                                       radius: self.originalRect.width / 2,
+                                                       startAngle: CGFloat(0),
+                                                       endAngle: CGFloat(Double.pi * 2.0),
+                                                       clockwise: true)
                 
             case .triangle:
                 return self.drawTrianglePath()

@@ -966,7 +966,12 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         }
         
         if shape == "Circle" {
-            path = UIBezierPath(arcCenter: CGPoint(x: originalRect.midX, y: originalRect.midY), radius: originalRect.width / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2.0), clockwise: true)
+            path = UIBezierPath(arcCenter: CGPoint(x: originalRect.midX,
+                                                   y: originalRect.midY),
+                                                   radius: originalRect.width / 2,
+                                                   startAngle: CGFloat(0),
+                                                   endAngle: CGFloat(Double.pi * 2.0),
+                                                   clockwise: true)
         }
         
         if shape == "Triangle" {
@@ -1236,7 +1241,11 @@ class FigureDrawView: UIView {
         if startPoint != nil && endPoint != nil {
             let layer = CAShapeLayer()
             
-            let path = drawPath(rect: CGRect(x: min(startPoint!.x, endPoint!.x), y: min(startPoint!.y, endPoint!.y), width: abs(startPoint!.x - endPoint!.x), height: abs(startPoint!.y - endPoint!.y)), shape: shape)
+            let path = drawPath(rect: CGRect(x: min(startPoint!.x, endPoint!.x),
+                                             y: min(startPoint!.y, endPoint!.y),
+                                             width: abs(startPoint!.x - endPoint!.x),
+                                             height: abs(startPoint!.y - endPoint!.y)),
+                                             shape: shape)
             
             UIColor.clear.setFill()
             path.stroke()

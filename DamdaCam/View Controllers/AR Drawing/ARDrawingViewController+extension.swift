@@ -546,7 +546,12 @@ extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
         }
         
         if arError.code == .cameraUnauthorized {
-            let alertController = UIAlertController(title: NSLocalizedString("error_resuming_session", comment: "Sorry something went wrong"), message: NSLocalizedString("error_camera_not_available", comment: "Sorry, something went wrong. Please try again."), preferredStyle: .alert)
+            let alertController = UIAlertController(title: NSLocalizedString("error_resuming_session",
+                                                    comment: "Sorry something went wrong"),
+                                                    message: NSLocalizedString("error_camera_not_available",
+                                                    comment: "Sorry, something went wrong. Please try again."),
+                                                    preferredStyle: .alert)
+            
             let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: "OK"), style: .default) { _ in
                 alertController.dismiss(animated: true, completion: nil)
             }

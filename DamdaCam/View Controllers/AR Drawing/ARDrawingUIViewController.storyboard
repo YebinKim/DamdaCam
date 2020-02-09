@@ -1349,6 +1349,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0aY-Wj-N2s"/>
                     </view>
+                    <navigationItem key="navigationItem" id="S2S-bN-8U0"/>
                     <connections>
                         <outlet property="blueSlider" destination="Wf4-R6-2HP" id="Rq1-Eg-yZp"/>
                         <outlet property="brightnessSlider" destination="tRY-8D-95x" id="PMi-e5-FOo"/>

@@ -4,6 +4,7 @@ disabled_rules:
 - identifier_name
 - large_tuple
 - function_parameter_count
+- shorthand_operator
 
 ### Remove
 - type_body_length

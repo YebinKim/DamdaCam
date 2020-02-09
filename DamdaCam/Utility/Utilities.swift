@@ -172,11 +172,11 @@ extension CGPoint {
     }
     
     static func += (left: inout CGPoint, right: CGPoint) {
-        left += right
+        left = left + right
     }
     
     static func -= (left: inout CGPoint, right: CGPoint) {
-        left -= right
+        left = left - right
     }
     
     static func / (left: CGPoint, right: CGFloat) -> CGPoint {
@@ -188,11 +188,11 @@ extension CGPoint {
     }
     
     static func /= (left: inout CGPoint, right: CGFloat) {
-        left /= right
+        left = left / right
     }
     
     static func *= (left: inout CGPoint, right: CGFloat) {
-        left *= right
+        left = left * right
     }
     
     func absolutePoint(in rect: CGRect) -> CGPoint {

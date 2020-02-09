@@ -625,9 +625,9 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func menuButtonStateCheck() {
         if ARMotionButtonState {
-            self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion2_on")!)
+            self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion2_off")!)
+            self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_off")!)
         }
         
         if paletteButtonState {

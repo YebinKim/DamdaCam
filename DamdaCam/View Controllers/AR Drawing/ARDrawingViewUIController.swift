@@ -1943,8 +1943,8 @@ class ARDrawingUIViewController: UIViewController, AVCapturePhotoCaptureDelegate
     
     func showStoryboard(_ name: String) {
         let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
-        if let nextView = storyboard.instantiateInitialViewController() {
-            present(nextView, animated: true, completion: nil)
+        if let nextVC = storyboard.instantiateInitialViewController() {
+            present(nextVC, animated: true, completion: nil)
         }
     }
 }

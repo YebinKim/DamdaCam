@@ -16,7 +16,7 @@ import CoreData
 
 class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    static let identifier: String = "arMotionViewController"
+    static let identifier: String = "ARMotionViewController"
     
     var localRecords: [NSManagedObject] = []
     
@@ -95,10 +95,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet var menuXButton: UIButton!
     @IBOutlet var menuXButtonOn: UIButton!
     @IBOutlet var menuMakingARButton: UIButton!
-    @IBOutlet var menuarMotionButton: UIButton!
+    @IBOutlet var menuARMotionButton: UIButton!
     @IBOutlet var menuFilterButton: UIButton!
     @IBOutlet var menuMakingARLabel: UILabel!
-    @IBOutlet var menuarMotionLabel: UILabel!
+    @IBOutlet var menuARMotionLabel: UILabel!
     @IBOutlet var menuFilterLabel: UILabel!
     var makingARButtonCenter: CGPoint!
     var arMotionButtonCenter: CGPoint!
@@ -113,11 +113,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // arMotion View
     @IBOutlet var arMotionView: UIView!
-    @IBOutlet var deletearMotionButton: UIButton!
-    @IBOutlet var myarMotionButton: UIButton!
-    @IBOutlet var allarMotionButton: UIButton!
-    @IBOutlet var facearMotionButton: UIButton!
-    @IBOutlet var bgarMotionButton: UIButton!
+    @IBOutlet var deleteARMotionButton: UIButton!
+    @IBOutlet var myARMotionButton: UIButton!
+    @IBOutlet var allARMotionButton: UIButton!
+    @IBOutlet var faceARMotionButton: UIButton!
+    @IBOutlet var bgARMotionButton: UIButton!
     @IBOutlet var arMotionCollectionView: UICollectionView!
     @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
     var myARMotionArray: [UIImage]!
@@ -252,13 +252,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         // Menu Set
         makingARButtonCenter = menuMakingARButton.center
-        arMotionButtonCenter = menuarMotionButton.center
+        arMotionButtonCenter = menuARMotionButton.center
         filterButtonCenter = menuFilterButton.center
         makingARLabelCenter = menuMakingARLabel.center
-        arMotionLabelCenter = menuarMotionLabel.center
+        arMotionLabelCenter = menuARMotionLabel.center
         filterLabelCenter = menuFilterLabel.center
         menuMakingARLabel.alpha = 0.0
-        menuarMotionLabel.alpha = 0.0
+        menuARMotionLabel.alpha = 0.0
         menuFilterLabel.alpha = 0.0
         
         menuView.isHidden = true
@@ -305,10 +305,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         filterView.addSubview(BGfilterBar)
         filterView.sendSubviewToBack(BGfilterBar)
         
-        arMotionSelectButtonTapped(allarMotionButton)
-        allarMotionButton.layer.cornerRadius = 14
-        facearMotionButton.layer.cornerRadius = 14
-        bgarMotionButton.layer.cornerRadius = 14
+        arMotionSelectButtonTapped(allARMotionButton)
+        allARMotionButton.layer.cornerRadius = 14
+        faceARMotionButton.layer.cornerRadius = 14
+        bgARMotionButton.layer.cornerRadius = 14
         
         // arMotion View Set
         createarMotionArray()
@@ -413,7 +413,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.menuXButtonOn.alpha = 1.0
         
         self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         self.menuView.alpha = 0.0
         
@@ -422,7 +422,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             if self.toARMotionNO {
-                self.arMotionbuttonTapped(self.menuarMotionButton)
+                self.arMotionbuttonTapped(self.menuARMotionButton)
                 self.toARMotionNO = false
             }
             
@@ -1604,7 +1604,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.makingARButtonCenter, size: 1.0, labelPosition: self.makingARLabelCenter)
         })
         UIView.animate(withDuration: 0.15, delay: 0.4, options: [.curveLinear], animations: {
-            self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.arMotionButtonCenter, size: 1.0, labelPosition: self.arMotionLabelCenter)
+            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.arMotionButtonCenter, size: 1.0, labelPosition: self.arMotionLabelCenter)
         })
         UIView.animate(withDuration: 0.15, delay: 0.5, options: [.curveLinear], animations: {
             self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.filterButtonCenter, size: 1.0, labelPosition: self.filterLabelCenter)
@@ -1615,7 +1615,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.menuXButtonOn.alpha = 0.0
             
             self.menuMakingARLabel.alpha = 1.0
-            self.menuarMotionLabel.alpha = 1.0
+            self.menuARMotionLabel.alpha = 1.0
             self.menuFilterLabel.alpha = 1.0
         })
         
@@ -1633,7 +1633,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         UIView.animate(withDuration: 0.15, delay: 0.0, options: [.curveLinear], animations: {
             self.menuMakingARLabel.alpha = 0.0
-            self.menuarMotionLabel.alpha = 0.0
+            self.menuARMotionLabel.alpha = 0.0
             self.menuFilterLabel.alpha = 0.0
             
             self.menuXButtonOn.alpha = 1.0
@@ -1645,7 +1645,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         })
         UIView.animate(withDuration: 0.15, delay: 0.1, options: [.curveLinear], animations: {
-            self.buttonAnimation(button: self.menuarMotionButton, label: self.menuarMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
         })
         UIView.animate(withDuration: 0.15, delay: 0.2, options: [.curveLinear], animations: {
             self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
@@ -1664,7 +1664,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @IBAction func MakingARbuttonTapped(_ sender: UIButton) {
+    @IBAction func makingARbuttonTapped(_ sender: UIButton) {
         makingARButtonState = true
         arMotionButtonState = false
         filterButtonState = false
@@ -1767,14 +1767,14 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         if arMotionButtonState {
             UIView.animate(withDuration: 0.1) {
-                //                self.menuarMotionLabel.alpha = 1.0
+                //                self.menuARMotionLabel.alpha = 1.0
             }
-            self.menuSelectedOn(button: self.menuarMotionButton, changeImage: UIImage(named: "ic_arMotion_on")!)
+            self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion_on")!)
         } else {
             UIView.animate(withDuration: 0.1) {
-                //                self.menuarMotionLabel.alpha = 0.0
+                //                self.menuARMotionLabel.alpha = 0.0
             }
-            self.menuSelectedOff(button: self.menuarMotionButton, changeImage: UIImage(named: "ic_arMotion_off")!)
+            self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion_off")!)
         }
         
         if filterButtonState {
@@ -1794,11 +1794,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         menuXButton.isHidden = state
         menuXButtonOn.isHidden = state
         menuMakingARButton.isHidden = state
-        menuarMotionButton.isHidden = state
+        menuARMotionButton.isHidden = state
         menuFilterButton.isHidden = state
         
         menuMakingARLabel.isHidden = state
-        menuarMotionLabel.isHidden = state
+        menuARMotionLabel.isHidden = state
         menuFilterLabel.isHidden = state
     }
     
@@ -1816,29 +1816,29 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func arMotionSelectButtonTapped(_ sender: UIButton) {
-        myarMotionButton.isSelected = false
-        allarMotionButton.isSelected = false
-        facearMotionButton.isSelected = false
-        bgarMotionButton.isSelected = false
+        myARMotionButton.isSelected = false
+        allARMotionButton.isSelected = false
+        faceARMotionButton.isSelected = false
+        bgARMotionButton.isSelected = false
         
-        allarMotionButton.backgroundColor = Properties.shared.color.button_background
-        facearMotionButton.backgroundColor = Properties.shared.color.button_background
-        bgarMotionButton.backgroundColor = Properties.shared.color.button_background
+        allARMotionButton.backgroundColor = Properties.shared.color.button_background
+        faceARMotionButton.backgroundColor = Properties.shared.color.button_background
+        bgARMotionButton.backgroundColor = Properties.shared.color.button_background
         
-        if sender == myarMotionButton {
-            myarMotionButton.isSelected = true
+        if sender == myARMotionButton {
+            myARMotionButton.isSelected = true
             
-        } else if sender == allarMotionButton {
-            allarMotionButton.isSelected = true
-            allarMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == allARMotionButton {
+            allARMotionButton.isSelected = true
+            allARMotionButton.backgroundColor = Properties.shared.color.white
             
-        } else if sender == facearMotionButton {
-            facearMotionButton.isSelected = true
-            facearMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == faceARMotionButton {
+            faceARMotionButton.isSelected = true
+            faceARMotionButton.backgroundColor = Properties.shared.color.white
             
-        } else if sender == bgarMotionButton {
-            bgarMotionButton.isSelected = true
-            bgarMotionButton.backgroundColor = Properties.shared.color.white
+        } else if sender == bgARMotionButton {
+            bgARMotionButton.isSelected = true
+            bgARMotionButton.backgroundColor = Properties.shared.color.white
         }
         
         DispatchQueue.main.async {
@@ -1879,15 +1879,15 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
             arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
-            if myarMotionButton.isSelected {
+            if myARMotionButton.isSelected {
                 arMotionCell.previewImage.image = myARMotionArray[indexPath.row]
                 
                 return arMotionCell
-            } else if allarMotionButton.isSelected {
+            } else if allARMotionButton.isSelected {
                 arMotionCell.previewImage.image = allARMotionArray[indexPath.row]
                 
                 return arMotionCell
-            } else if facearMotionButton.isSelected {
+            } else if faceARMotionButton.isSelected {
                 arMotionCell.previewImage.image = faceARMotionArray[indexPath.row]
                 
                 return arMotionCell
@@ -1910,13 +1910,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.arMotionCollectionView {
-            if myarMotionButton.isSelected {
+            if myARMotionButton.isSelected {
                 return myARMotionArray.count
-            } else if allarMotionButton.isSelected {
+            } else if allARMotionButton.isSelected {
                 return allARMotionArray.count
-            } else if facearMotionButton.isSelected {
+            } else if faceARMotionButton.isSelected {
                 return faceARMotionArray.count
-            } else if bgarMotionButton.isSelected {
+            } else if bgARMotionButton.isSelected {
                 return bgARMotionArray.count
             }
         }
@@ -1936,9 +1936,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             
             self.arMotionDelete()
             
-            if myarMotionButton.isSelected {
+            if myARMotionButton.isSelected {
                 
-            } else if allarMotionButton.isSelected {
+            } else if allARMotionButton.isSelected {
                 if indexPath.row == 0 {
                     self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if indexPath.row == 1 {
@@ -1981,7 +1981,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
                 } else {
                     self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
-            } else if facearMotionButton.isSelected {
+            } else if faceARMotionButton.isSelected {
                 if indexPath.row == 0 {
                     self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if indexPath.row == 1 {
@@ -2040,7 +2040,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {
             guard let arMotionCell = arMotionCollectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return }
             
-            if allarMotionButton.isSelected || facearMotionButton.isSelected {
+            if allARMotionButton.isSelected || faceARMotionButton.isSelected {
                 if indexPath.row > 9 {
                     //                    arMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
                     //                    arMotionCell.stateChangeButton.isHidden = false
@@ -2098,8 +2098,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func showStoryboard(_ name: String) {
         let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
-        if let nextView = storyboard.instantiateInitialViewController() {
-            present(nextView, animated: true, completion: nil)
+        if let nextVC = storyboard.instantiateInitialViewController() {
+            present(nextVC, animated: true, completion: nil)
         }
     }
 }

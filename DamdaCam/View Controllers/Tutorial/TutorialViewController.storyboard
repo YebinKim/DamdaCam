@@ -97,6 +97,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Ke9-8d-fCv"/>
                     </view>
+                    <navigationItem key="navigationItem" id="LBd-uH-czl"/>
                     <connections>
                         <outlet property="tutirialLogoGif" destination="3pG-ZK-93G" id="yIM-Zx-fHh"/>
                         <outlet property="tutorialBG" destination="vlN-Nr-8Ns" id="aK9-om-EMi"/>

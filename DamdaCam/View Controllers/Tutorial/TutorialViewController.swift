@@ -244,7 +244,7 @@ class TutorialViewController: UIViewController {
     }
     
     func presentNextVC() {
-        let nexVC = ARViewController()
+        let nexVC = ARDrawingViewController()
         nexVC.modalPresentationStyle = .fullScreen
         self.present(nexVC, animated: true, completion: nil)
     }

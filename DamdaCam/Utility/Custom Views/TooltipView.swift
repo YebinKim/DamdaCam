@@ -27,7 +27,7 @@ import UIKit
 @IBDesignable
 class TooltipView: UIView {
     
-    //MARK: - IBInspectable
+    // MARK: - IBInspectable
     
     @IBInspectable var arrowTopLeft: Bool = false
     @IBInspectable var arrowTopCenter: Bool = true
@@ -38,27 +38,27 @@ class TooltipView: UIView {
     
     @IBInspectable var fillColor: UIColor = UIColor(red: 43/255, green: 43/255, blue: 43/255, alpha: 0.28)
     
-    @IBInspectable var borderColor: UIColor = UIColor(red:0, green:0, blue:0, alpha:0.05)
+    @IBInspectable var borderColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
     @IBInspectable var borderRadius: CGFloat = 5
     @IBInspectable var borderWidth: CGFloat = 0
     
-    @IBInspectable var shadowColor: UIColor = UIColor(red:0, green:0, blue:0, alpha:0)
+    @IBInspectable var shadowColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     @IBInspectable var shadowOffsetX: CGFloat = 0
     @IBInspectable var shadowOffsetY: CGFloat = 2
     @IBInspectable var shadowBlur: CGFloat = 0
     
-    //MARK: - Global Variables
+    // MARK: - Global Variables
     
     var tooltipWidth = 0
     var tooltipHeight = 0
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     
     override func draw(_ rect: CGRect) {
         drawTooltip()
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     
     // Orientation methods
     
@@ -112,42 +112,42 @@ class TooltipView: UIView {
         
         // Arrow
         
-        if(arrowTopLeft) {
+        if arrowTopLeft {
             bubblePath.move(to: topLeft(3, 10))
             bubblePath.addLine(to: topLeft(3, -4))
             bubblePath.addLine(to: topLeft(16, 2))
             bubblePath.close()
         }
         
-        if(arrowTopCenter) {
+        if arrowTopCenter {
             bubblePath.move(to: topLeft(CGFloat((tooltipWidth / 2) - 5), 0))
             bubblePath.addLine(to: topLeft(CGFloat(tooltipWidth / 2), -8))
             bubblePath.addLine(to: topLeft(CGFloat(tooltipWidth / 2 + 5), 0))
             bubblePath.close()
         }
         
-        if(arrowTopRight) {
+        if arrowTopRight {
             bubblePath.move(to: topRight(16, 2))
             bubblePath.addLine(to: topRight(3, -4))
             bubblePath.addLine(to: topRight(3, 10))
             bubblePath.close()
         }
         
-        if(arrowBottomLeft) {
+        if arrowBottomLeft {
             bubblePath.move(to: bottomLeft(16, 2))
             bubblePath.addLine(to: bottomLeft(3, -4))
             bubblePath.addLine(to: bottomLeft(3, 10))
             bubblePath.close()
         }
         
-        if(arrowBottomCenter) {
+        if arrowBottomCenter {
             bubblePath.move(to: bottomLeft(CGFloat((tooltipWidth / 2) - 5), 0))
             bubblePath.addLine(to: bottomLeft(CGFloat(tooltipWidth / 2), -8))
             bubblePath.addLine(to: bottomLeft(CGFloat(tooltipWidth / 2 + 5), 0))
             bubblePath.close()
         }
         
-        if(arrowBottomRight) {
+        if arrowBottomRight {
             bubblePath.move(to: bottomRight(3, 10))
             bubblePath.addLine(to: bottomRight(3, -4))
             bubblePath.addLine(to: bottomRight(16, 2))

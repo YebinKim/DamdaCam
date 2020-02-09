@@ -69,7 +69,7 @@ class RadialHueColorPaletteDelegate: ColorPaletteDelegate {
 
     func foregroundImage() -> UIImage {
         var imageData = [UInt8](repeating: 255, count: (4 * ceiledDiameter * ceiledDiameter))
-        for i in 0 ..< ceiledDiameter{
+        for i in 0 ..< ceiledDiameter {
             for j in 0 ..< ceiledDiameter {
                 let index = 4 * (i * ceiledDiameter + j)
                 let hue = self.hue(at: CGPoint(x: j, y: i)) // rendering image transforms it as it it was mirrored around x = -y axis - adjusting for it by switching i and j here
@@ -86,7 +86,7 @@ class RadialHueColorPaletteDelegate: ColorPaletteDelegate {
         }
 
         // clip the image to circle
-        let imageRect = CGRect(x: 0,y: 0, width: diameter, height: diameter)
+        let imageRect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
         let holeRect = CGRect(x: radialHuePaletteStripWidth, y: radialHuePaletteStripWidth, width: diameter - 2 * radialHuePaletteStripWidth, height: diameter - 2 * radialHuePaletteStripWidth)
         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0)
         let context = UIGraphicsGetCurrentContext()

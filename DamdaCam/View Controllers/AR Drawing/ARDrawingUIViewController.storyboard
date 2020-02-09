@@ -19,10 +19,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Drawing View Controller-->
+        <!--DrawingUI View Controller-->
         <scene sceneID="hb3-jc-yOp">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="ptr-uY-WL2" customClass="ARDrawingViewController" customModule="DamdaCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="ptr-uY-WL2" customClass="ARDrawingUIViewController" customModule="DamdaCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wMF-su-ZgU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

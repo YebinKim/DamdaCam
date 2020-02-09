@@ -1,6 +1,6 @@
 // Copyright 2018 Google LLC
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License")
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -48,19 +48,19 @@ final class Stroke: NSObject, NSCopying {
     var animatedLength: Float = 0
 
     var creatorUid: String?
-    var previousPoints:  [String: [String: NSNumber]]? = nil
+    var previousPoints: [String: [String: NSNumber]]?
     
     public func size() -> Int {
         return points.count
     }
     
     func updateAnimatedStroke() -> Bool {
-        var renderNeedsUpdate = false;
-        if(!drawnLocally) {
+        var renderNeedsUpdate = false
+        if !drawnLocally {
             let previousLength = animatedLength
             animatedLength = animationFilter.update(totalLength)
             
-            if(abs(animatedLength - previousLength) > 0.001){
+            if abs(animatedLength - previousLength) > 0.001 {
                 renderNeedsUpdate = true
             }
         }
@@ -72,17 +72,15 @@ final class Stroke: NSObject, NSCopying {
         print("Stroke deinit")
     }
 
-
-    
-    public func add(point: SCNVector3, neonState: Bool)->Bool {
+    public func add(point: SCNVector3, neonState: Bool) -> Bool {
         let s = points.count
         
         // Filter the point
         let p = biquadFilter.update(point)
         
         // Check distance, and only add if moved far enough
-        if(s > 0){
-            let lastPoint = points[s - 1];
+        if s > 0 {
+            let lastPoint = points[s - 1]
             
             let result = point.distance(to: lastPoint)
             
@@ -97,22 +95,19 @@ final class Stroke: NSObject, NSCopying {
 //            }
 //        }
         
-
         totalLength += points[points.count-1].distance(to: p)
 
         // Add the point
         points.append(p)
         
-
-        
         // Cleanup vertices that are redundant
-        if(s > 3) {
+        if s > 3 {
             let angle = calculateAngle(index: s-2)
             // Remove points that have very low angle change
-            if (angle < 0.05) {
+            if angle < 0.05 {
                 points.remove(at: (s - 2))
             } else {
-                subdivideSection(s: s - 3, maxAngle: 0.3, iteration: 0);
+                subdivideSection(s: s - 3, maxAngle: 0.3, iteration: 0)
             }
         }
         
@@ -127,8 +122,7 @@ final class Stroke: NSObject, NSCopying {
         return true
     }
     
-    
-    func scaleVec(vec: SCNVector3, factor: Float) -> SCNVector3{
+    func scaleVec(vec: SCNVector3, factor: Float) -> SCNVector3 {
         let sX = vec.x * factor
         let sY = vec.y * factor
         let sZ = vec.z * factor
@@ -136,7 +130,6 @@ final class Stroke: NSObject, NSCopying {
         return SCNVector3(sX, sY, sZ)
         
     }
-    
     
     func addVecs(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
         let x = lhs.x + rhs.x
@@ -159,43 +152,42 @@ final class Stroke: NSObject, NSCopying {
     }
     
     func subVecs(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
-        let x = lhs.x - rhs.x;
-        let y = lhs.y - rhs.y;
-        let z = lhs.z - rhs.z;
-        return SCNVector3(x, y, z);
+        let x = lhs.x - rhs.x
+        let y = lhs.y - rhs.y
+        let z = lhs.z - rhs.z
+        
+        return SCNVector3(x, y, z)
     }
     
     func calcAngle(n1: SCNVector3, n2: SCNVector3) -> Float {
-        
-        let xx = n1.y*n2.z - n1.z*n2.y;
-        let yy = n1.z*n2.x - n1.x*n2.z;
-        let zz = n1.x*n2.y - n1.y*n2.x;
+        let xx = n1.y*n2.z - n1.z*n2.y
+        let yy = n1.z*n2.x - n1.x*n2.z
+        let zz = n1.x*n2.y - n1.y*n2.x
         let cross = Float(xx*xx + yy*yy + zz*zz).squareRoot()
         
         let dot = n1.x*n2.x + n1.y*n2.y + n1.z*n2.z
         
         return abs(atan2(cross, dot))
-        
     }
     
-    func calculateAngle(index : Int) -> Float {
+    func calculateAngle(index: Int) -> Float {
         let p1 = points[index-1]
         let p2 = points[index]
         let p3 = points[index+1]
         
-        var x = p2.x - p1.x;
-        var y = p2.y - p1.y;
-        var z = p2.z - p1.z;
-        let n1 = SCNVector3(x, y, z);
+        var x = p2.x - p1.x
+        var y = p2.y - p1.y
+        var z = p2.z - p1.z
+        let n1 = SCNVector3(x, y, z)
         
-        x = p3.x - p2.x;
-        y = p3.y - p2.y;
-        z = p3.z - p2.z;
-        let n2 = SCNVector3(x, y, z);
+        x = p3.x - p2.x
+        y = p3.y - p2.y
+        z = p3.z - p2.z
+        let n2 = SCNVector3(x, y, z)
         
-        let xx = n1.y*n2.z - n1.z*n2.y;
-        let yy = n1.z*n2.x - n1.x*n2.z;
-        let zz = n1.x*n2.y - n1.y*n2.x;
+        let xx = n1.y*n2.z - n1.z*n2.y
+        let yy = n1.z*n2.x - n1.x*n2.z
+        let zz = n1.x*n2.y - n1.y*n2.x
         let cross = Float(xx*xx + yy*yy + zz*zz).squareRoot()
         
         let dot = n1.x*n2.x + n1.y*n2.y + n1.z*n2.z
@@ -204,9 +196,7 @@ final class Stroke: NSObject, NSCopying {
         
     }
     
-    
-    
-    func subdivideSection(s: Int, maxAngle: Float, iteration : Int){
+    func subdivideSection(s: Int, maxAngle: Float, iteration: Int) {
         
         if iteration == 6 {
             return
@@ -222,7 +212,7 @@ final class Stroke: NSObject, NSCopying {
         let angle = calcAngle(n1: n1, n2: n2)
         
         // If angle is too big, add points
-        if(angle > maxAngle){
+        if angle > maxAngle {
             
             n1 = scaleVec(vec: n1, factor: 0.5)
             n2 = scaleVec(vec: n2, factor: 0.5)
@@ -237,11 +227,9 @@ final class Stroke: NSObject, NSCopying {
         }
     }
     
-    
     public func get(i: Int) -> SCNVector3 {
         return points[i]
     }
-    
     
     func setTapper(slope: Float, numPoints: Int) {
         if mTapperSlope != slope && numPoints != mTapperPoints {
@@ -250,8 +238,8 @@ final class Stroke: NSObject, NSCopying {
             
             var v = Float(1.0)
             for i in (0 ... numPoints - 1).reversed() {
-                v *= mTapperSlope;
-                mTaperLookup[i] = v;
+                v *= mTapperSlope
+                mTaperLookup[i] = v
             }
         }
     }
@@ -260,11 +248,10 @@ final class Stroke: NSObject, NSCopying {
         return lineWidth
     }
     
-    
     func prepareLine() {
         resetMemory()
         
-        let lineSize = size();
+        let lineSize = size()
         let mLineWidthMax = getLineWidth()
         
         var lengthAtPoint: Float = 0
@@ -288,12 +275,12 @@ final class Stroke: NSObject, NSCopying {
             
             let i_m_1 = (iGood - 1) < 0 ? iGood : iGood - 1
             
-            let current = get(i:iGood)
-            let previous = get(i:i_m_1)
+            let current = get(i: iGood)
+            let previous = get(i: i_m_1)
             
-            if (i < mTapperPoints) {
+            if i < mTapperPoints {
                 mLineWidth = mLineWidthMax * mTaperLookup[i]
-            } else if (i > lineSize - mTapperPoints) {
+            } else if i > lineSize - mTapperPoints {
                 mLineWidth = mLineWidthMax * mTaperLookup[lineSize - i]
             } else {
                 mLineWidth = getLineWidth()
@@ -305,9 +292,9 @@ final class Stroke: NSObject, NSCopying {
             mLineWidth = max(0, min(mLineWidthMax, mLineWidth))
             
             ii += 1
-            setMemory(index:ii, pos:current, side:1.0, length: lengthAtPoint)
+            setMemory(index: ii, pos: current, side: 1.0, length: lengthAtPoint)
             ii += 1
-            setMemory(index:ii, pos:current, side:-1.0, length: lengthAtPoint)
+            setMemory(index: ii, pos: current, side: -1.0, length: lengthAtPoint)
         }
     }
     
@@ -346,7 +333,7 @@ final class Stroke: NSObject, NSCopying {
     
     func copy(with zone: NSZone? = nil) -> Any {
         let strokeCopy = Stroke()
-        strokeCopy.points = points.map{ (pt) in
+        strokeCopy.points = points.map { (pt) in
             return SCNVector3Make(pt.x, pt.y, pt.z)
         }
         strokeCopy.mTaperLookup = mTaperLookup
@@ -367,7 +354,7 @@ final class Stroke: NSObject, NSCopying {
     }
     
     /// Dictionary only containing the points that changed since last call
-    func pointsUpdateDictionaryValue() -> [String : [String: NSNumber]] {
+    func pointsUpdateDictionaryValue() -> [String: [String: NSNumber]] {
         guard let node = node else {
             print("Stroke:pointsUpdateDictionaryValue: There was a problem converting stroke \(self) into dictionary values")
             return [String: [String: NSNumber]]()
@@ -385,9 +372,9 @@ final class Stroke: NSObject, NSCopying {
             pointObj["z"] = NSNumber(value: point.z + node.position.z)
             
             if let previousPoints = previousPoints, previousPoints.count > i, let previousPoint = previousPoints[String(i)] {
-                if( pointObj["x"] != previousPoint["x"]
+                if pointObj["x"] != previousPoint["x"]
                     || pointObj["y"] != previousPoint["y"]
-                    || pointObj["z"] != previousPoint["z"]){
+                    || pointObj["z"] != previousPoint["z"] {
                     
                     pointsArray[ String(i) ] = pointObj
                 }
@@ -401,4 +388,3 @@ final class Stroke: NSObject, NSCopying {
         return pointsArray
     }
 }
-

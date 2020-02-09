@@ -15,7 +15,7 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var navigationBar: UINavigationBar!
     
     let myLove: [String] = ["김예빈", "김지연", "안다은", "이정은", "고혜영"]
-    let mySunshine:[String] = ["개발", "AR모션, 브랜딩", "UI/UX", "UI/UX", "지도교수"]
+    let mySunshine: [String] = ["개발", "AR모션, 브랜딩", "UI/UX", "UI/UX", "지도교수"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
         navigationBar.barTintColor = Properties.shared.color.white
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
@@ -53,7 +53,6 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MadeByCell", for: indexPath)
         
-        
         cell.textLabel!.text = myLove[indexPath.row]
         cell.textLabel!.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
         cell.textLabel!.textColor = Properties.shared.color.lightGray
@@ -65,24 +64,12 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 47
     }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

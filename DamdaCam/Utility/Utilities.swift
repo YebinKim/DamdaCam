@@ -27,31 +27,30 @@ import UIKit
 import ImageIO
 
 // MARK: - AHC Float3 extension
-extension SCNVector3{
+extension SCNVector3 {
     
-    static func +(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+    static func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
         return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
     }
     
-    static func -(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+    static func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
         return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
     }
     
-    func distance(to receiver:SCNVector3) -> Float{
+    func distance(to receiver: SCNVector3) -> Float {
         let xd = receiver.x - self.x
         let yd = receiver.y - self.y
         let zd = receiver.z - self.z
         let distance = Float(sqrt(xd * xd + yd * yd + zd * zd))
         
-        if (distance < 0){
-            return (distance * -1)
+        if distance < 0 {
+            return distance * -1
         } else {
-            return (distance)
+            return distance
         }
     }
     
 }
-
 
 // MARK: - Collection extensions
 extension Array where Iterator.Element == Float {
@@ -222,28 +221,12 @@ extension CGSize {
         return CGSize(width: left.width - right.width, height: left.height - right.height)
     }
     
-    static func += (left: inout CGSize, right: CGSize) {
-        left += right
-    }
-    
-    static func -= (left: inout CGSize, right: CGSize) {
-        left -= right
-    }
-    
     static func / (left: CGSize, right: CGFloat) -> CGSize {
         return CGSize(width: left.width / right, height: left.height / right)
     }
     
     static func * (left: CGSize, right: CGFloat) -> CGSize {
         return CGSize(width: left.width * right, height: left.height * right)
-    }
-    
-    static func /= (left: inout CGSize, right: CGFloat) {
-        left /= right
-    }
-    
-    static func *= (left: inout CGSize, right: CGFloat) {
-        left *= right
     }
 }
 
@@ -294,11 +277,11 @@ extension UIColor {
     static func colorWithKelvin( kelvin: CGFloat) -> UIColor {
         let k = kelvin < 1000 ? 1000 : ( kelvin > 40000 ? 40000 : kelvin)
         
-        func interpolate( value: CGFloat, a: CGFloat, b:CGFloat, c:CGFloat) -> CGFloat {
+        func interpolate(value: CGFloat, a: CGFloat, b: CGFloat, c: CGFloat) -> CGFloat {
             return a + b*value + c*log(value)
         }
         
-        var red,green,blue: CGFloat
+        var red, green, blue: CGFloat
         
         if k < 6600 {
             red = 255
@@ -377,7 +360,7 @@ extension UIView {
     }
     
     func applyGradient_view(colors: [CGColor], state: Bool) {
-        if (state) {
+        if state {
             self.layer.sublayers?[0].removeFromSuperlayer()
             
             let gradientLayer = CAGradientLayer()
@@ -640,7 +623,7 @@ extension FileManager {
 extension UIButton {
     
     func applyGradient(colors: [CGColor], state: Bool) {
-        if (state) {
+        if state {
             self.layer.sublayers?[0].removeFromSuperlayer()
             
             let gradientLayer = CAGradientLayer()
@@ -662,7 +645,7 @@ extension UIButton {
     }
     
     func applyGradient_rect(colors: [CGColor], state: Bool) {
-        if (state) {
+        if state {
             self.layer.sublayers?[0].removeFromSuperlayer()
             
             let gradientLayer = CAGradientLayer()
@@ -702,7 +685,7 @@ extension Int {
 }
 
 extension SCNNode {
-    func setHighlighted( _ highlighted : Bool = true, _ highlightedBitMask : Int = 2 ) {
+    func setHighlighted( _ highlighted: Bool = true, _ highlightedBitMask: Int = 2) {
         categoryBitMask = highlightedBitMask
         for child in self.childNodes {
             child.setHighlighted()

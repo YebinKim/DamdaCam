@@ -23,7 +23,7 @@ import Metal
 //    case large = 0.020
 //}
 
-class LineGeometry : SCNGeometry {
+class LineGeometry: SCNGeometry {
     var vectors = [SCNVector3]()
     var sides = [Float]()
     var width: Float = 0
@@ -31,7 +31,8 @@ class LineGeometry : SCNGeometry {
     var endCapPosition: Float = 0
     var color: CGColor = UIColor.white.cgColor
     
-    /// Code currently all happens in init because I can't call init'ed functions until super.init is called, and you can only call one super.init.  I am relying on the built-in init(sources:elements:) convenience method for drawing the geometry
+    /// Code currently all happens in init because I can't call init'ed functions until super.init is called, and you can only call one super.init.
+    /// I am relying on the built-in init(sources:elements:) convenience method for drawing the geometry
     convenience init(vectors: [SCNVector3], sides: [Float], width: Float, lengths: [Float], endCapPosition: Float, color: CGColor) {
         var indices = [Int32]()
         
@@ -76,11 +77,10 @@ class LineGeometry : SCNGeometry {
         let borderTexture = SCNMaterialProperty(contents: borderImage)
         self.setValue(borderTexture, forKey: "borderTexture")
 
-
         let resolution = CGPoint(x: UIScreen.main.bounds.size.width, y: UIScreen.main.bounds.size.height)
 //        let color = UIColor.white.cgColor
 
-        self.setValue(resolution, forKey:"resolution")
+        self.setValue(resolution, forKey: "resolution")
         self.setValue(color, forKey: "color")
 
         lineProgram.handleBinding(ofBufferNamed: "myUniforms", frequency: .perShadable, handler: { (bufferStream, renderedNode, geometry, renderer) in
@@ -99,15 +99,14 @@ class LineGeometry : SCNGeometry {
             }
         })
         
-
     }
     
-    func generateVertexData()->[MyVertex] {
+    func generateVertexData() -> [MyVertex] {
         var vertexArray = [MyVertex]()
         var vertex: MyVertex = MyVertex()
     
         for i in 0..<vectors.count {
-            vertex.position = float3(x: vectors[i].x, y:vectors[i].y, z: vectors[i].z)
+            vertex.position = float3(x: vectors[i].x, y: vectors[i].y, z: vectors[i].z)
             vertex.vertexCount = Int32(vectors.count)
             vertex.side = sides[i]
             vertex.width = width

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E30338723EC48B90058E875 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30338623EC48B90058E875 /* ARViewController.swift */; };
-		3E38F5F023DAE710002AAAB4 /* ARViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5EC23DAE710002AAAB4 /* ARViewController+extension.swift */; };
+		3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30338623EC48B90058E875 /* ARDrawingViewController.swift */; };
+		3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */; };
 		3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */; };
 		3E38F5F523DAE71F002AAAB4 /* MakingARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */; };
 		3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F623DAE724002AAAB4 /* GalleryViewController.swift */; };
@@ -16,8 +16,8 @@
 		3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F923DAE729002AAAB4 /* MadeByTableViewController.swift */; };
 		3E38F5FD23DAE729002AAAB4 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5FA23DAE729002AAAB4 /* SettingTableViewController.swift */; };
 		3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5FE23DAE72E002AAAB4 /* TutorialViewController.swift */; };
-		3E38F60123DAE7FD002AAAB4 /* ARDrawingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */; };
-		3E38F60323DAE825002AAAB4 /* ARDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */; };
+		3E38F60123DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60023DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard */; };
+		3E38F60323DAE825002AAAB4 /* ARDrawingViewUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F60223DAE825002AAAB4 /* ARDrawingViewUIController.swift */; };
 		3E38F60523DAEDE0002AAAB4 /* ARMotionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */; };
 		3E38F60723DAEE3C002AAAB4 /* MakingARViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */; };
 		3E38F60923DAEEB0002AAAB4 /* SettingTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */; };
@@ -67,8 +67,8 @@
 
 /* Begin PBXFileReference section */
 		24C97EBDB39DDE273304CA25 /* Pods-DamdaCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.debug.xcconfig"; sourceTree = "<group>"; };
-		3E30338623EC48B90058E875 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
-		3E38F5EC23DAE710002AAAB4 /* ARViewController+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARViewController+extension.swift"; sourceTree = "<group>"; };
+		3E30338623EC48B90058E875 /* ARDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawingViewController.swift; sourceTree = "<group>"; };
+		3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARDrawingViewController+extension.swift"; sourceTree = "<group>"; };
 		3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMotionViewController.swift; sourceTree = "<group>"; };
 		3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakingARViewController.swift; sourceTree = "<group>"; };
 		3E38F5F623DAE724002AAAB4 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 		3E38F5F923DAE729002AAAB4 /* MadeByTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadeByTableViewController.swift; sourceTree = "<group>"; };
 		3E38F5FA23DAE729002AAAB4 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		3E38F5FE23DAE72E002AAAB4 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARDrawingViewController.storyboard; sourceTree = "<group>"; };
-		3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawingViewController.swift; sourceTree = "<group>"; };
+		3E38F60023DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARDrawingUIViewController.storyboard; sourceTree = "<group>"; };
+		3E38F60223DAE825002AAAB4 /* ARDrawingViewUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawingViewUIController.swift; sourceTree = "<group>"; };
 		3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARMotionViewController.storyboard; sourceTree = "<group>"; };
 		3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MakingARViewController.storyboard; sourceTree = "<group>"; };
 		3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingTableViewController.storyboard; sourceTree = "<group>"; };
@@ -162,10 +162,10 @@
 		3E38F5E423DAE2D1002AAAB4 /* AR Drawing */ = {
 			isa = PBXGroup;
 			children = (
-				3E38F60223DAE825002AAAB4 /* ARDrawingViewController.swift */,
-				3E30338623EC48B90058E875 /* ARViewController.swift */,
-				3E38F5EC23DAE710002AAAB4 /* ARViewController+extension.swift */,
-				3E38F60023DAE7FD002AAAB4 /* ARDrawingViewController.storyboard */,
+				3E30338623EC48B90058E875 /* ARDrawingViewController.swift */,
+				3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */,
+				3E38F60223DAE825002AAAB4 /* ARDrawingViewUIController.swift */,
+				3E38F60023DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard */,
 			);
 			path = "AR Drawing";
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 				3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */,
 				3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */,
 				3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */,
-				3E38F60123DAE7FD002AAAB4 /* ARDrawingViewController.storyboard in Resources */,
+				3E38F60123DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard in Resources */,
 				3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */,
 				3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */,
 				3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */,
@@ -586,9 +586,9 @@
 				3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */,
 				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
 				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,
-				3E38F60323DAE825002AAAB4 /* ARDrawingViewController.swift in Sources */,
+				3E38F60323DAE825002AAAB4 /* ARDrawingViewUIController.swift in Sources */,
 				3E38F5FD23DAE729002AAAB4 /* SettingTableViewController.swift in Sources */,
-				3E38F5F023DAE710002AAAB4 /* ARViewController+extension.swift in Sources */,
+				3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */,
 				3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */,
 				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
@@ -612,7 +612,7 @@
 				3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,
 				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
-				3E30338723EC48B90058E875 /* ARViewController.swift in Sources */,
+				3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */,
 				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,
 				3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */,
 				3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */,

@@ -11,14 +11,11 @@ import UIKit
 class CustomPaletteCollectionViewCell: UICollectionViewCell {
     @IBOutlet var customColor: UIView!
     
-    override var isSelected: Bool{
-        didSet{
-            if self.isSelected
-            {
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
                 //                print(textLabel)
-            }
-            else
-            {
+            } else {
                 //This block will be executed whenever the cell’s selection state is set to false (i.e For the rest of the cells)
             }
         }

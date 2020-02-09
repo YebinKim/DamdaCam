@@ -74,7 +74,7 @@ vertex MyVertexOutput basic_vertex(SCNVertexInput in [[ stage_in ]],
     float4 color = currentVertex.color;
     
     int iGood = v_id;
-    iGood = clamp(iGood, 0, currentVertex.vertexCount-1);
+    iGood = clamp(iGood, 0, currentVertex.vertexCount - 1);
     
     int i_m_1 = (iGood > 1) ? iGood - 2 : iGood;
 
@@ -96,13 +96,11 @@ vertex MyVertexOutput basic_vertex(SCNVertexInput in [[ stage_in ]],
     float2 nextP = fix( nextPos, aspect);
     
     float2 dir;
-    if( v_id >= currentVertex.vertexCount - 4){
+    if (v_id >= currentVertex.vertexCount - 4) {
         dir = normalize( currentP - prevP );
-    }
-    else if( v_id < 2 ){
+    } else if( v_id < 2 ){
         dir = normalize( nextP - currentP );
-    }
-    else {
+    } else {
         float2 dir1 = normalize( currentP - prevP );
         float2 dir2 = normalize( nextP - currentP );
         dir = normalize( dir1 + dir2 );

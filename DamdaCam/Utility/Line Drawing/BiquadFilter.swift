@@ -21,7 +21,7 @@ class BiquadFilter {
     
     var inst: [BiquadFilterInstance] = [BiquadFilterInstance]()
     
-    init (_ Fc: Double, dimensions: Int){
+    init (_ Fc: Double, dimensions: Int) {
         for _ in 0..<dimensions {
             inst.append(BiquadFilterInstance(Fc))
         }
@@ -45,14 +45,14 @@ class BiquadFilter {
         val.y = inst[1].process(Double(vectorIn.y))
         val.z = inst[2].process(Double(vectorIn.z))
         
-        return val;
+        return val
     }
 }
 
 class BiquadFilterInstance {
     var a0, a1, a2, b1, b2: Double
     var Fc=0.5, Q=0.707
-    var z1:Double=0.0, z2:Double=0.0
+    var z1: Double=0.0, z2: Double=0.0
     
     init (_ fc: Double) {
         Fc = fc
@@ -75,4 +75,3 @@ class BiquadFilterInstance {
         return Float(out)
     }
 }
-

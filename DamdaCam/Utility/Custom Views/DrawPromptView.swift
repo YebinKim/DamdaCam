@@ -7,13 +7,12 @@
 //
 // AR Drawing
 
-
 import UIKit
 
 class DrawPromptView: UIView {
 
-    let circleWidth:CGFloat = 25
-    let circleHeight:CGFloat = 25
+    let circleWidth: CGFloat = 25
+    let circleHeight: CGFloat = 25
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -41,10 +40,10 @@ class DrawPromptView: UIView {
     private func growAnimation() {
         UIView.animate(withDuration: 0.6, delay: 0.2, options: [.curveEaseInOut], animations: {
             self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        }, completion: { completed in
+        }, completion: { _ in
             UIView.animate(withDuration: 0.6, delay: 0.25, options: [.curveEaseInOut], animations: {
                 self.transform = .identity
-            }, completion: { success in
+            }, completion: { _ in
                 self.growAnimation()
              })
         })

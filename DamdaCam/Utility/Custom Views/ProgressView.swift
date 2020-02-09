@@ -13,11 +13,11 @@ class ProgressView: UIView {
     
     let circle: UIView
     let progressCircle: CAShapeLayer
-    let lineWidth:CGFloat = 5.0
+    let lineWidth: CGFloat = 5.0
     let strokeColor = UIColor(red: 167, green: 235, blue: 252, alpha: 0.7)
     
     override init(frame: CGRect) {
-        progressCircle = CAShapeLayer ()
+        progressCircle = CAShapeLayer()
         circle = UIView(frame: frame)
         
         circle.layoutIfNeeded()
@@ -29,7 +29,7 @@ class ProgressView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        progressCircle = CAShapeLayer ()
+        progressCircle = CAShapeLayer()
         circle = UIView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
         
         super.init(coder: aDecoder)
@@ -42,8 +42,8 @@ class ProgressView: UIView {
     }
     
     func configureCircle() {
-        let centerPoint = CGPoint (x: circle.bounds.width / 2, y: circle.bounds.width / 2)
-        let circleRadius : CGFloat = circle.bounds.width / 2 - (lineWidth / 2)
+        let centerPoint = CGPoint(x: circle.bounds.width / 2, y: circle.bounds.width / 2)
+        let circleRadius: CGFloat = circle.bounds.width / 2 - (lineWidth / 2)
         
         let circlePath = UIBezierPath(arcCenter: centerPoint, radius: circleRadius, startAngle: CGFloat(-0.5 * .pi), endAngle: CGFloat(1.5 * .pi), clockwise: true    )
         circlePath.lineCapStyle = .round

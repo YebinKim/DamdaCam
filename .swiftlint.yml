@@ -3,6 +3,7 @@ disabled_rules:
 - file_length
 - identifier_name
 - large_tuple
+- function_parameter_count
 
 ### Remove
 - type_body_length
@@ -14,4 +15,4 @@ included:
 excluded:
 - Pods
 
-line_length: 180
+line_length: 400

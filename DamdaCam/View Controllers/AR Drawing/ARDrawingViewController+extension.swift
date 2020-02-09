@@ -1,5 +1,5 @@
 //
-//  ARViewController+extension.swift
+//  ARDrawingViewController+extension.swift
 //  DamdaCam
 //
 //  Created by Yebin Kim on 2020/01/24.
@@ -9,7 +9,7 @@
 import ARKit
 import ReplayKit
 
-extension ARViewController: ARDrawingViewControllerDelegate {
+extension ARDrawingViewController: ARDrawingUIViewControllerDelegate {
     
     // MARK: - Handle Touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -23,7 +23,7 @@ extension ARViewController: ARDrawingViewControllerDelegate {
         // begin a neㅇ stroke
         let stroke = Stroke()
         print("Touch")
-        if let anchor = makeAnchor(at:touchPoint) {
+        if let anchor = makeAnchor(at: touchPoint) {
             stroke.anchor = anchor
             stroke.points.append(SCNVector3Zero)
             stroke.touchStart = touchPoint
@@ -53,10 +53,8 @@ extension ARViewController: ARDrawingViewControllerDelegate {
     }
     
     override var shouldAutorotate: Bool {
-        get {
-            if let recorder = screenRecorder, recorder.isRecording { return false }
-            return true
-        }
+        if let recorder = screenRecorder, recorder.isRecording { return false }
+        return true
     }
     
     func setPreviewSize() {
@@ -119,7 +117,7 @@ extension ARViewController: ARDrawingViewControllerDelegate {
                 previewViewController?.previewControllerDelegate = self as RPPreviewViewControllerDelegate
                 previewViewController?.modalPresentationStyle = .overFullScreen
                 
-                self.present(preview, animated: true, completion:nil)
+                self.present(preview, animated: true, completion: nil)
                 self.uiWindow?.isHidden = true
             }
         })
@@ -180,15 +178,15 @@ extension ARViewController: ARDrawingViewControllerDelegate {
         return color
     }
     
-    func shouldHideTrashButton()->Bool {
-        if (strokes.count > 0) {
+    func shouldHideTrashButton() -> Bool {
+        if strokes.count > 0 {
             return false
         }
         return true
     }
     
-    func shouldHideUndoButton()->Bool {
-        if (strokes.count > 0) {
+    func shouldHideUndoButton() -> Bool {
+        if strokes.count > 0 {
             return false
         }
         return true
@@ -316,7 +314,6 @@ extension ARViewController: ARDrawingViewControllerDelegate {
             path.addLine(to: CGPoint(x: originalRect.maxX, y: originalRect.minY))
             path.addLine(to: CGPoint(x: originalRect.midX, y: originalRect.maxX))
             path.close()
-            break
             
         case .heart:
             path = UIBezierPath()
@@ -331,18 +328,17 @@ extension ARViewController: ARDrawingViewControllerDelegate {
             
             path.move(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height))
             
-            
             path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
                           controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
                           controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
             
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
                         clockwise: true)
             
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
@@ -354,7 +350,6 @@ extension ARViewController: ARDrawingViewControllerDelegate {
             
             path.close()
             path.apply(CGAffineTransform(rotationAngle: .pi))
-            break
             
         default: break
         }
@@ -364,14 +359,14 @@ extension ARViewController: ARDrawingViewControllerDelegate {
     
 }
 
-extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
+extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         node.simdTransform = anchor.transform
         
         if let stroke = getStroke(for: anchor) {
-            print ("did add: \(node.position)")
-            print ("stroke first position: \(stroke.points[0])")
+            print("did add: \(node.position)")
+            print("stroke first position: \(stroke.points[0])")
             stroke.node = node
             
             DispatchQueue.main.async {
@@ -394,7 +389,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         if let stroke = getStroke(for: node) {
             
-            if (strokes.contains(stroke)) {
+            if strokes.contains(stroke) {
                 if let index = strokes.index(of: stroke) {
                     strokes.remove(at: index)
                 }
@@ -405,14 +400,16 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
             
             DispatchQueue.main.async {
                 self.uiViewController?.clearAllButton.isHidden = self.shouldHideTrashButton()
-                if (self.mode == .DRAW && self.strokes.count == 0) { self.uiViewController?.showDrawingPrompt() }
+                if self.mode == .DRAW && self.strokes.count == 0 {
+                    self.uiViewController?.showDrawingPrompt()
+                }
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: nil)
             }
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if (touchPoint != .zero) {
+        if touchPoint != .zero {
             if let stroke = strokes.last {
                 DispatchQueue.main.async {
                     self.updateLine(for: stroke)
@@ -456,7 +453,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
             }
             
         case .normal:
-            if (!hasInitialTracking) {
+            if !hasInitialTracking {
                 hasInitialTracking = true
             }
             if !shouldShowTrackingIndicator() {
@@ -514,7 +511,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     /// In pair mode, only show tracking indicator in certain states
-    func shouldShowTrackingIndicator()->Bool {
+    func shouldShowTrackingIndicator() -> Bool {
         var shouldShow = false
         if let trackingState = sceneView.session.currentFrame?.camera.trackingState {
             switch trackingState {
@@ -529,7 +526,6 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
         
         return shouldShow
     }
-    
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         guard let arError = error as? ARError else { return }
@@ -549,9 +545,9 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
             sessionErrorMsg += "\nThis is an unrecoverable error that requires to quit the application."
         }
         
-        if (arError.code == .cameraUnauthorized) {
+        if arError.code == .cameraUnauthorized {
             let alertController = UIAlertController(title: NSLocalizedString("error_resuming_session", comment: "Sorry something went wrong"), message: NSLocalizedString("error_camera_not_available", comment: "Sorry, something went wrong. Please try again."), preferredStyle: .alert)
-            let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: "OK"), style: .default) { (action) in
+            let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: "OK"), style: .default) { _ in
                 alertController.dismiss(animated: true, completion: nil)
             }
             alertController.addAction(okAction)
@@ -574,7 +570,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
         view.addGestureRecognizer(longPressGestureRecognizer)
     }
     
-    @objc func nodePan(sender: UIPanGestureRecognizer){
+    @objc func nodePan(sender: UIPanGestureRecognizer) {
         guard let pointOfView = self.sceneView.pointOfView else {return}
         let transform = pointOfView.transform
         let orientation = SCNVector3(-transform.m31 / 2.0, -transform.m32 / 2.0, -transform.m33 / 2.0)
@@ -672,7 +668,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
 }
 
 // MARK: - ReplayKit Preview Delegate
-extension ARViewController : RPPreviewViewControllerDelegate {
+extension ARDrawingViewController: RPPreviewViewControllerDelegate {
     
     func previewController(_ previewController: RPPreviewViewController, didFinishWithActivityTypes activityTypes: Set<String>) {
         if activityTypes.contains(UIActivity.ActivityType.postToVimeo.rawValue)
@@ -697,11 +693,11 @@ extension ARViewController : RPPreviewViewControllerDelegate {
 }
 
 // MARK: - RPScreenRecorderDelegate
-extension ARViewController: RPScreenRecorderDelegate {
+extension ARDrawingViewController: RPScreenRecorderDelegate {
     func screenRecorderDidChangeAvailability(_ screenRecorder: RPScreenRecorder) {
         if screenRecorder.isAvailable == false {
             let alert = UIAlertController.init(title: "Screen Recording Failed", message: "Screen Recorder is no longer available.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                 self.dismiss(animated: true, completion: nil)
             }))
             self.present(self, animated: true, completion: nil)

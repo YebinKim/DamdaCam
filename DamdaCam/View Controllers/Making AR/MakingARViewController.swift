@@ -376,7 +376,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     // Menu Set
-    @objc func OnMenuViewTap(gestureRecognizer: UITapGestureRecognizer){
+    @objc func OnMenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
         self.figureViewXTapped(figureXButton)
         self.brushViewXTapped(brushXButton)
         self.paletteViewXTapped(paletteXButton)
@@ -624,31 +624,31 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func menuButtonStateCheck() {
-        if (ARMotionButtonState) {
+        if ARMotionButtonState {
             self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion2_on")!)
         } else {
             self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_ARMotion2_off")!)
         }
         
-        if (paletteButtonState) {
+        if paletteButtonState {
             self.menuSelectedOn(button: self.menuPaletteButton, changeImage: UIImage(named: "ic_palette_on")!)
         } else {
             self.menuSelectedOff(button: self.menuPaletteButton, changeImage: UIImage(named: "ic_palette_off")!)
         }
         
-        if (brushButtonState) {
+        if brushButtonState {
             self.menuSelectedOn(button: self.menuBrushButton, changeImage: UIImage(named: "ic_brush_on")!)
         } else {
             self.menuSelectedOff(button: self.menuBrushButton, changeImage: UIImage(named: "ic_brush_off")!)
         }
         
-        if (figureButtonState) {
+        if figureButtonState {
             self.menuSelectedOn(button: self.menuFigureButton, changeImage: UIImage(named: "ic_figure_on")!)
         } else {
             self.menuSelectedOff(button: self.menuFigureButton, changeImage: UIImage(named: "ic_figure_off")!)
         }
         
-        if (eraserButtonState) {
+        if eraserButtonState {
             self.menuSelectedOn(button: self.menuEraserButton, changeImage: UIImage(named: "ic_eraser_on")!)
         } else {
             self.menuSelectedOff(button: self.menuEraserButton, changeImage: UIImage(named: "ic_eraser_off")!)
@@ -853,7 +853,7 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
         shapeLayer.lineWidth = CGFloat(brushWidthSlider.value / 2)
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         let path = CGMutablePath()
-        path.addLines(between: [CGPoint(x: 30, y: 40),CGPoint(x: 220, y: 40)])
+        path.addLines(between: [CGPoint(x: 30, y: 40), CGPoint(x: 220, y: 40)])
         shapeLayer.path = path
         
         if brushBasicButton.isSelected {
@@ -990,18 +990,17 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
             
             path.move(to: CGPoint(x: originalRect.midX, y: scaledRect.origin.y + scaledRect.size.height))
             
-            
             path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
                           controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
                           controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
             
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
                         clockwise: true)
             
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
@@ -1166,13 +1165,13 @@ class MakingARViewController: UIViewController, UICollectionViewDataSource, UICo
 
 @IBDesignable
 class FigureDrawView: UIView {
-    var startPoint:CGPoint?{
+    var startPoint: CGPoint? {
         didSet {
             self.setNeedsDisplay()
         }
     }
     
-    var endPoint:CGPoint?{
+    var endPoint: CGPoint? {
         didSet {
             self.setNeedsDisplay()
         }
@@ -1234,7 +1233,7 @@ class FigureDrawView: UIView {
  */
     
     override func draw(_ rect: CGRect) {
-        if (startPoint != nil && endPoint != nil) {
+        if startPoint != nil && endPoint != nil {
             let layer = CAShapeLayer()
             
             let path = drawPath(rect: CGRect(x: min(startPoint!.x, endPoint!.x), y: min(startPoint!.y, endPoint!.y), width: abs(startPoint!.x - endPoint!.x), height: abs(startPoint!.y - endPoint!.y)), shape: shape)
@@ -1358,18 +1357,17 @@ class FigureDrawView: UIView {
 
             path.move(to: CGPoint(x: rect.midX, y: scaledRect.origin.y + scaledRect.size.height))
 
-
             path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
                           controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
                           controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
 
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
                         clockwise: true)
 
-            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width * 3/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,

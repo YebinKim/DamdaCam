@@ -120,10 +120,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet var bgarMotionButton: UIButton!
     @IBOutlet var arMotionCollectionView: UICollectionView!
     @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
-    var myarMotionArray: [UIImage]!
-    var allarMotionArray: [UIImage]!
-    var facearMotionArray: [UIImage]!
-    var bgarMotionArray: [UIImage]!
+    var myARMotionArray: [UIImage]!
+    var allARMotionArray: [UIImage]!
+    var faceARMotionArray: [UIImage]!
+    var bgARMotionArray: [UIImage]!
     var arMotionViewState: Bool = false
     var toARMotionNO: Bool = false // toarMotionNO
     var toARMotionYES: Bool = false // toarMotionYES
@@ -448,11 +448,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.arView.backgroundColor = UIColor.clear
     }
     
-    @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
         self.changeModePhoto()
     }
     
-    @objc func modeVideo(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
         self.changeModeVideo()
     }
     
@@ -500,21 +500,20 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.changeModeVideo()
     }
     
-    @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = -130
             self.view.layoutIfNeeded()
         })
     }
     
-    @objc func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = 0
             self.view.layoutIfNeeded()
         })
     }
     
-
     func configureAccessibility() {
         let key = NSAttributedString.Key.accessibilitySpeechIPANotation
 
@@ -855,7 +854,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     /// - Tag: ConfigureDeviceResolution
     fileprivate func highestResolution420Format(for device: AVCaptureDevice) -> (format: AVCaptureDevice.Format, resolution: CGSize)? {
-        var highestResolutionFormat: AVCaptureDevice.Format? = nil
+        var highestResolutionFormat: AVCaptureDevice.Format?
         var highestResolutionDimensions = CMVideoDimensions(width: 0, height: 0)
         
         for format in device.formats {
@@ -908,7 +907,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     fileprivate func configureVideoDataOutput(for inputDevice: AVCaptureDevice, resolution: CGSize, captureSession: AVCaptureSession) {
         
         let videoDataOutput = AVCaptureVideoDataOutput()
-        videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value:kCVPixelFormatType_32BGRA)] as [String : Any]
+        videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString): NSNumber(value: kCVPixelFormatType_32BGRA)] as [String: Any]
         
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
         
@@ -942,7 +941,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.captureDeviceResolution = resolution
     }
     
-    func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage? {
+    func getImageFromSampleBuffer (buffer: CMSampleBuffer) -> UIImage? {
         if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
             let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
             let context = CIContext()
@@ -990,7 +989,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
                 
                 UIImageWriteToSavedPhotosAlbum(arMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
-        
         }
         
         // TODO: 필터 기능 구현
@@ -1017,7 +1015,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 //        }
     }
     
-    func composite(image:UIImage, overlay:(UIImage), scaleOverlay: Bool = false) -> UIImage? {
+    func composite(image: UIImage, overlay: (UIImage), scaleOverlay: Bool = false) -> UIImage? {
         UIGraphicsBeginImageContext(image.size)
         var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         image.draw(in: rect)
@@ -1143,7 +1141,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let pitch = normalizationPitch(source: pitch_2) - 0.6 + faceRoll
         
         let faceSize = pointsDistance(faceContour[10], faceContour[0]) * 0.003
-        let center = getGravityCenter                                                                                                                                 (first: leftPupil[0], second: rightPupil[0], third: innerLips[2])
+        let center = getGravityCenter(first: leftPupil[0], second: rightPupil[0], third: innerLips[2])
         let facePos = normalizationPos(source: center)
         
         // FIXME - 삼각함수를 써보자
@@ -1328,7 +1326,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func arMotionSelected_MakingAR(index: Int) {
         let node = SCNNode(geometry: SCNPlane(width: 10.0, height: 17.7))
-        node.geometry?.materials.first?.diffuse.contents = facearMotionArray[index]
+        node.geometry?.materials.first?.diffuse.contents = faceARMotionArray[index]
         
         noseNode = node
         
@@ -1337,7 +1335,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func arMotionSelected_newMakingAR() {
         let node = SCNNode(geometry: SCNPlane(width: 10.0, height: 17.7))
-        node.geometry?.materials.first?.diffuse.contents = facearMotionArray[facearMotionArray.count - 1]
+        node.geometry?.materials.first?.diffuse.contents = faceARMotionArray[faceARMotionArray.count - 1]
         
         noseNode = node
         
@@ -1364,7 +1362,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func clipOneButtonTapped(_ sender: UIButton) {
-        if (oneClipState) {
+        if oneClipState {
             clipTime = 0.0
             oneClipState = false
         } else {
@@ -1377,8 +1375,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         clipButtonStateCheck()
         
-        if (clipViewState) {
-            clipView.layer.frame = CGRect(x: 54.5 , y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+        if clipViewState {
+            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1386,7 +1384,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func clipTwoButtonTapped(_ sender: UIButton) {
-        if (twoClipState) {
+        if twoClipState {
             clipTime = 0.0
             twoClipState = false
         } else {
@@ -1399,8 +1397,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         clipButtonStateCheck()
         
-        if (clipViewState) {
-            clipView.layer.frame = CGRect(x: 54.5 , y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+        if clipViewState {
+            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1408,7 +1406,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func clipThreeButtonTapped(_ sender: UIButton) {
-        if (threeClipState) {
+        if threeClipState {
             clipTime = 0.0
             threeClipState = false
         } else {
@@ -1421,8 +1419,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         clipButtonStateCheck()
         
-        if (clipViewState) {
-            clipView.layer.frame = CGRect(x: 54.5 , y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+        if clipViewState {
+            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1430,7 +1428,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func clipPlusButtonTapped(_ sender: UIButton) {
-        if (plusClipState) {
+        if plusClipState {
             clipTime = 0.0
             plusClipState = false
         } else {
@@ -1442,8 +1440,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         clipButtonStateCheck()
         
-        if (clipViewState) {
-            clipView.layer.frame = CGRect(x: 54.5 , y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+        if clipViewState {
+            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1456,7 +1454,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func clipButtonStateCheck() {
-        if (oneClipState) {
+        if oneClipState {
             oneClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
             oneClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
@@ -1464,7 +1462,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
-        if (twoClipState) {
+        if twoClipState {
             twoClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
             twoClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
@@ -1472,7 +1470,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
-        if (threeClipState) {
+        if threeClipState {
             threeClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
             threeClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
@@ -1480,7 +1478,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
         
-        if (plusClipState) {
+        if plusClipState {
             plusClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
             plusClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
         } else {
@@ -1488,7 +1486,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
         }
     }
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -1511,22 +1508,20 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         if component == 0 {
             return title
-        }
-        else {
+        } else {
             return title
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         clipTime = (Double(plusClipPicker.selectedRow(inComponent: 0)) * 60.0) + Double(plusClipPicker.selectedRow(inComponent: 1))
     }
     
     // Menu Set
-    @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer){
+    @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
         
-        if (arMotionViewState) {
+        if arMotionViewState {
             arMotionViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
@@ -1537,7 +1532,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             })
         }
         
-        if (filterViewState) {
+        if filterViewState {
             filterViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
@@ -1551,10 +1546,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @objc func arMotionViewSwipe(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func arMotionViewSwipe(gestureRecognizer: UISwipeGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
         
-        if (arMotionViewState) {
+        if arMotionViewState {
             arMotionViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
@@ -1566,10 +1561,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @objc func filterViewSwipe(gestureRecognizer: UISwipeGestureRecognizer){
+    @objc func filterViewSwipe(gestureRecognizer: UISwipeGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
         
-        if (filterViewState) {
+        if filterViewState {
             filterViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
@@ -1752,7 +1747,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func menuButtonStateCheck() {
-        if (makingARButtonState) {
+        if makingARButtonState {
             UIView.animate(withDuration: 0.1) {
                 //                self.menuMakingARLabel.alpha = 1.0
             }
@@ -1764,7 +1759,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.menuSelectedOff(button: self.menuMakingARButton, changeImage: UIImage(named: "ic_makingAR_off")!)
         }
         
-        if (arMotionButtonState) {
+        if arMotionButtonState {
             UIView.animate(withDuration: 0.1) {
                 //                self.menuarMotionLabel.alpha = 1.0
             }
@@ -1776,7 +1771,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.menuSelectedOff(button: self.menuarMotionButton, changeImage: UIImage(named: "ic_arMotion_off")!)
         }
         
-        if (filterButtonState) {
+        if filterButtonState {
             UIView.animate(withDuration: 0.1) {
                 //                self.menuFilterLabel.alpha = 1.0
             }
@@ -1847,23 +1842,23 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // FIXME: CoreData 모델화 진행중
     func createarMotionArray() {
-        allarMotionArray = Array()
-        facearMotionArray = Array()
-        bgarMotionArray = Array()
+        allARMotionArray = Array()
+        faceARMotionArray = Array()
+        bgARMotionArray = Array()
         
         for kind in FaceARMotion.Kind.allCases {
             if let image = UIImage(named: "FaceAR_\(kind)") {
-                facearMotionArray.append(image)
+                faceARMotionArray.append(image)
             }
         }
         
         for kind in BGARMotion.Kind.allCases {
             if let image = UIImage(named: "BGAR_\(kind)") {
-                bgarMotionArray.append(image)
+                bgARMotionArray.append(image)
             }
         }
         
-        allarMotionArray = DamdaData.shared.makingARArray
+        allARMotionArray = DamdaData.shared.makingARArray
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -1879,19 +1874,19 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
             if myarMotionButton.isSelected {
-                arMotionCell.previewImage.image = myarMotionArray[indexPath.row]
+                arMotionCell.previewImage.image = myARMotionArray[indexPath.row]
                 
                 return arMotionCell
             } else if allarMotionButton.isSelected {
-                arMotionCell.previewImage.image = allarMotionArray[indexPath.row]
+                arMotionCell.previewImage.image = allARMotionArray[indexPath.row]
                 
                 return arMotionCell
             } else if facearMotionButton.isSelected {
-                arMotionCell.previewImage.image = facearMotionArray[indexPath.row]
+                arMotionCell.previewImage.image = faceARMotionArray[indexPath.row]
                 
                 return arMotionCell
             } else {    // if BGarMotionButton.isSelected
-                arMotionCell.previewImage.image = bgarMotionArray[indexPath.row]
+                arMotionCell.previewImage.image = bgARMotionArray[indexPath.row]
                 
                 return arMotionCell
             }
@@ -1910,13 +1905,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.arMotionCollectionView {
             if myarMotionButton.isSelected {
-                return myarMotionArray.count
+                return myARMotionArray.count
             } else if allarMotionButton.isSelected {
-                return allarMotionArray.count
+                return allARMotionArray.count
             } else if facearMotionButton.isSelected {
-                return facearMotionArray.count
+                return faceARMotionArray.count
             } else if bgarMotionButton.isSelected {
-                return bgarMotionArray.count
+                return bgARMotionArray.count
             }
         }
         
@@ -1931,105 +1926,105 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         if collectionView == self.arMotionCollectionView {
             guard collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) is ARMotionCollectionViewCell else { return }
             
-            let BGarMotionIndex = facearMotionArray.count
+            let bgARMotionIndex = faceARMotionArray.count
             
             self.arMotionDelete()
             
             if myarMotionButton.isSelected {
                 
             } else if allarMotionButton.isSelected {
-                if (indexPath.row == 0) {
+                if indexPath.row == 0 {
                     self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if (indexPath.row == 1) {
+                } else if indexPath.row == 1 {
                     self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if (indexPath.row == 2) {
+                } else if indexPath.row == 2 {
                     self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if (indexPath.row == 3) {
+                } else if indexPath.row == 3 {
                     self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if (indexPath.row == 4) {
+                } else if indexPath.row == 4 {
                     self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if (indexPath.row == 5) {
+                } else if indexPath.row == 5 {
                     self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
-                } else if (indexPath.row == 6) {
+                } else if indexPath.row == 6 {
                     self.loadarMotionNode("baaan", position: SCNVector3(x: 0, y: 4, z: -5))
-                } else if (indexPath.row == 7) {
+                } else if indexPath.row == 7 {
                     if isBlink {
                         self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
                         self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
-                } else if (indexPath.row == 8) {
+                } else if indexPath.row == 8 {
                     self.loadarMotionNode("soughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
-                } else if (indexPath.row == 9) {
+                } else if indexPath.row == 9 {
                     self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if (indexPath.row == BGarMotionIndex) {
+                } else if indexPath.row == bgARMotionIndex {
                     self.loadBGMotionNode("snow")
-                } else if (indexPath.row == BGarMotionIndex + 1) {
+                } else if indexPath.row == bgARMotionIndex + 1 {
                     self.loadBGMotionNode("blossom")
-                } else if (indexPath.row == BGarMotionIndex + 2) {
+                } else if indexPath.row == bgARMotionIndex + 2 {
                     self.loadBGMotionNode("rain")
-                } else if (indexPath.row == BGarMotionIndex + 3) {
+                } else if indexPath.row == bgARMotionIndex + 3 {
                     self.loadBGMotionNode("fish")
-                } else if (indexPath.row == BGarMotionIndex + 4) {
+                } else if indexPath.row == bgARMotionIndex + 4 {
                     self.loadBGMotionNode("greenery")
-                } else if (indexPath.row == BGarMotionIndex + 5) {
+                } else if indexPath.row == bgARMotionIndex + 5 {
                     self.loadBGMotionNode("fruits")
-                } else if (indexPath.row == BGarMotionIndex + 6) {
+                } else if indexPath.row == bgARMotionIndex + 6 {
                     self.loadBGMotionNode("glow")
                 } else {
                     self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
             } else if facearMotionButton.isSelected {
-                if (indexPath.row == 0) {
+                if indexPath.row == 0 {
                     self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if (indexPath.row == 1) {
+                } else if indexPath.row == 1 {
                     self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if (indexPath.row == 2) {
+                } else if indexPath.row == 2 {
                     self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if (indexPath.row == 3) {
+                } else if indexPath.row == 3 {
                     self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if (indexPath.row == 4) {
+                } else if indexPath.row == 4 {
                     self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if (indexPath.row == 5) {
+                } else if indexPath.row == 5 {
                     self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
-                } else if (indexPath.row == 6) {
+                } else if indexPath.row == 6 {
                     self.loadarMotionNode("baaam", position: SCNVector3(x: 0, y: 4, z: -5))
-                } else if (indexPath.row == 7) {
+                } else if indexPath.row == 7 {
                     if isBlink {
                         self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
                         self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
-                } else if (indexPath.row == 8) {
+                } else if indexPath.row == 8 {
                     self.loadarMotionNode("doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
-                } else if (indexPath.row == 9) {
+                } else if indexPath.row == 9 {
                     self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else {
                     self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
             } else {    // if BGarMotionButton.isSelected
-                if (indexPath.row == 0) {
+                if indexPath.row == 0 {
                     self.loadBGMotionNode("snow")
-                } else if (indexPath.row == 1) {
+                } else if indexPath.row == 1 {
                     self.loadBGMotionNode("blossom")
-                } else if (indexPath.row == 2) {
+                } else if indexPath.row == 2 {
                     self.loadBGMotionNode("rain")
-                } else if (indexPath.row == 3) {
+                } else if indexPath.row == 3 {
                     self.loadBGMotionNode("fish")
-                } else if (indexPath.row == 4) {
+                } else if indexPath.row == 4 {
                     self.loadBGMotionNode("greenery")
-                } else if (indexPath.row == 5) {
+                } else if indexPath.row == 5 {
                     self.loadBGMotionNode("fruits")
-                } else if (indexPath.row == 6) {
+                } else if indexPath.row == 6 {
                     self.loadBGMotionNode("glow")
                 }
             }
         }
     }
     
-    @objc func arMotionCellLongPress(gesture : UILongPressGestureRecognizer!) {
+    @objc func arMotionCellLongPress(gesture: UILongPressGestureRecognizer!) {
         if gesture.state != .ended {
             return
         }
@@ -2040,7 +2035,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             guard let arMotionCell = arMotionCollectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return }
             
             if allarMotionButton.isSelected || facearMotionButton.isSelected {
-                if (indexPath.row > 9) {
+                if indexPath.row > 9 {
                     //                    arMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
                     //                    arMotionCell.stateChangeButton.isHidden = false
                     
@@ -2055,7 +2050,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    @objc func arMotionCellDoubleTab(gesture : UITapGestureRecognizer!) {
+    @objc func arMotionCellDoubleTab(gesture: UITapGestureRecognizer!) {
         let p = gesture.location(in: self.arMotionCollectionView)
         
         if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {

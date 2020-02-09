@@ -141,7 +141,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         
         // cell frame CGSize만큼 asset 을 설정하여 photoImageView에 set
         let asset: PHAsset = self.assetsFetchResults![indexPath.item]
-        self.imageManger?.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: { (result : UIImage?, info) in
+        self.imageManger?.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: { (result: UIImage?, _) in
             cell.galleryImageView.image = result
         })
         

@@ -170,12 +170,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
-    private var halfWidth: CGFloat {
-        return self.view.bounds.width / 2
-    }
-    private var halfHeight: CGFloat {
-        return self.view.bounds.height / 2
-    }
+    private var halfWidth: CGFloat?
+    private var halfHeight: CGFloat?
     
     // MARK: UIViewController overrides
     
@@ -190,6 +186,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.view.bringSubviewToFront(iconView)
         
         self.session = self.setupAVCaptureSession()
+        
+        DispatchQueue.main.async {
+            self.halfWidth = self.view.bounds.width / 2
+            self.halfHeight = self.view.bounds.height / 2
+        }
         
         // camera mode set
         let swipeModeRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modePhoto))
@@ -1186,6 +1187,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func normalizationPos(source: CGPoint) -> CGPoint {
+        guard let halfWidth = self.halfWidth, let halfHeight = self.halfHeight else { return CGPoint.zero }
+        
         var result: CGPoint = CGPoint.init()
         
         result.x = source.x - halfWidth

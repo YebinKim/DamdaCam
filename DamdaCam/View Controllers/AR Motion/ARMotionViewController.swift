@@ -18,8 +18,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 
     static let identifier: String = "ARMotionViewController"
     
-    var localRecords: [NSManagedObject] = []
-    
     let arView = SCNView()
     let arScene = SCNScene()
     
@@ -136,7 +134,7 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
     //    var filterArray: [UIImage]!
     var filterViewState: Bool = false
-    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant", "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectTonal", "CIPhotoEffectFade", "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
+//    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant", "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectTonal", "CIPhotoEffectFade", "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
     
@@ -158,9 +156,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     // Layer UI for drawing Vision results
     var rootLayer: CALayer?
-    //    var detectionOverlayLayer: CALayer?
-    //    var detectedFaceRectangleShapeLayer: CAShapeLayer?
-    //    var detectedFaceLandmarksShapeLayer: CAShapeLayer?
     
     var recordingTimer: Timer?
     
@@ -701,12 +696,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func detectedFace(request: VNRequest, error: Error?) {
-        // 1
         guard
             let results = request.results as? [VNFaceObservation],
             let result = results.first
             else {
-                // 2
                 self.clear()
                 self.headNode.isHidden = true
                 self.noseNode.isHidden = true
@@ -719,13 +712,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func convert(rect: CGRect) -> CGRect {
-        // 1
         let origin = previewLayer.layerPointConverted(fromCaptureDevicePoint: rect.origin)
-        
-        // 2
         let size = previewLayer.layerPointConverted(fromCaptureDevicePoint: rect.size.cgPoint)
-        
-        // 3
         return CGRect(origin: origin, size: size.cgSize)
     }
     
@@ -965,15 +953,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // 1
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            return
-        }
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        // 2
         let detectFaceRequest = VNDetectFaceLandmarksRequest(completionHandler: detectedFace)
         
-        // 3
         do {
             try sequenceRequestHandler.perform(
                 [detectFaceRequest],
@@ -986,16 +969,11 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         if takePhoto {
             takePhoto = !takePhoto
             
-            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-                
-                let snapShot = arView.snapshot()
-                let arMotionImage = self.composite(image: image, overlay: snapShot, scaleOverlay: true)
-                
-//                let filterShot = UIImage.init(view: self.filterBack)
-//                let filteredImage = self.composite(image: arMotionImage!, overlay: filterShot, scaleOverlay: true)
-                
-                UIImageWriteToSavedPhotosAlbum(arMotionImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-            }
+            let snapShot = arView.snapshot()
+            guard let image = self.getImageFromSampleBuffer(buffer: sampleBuffer),
+                  let arMotionImage = self.compositeImages(images: [image, snapShot]) else { return }
+            
+            UIImageWriteToSavedPhotosAlbum(arMotionImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         
         // TODO: 필터 기능 구현
@@ -1022,15 +1000,22 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
 //        }
     }
     
-    func composite(image: UIImage, overlay: (UIImage), scaleOverlay: Bool = false) -> UIImage? {
-        UIGraphicsBeginImageContext(image.size)
-        var rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        image.draw(in: rect)
-        if scaleOverlay == false {
-            rect = CGRect(x: 0, y: 0, width: overlay.size.width, height: overlay.size.height)
+    func compositeImages(images: [UIImage]) -> UIImage? {
+        var compositeImage: UIImage?
+        
+        if images.count > 0 {
+            let size: CGSize = CGSize(width: images[0].size.width, height: images[0].size.height)
+            UIGraphicsBeginImageContext(size)
+            
+            for image in images {
+                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                image.draw(in: rect)
+            }
+            
+            compositeImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
         }
-        overlay.draw(in: rect)
-        return UIGraphicsGetImageFromCurrentImageContext()
+        return compositeImage
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -1202,25 +1187,19 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func normalizationPitch(source: Float) -> Float {
         var result: Float
-        
         result = source * (.pi / 100)
-        
         return result
     }
     
     func normalizationYaw(source: Float) -> Float {
         var result: Float
-        
         result = source * (.pi / 75)
-        
         return result
     }
     
     func normalizationRoll(source: Float) -> Float {
         var result: Float
-        
         result = source * (.pi / 400)
-        
         return result
     }
     

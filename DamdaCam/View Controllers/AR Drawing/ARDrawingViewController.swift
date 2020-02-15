@@ -23,8 +23,6 @@ class ARDrawingViewController: UIViewController {
         return sceneView
     }()
     
-    let configuration = ARWorldTrackingConfiguration()
-    
     // AR Drawing
     /// store current touch location in view
     var touchPoint: CGPoint = .zero
@@ -170,6 +168,7 @@ class ARDrawingViewController: UIViewController {
     // MARK: - View Configuration
     private func initializeSceneView() {
         self.sceneView.delegate = self
+        self.sceneView.session.delegate = self
         self.sceneView.scene = SCNScene()
         
         self.view.addSubview(self.sceneView)
@@ -220,14 +219,23 @@ class ARDrawingViewController: UIViewController {
         }
     }
     
-    func configureARSession(runOptions: ARSession.RunOptions = []) {
-        // Create a session configuration
-        configuration.planeDetection = [.horizontal]
-        //  configuration.isAutoFocusEnabled = false
-        
-        // Run the view's session
-        sceneView.session.run(configuration, options: runOptions)
-        sceneView.session.delegate = self
+    func configureARSession(options: ARSession.RunOptions = []) {
+        if let configuration = self.sceneView.session.configuration {
+            sceneView.session.run(configuration)
+        } else {
+            let configuration = ARWorldTrackingConfiguration()
+            
+            configuration.planeDetection = [.horizontal]
+            configuration.isAutoFocusEnabled = false
+            
+            if #available(iOS 13.0, *) {
+                if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+                    configuration.frameSemantics = .personSegmentationWithDepth
+                }
+            }
+            
+            sceneView.session.run(configuration, options: options)
+        }
     }
     
     /// Add new UIWindow with interface elements that forward touch events via the InterfaceViewControllerDelegate protocol

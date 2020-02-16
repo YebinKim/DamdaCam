@@ -440,13 +440,13 @@ extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
                             DispatchQueue.main.async {
                                 self.resumeFromInterruptionTimer?.invalidate()
                                 self.resumeFromInterruptionTimer = nil
-                                self.configureARSession(runOptions: [ARSession.RunOptions.resetTracking])
+                                self.configureARSession(options: [ARSession.RunOptions.resetTracking])
                             }
                         })
                         RunLoop.main.add(resumeFromInterruptionTimer!, forMode: RunLoop.Mode.default)
                     } else { // if strokes.count == 0 {
                         // only do the timer if user has drawn strokes
-                        self.configureARSession(runOptions: [.resetTracking, .removeExistingAnchors])
+                        self.configureARSession(options: [.resetTracking, .removeExistingAnchors])
                     }
                 }
                 enterTrackingState()

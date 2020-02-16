@@ -5,7 +5,6 @@ platform :ios, '12.0'
 
 def pods_all_targets
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
 	pod 'lottie-ios'
 	pod 'Reachability', '~> 3.2'
 
@@ -15,13 +14,13 @@ def pods_all_targets
 	pod 'GoogleToolboxForMac/Logger', '~> 2.1'
 	pod 'GoogleToolboxForMac/NSData+zlib', '~> 2.1'
 	pod 'Protobuf', '~> 3.5'
-  pod 'gRPC-ProtoRPC', '~> 1.0'
+  	pod 'gRPC-ProtoRPC', '~> 1.0'
 
   # Face Detection frameworks
 	pod 'Metron', '~> 1.0.2'
     
   # Color Picker frameworks
-  pod 'FlexColorPicker', '~> 1.2.1'
+  	pod 'FlexColorPicker', '~> 1.2.1'
   
   # Lint
   pod 'SwiftLint'

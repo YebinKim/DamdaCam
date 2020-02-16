@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081640E8900FDF12121EE729 /* libPods-DamdaCam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD07DBB44A624F2B8AF2F0F4 /* libPods-DamdaCam.a */; };
 		3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30338623EC48B90058E875 /* ARDrawingViewController.swift */; };
 		3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */; };
 		3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */; };
@@ -63,7 +64,6 @@
 		3EF7967023E9ACBB00C56DDB /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7966F23E9ACBB00C56DDB /* DamdaData.swift */; };
 		3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7967323E9AD0A00C56DDB /* BGARMotion.swift */; };
 		3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */; };
-		53495199B524324E8BBFCFCE /* Pods_DamdaCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,7 +134,7 @@
 		3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EFCD66921AE33DA00D51C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A2FF700FA191457E5E0427B /* Pods-DamdaCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.release.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.release.xcconfig"; sourceTree = "<group>"; };
-		B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamdaCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD07DBB44A624F2B8AF2F0F4 /* libPods-DamdaCam.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DamdaCam.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53495199B524324E8BBFCFCE /* Pods_DamdaCam.framework in Frameworks */,
+				081640E8900FDF12121EE729 /* libPods-DamdaCam.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +394,7 @@
 				3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */,
 				3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */,
 				3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */,
-				B05AC136890D1A76458899FB /* Pods_DamdaCam.framework */,
+				DD07DBB44A624F2B8AF2F0F4 /* libPods-DamdaCam.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -410,7 +410,6 @@
 				3EFCD65621AE33D900D51C0C /* Sources */,
 				3EFCD65721AE33D900D51C0C /* Frameworks */,
 				3EFCD65821AE33D900D51C0C /* Resources */,
-				CB886B9332BF1604BD41A7BC /* [CP] Embed Pods Frameworks */,
 				A1106D6618A30DF3D74D3F54 /* [CP] Copy Pods Resources */,
 				3EE8F6F422B7268F00B66CEC /* Run Script */,
 				3E30338823EC61A40058E875 /* ShellScript */,
@@ -558,23 +557,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamdaCam/Pods-DamdaCam-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CB886B9332BF1604BD41A7BC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamdaCam/Pods-DamdaCam-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamdaCam/Pods-DamdaCam-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamdaCam/Pods-DamdaCam-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

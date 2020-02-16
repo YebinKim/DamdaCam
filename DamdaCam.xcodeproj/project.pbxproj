@@ -41,6 +41,7 @@
 		3EC3FFAE23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC3FFAD23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
 		3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BB9B23E30FC100ABC30E /* Figure.swift */; };
+		3EE77A9523F91F8600C8C777 /* ARMotionViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE77A9423F91F8600C8C777 /* ARMotionViewController+extension.swift */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
 		3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */; };
 		3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */; };
@@ -107,6 +108,7 @@
 		3ED4BDD8227ECB2B0031E99A /* MakingARCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MakingARCoreData.xcdatamodel; sourceTree = "<group>"; };
 		3ED5BB9B23E30FC100ABC30E /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Figure.swift; path = Model/Figure.swift; sourceTree = "<group>"; };
 		3EE77A8D23F9187700C8C777 /* FlexColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlexColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EE77A9423F91F8600C8C777 /* ARMotionViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARMotionViewController+extension.swift"; sourceTree = "<group>"; };
 		3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/Cells/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/Cells/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/Cells/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */,
+				3EE77A9423F91F8600C8C777 /* ARMotionViewController+extension.swift */,
 				3E38F60423DAEDE0002AAAB4 /* ARMotionViewController.storyboard */,
 			);
 			path = "AR Motion";
@@ -583,6 +586,7 @@
 				3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */,
 				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
 				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
+				3EE77A9523F91F8600C8C777 /* ARMotionViewController+extension.swift in Sources */,
 				3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */,
 				3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */,
 				3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */,

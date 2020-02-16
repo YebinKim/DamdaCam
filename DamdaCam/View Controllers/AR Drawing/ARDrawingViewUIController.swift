@@ -283,6 +283,8 @@ class ARDrawingUIViewController: UIViewController {
         DispatchQueue.main.async {
             // Set message
             self.initializeMessageView()
+            // Set Record Button
+            self.initializeRecordButton()
             // Set drawing pen stack view
             self.initializeDrawingPenView()
             // Set clip View

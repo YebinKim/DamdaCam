@@ -14,7 +14,7 @@ import SceneKit
 import Metron
 import CoreData
 
-class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
 
     static let identifier: String = "ARMotionViewController"
     
@@ -134,7 +134,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
     //    var filterArray: [UIImage]!
     var filterViewState: Bool = false
-//    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant", "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectTonal", "CIPhotoEffectFade", "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
+//    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant",
+//                                     "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir",
+//                                     "CIPhotoEffectTonal", "CIPhotoEffectFade",
+//                                     "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
     
@@ -173,9 +176,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.initializearView()
+        DispatchQueue.main.async {
+            // Set Record Button
+            self.initializeRecordButton()
+            // Set clip View
+            self.initializeClipView()
+            // Set menu view
+            self.initializeMenuView()
+        }
         
-        previewLayer?.frame = self.view.bounds
+        self.previewLayer?.frame = self.view.bounds
         self.view.addSubview(arView)
         
         self.view.bringSubviewToFront(iconView)
@@ -187,124 +197,13 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             self.halfHeight = self.view.bounds.height / 2
         }
         
-        // camera mode set
-        let swipeModeRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modePhoto))
-        swipeModeRight.direction = .right
-        self.modeSelected.addGestureRecognizer(swipeModeRight)
-        
-        let swipeModeLeft: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modeVideo))
-        swipeModeLeft.direction = .left
-        self.modeSelected.addGestureRecognizer(swipeModeLeft)
-        
-        // record set
-        let swipeButtonDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recordButtonDown))
-        swipeButtonDown.direction = .down
-        self.recordMoveButton.addGestureRecognizer(swipeButtonDown)
-        
-        let swipeButtonUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recordButtonUp))
-        swipeButtonUp.direction = .up
-        self.recordMoveButton.addGestureRecognizer(swipeButtonUp)
-        
-        self.recordButton.layer.cornerRadius = 27.5
-        self.recordBackgroundGradient()
-        
-        // Clip Set
-        self.clipButton.isHidden = true
-        self.clipView.alpha = 0.0
-        self.clipView.layer.cornerRadius = 5
-        
-        self.oneClipButton.layer.cornerRadius = 20
-        self.twoClipButton.layer.cornerRadius = 20
-        self.threeClipButton.layer.cornerRadius = 20
-        self.plusClipButton.layer.cornerRadius = 20
-        
-        self.oneClipButton.dropShadow(state: true)
-        self.twoClipButton.dropShadow(state: true)
-        self.threeClipButton.dropShadow(state: true)
-        self.plusClipButton.dropShadow(state: true)
-        
-        self.oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        
-        self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
-        
-        let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        secLabel.font = Properties.shared.font.bold(13.0)
-        secLabel.textColor = Properties.shared.color.darkGray
-        secLabel.text = "m"
-        secLabel.sizeToFit()
-        secLabel.frame = CGRect(x: 81.0, y: 49.0, width: secLabel.bounds.width, height: secLabel.bounds.height)
-        plusClipPicker.addSubview(secLabel)
-        
-        let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        minLabel.font = Properties.shared.font.bold(13.0)
-        minLabel.textColor = Properties.shared.color.darkGray
-        minLabel.text = "s"
-        minLabel.sizeToFit()
-        minLabel.frame = CGRect(x: 210.0, y: 49.0, width: minLabel.bounds.width, height: minLabel.bounds.height)
-        plusClipPicker.addSubview(minLabel)
-        
-        // Menu Set
-        makingARButtonCenter = menuMakingARButton.center
-        arMotionButtonCenter = menuARMotionButton.center
-        filterButtonCenter = menuFilterButton.center
-        makingARLabelCenter = menuMakingARLabel.center
-        arMotionLabelCenter = menuARMotionLabel.center
-        filterLabelCenter = menuFilterLabel.center
-        menuMakingARLabel.alpha = 0.0
-        menuARMotionLabel.alpha = 0.0
-        menuFilterLabel.alpha = 0.0
-        
-        menuView.isHidden = true
-        menuView.alpha = 0.0
-        addBackView(view: menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
+        self.registerUIGestureRecognizers()
         
         self.view.addSubview(tapGestureView)
         tapGestureView.isHidden = true
         
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
-        menuView.addGestureRecognizer(tapMenuView)
-        
-        let swipearMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
-        swipearMotionView.direction = .down
-        arMotionView.addGestureRecognizer(swipearMotionView)
-        
-        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(filterViewSwipe))
-        swipeFilterView.direction = .down
-        filterView.addGestureRecognizer(swipeFilterView)
-        
-        let BGBlack = UIView()
-        BGBlack.frame = arMotionView.bounds
-        BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBlack.backgroundColor = Properties.shared.color.view_background
-        let BGBar = UIView()
-        BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBar.backgroundColor = Properties.shared.color.bar_background
-        arMotionView.addSubview(BGBlack)
-        arMotionView.sendSubviewToBack(BGBlack)
-        arMotionView.addSubview(BGBar)
-        arMotionView.sendSubviewToBack(BGBar)
-        
-        let BGFilter = UIView()
-        BGFilter.frame = filterView.bounds
-        BGFilter.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGFilter.backgroundColor = Properties.shared.color.view_background
-        let BGfilterBar = UIView()
-        BGfilterBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGfilterBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGfilterBar.backgroundColor = Properties.shared.color.bar_background
-        filterView.addSubview(BGFilter)
-        filterView.sendSubviewToBack(BGFilter)
-        filterView.addSubview(BGfilterBar)
-        filterView.sendSubviewToBack(BGfilterBar)
-        
-        arMotionSelectButtonTapped(allARMotionButton)
-        allARMotionButton.layer.cornerRadius = 14
-        faceARMotionButton.layer.cornerRadius = 14
-        bgARMotionButton.layer.cornerRadius = 14
+        self.initializeARMotionView()
+        self.initializeFilterView()
         
         // arMotion View Set
         createarMotionArray()
@@ -433,6 +332,149 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func registerUIGestureRecognizers() {
+        // camera mode set
+        let swipeModeRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modePhoto))
+        swipeModeRight.direction = .right
+        self.modeSelected.addGestureRecognizer(swipeModeRight)
+        
+        let swipeModeLeft: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(modeVideo))
+        swipeModeLeft.direction = .left
+        self.modeSelected.addGestureRecognizer(swipeModeLeft)
+        
+        // record set
+        let swipeButtonDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recordButtonDown))
+        swipeButtonDown.direction = .down
+        self.recordMoveButton.addGestureRecognizer(swipeButtonDown)
+        
+        let swipeButtonUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recordButtonUp))
+        swipeButtonUp.direction = .up
+        self.recordMoveButton.addGestureRecognizer(swipeButtonUp)
+        
+        // menu set
+        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
+        menuView.addGestureRecognizer(tapMenuView)
+    }
+    
+    private func initializeRecordButton() {
+        self.recordButton.layer.cornerRadius = 27.5
+        self.recordBackgroundGradient()
+    }
+    
+    private func initializeClipView() {
+        self.clipButton.isHidden = true
+        self.clipView.alpha = 0.0
+        self.clipView.layer.cornerRadius = 5
+        
+        self.oneClipButton.layer.cornerRadius = 20
+        self.twoClipButton.layer.cornerRadius = 20
+        self.threeClipButton.layer.cornerRadius = 20
+        self.plusClipButton.layer.cornerRadius = 20
+        
+        self.oneClipButton.dropShadow(state: true)
+        self.twoClipButton.dropShadow(state: true)
+        self.threeClipButton.dropShadow(state: true)
+        self.plusClipButton.dropShadow(state: true)
+        
+        self.oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        
+        self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
+        
+        let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        secLabel.font = Properties.shared.font.bold(13.0)
+        secLabel.textColor = Properties.shared.color.darkGray
+        secLabel.text = "m"
+        secLabel.sizeToFit()
+        secLabel.frame = CGRect(x: 81.0, y: 49.0, width: secLabel.bounds.width, height: secLabel.bounds.height)
+        plusClipPicker.addSubview(secLabel)
+        
+        let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        minLabel.font = Properties.shared.font.bold(13.0)
+        minLabel.textColor = Properties.shared.color.darkGray
+        minLabel.text = "s"
+        minLabel.sizeToFit()
+        minLabel.frame = CGRect(x: 210.0, y: 49.0, width: minLabel.bounds.width, height: minLabel.bounds.height)
+        plusClipPicker.addSubview(minLabel)
+    }
+    
+    private func initializeMenuView() {
+        self.makingARButtonCenter = self.menuMakingARButton.center
+        self.arMotionButtonCenter = self.menuARMotionButton.center
+        self.filterButtonCenter = self.menuFilterButton.center
+        self.makingARLabelCenter = self.menuMakingARLabel.center
+        self.arMotionLabelCenter = self.menuARMotionLabel.center
+        self.filterLabelCenter = self.menuFilterLabel.center
+        self.menuMakingARLabel.alpha = 0.0
+        self.menuARMotionLabel.alpha = 0.0
+        self.menuFilterLabel.alpha = 0.0
+        
+        self.menuView.isHidden = true
+        self.menuView.alpha = 0.0
+        addBackView(view: menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
+    }
+    
+    private func initializeARMotionView() {
+        let BGBlack = UIView()
+        BGBlack.frame = self.arMotionView.bounds
+        BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        BGBlack.backgroundColor = Properties.shared.color.view_background
+        
+        let BGBar = UIView()
+        BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
+        BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        BGBar.backgroundColor = Properties.shared.color.bar_background
+        
+        self.arMotionView.addSubview(BGBlack)
+        self.arMotionView.sendSubviewToBack(BGBlack)
+        self.arMotionView.addSubview(BGBar)
+        self.arMotionView.sendSubviewToBack(BGBar)
+        
+        self.initializeARMotionButton()
+        self.arMotionSelectButtonTapped(allARMotionButton)
+        
+        self.registerARMotionViewGestureRecognizers()
+    }
+    
+    private func initializeARMotionButton() {
+        self.allARMotionButton.layer.cornerRadius = 14
+        self.faceARMotionButton.layer.cornerRadius = 14
+        self.bgARMotionButton.layer.cornerRadius = 14
+    }
+    
+    private func registerARMotionViewGestureRecognizers() {
+        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
+        swipeARMotionView.direction = .down
+        self.arMotionView.addGestureRecognizer(swipeARMotionView)
+    }
+    
+    private func initializeFilterView() {
+        let BGFilter = UIView()
+        BGFilter.frame = self.filterView.bounds
+        BGFilter.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        BGFilter.backgroundColor = Properties.shared.color.view_background
+        
+        let BGfilterBar = UIView()
+        BGfilterBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
+        BGfilterBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        BGfilterBar.backgroundColor = Properties.shared.color.bar_background
+        
+        self.filterView.addSubview(BGFilter)
+        self.filterView.sendSubviewToBack(BGFilter)
+        self.filterView.addSubview(BGfilterBar)
+        self.filterView.sendSubviewToBack(BGfilterBar)
+        
+        self.registerFilterViewGestureRecognizers()
+    }
+    
+    private func registerFilterViewGestureRecognizers() {
+        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(filterViewSwipe))
+        swipeFilterView.direction = .down
+        filterView.addGestureRecognizer(swipeFilterView)
     }
     
     // Ensure that the interface stays locked in Portrait.
@@ -1475,36 +1517,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 60
-        } else {
-            return 10
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let title = UILabel()
-        title.font = Properties.shared.font.regular(15.0)
-        title.textColor = Properties.shared.color.darkGray
-        title.text = String(row)
-        title.textAlignment = .center
-        
-        if component == 0 {
-            return title
-        } else {
-            return title
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        clipTime = (Double(plusClipPicker.selectedRow(inComponent: 0)) * 60.0) + Double(plusClipPicker.selectedRow(inComponent: 1))
-    }
-    
     // Menu Set
     @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
@@ -1658,8 +1670,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         let indexPaths = [IndexPath]()
         arMotionCollectionView.reloadItems(at: indexPaths)
         
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
-        tapGestureView.addGestureRecognizer(tapMenuView)
         tapGestureView.isHidden = false
         tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         
@@ -1678,8 +1688,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     }
     
     @IBAction func fiterbuttonTapped(_ sender: UIButton) {
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
-        tapGestureView.addGestureRecognizer(tapMenuView)
         tapGestureView.isHidden = false
         tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         
@@ -1847,208 +1855,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
         
         allARMotionArray = DamdaData.shared.makingARArray
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.arMotionCollectionView {
-            guard let arMotionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return UICollectionViewCell() }
-            
-            //            arMotionCell.stateChangeButton.isHidden = true
-            //            arMotionCell.stateChangeButton.alpha = 0.0
-            
-            arMotionCell.layer.shadowOpacity = 0.6
-            arMotionCell.layer.shadowRadius = 1
-            arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
-            arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
-            
-            if myARMotionButton.isSelected {
-                arMotionCell.previewImage.image = myARMotionArray[indexPath.row]
-                
-                return arMotionCell
-            } else if allARMotionButton.isSelected {
-                arMotionCell.previewImage.image = allARMotionArray[indexPath.row]
-                
-                return arMotionCell
-            } else if faceARMotionButton.isSelected {
-                arMotionCell.previewImage.image = faceARMotionArray[indexPath.row]
-                
-                return arMotionCell
-            } else {    // if BGarMotionButton.isSelected
-                arMotionCell.previewImage.image = bgARMotionArray[indexPath.row]
-                
-                return arMotionCell
-            }
-        } else {
-            guard let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCollectionViewCell else { return UICollectionViewCell() }
-            
-            filterCell.filterPreviewImage.image = UIImage(named: "filter_image")
-            if indexPath.row > 0 {
-                filterCell.filterNameLabel.text = "damda\(indexPath.row)"
-            }
-            
-            return filterCell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.arMotionCollectionView {
-            if myARMotionButton.isSelected {
-                return myARMotionArray.count
-            } else if allARMotionButton.isSelected {
-                return allARMotionArray.count
-            } else if faceARMotionButton.isSelected {
-                return faceARMotionArray.count
-            } else if bgARMotionButton.isSelected {
-                return bgARMotionArray.count
-            }
-        }
-        
-        if collectionView == self.filterCollectionView {
-            return 0
-        }
-        
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.arMotionCollectionView {
-            guard collectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) is ARMotionCollectionViewCell else { return }
-            
-            let bgARMotionIndex = faceARMotionArray.count
-            
-            self.arMotionDelete()
-            
-            if myARMotionButton.isSelected {
-                
-            } else if allARMotionButton.isSelected {
-                if indexPath.row == 0 {
-                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if indexPath.row == 1 {
-                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if indexPath.row == 2 {
-                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if indexPath.row == 3 {
-                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if indexPath.row == 4 {
-                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if indexPath.row == 5 {
-                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
-                } else if indexPath.row == 6 {
-                    self.loadarMotionNode("baaan", position: SCNVector3(x: 0, y: 4, z: -5))
-                } else if indexPath.row == 7 {
-                    if isBlink {
-                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
-                    } else {
-                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
-                    }
-                    isBlink = !isBlink
-                } else if indexPath.row == 8 {
-                    self.loadarMotionNode("soughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
-                } else if indexPath.row == 9 {
-                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if indexPath.row == bgARMotionIndex {
-                    self.loadBGMotionNode("snow")
-                } else if indexPath.row == bgARMotionIndex + 1 {
-                    self.loadBGMotionNode("blossom")
-                } else if indexPath.row == bgARMotionIndex + 2 {
-                    self.loadBGMotionNode("rain")
-                } else if indexPath.row == bgARMotionIndex + 3 {
-                    self.loadBGMotionNode("fish")
-                } else if indexPath.row == bgARMotionIndex + 4 {
-                    self.loadBGMotionNode("greenery")
-                } else if indexPath.row == bgARMotionIndex + 5 {
-                    self.loadBGMotionNode("fruits")
-                } else if indexPath.row == bgARMotionIndex + 6 {
-                    self.loadBGMotionNode("glow")
-                } else {
-                    self.arMotionSelected_MakingAR(index: indexPath.row)
-                }
-            } else if faceARMotionButton.isSelected {
-                if indexPath.row == 0 {
-                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if indexPath.row == 1 {
-                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else if indexPath.row == 2 {
-                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
-                } else if indexPath.row == 3 {
-                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if indexPath.row == 4 {
-                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
-                } else if indexPath.row == 5 {
-                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
-                } else if indexPath.row == 6 {
-                    self.loadarMotionNode("baaam", position: SCNVector3(x: 0, y: 4, z: -5))
-                } else if indexPath.row == 7 {
-                    if isBlink {
-                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
-                    } else {
-                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
-                    }
-                    isBlink = !isBlink
-                } else if indexPath.row == 8 {
-                    self.loadarMotionNode("doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
-                } else if indexPath.row == 9 {
-                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
-                } else {
-                    self.arMotionSelected_MakingAR(index: indexPath.row)
-                }
-            } else {    // if BGarMotionButton.isSelected
-                if indexPath.row == 0 {
-                    self.loadBGMotionNode("snow")
-                } else if indexPath.row == 1 {
-                    self.loadBGMotionNode("blossom")
-                } else if indexPath.row == 2 {
-                    self.loadBGMotionNode("rain")
-                } else if indexPath.row == 3 {
-                    self.loadBGMotionNode("fish")
-                } else if indexPath.row == 4 {
-                    self.loadBGMotionNode("greenery")
-                } else if indexPath.row == 5 {
-                    self.loadBGMotionNode("fruits")
-                } else if indexPath.row == 6 {
-                    self.loadBGMotionNode("glow")
-                }
-            }
-        }
-    }
-    
-    @objc func arMotionCellLongPress(gesture: UILongPressGestureRecognizer!) {
-        if gesture.state != .ended {
-            return
-        }
-        
-        let p = gesture.location(in: self.arMotionCollectionView)
-        
-        if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {
-            guard let arMotionCell = arMotionCollectionView.dequeueReusableCell(withReuseIdentifier: "ARMotionCell", for: indexPath) as? ARMotionCollectionViewCell else { return }
-            
-            if allARMotionButton.isSelected || faceARMotionButton.isSelected {
-                if indexPath.row > 9 {
-                    //                    arMotionCell.stateChangeButton.setImage(UIImage(named: "ic_mini_x"), for: .normal)
-                    //                    arMotionCell.stateChangeButton.isHidden = false
-                    
-                    //                    UIView.animate(withDuration: Double(0.5), animations: {
-                    //                        arMotionCell.stateChangeButton.alpha = 1.0
-                    //                    })
-                }
-            }
-            print(indexPath)
-        } else {
-            print("couldn't find index path")
-        }
-    }
-    
-    @objc func arMotionCellDoubleTab(gesture: UITapGestureRecognizer!) {
-        let p = gesture.location(in: self.arMotionCollectionView)
-        
-        if let indexPath = self.arMotionCollectionView.indexPathForItem(at: p) {
-            // get the cell at indexPath (the one you long pressed)
-            let cell = self.arMotionCollectionView.cellForItem(at: indexPath)
-            // do stuff with the cell
-            print(indexPath)
-        } else {
-            print("couldn't find index path")
-        }
     }
     
     @IBAction func filterTempAction(_ sender: UIButton) {

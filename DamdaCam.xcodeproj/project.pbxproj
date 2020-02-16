@@ -37,6 +37,7 @@
 		3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62923DAF2B8002AAAB4 /* Shaders.metal */; };
 		3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62A23DAF2B8002AAAB4 /* LineGeometry.swift */; };
 		3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F63323DAFDE8002AAAB4 /* LaunchScreen.storyboard */; };
+		3EC3FFAE23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC3FFAD23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift */; };
 		3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */; };
 		3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BB9B23E30FC100ABC30E /* Figure.swift */; };
 		3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */; };
@@ -102,8 +103,10 @@
 		3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		3EC3FFAD23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARDrawingUIViewController+extension.swift"; sourceTree = "<group>"; };
 		3ED4BDD8227ECB2B0031E99A /* MakingARCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MakingARCoreData.xcdatamodel; sourceTree = "<group>"; };
 		3ED5BB9B23E30FC100ABC30E /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Figure.swift; path = Model/Figure.swift; sourceTree = "<group>"; };
+		3EE77A8D23F9187700C8C777 /* FlexColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlexColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF105E123B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARMotionCollectionViewCell.swift; path = Views/Cells/ARMotionCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E223B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPaletteCollectionViewCell.swift; path = Views/Cells/CustomPaletteCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EF105E323B71FA500CCB7E1 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = Views/Cells/FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 				3E30338623EC48B90058E875 /* ARDrawingViewController.swift */,
 				3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */,
 				3E38F60223DAE825002AAAB4 /* ARDrawingViewUIController.swift */,
+				3EC3FFAD23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift */,
 				3E38F60023DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard */,
 			);
 			path = "AR Drawing";
@@ -386,6 +390,7 @@
 		FEF7EC484619EB6DFBC5F00C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EE77A8D23F9187700C8C777 /* FlexColorPicker.framework */,
 				3EAEDCDD21BD4DAA00BA7A7B /* CoreImage.framework */,
 				3EAEDCDB21BD4DA000BA7A7B /* AVFoundation.framework */,
 				3EAEDCD921BD4D9500BA7A7B /* OpenGLES.framework */,
@@ -611,6 +616,7 @@
 				3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */,
 				3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,
+				3EC3FFAE23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift in Sources */,
 				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
 				3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */,
 				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,
@@ -748,6 +754,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G5RZ7AYRC2;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = DamdaCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -773,6 +780,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G5RZ7AYRC2;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = DamdaCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (

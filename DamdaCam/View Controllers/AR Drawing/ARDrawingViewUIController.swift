@@ -313,59 +313,9 @@ class ARDrawingUIViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.touchDelegate?.setPreviewSize()
-        
-        // Set ui icon
-        if previewSize == 0 {
-            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            self.galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
-            self.menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
-            self.settingButton.dropShadow(state: true)
-            self.clipButton.dropShadow(state: true)
-            self.changeButton.dropShadow(state: true)
-            self.galleryButton.dropShadow(state: true)
-            self.menuButton.dropShadow(state: true)
-            
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
-            
-            self.recordMoveButton.isHidden = false
-            
-        } else if previewSize == 1 {
-            self.settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
-            self.clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
-            self.changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
-            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            self.settingButton.dropShadow(state: false)
-            self.clipButton.dropShadow(state: false)
-            self.changeButton.dropShadow(state: false)
-            self.galleryButton.dropShadow(state: false)
-            self.menuButton.dropShadow(state: false)
-            
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
-            
-            self.recordMoveButton.isHidden = true
-            
-        } else {
-            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            self.settingButton.dropShadow(state: false)
-            self.clipButton.dropShadow(state: false)
-            self.changeButton.dropShadow(state: false)
-            self.galleryButton.dropShadow(state: false)
-            self.menuButton.dropShadow(state: false)
-            
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
-            
-            self.recordMoveButton.isHidden = true
+        DispatchQueue.main.async {
+            self.touchDelegate?.setPreviewSize()
+            self.updateUIIcon()
         }
         
         // Menu Set
@@ -588,6 +538,60 @@ class ARDrawingUIViewController: UIViewController {
         self.previewPaletteView.dropShadow()
         
         addBackView(view: self.paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+    }
+    
+    func updateUIIcon() {
+        if previewSize == 0 {
+            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
+            self.settingButton.dropShadow(state: true)
+            self.clipButton.dropShadow(state: true)
+            self.changeButton.dropShadow(state: true)
+            self.galleryButton.dropShadow(state: true)
+            self.menuButton.dropShadow(state: true)
+            
+            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
+            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
+            
+            self.recordMoveButton.isHidden = false
+            
+        } else if previewSize == 1 {
+            self.settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            
+            self.recordMoveButton.isHidden = true
+            
+        } else {
+            self.settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            self.clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            self.changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            self.galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            self.menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            
+            self.recordMoveButton.isHidden = true
+        }
     }
     
     @IBAction func changeButtonTapped(_ sender: UIButton) {

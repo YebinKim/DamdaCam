@@ -134,10 +134,10 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
     //    var filterArray: [UIImage]!
     var filterViewState: Bool = false
-//    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant",
-//                                     "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir",
-//                                     "CIPhotoEffectTonal", "CIPhotoEffectFade",
-//                                     "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
+    //    let filterNameArray: [String] = ["CIPhotoEffectProcess", "CIPhotoEffectInstant",
+    //                                     "Normal", "CIPhotoEffectMono", "CIPhotoEffectNoir",
+    //                                     "CIPhotoEffectTonal", "CIPhotoEffectFade",
+    //                                     "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
     
@@ -177,6 +177,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         super.viewDidLoad()
         
         DispatchQueue.main.async {
+            // Set ARSCNView
+            self.initializeARView()
             // Set Record Button
             self.initializeRecordButton()
             // Set clip View
@@ -186,7 +188,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
         
         self.previewLayer?.frame = self.view.bounds
-        self.view.addSubview(arView)
         
         self.view.bringSubviewToFront(iconView)
         
@@ -244,63 +245,9 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if previewSize == 0 {
-            previewView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
-        } else if previewSize == 1 {
-            previewView.frame = CGRect(x: 0, y: 60, width: 375, height: 440)
-        } else if previewSize == 2 {
-            previewView.frame = CGRect(x: 0, y: 0, width: 375, height: 500)
-        }
-        
-        // Icon Set
-        if previewSize == 0 {
-            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
-            self.settingButton.dropShadow(state: true)
-            self.clipButton.dropShadow(state: true)
-            self.changeButton.dropShadow(state: true)
-            self.galleryButton.dropShadow(state: true)
-            self.menuButton.dropShadow(state: true)
-            
-            recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
-            recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
-            
-            recordMoveButton.isHidden = false
-        } else if previewSize == 1 {
-            settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            self.settingButton.dropShadow(state: false)
-            self.clipButton.dropShadow(state: false)
-            self.changeButton.dropShadow(state: false)
-            self.galleryButton.dropShadow(state: false)
-            self.menuButton.dropShadow(state: false)
-            
-            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
-            
-            recordMoveButton.isHidden = true
-        } else {
-            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
-            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
-            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
-            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
-            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
-            self.settingButton.dropShadow(state: false)
-            self.clipButton.dropShadow(state: false)
-            self.changeButton.dropShadow(state: false)
-            self.galleryButton.dropShadow(state: false)
-            self.menuButton.dropShadow(state: false)
-            
-            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
-            
-            recordMoveButton.isHidden = true
+        DispatchQueue.main.async {
+            self.setPreviewSize()
+            self.updateUIIcon()
         }
         
         // Menu Set
@@ -356,6 +303,14 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         // menu set
         let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
         menuView.addGestureRecognizer(tapMenuView)
+        tapGestureView.addGestureRecognizer(tapMenuView)
+    }
+    
+    private func initializeARView() {
+        self.arView.frame = self.view.bounds
+        self.arView.backgroundColor = UIColor.clear
+        
+        self.view.addSubview(arView)
     }
     
     private func initializeRecordButton() {
@@ -471,6 +426,68 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         self.registerFilterViewGestureRecognizers()
     }
     
+    func setPreviewSize() {
+        if previewSize == 0 {
+            previewView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
+        } else if previewSize == 1 {
+            previewView.frame = CGRect(x: 0, y: 60, width: 375, height: 440)
+        } else if previewSize == 2 {
+            previewView.frame = CGRect(x: 0, y: 0, width: 375, height: 500)
+        }
+    }
+    
+    func updateUIIcon() {
+        if previewSize == 0 {
+            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            galleryButton.setImage(UIImage(named: "ic_gallery_wh"), for: .normal)
+            menuButton.setImage(UIImage(named: "ic_menu_wh"), for: .normal)
+            self.settingButton.dropShadow(state: true)
+            self.clipButton.dropShadow(state: true)
+            self.changeButton.dropShadow(state: true)
+            self.galleryButton.dropShadow(state: true)
+            self.menuButton.dropShadow(state: true)
+            
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
+            
+            recordMoveButton.isHidden = false
+        } else if previewSize == 1 {
+            settingButton.setImage(UIImage(named: "ic_setup_bl"), for: .normal)
+            clipButton.setImage(UIImage(named: "ic_clip_bl"), for: .normal)
+            changeButton.setImage(UIImage(named: "ic_change_bl"), for: .normal)
+            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            
+            recordMoveButton.isHidden = true
+        } else {
+            settingButton.setImage(UIImage(named: "ic_setup_wh"), for: .normal)
+            clipButton.setImage(UIImage(named: "ic_clip_wh"), for: .normal)
+            changeButton.setImage(UIImage(named: "ic_change_wh"), for: .normal)
+            galleryButton.setImage(UIImage(named: "ic_gallery_bl"), for: .normal)
+            menuButton.setImage(UIImage(named: "ic_menu_bl"), for: .normal)
+            self.settingButton.dropShadow(state: false)
+            self.clipButton.dropShadow(state: false)
+            self.changeButton.dropShadow(state: false)
+            self.galleryButton.dropShadow(state: false)
+            self.menuButton.dropShadow(state: false)
+            
+            recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
+            recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            
+            recordMoveButton.isHidden = true
+        }
+    }
+    
     private func registerFilterViewGestureRecognizers() {
         let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(filterViewSwipe))
         swipeFilterView.direction = .down
@@ -485,11 +502,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     // Ensure that the interface stays locked in Portrait.
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
-    }
-    
-    private func initializearView() {
-        self.arView.frame = self.view.bounds
-        self.arView.backgroundColor = UIColor.clear
     }
     
     @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
@@ -560,16 +572,16 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     func configureAccessibility() {
         let key = NSAttributedString.Key.accessibilitySpeechIPANotation
-
+        
         let attributedString = NSAttributedString(
             string: NSLocalizedString("content_description_record", comment: "Record"), attributes: [key: "record"]
         )
-
+        
         recordButton.accessibilityAttributedLabel = attributedString
         recordButton.accessibilityHint = NSLocalizedString("content_description_record_accessible", comment: "Tap to record a video for ten seconds.")
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(voiceOverStatusChanged), name: UIAccessibility.voiceOverStatusDidChangeNotification, object: nil)
-
+        
         voiceOverStatusChanged()
     }
     

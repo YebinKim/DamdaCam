@@ -14,7 +14,7 @@ import SceneKit
 import Metron
 import CoreData
 
-class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
+class ARMotionViewController: UIViewController {
 
     static let identifier: String = "ARMotionViewController"
     
@@ -189,8 +189,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         self.previewLayer?.frame = self.view.bounds
         
-        self.view.bringSubviewToFront(iconView)
-        
         self.session = self.setupAVCaptureSession()
         
         DispatchQueue.main.async {
@@ -275,6 +273,8 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         }
         
         self.session?.startRunning()
+        
+        self.view.bringSubviewToFront(iconView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -587,15 +587,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
     
     @objc func voiceOverStatusChanged() {
         //        sizeButtonStackView.alpha = (UIAccessibility.isVoiceOverRunning) ? 1 : 0
-    }
-
-    // MARK: - AVFondation Delegate & DataSource methods
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-    }
-    
-    func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-        print("capture output: started recording to \(fileURL)")
     }
 
     // MARK: Accessibility
@@ -952,108 +943,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         throw NSError(domain: "ViewController", code: 1, userInfo: nil)
     }
     
-    /// - Tag: CreateSerialDispatchQueue
-    fileprivate func configureVideoDataOutput(for inputDevice: AVCaptureDevice, resolution: CGSize, captureSession: AVCaptureSession) {
-        
-        let videoDataOutput = AVCaptureVideoDataOutput()
-        videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString): NSNumber(value: kCVPixelFormatType_32BGRA)] as [String: Any]
-        
-        videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        
-        // Create a serial dispatch queue used for the sample buffer delegate as well as when a still image is captured.
-        // A serial dispatch queue must be used to guarantee that video frames will be delivered in order.
-        let videoDataOutputQueue = DispatchQueue(label: "com.example.apple-samplecode.VisionFaceTrack")
-//        videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer delegate", attributes: []))
-        
-        if captureSession.canAddOutput(videoDataOutput) {
-            captureSession.addOutput(videoDataOutput)
-        }
-        
-        captureSession.commitConfiguration()
-        
-//        captureSession.addOutput(self.movieFileOutput)
-//        captureSession.addOutput(self.photoOutput)
-        
-        videoDataOutput.connection(with: .video)?.isEnabled = true
-        
-        if let captureConnection = videoDataOutput.connection(with: AVMediaType.video) {
-            if captureConnection.isCameraIntrinsicMatrixDeliverySupported {
-                captureConnection.isCameraIntrinsicMatrixDeliveryEnabled = true
-            }
-        }
-        
-        self.videoDataOutput = videoDataOutput
-        self.videoDataOutputQueue = videoDataOutputQueue
-        
-        self.captureDevice = inputDevice
-        self.captureDeviceResolution = resolution
-    }
-    
-    func getImageFromSampleBuffer (buffer: CMSampleBuffer) -> UIImage? {
-        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-            let context = CIContext()
-            
-            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
-            
-            if let image = context.createCGImage(ciImage, from: imageRect) {
-                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .leftMirrored)
-            }
-            
-        }
-        
-        return nil
-    }
-    
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        
-        let detectFaceRequest = VNDetectFaceLandmarksRequest(completionHandler: detectedFace)
-        
-        do {
-            try sequenceRequestHandler.perform(
-                [detectFaceRequest],
-                on: imageBuffer,
-                orientation: .downMirrored) // 정규화되는 방향
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        if takePhoto {
-            takePhoto = !takePhoto
-            
-            let snapShot = arView.snapshot()
-            guard let image = self.getImageFromSampleBuffer(buffer: sampleBuffer),
-                  let arMotionImage = self.compositeImages(images: [image, snapShot]) else { return }
-            
-            UIImageWriteToSavedPhotosAlbum(arMotionImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-        }
-        
-        // TODO: 필터 기능 구현
-//        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-//        let cameraImage = CIImage(cvImageBuffer: pixelBuffer!)
-//
-//        selectedFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
-//
-//        let cgImage = self.filterContext.createCGImage(selectedFilter!.outputImage!, from: cameraImage.extent)!
-//
-//        DispatchQueue.main.async {
-//            let filteredImage = UIImage(cgImage: cgImage)
-//            self.previewView.image = filteredImage
-//        }
-        
-//        let cameraImage = CIImage(cvImageBuffer: imageBuffer)
-//        selectedFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
-//        let cgImage = filterContext.createCGImage(selectedFilter!.outputImage!, from: cameraImage.extent)!
-//        let filteredImage = UIImage(ciImage: selectedFilter!.value(forKey: kCIOutputImageKey) as! CIImage)
-        
-//        DispatchQueue.main.async {
-//            let filteredImage = UIImage(cgImage: filteredImage)
-//            self.previewView.image = filteredImage
-//        }
-    }
-    
     func compositeImages(images: [UIImage]) -> UIImage? {
         var compositeImage: UIImage?
         
@@ -1078,35 +967,6 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             print("Error Saving arMotion Scene \(error)")
         } else {
             print("arMotion Scene Successfully Saved")
-        }
-    }
-    
-    /// - Tag: DesignatePreviewLayer
-    fileprivate func designatePreviewLayer(for captureSession: AVCaptureSession) {
-        let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.previewLayer = videoPreviewLayer
-        
-        videoPreviewLayer.name = "CameraPreview"
-        videoPreviewLayer.backgroundColor = Properties.shared.color.black.cgColor
-        videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
-        if let previewRootLayer = self.previewView?.layer {
-            self.rootLayer = previewRootLayer
-            
-            previewRootLayer.masksToBounds = true
-            videoPreviewLayer.frame = previewRootLayer.bounds
-            previewRootLayer.addSublayer(videoPreviewLayer)
-        }
-    }
-    
-    // Removes infrastructure for AVCapture as part of cleanup.
-    fileprivate func teardownAVCapture() {
-        self.videoDataOutput = nil
-        self.videoDataOutputQueue = nil
-        
-        if let previewLayer = self.previewLayer {
-            previewLayer.removeFromSuperlayer()
-            self.previewLayer = nil
         }
     }
     
@@ -1902,20 +1762,4 @@ class ARMotionViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             present(nextVC, animated: true, completion: nil)
         }
     }
-}
-
-extension ARMotionViewController: AVCapturePhotoCaptureDelegate {
-    
-    func photoOutput(_ output: AVCapturePhotoOutput,
-                     didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
-                     previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-                     resolvedSettings: AVCaptureResolvedPhotoSettings,
-                     bracketSettings: AVCaptureBracketedStillImageSettings?,
-                     error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-    }
-
 }

@@ -280,18 +280,16 @@ class ARDrawingUIViewController: UIViewController {
         
         self.drawingUIHidden(false)
         
-        DispatchQueue.main.async {
-            // Set message
-            self.initializeMessageView()
-            // Set Record Button
-            self.initializeRecordButton()
-            // Set drawing pen stack view
-            self.initializeDrawingPenView()
-            // Set clip View
-            self.initializeClipView()
-            // Set menu view
-            self.initializeMenuView()
-        }
+        // Set message
+        self.initializeMessageView()
+        // Set Record Button
+        self.initializeRecordButton()
+        // Set drawing pen stack view
+        self.initializeDrawingPenView()
+        // Set clip View
+        self.initializeClipView()
+        // Set menu view
+        self.initializeMenuView()
         
         // Set accessibility
         self.configureAccessibility()

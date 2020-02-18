@@ -176,68 +176,28 @@ class ARMotionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            // Set ARSCNView
-            self.initializeARView()
-            // Set Record Button
-            self.initializeRecordButton()
-            // Set clip View
-            self.initializeClipView()
-            // Set menu view
-            self.initializeMenuView()
-        }
+        // Set ARSCNView
+        self.initializeARView()
+        // Set Record Button
+        self.initializeRecordButton()
+        // Set clip View
+        self.initializeClipView()
+        // Set menu view
+        self.initializeMenuView()
+        // Set Tap Gesture View on ARMotionView and FilterView
+        self.initializeTapGestureView()
+        
+        self.initializeARMotionView()
+        self.initializeFilterView()
         
         self.previewLayer?.frame = self.view.bounds
         
         self.session = self.setupAVCaptureSession()
         
-        DispatchQueue.main.async {
-            self.halfWidth = self.view.bounds.width / 2
-            self.halfHeight = self.view.bounds.height / 2
-        }
+        self.halfWidth = self.view.bounds.width / 2
+        self.halfHeight = self.view.bounds.height / 2
         
         self.registerUIGestureRecognizers()
-        
-        self.view.addSubview(tapGestureView)
-        tapGestureView.isHidden = true
-        
-        self.initializeARMotionView()
-        self.initializeFilterView()
-        
-        // arMotion View Set
-        createarMotionArray()
-        self.arMotionCollectionView.delegate = self
-        self.arMotionCollectionView.dataSource = self
-        
-        let deleteCell: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(arMotionCellLongPress))
-        deleteCell.minimumPressDuration = 0.5
-        //        setFavorites.delegate = self
-        deleteCell.delaysTouchesBegan = true
-        self.arMotionCollectionView?.addGestureRecognizer(deleteCell)
-        
-        let favoriteCell = UITapGestureRecognizer(target: self, action: #selector(arMotionCellDoubleTab))
-        favoriteCell.numberOfTapsRequired = 2
-        self.arMotionCollectionView?.addGestureRecognizer(favoriteCell)
-        
-        // Filter Set
-        self.filterCollectionView.delegate = self
-        self.filterCollectionView.dataSource = self
-        self.filterPowerSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-        //        self.view.addSubview(filterCollectionView)
-        
-        // FIXME: Temp Spec
-        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
-                                                state: false)
-        
-        filterBack.isUserInteractionEnabled = false
-        filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -373,6 +333,11 @@ class ARMotionViewController: UIViewController {
         addBackView(view: menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
     }
     
+    private func initializeTapGestureView() {
+        self.view.addSubview(self.tapGestureView)
+        self.tapGestureView.isHidden = true
+    }
+    
     private func initializeARMotionView() {
         let BGBlack = UIView()
         BGBlack.frame = self.arMotionView.bounds
@@ -390,21 +355,23 @@ class ARMotionViewController: UIViewController {
         self.arMotionView.sendSubviewToBack(BGBar)
         
         self.initializeARMotionButton()
-        self.arMotionSelectButtonTapped(allARMotionButton)
+        self.arMotionSelectButtonTapped(self.allARMotionButton)
+        
+        self.initializeARMotionCollectionView()
         
         self.registerARMotionViewGestureRecognizers()
+    }
+    
+    private func initializeARMotionCollectionView() {
+        createarMotionArray()
+        self.arMotionCollectionView.delegate = self
+        self.arMotionCollectionView.dataSource = self
     }
     
     private func initializeARMotionButton() {
         self.allARMotionButton.layer.cornerRadius = 14
         self.faceARMotionButton.layer.cornerRadius = 14
         self.bgARMotionButton.layer.cornerRadius = 14
-    }
-    
-    private func registerARMotionViewGestureRecognizers() {
-        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
-        swipeARMotionView.direction = .down
-        self.arMotionView.addGestureRecognizer(swipeARMotionView)
     }
     
     private func initializeFilterView() {
@@ -423,7 +390,30 @@ class ARMotionViewController: UIViewController {
         self.filterView.addSubview(BGfilterBar)
         self.filterView.sendSubviewToBack(BGfilterBar)
         
+        self.initializeFilterCollectionView()
+        
+        // FIXME: Temp Spec
+        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                state: false)
+        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
+                                                state: false)
+        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
+                                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
+                                                state: false)
+        
+        filterBack.isUserInteractionEnabled = false
+        filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
+        
         self.registerFilterViewGestureRecognizers()
+    }
+    
+    private func initializeFilterCollectionView() {
+        self.filterCollectionView.delegate = self
+        self.filterCollectionView.dataSource = self
+        self.filterPowerSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        self.view.addSubview(filterCollectionView)
     }
     
     func setPreviewSize() {
@@ -486,6 +476,22 @@ class ARMotionViewController: UIViewController {
             
             recordMoveButton.isHidden = true
         }
+    }
+    
+    private func registerARMotionViewGestureRecognizers() {
+        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
+        swipeARMotionView.direction = .down
+        self.arMotionView.addGestureRecognizer(swipeARMotionView)
+        
+        // TODO: - Cell 구현부로 이동
+        let deleteCell: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(arMotionCellLongPress))
+        deleteCell.minimumPressDuration = 0.5
+        deleteCell.delaysTouchesBegan = true
+        self.arMotionCollectionView?.addGestureRecognizer(deleteCell)
+        
+        let favoriteCell = UITapGestureRecognizer(target: self, action: #selector(arMotionCellDoubleTab))
+        favoriteCell.numberOfTapsRequired = 2
+        self.arMotionCollectionView?.addGestureRecognizer(favoriteCell)
     }
     
     private func registerFilterViewGestureRecognizers() {

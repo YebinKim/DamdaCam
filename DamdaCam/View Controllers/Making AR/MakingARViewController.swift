@@ -111,78 +111,18 @@ class MakingARViewController: UIViewController {
         lineColor = colorPicker.selectedColor.cgColor
         lineSize = CGFloat(brushWidth)
         
-        // Message Set
-        drawingStartView.alpha = 0.0
-        drawingStartView.layer.cornerRadius = 17
-        self.drawingStartView.dropShadow()
-        drawingStartState = false
-        
-        // menu set
-        self.menuButtonStateCheck()
-        self.menuDrawerButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        self.menuARMotionButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        self.menuPaletteButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        self.menuBrushButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        self.menuFigureButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        self.menuEraserButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
-        ARMotionButtonCenter = menuARMotionButton.center
-        paletteButtonCenter = menuPaletteButton.center
-        brushButtonCenter = menuBrushButton.center
-        figureButtonCenter = menuFigureButton.center
-        eraserButtonCenter = menuEraserButton.center
-        backView.isHidden = true
-        backView.alpha = 0.0
-        
-        figureDrawView.isHidden = true
-        figureDrawView.frame = drawingView.bounds
-        figureDrawView.backgroundColor = UIColor.clear
-        self.view.addSubview(figureDrawView)
-        let drawFigure: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(drawRectGesture))
-        figureDrawView.addGestureRecognizer(drawFigure)
-        
-        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
-        backView.addGestureRecognizer(onTapMenuView)
-        
-        // Save Message
-        saveMessageView.isHidden = true
-        saveMessageView.alpha = 0.0
-        saveMessageView.layer.cornerRadius = 10
-        saveMessageButtonView.layer.cornerRadius = 10
-        saveMessageButtonView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        self.topView.dropShadow()
-        self.saveMessageView.dropShadow()
-        self.saveMessageButtonView.dropShadow()
-
-        // Palette Set
-        addBackView(view: paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
-        paletteView.alpha = 0.0
-        paletteView.layer.cornerRadius = 10
-        self.paletteRadialPicker.dropShadow()
-        self.customPaletteArray = DamdaData.shared.customPaletteArray
-        colorPicker.selectedColor = pickedColor
-        
-        // Brush Set
-        addBackView(view: brushView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
-        brushView.alpha = 0.0
-        brushView.layer.cornerRadius = 10
-        brushBasicButton.isSelected = true
-        brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-        
-        // Figure Set
-        addBackView(view: figureView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
-        figureView.alpha = 0.0
-        figureView.layer.cornerRadius = 10
-        figureFillButton.isSelected = true
-        figureWidthTitle.textColor = Properties.shared.color.text_disable
-        figureWidthLabel.textColor = Properties.shared.color.text_disable
-        figureWidthSlider.isEnabled = false
-        figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
-        figureShape = "Rectangle"
-//        figureDrawView.initGestureRecognizers()
+        // Set drawing message
+        initializeMessageView()
+        // Set menu view
+        initializeMenuView()
+        // Set figure draw view
+        initializeFigureDrawView()
+        // Set save message
+        initializeSaveMessageView()
         
         // Preview Color Set
         previewPaletteView.layer.cornerRadius = 18
-        self.previewPaletteView.dropShadow()
+        previewPaletteView.dropShadow()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.buttonAnimation(button: self.menuARMotionButton, position: self.drawerButtonCenter, size: 0.5)
@@ -205,8 +145,98 @@ class MakingARViewController: UIViewController {
         })
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    private func initializeMessageView() {
+        drawingStartView.alpha = 0.0
+        drawingStartView.layer.cornerRadius = 17
+        drawingStartView.dropShadow()
+        drawingStartState = false
+    }
+    
+    private func initializeMenuView() {
+        menuButtonStateCheck()
+        menuDrawerButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        menuARMotionButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        menuPaletteButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        menuBrushButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        menuFigureButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        menuEraserButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
+        
+        ARMotionButtonCenter = menuARMotionButton.center
+        paletteButtonCenter = menuPaletteButton.center
+        brushButtonCenter = menuBrushButton.center
+        figureButtonCenter = menuFigureButton.center
+        eraserButtonCenter = menuEraserButton.center
+        backView.isHidden = true
+        backView.alpha = 0.0
+        
+        registerMenuGestureRecognizer()
+        
+        initializePaletteView()
+        initializeBrushView()
+        initializefigureView()
+    }
+    
+    private func initializeFigureDrawView() {
+        figureDrawView.isHidden = true
+        figureDrawView.frame = drawingView.bounds
+        figureDrawView.backgroundColor = UIColor.clear
+        view.addSubview(figureDrawView)
+        
+        registerDrawGestureRecognizer()
+    }
+    
+    private func initializeSaveMessageView() {
+        saveMessageView.isHidden = true
+        saveMessageView.alpha = 0.0
+        saveMessageView.layer.cornerRadius = 10
+        saveMessageButtonView.layer.cornerRadius = 10
+        saveMessageButtonView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        
+        topView.dropShadow()
+        saveMessageView.dropShadow()
+        saveMessageButtonView.dropShadow()
+    }
+    
+    private func initializePaletteView() {
+        addBackView(view: paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        
+        paletteView.alpha = 0.0
+        paletteView.layer.cornerRadius = 10
+        paletteRadialPicker.dropShadow()
+        customPaletteArray = DamdaData.shared.customPaletteArray
+        colorPicker.selectedColor = pickedColor
+    }
+    
+    private func initializeBrushView() {
+        addBackView(view: brushView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        
+        brushView.alpha = 0.0
+        brushView.layer.cornerRadius = 10
+        brushBasicButton.isSelected = true
+        brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+    }
+    
+    private func initializefigureView() {
+        addBackView(view: figureView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        
+        figureView.alpha = 0.0
+        figureView.layer.cornerRadius = 10
+        figureFillButton.isSelected = true
+        figureWidthTitle.textColor = Properties.shared.color.text_disable
+        figureWidthLabel.textColor = Properties.shared.color.text_disable
+        figureWidthSlider.isEnabled = false
+        figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
+        figureShape = "Rectangle"
+    }
+    
+    private func registerMenuGestureRecognizer() {
+        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
+        backView.addGestureRecognizer(onTapMenuView)
+    }
+    
+    private func registerDrawGestureRecognizer() {
+        let drawFigure: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(drawRectGesture))
+        figureDrawView.addGestureRecognizer(drawFigure)
     }
     
     @IBAction func deleteDrawing(_ sender: UIButton) {
@@ -217,12 +247,12 @@ class MakingARViewController: UIViewController {
         let image = saveAsImage()
         let idString = UUID().uuidString
         
-        self.saveMessageView.isHidden = false
+        saveMessageView.isHidden = false
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveLinear], animations: {
             self.saveMessageView.alpha = 1.0
         })
         
-        self.saveImage(imageName: idString, image: image!)
+        saveImage(imageName: idString, image: image!)
     }
     
     func saveImage(imageName: String, image: UIImage) {
@@ -377,10 +407,10 @@ class MakingARViewController: UIViewController {
     
     // Menu Set
     @objc func OnMenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
-        self.figureViewXTapped(figureXButton)
-        self.brushViewXTapped(brushXButton)
-        self.paletteViewXTapped(paletteXButton)
-        self.previewPaletteXTapped(previewXButton)
+        figureViewXTapped(figureXButton)
+        brushViewXTapped(brushXButton)
+        paletteViewXTapped(paletteXButton)
+        previewPaletteXTapped(previewXButton)
         
         gestureRecognizer.cancelsTouchesInView = false
         
@@ -500,12 +530,12 @@ class MakingARViewController: UIViewController {
         figureButtonState = false
         eraserButtonState = false
         
-        self.menuButtonStateCheck()
+        menuButtonStateCheck()
     }
     
     @IBAction func palettebuttonTapped(_ sender: UIButton) {
         pickedColor = colorPicker.selectedColor
-        self.customPaletteArray = DamdaData.shared.customPaletteArray
+        customPaletteArray = DamdaData.shared.customPaletteArray
         
         backView.isHidden = false
         paletteView.isHidden = false
@@ -524,7 +554,7 @@ class MakingARViewController: UIViewController {
             self.paletteView.alpha = 1.0
         })
         
-        self.menuButtonStateCheck()
+        menuButtonStateCheck()
     }
     
     @IBAction func brushbuttonTapped(_ sender: UIButton) {
@@ -548,7 +578,7 @@ class MakingARViewController: UIViewController {
             self.brushView.alpha = 1.0
         })
         
-        self.menuButtonStateCheck()
+        menuButtonStateCheck()
     }
     
     @IBAction func figurebuttonTapped(_ sender: UIButton) {
@@ -559,7 +589,7 @@ class MakingARViewController: UIViewController {
         figureWidthLabel.text = String(Int(figureWidthSlider.value))
         
         backView.isHidden = false
-        self.figureView.isHidden = false
+        figureView.isHidden = false
         
         eraseState = false
         openMenuView = true
@@ -575,7 +605,7 @@ class MakingARViewController: UIViewController {
             self.figureView.alpha = 1.0
         })
         
-        self.menuButtonStateCheck()
+        menuButtonStateCheck()
     }
     
     @IBAction func eraserbuttonTapped(_ sender: UIButton) {
@@ -587,7 +617,7 @@ class MakingARViewController: UIViewController {
         figureButtonState = false
         eraserButtonState = true
         
-        self.menuButtonStateCheck()
+        menuButtonStateCheck()
     }
     
     func menuSelectedOn(button: UIButton, changeImage: UIImage) {
@@ -625,33 +655,33 @@ class MakingARViewController: UIViewController {
     
     func menuButtonStateCheck() {
         if ARMotionButtonState {
-            self.menuSelectedOn(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_on")!)
+            menuSelectedOn(button: menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_off")!)
+            menuSelectedOff(button: menuARMotionButton, changeImage: UIImage(named: "ic_arMotion2_off")!)
         }
         
         if paletteButtonState {
-            self.menuSelectedOn(button: self.menuPaletteButton, changeImage: UIImage(named: "ic_palette_on")!)
+            menuSelectedOn(button: menuPaletteButton, changeImage: UIImage(named: "ic_palette_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuPaletteButton, changeImage: UIImage(named: "ic_palette_off")!)
+            menuSelectedOff(button: menuPaletteButton, changeImage: UIImage(named: "ic_palette_off")!)
         }
         
         if brushButtonState {
-            self.menuSelectedOn(button: self.menuBrushButton, changeImage: UIImage(named: "ic_brush_on")!)
+            menuSelectedOn(button: menuBrushButton, changeImage: UIImage(named: "ic_brush_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuBrushButton, changeImage: UIImage(named: "ic_brush_off")!)
+            menuSelectedOff(button: menuBrushButton, changeImage: UIImage(named: "ic_brush_off")!)
         }
         
         if figureButtonState {
-            self.menuSelectedOn(button: self.menuFigureButton, changeImage: UIImage(named: "ic_figure_on")!)
+            menuSelectedOn(button: menuFigureButton, changeImage: UIImage(named: "ic_figure_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuFigureButton, changeImage: UIImage(named: "ic_figure_off")!)
+            menuSelectedOff(button: menuFigureButton, changeImage: UIImage(named: "ic_figure_off")!)
         }
         
         if eraserButtonState {
-            self.menuSelectedOn(button: self.menuEraserButton, changeImage: UIImage(named: "ic_eraser_on")!)
+            menuSelectedOn(button: menuEraserButton, changeImage: UIImage(named: "ic_eraser_on")!)
         } else {
-            self.menuSelectedOff(button: self.menuEraserButton, changeImage: UIImage(named: "ic_eraser_off")!)
+            menuSelectedOff(button: menuEraserButton, changeImage: UIImage(named: "ic_eraser_off")!)
         }
     }
     

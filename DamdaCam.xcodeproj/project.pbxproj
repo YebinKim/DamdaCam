@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		081640E8900FDF12121EE729 /* libPods-DamdaCam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD07DBB44A624F2B8AF2F0F4 /* libPods-DamdaCam.a */; };
+		3E217BE223FD797100A419C7 /* MakingARViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E217BE123FD797100A419C7 /* MakingARViewController+extension.swift */; };
+		3E217BE423FD79DC00A419C7 /* FigureDrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E217BE323FD79DC00A419C7 /* FigureDrawView.swift */; };
 		3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30338623EC48B90058E875 /* ARDrawingViewController.swift */; };
 		3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */; };
 		3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */; };
@@ -69,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		24C97EBDB39DDE273304CA25 /* Pods-DamdaCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.debug.xcconfig"; sourceTree = "<group>"; };
+		3E217BE123FD797100A419C7 /* MakingARViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MakingARViewController+extension.swift"; sourceTree = "<group>"; };
+		3E217BE323FD79DC00A419C7 /* FigureDrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigureDrawView.swift; sourceTree = "<group>"; };
 		3E30338623EC48B90058E875 /* ARDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawingViewController.swift; sourceTree = "<group>"; };
 		3E38F5EC23DAE710002AAAB4 /* ARDrawingViewController+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARDrawingViewController+extension.swift"; sourceTree = "<group>"; };
 		3E38F5F223DAE718002AAAB4 /* ARMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMotionViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				3E38F5F423DAE71E002AAAB4 /* MakingARViewController.swift */,
+				3E217BE123FD797100A419C7 /* MakingARViewController+extension.swift */,
 				3E38F60623DAEE3C002AAAB4 /* MakingARViewController.storyboard */,
 			);
 			path = "Making AR";
@@ -257,6 +262,7 @@
 				3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */,
 				3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */,
 				3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */,
+				3E217BE323FD79DC00A419C7 /* FigureDrawView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -581,6 +587,7 @@
 				3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */,
 				3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */,
 				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
+				3E217BE423FD79DC00A419C7 /* FigureDrawView.swift in Sources */,
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
 				3EF7964323E6B25C00C56DDB /* Font.swift in Sources */,
 				3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */,
@@ -592,6 +599,7 @@
 				3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */,
 				3E38F61623DAF291002AAAB4 /* Styles.swift in Sources */,
 				3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */,
+				3E217BE223FD797100A419C7 /* MakingARViewController+extension.swift in Sources */,
 				3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */,
 				3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */,
 				3E38F5F523DAE71F002AAAB4 /* MakingARViewController.swift in Sources */,

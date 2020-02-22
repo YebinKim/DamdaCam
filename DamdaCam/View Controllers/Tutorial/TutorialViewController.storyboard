@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WPR-Dl-nJq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fx9-VP-qfx">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -45,7 +45,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="tutorial_skip"/>
                                         <connections>
-                                            <action selector="skipButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="l0d-bb-USg"/>
+                                            <action selector="nextButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="ggG-p9-vWJ"/>
                                             <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="wFc-Io-oS4"/>
                                         </connections>
                                     </button>
@@ -70,7 +70,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="tutorial_start"/>
                                         <connections>
-                                            <action selector="startButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="QRC-9y-JrU"/>
+                                            <action selector="nextButtonTapped:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="RXs-7C-jXt"/>
                                             <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="b8f-ea-TOc"/>
                                         </connections>
                                     </button>
@@ -116,7 +116,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Krr-o5-rP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-662" y="27"/>
+            <point key="canvasLocation" x="-148" y="203"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eCJ-kI-FCF">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="fx9-VP-qfx" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vDh-xq-e47">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="WPR-Dl-nJq" kind="relationship" relationship="rootViewController" id="Qvj-Ie-4C3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AZb-AL-U7c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-937" y="203"/>
         </scene>
     </scenes>
     <resources>

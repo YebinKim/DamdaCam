@@ -11,6 +11,16 @@ import ReplayKit
 
 extension ARDrawingViewController: ARDrawingUIViewControllerDelegate {
     
+    func pushNextVC(name: String) {
+        self.uiWindow?.isHidden = true
+        self.navigationController?.pushFromStoryboard(name)
+    }
+    
+    func presentNextVC(name: String) {
+        self.uiWindow?.isHidden = true
+        self.presentFromStoryboard(name)
+    }
+    
     // MARK: - Handle Touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touchInView = touches.first?.location(in: sceneView), mode == .DRAW else {

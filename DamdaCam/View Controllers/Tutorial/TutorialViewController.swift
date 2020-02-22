@@ -31,18 +31,17 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTutorial()
-        
-        let swipeTutorialRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
-        swipeTutorialRight.direction = .right
-        self.tutorialView.addGestureRecognizer(swipeTutorialRight)
-        
-        let swipeTutorialLeft: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
-        swipeTutorialLeft.direction = .left
-        self.tutorialView.addGestureRecognizer(swipeTutorialLeft)
+        self.initializeTutorial()
+        self.registerGestureRecognizers()
     }
     
-    func setTutorial() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    private func initializeTutorial() {
         tutorialView.isHidden = false
         tutorialBG.image = UIImage(named: "launch_bg")
         tutorialLaunchGif.isHidden = false
@@ -60,12 +59,19 @@ class TutorialViewController: UIViewController {
         tutorialState = 0
     }
     
-    @IBAction func startButtonTapped(_ sender: UIButton) {
-        self.showStoryboard()
+    private func registerGestureRecognizers() {
+        let swipeTutorialRight: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
+        swipeTutorialRight.direction = .right
+        self.tutorialView.addGestureRecognizer(swipeTutorialRight)
+        
+        let swipeTutorialLeft: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
+        swipeTutorialLeft.direction = .left
+        self.tutorialView.addGestureRecognizer(swipeTutorialLeft)
     }
     
-    @IBAction func skipButtonTapped(_ sender: UIButton) {
-        self.showStoryboard()
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        let nextVC = ARDrawingViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func tutorialFlowControlButton(_ sender: UIButton) {
@@ -232,10 +238,4 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    // FIXME: Change to NavigationController structure
-    func showStoryboard() {
-        let nextVC = ARDrawingViewController()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true)
-    }
 }

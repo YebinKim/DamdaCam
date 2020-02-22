@@ -130,16 +130,11 @@ class ARDrawingViewController: UIViewController {
         self.addObservers()
     }
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.uiWindow?.isHidden = false
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         self.configureARSession()
     }
@@ -159,6 +154,14 @@ class ARDrawingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
         self.resetTouches()
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -240,12 +243,12 @@ class ARDrawingViewController: UIViewController {
     
     /// Add new UIWindow with interface elements that forward touch events via the InterfaceViewControllerDelegate protocol
     func setupUI() {
-        uiWindow = UIWindow(frame: UIScreen.main.bounds)
+        self.uiWindow = UIWindow(frame: UIScreen.main.bounds)
         let uiStoryboard = UIStoryboard(name: ARDrawingUIViewController.identifier, bundle: nil)
-        uiViewController = uiStoryboard.instantiateInitialViewController() as? ARDrawingUIViewController
-        uiViewController?.touchDelegate = self
-        uiWindow?.rootViewController = uiViewController
-        uiWindow?.makeKeyAndVisible()
+        self.uiViewController = uiStoryboard.instantiateInitialViewController() as? ARDrawingUIViewController
+        self.uiViewController?.delegate = self
+        self.uiWindow?.rootViewController = uiViewController
+        self.uiWindow?.makeKeyAndVisible()
     }
     
     // MARK: - Stroke Code

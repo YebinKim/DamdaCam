@@ -176,6 +176,8 @@ class ARMotionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.isUserInteractionEnabled = false
+        
         // Set ARSCNView
         self.initializeARView()
         // Set Record Button
@@ -198,6 +200,12 @@ class ARMotionViewController: UIViewController {
         self.halfHeight = self.view.bounds.height / 2
         
         self.registerUIGestureRecognizers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -235,6 +243,8 @@ class ARMotionViewController: UIViewController {
         self.session?.startRunning()
         
         self.view.bringSubviewToFront(iconView)
+        
+        self.view.isUserInteractionEnabled = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -519,19 +529,19 @@ class ARMotionViewController: UIViewController {
     }
     
     @IBAction func changeButtonTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func makingARButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(MakingARViewController.identifier)
+        self.navigationController?.pushFromStoryboard(MakingARViewController.identifier)
     }
     
     @IBAction func settingButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(SettingTableViewController.identifier)
+        self.navigationController?.pushFromStoryboard(SettingTableViewController.identifier)
     }
     
     @IBAction func galleryButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(GalleryViewController.identifier)
+        self.presentFromStoryboard(GalleryViewController.identifier)
     }
     
     func changeModePhoto() {
@@ -1762,10 +1772,4 @@ class ARMotionViewController: UIViewController {
         filterBack.alpha = CGFloat(sender.value)
     }
     
-    func showStoryboard(_ name: String) {
-        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
-        if let nextVC = storyboard.instantiateInitialViewController() {
-            present(nextVC, animated: true, completion: nil)
-        }
-    }
 }

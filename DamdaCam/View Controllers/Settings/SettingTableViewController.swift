@@ -32,6 +32,12 @@ class SettingTableViewController: UITableViewController {
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
         self.navigationController!.navigationBar.barTintColor = Properties.shared.color.white
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     // MARK: - Table view data source
 
@@ -80,7 +86,7 @@ class SettingTableViewController: UITableViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

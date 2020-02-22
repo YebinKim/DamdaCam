@@ -31,6 +31,9 @@ let sm = """
 
 protocol ARDrawingUIViewControllerDelegate: class {
     
+    func pushNextVC(name: String)
+    func presentNextVC(name: String)
+    
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -80,7 +83,7 @@ var pickedColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
 var previewSize: Int = 0
 
 class TouchView: UIView {
-    weak var touchDelegate: ARDrawingUIViewController?
+    weak var delegate: ARDrawingUIViewController?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesBegan(touches, with: event)
@@ -91,7 +94,7 @@ class TouchView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let delegate = touchDelegate {
+        if let delegate = delegate {
             delegate.touchesEnded(touches, with: event)
         }
     }
@@ -107,7 +110,7 @@ class ARDrawingUIViewController: UIViewController {
     
     // ARViewController touch delegate
     @IBOutlet weak var touchView: TouchView!
-    weak var touchDelegate: ARDrawingUIViewControllerDelegate?
+    weak var delegate: ARDrawingUIViewControllerDelegate?
     
     // Record UI
     @IBOutlet var recordView: UIView!
@@ -274,9 +277,11 @@ class ARDrawingUIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.isUserInteractionEnabled = false
+        
         // Set drawing scene view
-        self.touchView.touchDelegate = self
-        self.touchDelegate?.setStrokeSize(brushWidth)
+        self.touchView.delegate = self
+        self.delegate?.setStrokeSize(brushWidth)
         
         self.drawingUIHidden(false)
         
@@ -312,7 +317,7 @@ class ARDrawingUIViewController: UIViewController {
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
-            self.touchDelegate?.setPreviewSize()
+            self.delegate?.setPreviewSize()
             self.updateUIIcon()
         }
         
@@ -330,6 +335,8 @@ class ARDrawingUIViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.view.isUserInteractionEnabled = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -593,15 +600,15 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func changeButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(ARMotionViewController.identifier)
+        self.delegate?.pushNextVC(name: ARMotionViewController.identifier)
     }
     
     @IBAction func settingButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(SettingTableViewController.identifier)
+        self.delegate?.pushNextVC(name: SettingTableViewController.identifier)
     }
     
     @IBAction func galleryButtonTapped(_ sender: UIButton) {
-        self.showStoryboard(GalleryViewController.identifier)
+        self.delegate?.presentNextVC(name: GalleryViewController.identifier)
     }
     
     @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
@@ -646,36 +653,36 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.touchDelegate?.touchesBegan(touches, with: event)
+        self.delegate?.touchesBegan(touches, with: event)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.touchDelegate?.touchesMoved(touches, with: event)
+        self.delegate?.touchesMoved(touches, with: event)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let delegate = self.touchDelegate {
+        if let delegate = self.delegate {
             delegate.touchesEnded(touches, with: event)
         }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.touchDelegate?.touchesCancelled(touches, with: event)
+        self.delegate?.touchesCancelled(touches, with: event)
     }
     
     @IBAction func recordTapped(_ sender: UIButton) {
         if selectedMode {
-            self.touchDelegate?.takePhoto()
+            self.delegate?.takePhoto()
         } else {
             if !videoState {
-                self.touchDelegate?.recordTapped(sender: sender)
+                self.delegate?.recordTapped(sender: sender)
                 
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse, .allowUserInteraction], animations: {
                     self.recordButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                     self.recordButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 })
             } else {
-                self.touchDelegate?.stopRecording()
+                self.delegate?.stopRecording()
                 recordButton.layer.removeAllAnimations()
             }
             
@@ -714,7 +721,7 @@ class ARDrawingUIViewController: UIViewController {
             }
         }
         
-        self.touchDelegate?.setTouchState(true)
+        self.delegate?.setTouchState(true)
         editView.isHidden = true
         drawingPenButton.layer.borderWidth = 2
     }
@@ -724,24 +731,24 @@ class ARDrawingUIViewController: UIViewController {
             pickedColor = Properties.shared.color.drawingPen_blue
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+            self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenTwo {
             pickedColor = Properties.shared.color.drawingPen_green
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+            self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenThree {
             pickedColor = Properties.shared.color.drawingPen_red
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+            self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
         
-        self.touchDelegate?.setTouchState(true)
+        self.delegate?.setTouchState(true)
         editView.isHidden = true
         drawingPenButton.layer.borderWidth = 2
     }
@@ -751,11 +758,11 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func clearAllStrokes(_ sender: UIButton) {
-        self.touchDelegate?.clearStrokesTapped(sender: sender)
+        self.delegate?.clearStrokesTapped(sender: sender)
     }
     
     @IBAction func undoLastStroke(_ sender: UIButton) {
-        self.touchDelegate?.undoLastStroke(sender: sender)
+        self.delegate?.undoLastStroke(sender: sender)
     }
     
     // Clip Set
@@ -985,7 +992,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     func drawingUIHidden(_ isHidden: Bool) {
-        if let delegate = touchDelegate {
+        if let delegate = delegate {
             self.clearAllButton.isHidden = (isHidden == true) ? true : delegate.shouldHideTrashButton()
         }
     }
@@ -996,7 +1003,7 @@ class ARDrawingUIViewController: UIViewController {
                 self.recordingTimer = Timer.scheduledTimer(withTimeInterval: self.clipTime, repeats: false, block: { (timer) in
                     DispatchQueue.main.async {
                         print(self.clipTime)
-                        self.touchDelegate?.stopRecording()
+                        self.delegate?.stopRecording()
                         self.recordButton.layer.removeAllAnimations()
                         self.recordButton.isEnabled = true
                     }
@@ -1080,7 +1087,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func menuTapped(_ sender: UIButton) {
-        self.touchDelegate?.setTouchState(false)
+        self.delegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1173,7 +1180,7 @@ class ARDrawingUIViewController: UIViewController {
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        self.touchDelegate?.setTouchState(false)
+        self.delegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1202,7 +1209,7 @@ class ARDrawingUIViewController: UIViewController {
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        self.touchDelegate?.setTouchState(false)
+        self.delegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1234,7 +1241,7 @@ class ARDrawingUIViewController: UIViewController {
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        self.touchDelegate?.setTouchState(false)
+        self.delegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1262,7 +1269,7 @@ class ARDrawingUIViewController: UIViewController {
         let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
         menuView.addGestureRecognizer(onTapMenuView)
         
-        self.touchDelegate?.setTouchState(false)
+        self.delegate?.setTouchState(false)
         editView.isHidden = false
         drawingPenButton.layer.borderWidth = 0
         
@@ -1448,7 +1455,7 @@ class ARDrawingUIViewController: UIViewController {
             }
         }
         
-        self.touchDelegate?.create3DText(message: textField.text, depth: CGFloat(textDepth), color: pickedColor, align: textField!.textAlignment.rawValue)
+        self.delegate?.create3DText(message: textField.text, depth: CGFloat(textDepth), color: pickedColor, align: textField!.textAlignment.rawValue)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1564,7 +1571,7 @@ class ARDrawingUIViewController: UIViewController {
         }
         
         figure.color = pickedColor
-        self.touchDelegate?.create3DFigure(figure)
+        self.delegate?.create3DFigure(figure)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1583,7 +1590,7 @@ class ARDrawingUIViewController: UIViewController {
         brushPreview.layer.sublayers?[0].removeFromSuperlayer()
         drawLineShape()
         
-        self.touchDelegate?.setStrokeNeon(brushNeonButton.isSelected)
+        self.delegate?.setStrokeNeon(brushNeonButton.isSelected)
     }
     
     @IBAction func brushWidthChanged(_ sender: UISlider) {
@@ -1618,7 +1625,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func brushViewXTapped(_ sender: UIButton) {
-        brushWidth = self.touchDelegate!.getStrokeSize()
+        brushWidth = self.delegate!.getStrokeSize()
         
         buttonHide(state: false)
         
@@ -1630,14 +1637,14 @@ class ARDrawingUIViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.brushView.isHidden = true
             
-            self.touchDelegate?.setTouchState(true)
+            self.delegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
     }
     
     @IBAction func brushViewCheckTapped(_ sender: UIButton) {
-        self.touchDelegate?.setStrokeSize(brushWidth)
+        self.delegate?.setStrokeSize(brushWidth)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1649,7 +1656,7 @@ class ARDrawingUIViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.brushView.isHidden = true
             
-            self.touchDelegate?.setTouchState(true)
+            self.delegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
@@ -1790,7 +1797,7 @@ class ARDrawingUIViewController: UIViewController {
         
         pickedColor = colorPicker.selectedColor
         drawingPenButton.backgroundColor = pickedColor
-        self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+        self.delegate?.setStrokeColor(pickedColor.cgColor)
         
         buttonHide(state: false)
         self.XbuttonTapped(menuXButtonOn)
@@ -1802,7 +1809,7 @@ class ARDrawingUIViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             self.paletteView.isHidden = true
             
-            self.touchDelegate?.setTouchState(true)
+            self.delegate?.setTouchState(true)
             self.editView.isHidden = true
             self.drawingPenButton.layer.borderWidth = 2
         }
@@ -1855,7 +1862,7 @@ class ARDrawingUIViewController: UIViewController {
         
         pickedColor = colorPicker.selectedColor
         drawingPenButton.backgroundColor = pickedColor
-        self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+        self.delegate?.setStrokeColor(pickedColor.cgColor)
         
         figurePreviewColor.backgroundColor = colorPicker.selectedColor
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
@@ -1873,10 +1880,4 @@ class ARDrawingUIViewController: UIViewController {
         }
     }
     
-    func showStoryboard(_ name: String) {
-        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
-        if let nextVC = storyboard.instantiateInitialViewController() {
-            present(nextVC, animated: true, completion: nil)
-        }
-    }
 }

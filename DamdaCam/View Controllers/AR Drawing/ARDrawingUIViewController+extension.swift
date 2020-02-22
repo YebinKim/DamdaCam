@@ -80,7 +80,7 @@ extension ARDrawingUIViewController: UICollectionViewDelegate, UICollectionViewD
             pickedColor = customPaletteArray[indexPath.row]
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
-            self.touchDelegate?.setStrokeColor(pickedColor.cgColor)
+            self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
     }
     

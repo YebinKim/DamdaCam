@@ -620,6 +620,28 @@ extension FileManager {
     
 }
 
+extension UINavigationController {
+    
+    func pushFromStoryboard(_ name: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+        if let nextVC = storyboard.instantiateInitialViewController() {
+            self.pushViewController(nextVC, animated: true)
+        }
+    }
+    
+}
+
+extension UIViewController {
+    
+    func presentFromStoryboard(_ name: String) {
+        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+        if let nextVC = storyboard.instantiateInitialViewController() {
+            self.present(nextVC, animated: true, completion: nil)
+        }
+    }
+    
+}
+
 extension UIButton {
     
     func applyGradient(colors: [CGColor], state: Bool) {

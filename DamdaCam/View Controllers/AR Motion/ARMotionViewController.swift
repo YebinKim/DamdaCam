@@ -107,7 +107,14 @@ class ARMotionViewController: UIViewController {
     var makingARButtonState: Bool = false
     var arMotionButtonState: Bool = false
     var filterButtonState: Bool = false
-    let tapGestureView = UIView()
+    
+    let tapBackView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     // arMotion View
     @IBOutlet var arMotionView: UIView!
@@ -118,10 +125,6 @@ class ARMotionViewController: UIViewController {
     @IBOutlet var bgARMotionButton: UIButton!
     @IBOutlet var arMotionCollectionView: UICollectionView!
     @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
-    var myARMotionArray: [UIImage]!
-    var allARMotionArray: [UIImage]!
-    var faceARMotionArray: [UIImage]!
-    var bgARMotionArray: [UIImage]!
     var arMotionViewState: Bool = false
     var toARMotionNO: Bool = false // toarMotionNO
     var toARMotionYES: Bool = false // toarMotionYES
@@ -171,6 +174,48 @@ class ARMotionViewController: UIViewController {
     private var halfWidth: CGFloat?
     private var halfHeight: CGFloat?
     
+    var myARMotionArray: [UIImage]? {
+        guard let makingARArray = DamdaData.shared.makingARArray else { return nil }
+        return makingARArray
+    }
+    
+    var faceARMotionArray: [UIImage] {
+        var array = [UIImage]()
+        
+        for kind in FaceARMotion.Kind.allCases {
+            if let image = UIImage(named: "FaceAR_\(kind)") {
+                array.append(image)
+            }
+        }
+        
+        if let myARMotionArray = self.myARMotionArray {
+            array.append(contentsOf: myARMotionArray)
+        }
+        
+        return array
+    }
+    
+    var bgARMotionArray: [UIImage] {
+        var array = [UIImage]()
+        
+        for kind in BGARMotion.Kind.allCases {
+            if let image = UIImage(named: "BGAR_\(kind)") {
+                array.append(image)
+            }
+        }
+        
+        return array
+    }
+    
+    var allARMotionArray: [UIImage] {
+        var array = [UIImage]()
+        
+        array.append(contentsOf: self.faceARMotionArray)
+        array.append(contentsOf: self.bgARMotionArray)
+        
+        return array
+    }
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
@@ -187,7 +232,7 @@ class ARMotionViewController: UIViewController {
         // Set menu view
         self.initializeMenuView()
         // Set Tap Gesture View on ARMotionView and FilterView
-        self.initializeTapGestureView()
+        self.initializeTapBackView()
         
         self.initializeARMotionView()
         self.initializeFilterView()
@@ -243,6 +288,7 @@ class ARMotionViewController: UIViewController {
         self.session?.startRunning()
         
         self.view.bringSubviewToFront(iconView)
+        self.view.bringSubviewToFront(tapBackView)
         
         self.view.isUserInteractionEnabled = true
     }
@@ -271,9 +317,11 @@ class ARMotionViewController: UIViewController {
         self.recordMoveButton.addGestureRecognizer(swipeButtonUp)
         
         // menu set
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
-        menuView.addGestureRecognizer(tapMenuView)
-        tapGestureView.addGestureRecognizer(tapMenuView)
+        let dismissMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
+        self.menuView.addGestureRecognizer(dismissMenuView)
+        
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissCollection))
+        self.tapBackView.addGestureRecognizer(dismissCollectionView)
     }
     
     private func initializeARView() {
@@ -343,9 +391,9 @@ class ARMotionViewController: UIViewController {
         addBackView(view: menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
     }
     
-    private func initializeTapGestureView() {
-        self.view.addSubview(self.tapGestureView)
-        self.tapGestureView.isHidden = true
+    private func initializeTapBackView() {
+        self.view.addSubview(self.tapBackView)
+        self.tapBackView.isHidden = true
     }
     
     private func initializeARMotionView() {
@@ -373,7 +421,6 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeARMotionCollectionView() {
-        createarMotionArray()
         self.arMotionCollectionView.delegate = self
         self.arMotionCollectionView.dataSource = self
     }
@@ -489,7 +536,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerARMotionViewGestureRecognizers() {
-        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(arMotionViewSwipe))
+        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
         swipeARMotionView.direction = .down
         self.arMotionView.addGestureRecognizer(swipeARMotionView)
         
@@ -505,7 +552,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerFilterViewGestureRecognizers() {
-        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(filterViewSwipe))
+        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
         swipeFilterView.direction = .down
         filterView.addGestureRecognizer(swipeFilterView)
     }
@@ -1043,7 +1090,7 @@ class ARMotionViewController: UIViewController {
     }
     
     func arMotionDelete() {
-        arScene.rootNode.enumerateChildNodes { (node, stop) in
+        arScene.rootNode.enumerateChildNodes { (node, _) in
             node.removeFromParentNode()
             node.removeAllParticleSystems()
         }
@@ -1066,7 +1113,6 @@ class ARMotionViewController: UIViewController {
         let center = getGravityCenter(first: leftPupil[0], second: rightPupil[0], third: innerLips[2])
         let facePos = normalizationPos(source: center)
         
-        // FIXME - 삼각함수를 써보자
         let pos_x = Float(facePos.x) - (faceYaw) - (faceRoll * 3.2)
         let pos_y = -Float(facePos.y) - abs(faceRoll * 2.0) - abs(pitch / 2.0)
         
@@ -1406,7 +1452,11 @@ class ARMotionViewController: UIViewController {
     }
     
     // Menu Set
-    @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
+        XbuttonTapped(menuXButtonOn)
+    }
+    
+    @objc func dismissCollection(gestureRecognizer: Any) {
         XbuttonTapped(menuXButtonOn)
         
         if arMotionViewState {
@@ -1420,46 +1470,12 @@ class ARMotionViewController: UIViewController {
             })
         }
         
-        if filterViewState {
-            filterViewState = false
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.buttonHide(state: true)
-                self.filterBackView.center += CGPoint(x: 0, y: 207.5)
-                
-                self.filterPowerSlider.isHidden = true
-                
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    
-    @objc func arMotionViewSwipe(gestureRecognizer: UISwipeGestureRecognizer) {
-        XbuttonTapped(menuXButtonOn)
-        
         if arMotionViewState {
             arMotionViewState = false
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
                 self.arMotionView.center += CGPoint(x: 0, y: 230)
-                
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    
-    @objc func filterViewSwipe(gestureRecognizer: UISwipeGestureRecognizer) {
-        XbuttonTapped(menuXButtonOn)
-        
-        if filterViewState {
-            filterViewState = false
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.buttonHide(state: true)
-                self.filterBackView.center += CGPoint(x: 0, y: 207.5)
-                
-                self.filterPowerSlider.isHidden = true
                 
                 self.view.layoutIfNeeded()
             })
@@ -1508,7 +1524,7 @@ class ARMotionViewController: UIViewController {
     }
     
     @IBAction func XbuttonTapped(_ sender: UIButton) {
-        tapGestureView.isHidden = true
+        tapBackView.isHidden = true
         
         menuXButton.isEnabled = false
         menuXButtonOn.isEnabled = false
@@ -1558,8 +1574,7 @@ class ARMotionViewController: UIViewController {
         let indexPaths = [IndexPath]()
         arMotionCollectionView.reloadItems(at: indexPaths)
         
-        tapGestureView.isHidden = false
-        tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
+        tapBackView.isHidden = false
         
         makingARButtonState = false
         arMotionButtonState = true
@@ -1576,8 +1591,7 @@ class ARMotionViewController: UIViewController {
     }
     
     @IBAction func fiterbuttonTapped(_ sender: UIButton) {
-        tapGestureView.isHidden = false
-        tapGestureView.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
+        tapBackView.isHidden = false
         
         makingARButtonState = false
         arMotionButtonState = false
@@ -1682,13 +1696,7 @@ class ARMotionViewController: UIViewController {
     
     // arMotion View
     @IBAction func arMotionDeleteButtonTapped(_ sender: UIButton) {
-        createarMotionArray()
-        
         UIView.animate(withDuration: 0.2) {
-            //            self.blurView.alpha = 0.8
-            //            self.buttonHide()
-            //            self.arMotionView.center += CGPoint(x: 0, y: 230)
-            
             self.arMotionDelete()
         }
     }
@@ -1722,27 +1730,6 @@ class ARMotionViewController: UIViewController {
         DispatchQueue.main.async {
             self.arMotionCollectionView.reloadData()
         }
-    }
-    
-    // FIXME: CoreData 모델화 진행중
-    func createarMotionArray() {
-        allARMotionArray = Array()
-        faceARMotionArray = Array()
-        bgARMotionArray = Array()
-        
-        for kind in FaceARMotion.Kind.allCases {
-            if let image = UIImage(named: "FaceAR_\(kind)") {
-                faceARMotionArray.append(image)
-            }
-        }
-        
-        for kind in BGARMotion.Kind.allCases {
-            if let image = UIImage(named: "BGAR_\(kind)") {
-                bgARMotionArray.append(image)
-            }
-        }
-        
-        allARMotionArray = DamdaData.shared.makingARArray
     }
     
     @IBAction func filterTempAction(_ sender: UIButton) {

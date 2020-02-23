@@ -368,7 +368,7 @@ class ARDrawingUIViewController: UIViewController {
         self.recordMoveButton.addGestureRecognizer(swipeButtonUp)
         
         // menu set
-        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MenuViewTap))
+        let tapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         menuView.addGestureRecognizer(tapMenuView)
     }
     
@@ -1061,7 +1061,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     // Menu Set
-    @objc func MenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
         self.XbuttonTapped(menuXButtonOn)
         
         gestureRecognizer.cancelsTouchesInView = false
@@ -1071,7 +1071,7 @@ class ARDrawingUIViewController: UIViewController {
         }
     }
     
-    @objc func OnMenuViewTap(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func showMenu(gestureRecognizer: UITapGestureRecognizer) {
         self.XbuttonTapped(menuXButtonOn)
         self.textViewXTapped(textXButton)
         self.figureViewXTapped(figureXButton)
@@ -1177,7 +1177,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func textbuttonTapped(_ sender: UIButton) {
-        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
+        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMenu))
         menuView.addGestureRecognizer(onTapMenuView)
         
         self.delegate?.setTouchState(false)
@@ -1206,7 +1206,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func figurebuttonTapped(_ sender: UIButton) {
-        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
+        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMenu))
         menuView.addGestureRecognizer(onTapMenuView)
         
         self.delegate?.setTouchState(false)
@@ -1238,7 +1238,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func brushbuttonTapped(_ sender: UIButton) {
-        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
+        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMenu))
         menuView.addGestureRecognizer(onTapMenuView)
         
         self.delegate?.setTouchState(false)
@@ -1266,7 +1266,7 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     @IBAction func palettebuttonTapped(_ sender: UIButton) {
-        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OnMenuViewTap))
+        let onTapMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMenu))
         menuView.addGestureRecognizer(onTapMenuView)
         
         self.delegate?.setTouchState(false)

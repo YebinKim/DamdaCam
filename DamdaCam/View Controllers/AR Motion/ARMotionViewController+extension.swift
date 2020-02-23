@@ -212,7 +212,7 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.arMotionCollectionView {
-            if myARMotionButton.isSelected {
+            if myARMotionButton.isSelected, let myARMotionArray = myARMotionArray {
                 return myARMotionArray.count
             } else if allARMotionButton.isSelected {
                 return allARMotionArray.count
@@ -242,7 +242,7 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
             arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
             arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
-            if myARMotionButton.isSelected {
+            if myARMotionButton.isSelected, let myARMotionArray = myARMotionArray {
                 arMotionCell.previewImage.image = myARMotionArray[indexPath.row]
                 
                 return arMotionCell

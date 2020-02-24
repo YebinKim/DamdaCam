@@ -212,8 +212,8 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.arMotionCollectionView {
-            if myARMotionButton.isSelected, let myARMotionArray = myARMotionArray {
-                return myARMotionArray.count
+            if myARMotionButton.isSelected {
+                return 0 /*myARMotionArray.count*/
             } else if allARMotionButton.isSelected {
                 return allARMotionArray.count
             } else if faceARMotionButton.isSelected {
@@ -242,8 +242,8 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
             arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
             arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
-            if myARMotionButton.isSelected, let myARMotionArray = myARMotionArray {
-                arMotionCell.previewImage.image = myARMotionArray[indexPath.row]
+            if myARMotionButton.isSelected {
+                /*arMotionCell.previewImage.image = myARMotionArray[indexPath.row]*/
                 
                 return arMotionCell
             } else if allARMotionButton.isSelected {
@@ -283,30 +283,30 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
                 
             } else if allARMotionButton.isSelected {
                 if indexPath.row == 0 {
-                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadARMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if indexPath.row == 1 {
-                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadARMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if indexPath.row == 2 {
-                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadARMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if indexPath.row == 3 {
-                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadARMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if indexPath.row == 4 {
-                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadARMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if indexPath.row == 5 {
-                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
+                    self.loadARMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if indexPath.row == 6 {
-                    self.loadarMotionNode("baaan", position: SCNVector3(x: 0, y: 4, z: -5))
+                    self.loadARMotionNode("baaan", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if indexPath.row == 7 {
                     if isBlink {
-                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadARMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
-                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadARMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
                 } else if indexPath.row == 8 {
-                    self.loadarMotionNode("soughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
+                    self.loadARMotionNode("soughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if indexPath.row == 9 {
-                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadARMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if indexPath.row == bgARMotionIndex {
                     self.loadBGMotionNode("snow")
                 } else if indexPath.row == bgARMotionIndex + 1 {
@@ -326,30 +326,30 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             } else if faceARMotionButton.isSelected {
                 if indexPath.row == 0 {
-                    self.loadarMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadARMotionNode("heart", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if indexPath.row == 1 {
-                    self.loadarMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadARMotionNode("angel", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else if indexPath.row == 2 {
-                    self.loadarMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
+                    self.loadARMotionNode("rabbit", position: SCNVector3(x: 0, y: 3.5, z: -5))
                 } else if indexPath.row == 3 {
-                    self.loadarMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadARMotionNode("cat", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if indexPath.row == 4 {
-                    self.loadarMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
+                    self.loadARMotionNode("mouse", position: SCNVector3(x: 0, y: 3.5, z: -5), isHead: true)
                 } else if indexPath.row == 5 {
-                    self.loadarMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
+                    self.loadARMotionNode("peach", position: SCNVector3(x: 0, y: 4.35, z: -5))
                 } else if indexPath.row == 6 {
-                    self.loadarMotionNode("baaam", position: SCNVector3(x: 0, y: 4, z: -5))
+                    self.loadARMotionNode("baaam", position: SCNVector3(x: 0, y: 4, z: -5))
                 } else if indexPath.row == 7 {
                     if isBlink {
-                        self.loadarMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadARMotionNode("mushroom1", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     } else {
-                        self.loadarMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
+                        self.loadARMotionNode("mushroom2", position: SCNVector3(x: 0, y: 2.5, z: -5), isHead: true)
                     }
                     isBlink = !isBlink
                 } else if indexPath.row == 8 {
-                    self.loadarMotionNode("doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
+                    self.loadARMotionNode("doughnut1", position: SCNVector3(x: 0, y: -4, z: -5))
                 } else if indexPath.row == 9 {
-                    self.loadarMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
+                    self.loadARMotionNode("flower3", position: SCNVector3(x: 0, y: 0, z: -5))
                 } else {
                     self.arMotionSelected_MakingAR(index: indexPath.row)
                 }
@@ -365,7 +365,7 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
                 } else if indexPath.row == 4 {
                     self.loadBGMotionNode("greenery")
                 } else if indexPath.row == 5 {
-                    self.loadBGMotionNode("fruits")
+                    self.loadBGMotionNode("fruit")
                 } else if indexPath.row == 6 {
                     self.loadBGMotionNode("glow")
                 }

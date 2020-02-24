@@ -174,11 +174,6 @@ class ARMotionViewController: UIViewController {
     private var halfWidth: CGFloat?
     private var halfHeight: CGFloat?
     
-    var myARMotionArray: [UIImage]? {
-        guard let makingARArray = DamdaData.shared.makingARArray else { return nil }
-        return makingARArray
-    }
-    
     var faceARMotionArray: [UIImage] {
         var array = [UIImage]()
         
@@ -188,8 +183,8 @@ class ARMotionViewController: UIViewController {
             }
         }
         
-        if let myARMotionArray = self.myARMotionArray {
-            array.append(contentsOf: myARMotionArray)
+        if let makingARArray = DamdaData.shared.makingARArray {
+            array.append(contentsOf: makingARArray)
         }
         
         return array
@@ -1238,7 +1233,7 @@ class ARMotionViewController: UIViewController {
         }
     }
     
-    func loadarMotionNode(_ name: String, position: SCNVector3, isHead: Bool) {
+    func loadARMotionNode(_ name: String, position: SCNVector3, isHead: Bool) {
         
         if isHead {
             guard let headScene = SCNScene(named: "FaceAR.scnassets/\(name)_head.scn"),
@@ -1257,11 +1252,11 @@ class ARMotionViewController: UIViewController {
             self.arScene.rootNode.addChildNode(headNode)
             self.arScene.rootNode.addChildNode(noseNode)
         } else {
-            loadarMotionNode(name, position: position)
+            loadARMotionNode(name, position: position)
         }
     }
     
-    func loadarMotionNode(_ name: String, position: SCNVector3) {
+    func loadARMotionNode(_ name: String, position: SCNVector3) {
         guard let scene = SCNScene(named: "FaceAR.scnassets/\(name).scn") else { return }
         
         self.arNode_x = position.x
@@ -1278,12 +1273,14 @@ class ARMotionViewController: UIViewController {
         self.bgNode = SCNNode()
         var count = 1
         
-        if let particle = SCNParticleSystem(named: "BGAR.scnassets/\(name)_\(count).scnp", inDirectory: nil) {
+        while let particle = SCNParticleSystem(named: "BGAR.scnassets/\(name)_\(count).scnp", inDirectory: nil) {
+            particle.warmupDuration = 10
             self.bgNode.addParticleSystem(particle)
+            
             count += 1
         }
         
-        self.bgNode.position = SCNVector3Zero
+        self.bgNode.position = SCNVector3(x: 0, y: 5, z: 0)
         
         self.arScene.rootNode.addChildNode(self.bgNode)
     }

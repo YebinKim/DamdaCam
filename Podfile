@@ -6,21 +6,15 @@ platform :ios, '12.0'
 def pods_all_targets
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
 	pod 'lottie-ios'
-	pod 'Reachability', '~> 3.2'
 
   # Pods for GoogleAR frameworks
-	pod 'ARCore',  '~> 1.4.0'
-	pod 'GTMSessionFetcher/Core', '~> 1.1'
-	pod 'GoogleToolboxForMac/Logger', '~> 2.1'
-	pod 'GoogleToolboxForMac/NSData+zlib', '~> 2.1'
-	pod 'Protobuf', '~> 3.5'
-  	pod 'gRPC-ProtoRPC', '~> 1.0'
+	pod 'ARCore',  '~> 1.4'
 
   # Face Detection frameworks
-	pod 'Metron', '~> 1.0.2'
+	pod 'Metron', '~> 1.0'
     
   # Color Picker frameworks
-  	pod 'FlexColorPicker', '~> 1.2.1'
+  	pod 'FlexColorPicker', '~> 1.4'
   
   # Lint
   pod 'SwiftLint'

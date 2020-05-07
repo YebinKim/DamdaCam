@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ptr-uY-WL2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ptr-uY-WL2">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1194,7 +1194,7 @@
                                                 <color key="textColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqe-IA-Mjw" customClass="HueSliderControl" customModule="FlexColorPicker">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqe-IA-Mjw" customClass="HueUISliderColorControl" customModule="DamdaCam" customModuleProvider="target">
                                                 <rect key="frame" x="58" y="19" width="230" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1395,6 +1395,7 @@
                         <outlet property="figureXButton" destination="l0L-Gc-77C" id="QaC-UI-zCN"/>
                         <outlet property="galleryButton" destination="cdj-kg-fmX" id="X2M-M2-8Lb"/>
                         <outlet property="greenSlider" destination="tfT-IY-Rk0" id="Fp7-P4-03G"/>
+                        <outlet property="hueSlider" destination="hqe-IA-Mjw" id="e7t-Fz-oZG"/>
                         <outlet property="menuBrushButton" destination="h3F-Uw-KuR" id="C4f-dp-ndC"/>
                         <outlet property="menuBrushLabel" destination="j6K-Ma-dWG" id="LNb-jW-cyf"/>
                         <outlet property="menuButton" destination="NYV-0G-LsK" id="Mlv-kH-kG6"/>

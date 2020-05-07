@@ -1726,12 +1726,9 @@ class ARDrawingUIViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var hueSlider: HueSliderControl? {
-        get {
-            return colorPicker.hueSlider
-        }
-        set {
-            colorPicker.hueSlider = newValue
+    @IBOutlet weak var hueSlider: HueUISliderColorControl? {
+        didSet {
+            colorPicker.controlDidSet(newValue: hueSlider, oldValue: oldValue)
         }
     }
     

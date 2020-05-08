@@ -445,7 +445,7 @@ extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
                     
                     // while relocalizing after interruption, only attempt for 5 seconds, then reset, and only when not paired
                     if strokes.count > 0 && resumeFromInterruptionTimer == nil {
-                        resumeFromInterruptionTimer = Timer(timeInterval: 5, repeats: false, block: { (timer) in
+                        resumeFromInterruptionTimer = Timer(timeInterval: 5, repeats: false, block: { _ in
                             NSLog("Resetting ARSession because relocalizing took too long")
                             DispatchQueue.main.async {
                                 self.resumeFromInterruptionTimer?.invalidate()
@@ -482,7 +482,7 @@ extension ARDrawingViewController: ARSCNViewDelegate, ARSessionDelegate {
         if trackingMessageTimer == nil {
             trackingMessage = .looking
             
-            trackingMessageTimer = Timer(timeInterval: 3, repeats: false, block: { (timer) in
+            trackingMessageTimer = Timer(timeInterval: 3, repeats: false, block: { _ in
                 self.trackingMessage = .lookingEscalated
                 
                 // need to set mode again to update tracking message

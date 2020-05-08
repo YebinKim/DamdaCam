@@ -979,12 +979,12 @@ class ARDrawingUIViewController: UIViewController {
             self.trackingStartView.alpha = 0
             
             // Reset state
-        }) { (isComplete) in
+        }, completion: { _ in
             ///            self.trackingPromptContainer.isHidden = true
             self.trackingImageCenterConstraint.constant = -15
             self.trackingPromptContainer.layoutIfNeeded()
             self.trackingPromptContainer.layer.removeAllAnimations()
-        }
+        })
         
         DispatchQueue.main.async {
             self.trackingStartView.isHidden = true
@@ -1000,7 +1000,7 @@ class ARDrawingUIViewController: UIViewController {
     func recordingWillStart() {
         if clipTime != 0.0 {
             DispatchQueue.main.async {
-                self.recordingTimer = Timer.scheduledTimer(withTimeInterval: self.clipTime, repeats: false, block: { (timer) in
+                self.recordingTimer = Timer.scheduledTimer(withTimeInterval: self.clipTime, repeats: false, block: { _ in
                     DispatchQueue.main.async {
                         print(self.clipTime)
                         self.delegate?.stopRecording()

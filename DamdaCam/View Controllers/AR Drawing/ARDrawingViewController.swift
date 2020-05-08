@@ -23,6 +23,8 @@ class ARDrawingViewController: UIViewController {
         return sceneView
     }()
     
+    private var observers: [NSObjectProtocol] = []
+    
     // AR Drawing
     /// store current touch location in view
     var touchPoint: CGPoint = .zero
@@ -164,6 +166,12 @@ class ARDrawingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        for observer in observers {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.touchPoint = .zero
     }
@@ -217,9 +225,9 @@ class ARDrawingViewController: UIViewController {
     }
     
     private func addObservers() {
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (notification) in
+        observers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
             self.touchPoint = .zero
-        }
+        })
     }
     
     func configureARSession(options: ARSession.RunOptions = []) {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -64,9 +64,10 @@
 		3EF7964123E6A59C00C56DDB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7964023E6A59C00C56DDB /* Color.swift */; };
 		3EF7964323E6B25C00C56DDB /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7964223E6B25C00C56DDB /* Font.swift */; };
 		3EF7966C23E9A94900C56DDB /* FaceARMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7966A23E9A94900C56DDB /* FaceARMotion.swift */; };
-		3EF7967023E9ACBB00C56DDB /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7966F23E9ACBB00C56DDB /* DamdaData.swift */; };
 		3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7967323E9AD0A00C56DDB /* BGARMotion.swift */; };
 		3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */; };
+		44B147AB24712BFF0027163F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44B147AD24712BFF0027163F /* Localizable.strings */; };
+		44B147B1247139340027163F /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B147B0247139340027163F /* DamdaData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,11 +135,13 @@
 		3EF7964023E6A59C00C56DDB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3EF7964223E6B25C00C56DDB /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		3EF7966A23E9A94900C56DDB /* FaceARMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaceARMotion.swift; path = Model/FaceARMotion.swift; sourceTree = "<group>"; };
-		3EF7966F23E9ACBB00C56DDB /* DamdaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DamdaData.swift; path = DamdaCam/Model/CoreData/DamdaData.swift; sourceTree = SOURCE_ROOT; };
 		3EF7967323E9AD0A00C56DDB /* BGARMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGARMotion.swift; path = Model/BGARMotion.swift; sourceTree = "<group>"; };
 		3EFCD65A21AE33D900D51C0C /* DamdaCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamdaCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EFCD66921AE33DA00D51C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44B147AC24712BFF0027163F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44B147AE24712C160027163F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44B147B0247139340027163F /* DamdaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DamdaData.swift; path = DamdaCam/Model/CoreData/DamdaData.swift; sourceTree = SOURCE_ROOT; };
 		7A2FF700FA191457E5E0427B /* Pods-DamdaCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.release.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.release.xcconfig"; sourceTree = "<group>"; };
 		DD07DBB44A624F2B8AF2F0F4 /* libPods-DamdaCam.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DamdaCam.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -308,7 +311,7 @@
 		3EF105FA23B71FF900CCB7E1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3EF7966E23E9ACAD00C56DDB /* CoreData */,
+				44B147AF247138DE0027163F /* CoreData */,
 				3EF7966A23E9A94900C56DDB /* FaceARMotion.swift */,
 				3EF7967323E9AD0A00C56DDB /* BGARMotion.swift */,
 				3ED5BB9B23E30FC100ABC30E /* Figure.swift */,
@@ -342,14 +345,6 @@
 			name = "Lottie Animations";
 			sourceTree = "<group>";
 		};
-		3EF7966E23E9ACAD00C56DDB /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				3EF7966F23E9ACBB00C56DDB /* DamdaData.swift */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		3EFCD65121AE33D900D51C0C = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +373,7 @@
 				3EF105AC23B71EA100CCB7E1 /* Views */,
 				3EF105FA23B71FF900CCB7E1 /* Model */,
 				3EF1060123B7201400CCB7E1 /* Resources */,
+				44B147A824712BC30027163F /* String */,
 				3E38F60F23DAF239002AAAB4 /* Utility */,
 				3EF1062623B7207800CCB7E1 /* Lottie Animations */,
 				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
@@ -385,6 +381,22 @@
 				3ED4BDD7227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld */,
 			);
 			path = DamdaCam;
+			sourceTree = "<group>";
+		};
+		44B147A824712BC30027163F /* String */ = {
+			isa = PBXGroup;
+			children = (
+				44B147AD24712BFF0027163F /* Localizable.strings */,
+			);
+			name = String;
+			sourceTree = "<group>";
+		};
+		44B147AF247138DE0027163F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				44B147B0247139340027163F /* DamdaData.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		D5114BA9024EE45F89C6490E /* Pods */ = {
@@ -454,6 +466,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 3EFCD65121AE33D900D51C0C;
 			productRefGroup = 3EFCD65B21AE33D900D51C0C /* Products */;
@@ -483,6 +496,7 @@
 				3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */,
 				3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */,
 				3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */,
+				44B147AB24712BFF0027163F /* Localizable.strings in Resources */,
 				3E38F60123DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard in Resources */,
 				3EF1062C23B7208000CCB7E1 /* stay_put.json in Resources */,
 				3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */,
@@ -596,19 +610,32 @@
 				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
 				3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */,
 				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,
+				44B147B1247139340027163F /* DamdaData.swift in Sources */,
 				3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */,
 				3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */,
-				3EF7967023E9ACBB00C56DDB /* DamdaData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		44B147AD24712BFF0027163F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44B147AC24712BFF0027163F /* en */,
+				44B147AE24712C160027163F /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3EFCD66A21AE33DA00D51C0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -670,6 +697,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

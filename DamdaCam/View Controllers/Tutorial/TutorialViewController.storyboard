@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Bold.otf">
+            <string>NotoSansCJKkr-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Tutorial View Controller-->
         <scene sceneID="IMp-Qb-470">
@@ -33,6 +38,18 @@
                                             <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="wFc-Io-oS4"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3pG-ZK-93G">
+                                        <rect key="frame" x="50" y="78" width="331" height="110.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="3pG-ZK-93G" secondAttribute="height" multiplier="3:1" id="5YI-VQ-vyE"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_logo" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-GH-Pso">
+                                        <rect key="frame" x="168" y="97" width="78" height="68.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="0Zk-GH-Pso" secondAttribute="height" multiplier="71:62" id="BLg-IJ-C5o"/>
+                                        </constraints>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FyJ-oc-0M0">
                                         <rect key="frame" x="50" y="396.5" width="331" height="103"/>
                                         <constraints>
@@ -45,6 +62,31 @@
                                             <constraint firstAttribute="width" secondItem="Ofm-Gi-UoK" secondAttribute="height" multiplier="89:86" id="tbN-pQ-6aL"/>
                                         </constraints>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dPk-aL-lil">
+                                        <rect key="frame" x="47" y="263.5" width="320" height="301"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="dPk-aL-lil" secondAttribute="height" multiplier="290:273" id="oY8-ba-1pY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w66-Za-o18">
+                                        <rect key="frame" x="185.5" y="596.5" width="43" height="28.5"/>
+                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="19"/>
+                                        <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSn-Ii-s0q">
+                                        <rect key="frame" x="172" y="646" width="70" height="19.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Description">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.76078431372549016" green="0.76078431372549016" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="13" name="NotoSansCJKkr-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCL-JT-HN1">
                                         <rect key="frame" x="39.5" y="717" width="335" height="73"/>
                                         <constraints>
@@ -86,24 +128,6 @@
                                             <action selector="tutorialFlowControlButton:" destination="WPR-Dl-nJq" eventType="touchUpInside" id="b8f-ea-TOc"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dPk-aL-lil">
-                                        <rect key="frame" x="47" y="263.5" width="320" height="301"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="dPk-aL-lil" secondAttribute="height" multiplier="290:273" id="oY8-ba-1pY"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3pG-ZK-93G">
-                                        <rect key="frame" x="50" y="78" width="331" height="110.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="3pG-ZK-93G" secondAttribute="height" multiplier="3:1" id="5YI-VQ-vyE"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_logo" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-GH-Pso">
-                                        <rect key="frame" x="168" y="97" width="78" height="68.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="0Zk-GH-Pso" secondAttribute="height" multiplier="71:62" id="BLg-IJ-C5o"/>
-                                        </constraints>
-                                    </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Jrp-66-RVM">
                                         <rect key="frame" x="139" y="802" width="136" height="12"/>
                                         <subviews>
@@ -152,14 +176,16 @@
                                     <constraint firstItem="3pG-ZK-93G" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.8" id="4FE-3S-ba7"/>
                                     <constraint firstAttribute="trailing" secondItem="vlN-Nr-8Ns" secondAttribute="trailing" id="59Z-zq-M10"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="vdp-wb-PrP" secondAttribute="bottom" constant="32" id="AdQ-GX-LJz"/>
+                                    <constraint firstItem="PSn-Ii-s0q" firstAttribute="top" secondItem="w66-Za-o18" secondAttribute="bottom" constant="21" id="BGE-RR-Sav"/>
+                                    <constraint firstItem="PSn-Ii-s0q" firstAttribute="centerX" secondItem="gQ9-Gr-59D" secondAttribute="centerX" id="BSW-RW-8Ac"/>
                                     <constraint firstItem="FyJ-oc-0M0" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.8" id="DIM-OV-pJ9"/>
                                     <constraint firstAttribute="bottom" secondItem="vlN-Nr-8Ns" secondAttribute="bottom" id="Dfh-3T-KeB"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="Jrp-66-RVM" secondAttribute="bottom" constant="40" id="EqC-3j-UTu"/>
                                     <constraint firstItem="FyJ-oc-0M0" firstAttribute="centerX" secondItem="gQ9-Gr-59D" secondAttribute="centerX" constant="8.5" id="F23-Jk-I52"/>
                                     <constraint firstItem="3pG-ZK-93G" firstAttribute="top" secondItem="gQ9-Gr-59D" secondAttribute="topMargin" constant="26" id="G1u-fY-7da"/>
+                                    <constraint firstItem="w66-Za-o18" firstAttribute="top" secondItem="dPk-aL-lil" secondAttribute="bottom" constant="32" id="GIn-8S-404"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="F9t-fG-Wwv" secondAttribute="bottom" constant="32" id="Iw3-4n-u8N"/>
                                     <constraint firstItem="dPk-aL-lil" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.773333" id="KEL-Jv-WcH"/>
-                                    <constraint firstItem="Jrp-66-RVM" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.328502" id="P6a-I7-RzS"/>
                                     <constraint firstAttribute="trailing" secondItem="f6r-oT-907" secondAttribute="trailing" constant="24" id="QMh-DJ-FBX"/>
                                     <constraint firstItem="vdp-wb-PrP" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.0426667" id="QVQ-Wj-mva"/>
                                     <constraint firstItem="GIp-eI-hYk" firstAttribute="width" secondItem="gQ9-Gr-59D" secondAttribute="width" multiplier="0.0746667" id="TBx-7V-Fm0"/>
@@ -182,6 +208,7 @@
                                     <constraint firstItem="0Zk-GH-Pso" firstAttribute="centerX" secondItem="gQ9-Gr-59D" secondAttribute="centerX" id="rwL-qI-3mD"/>
                                     <constraint firstAttribute="trailing" secondItem="GIp-eI-hYk" secondAttribute="trailing" constant="24" id="sbS-71-Zwv"/>
                                     <constraint firstItem="FyJ-oc-0M0" firstAttribute="centerY" secondItem="gQ9-Gr-59D" secondAttribute="centerY" id="vQP-n2-w8z"/>
+                                    <constraint firstItem="w66-Za-o18" firstAttribute="centerX" secondItem="gQ9-Gr-59D" secondAttribute="centerX" id="xfS-Tk-P06"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -196,18 +223,20 @@
                     </view>
                     <navigationItem key="navigationItem" id="LBd-uH-czl"/>
                     <connections>
+                        <outlet property="descriptionLabel" destination="PSn-Ii-s0q" id="DuP-18-AYV"/>
+                        <outlet property="flowCircleStackView" destination="Jrp-66-RVM" id="EVN-os-4eL"/>
+                        <outlet property="launchButton" destination="XCL-JT-HN1" id="d1K-w0-lPF"/>
+                        <outlet property="leftButton" destination="vdp-wb-PrP" id="C0P-mS-jTy"/>
+                        <outlet property="rightButton" destination="F9t-fG-Wwv" id="9hK-RT-YEh"/>
+                        <outlet property="startButton" destination="f6r-oT-907" id="BuJ-RX-G2M"/>
+                        <outlet property="titleLabel" destination="w66-Za-o18" id="quT-zJ-WFK"/>
                         <outlet property="tutirialLogoGif" destination="3pG-ZK-93G" id="yIM-Zx-fHh"/>
                         <outlet property="tutorialBG" destination="vlN-Nr-8Ns" id="aK9-om-EMi"/>
-                        <outlet property="tutorialFlowCircleStackView" destination="Jrp-66-RVM" id="37K-cA-a6f"/>
                         <outlet property="tutorialGifView" destination="dPk-aL-lil" id="CW8-Tc-usa"/>
-                        <outlet property="tutorialLaunchButton" destination="XCL-JT-HN1" id="rCH-Gn-6pu"/>
                         <outlet property="tutorialLaunchGif" destination="FyJ-oc-0M0" id="u9g-ng-jkd"/>
                         <outlet property="tutorialLaunchLogo" destination="Ofm-Gi-UoK" id="ASU-8s-37L"/>
-                        <outlet property="tutorialLeftButton" destination="vdp-wb-PrP" id="ceR-ny-Ddw"/>
                         <outlet property="tutorialLogo" destination="0Zk-GH-Pso" id="i2L-D9-ddV"/>
-                        <outlet property="tutorialRightButton" destination="F9t-fG-Wwv" id="aAV-4i-g0g"/>
                         <outlet property="tutorialSkipButton" destination="GIp-eI-hYk" id="MUr-tE-FVa"/>
-                        <outlet property="tutorialStartButton" destination="f6r-oT-907" id="Jfy-vJ-dDQ"/>
                         <outlet property="tutorialView" destination="gQ9-Gr-59D" id="pAU-gn-sDb"/>
                     </connections>
                 </viewController>

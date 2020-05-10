@@ -777,3 +777,9 @@ extension CGColor {
         return (ciColor.red, ciColor.green, ciColor.blue, ciColor.alpha)
     }
 }
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: "Localizable", value: self, comment: "")
+    }
+}

@@ -15,15 +15,17 @@ class TutorialViewController: UIViewController {
     // Tutorial View
     @IBOutlet weak var tutorialView: UIView!
     @IBOutlet weak var tutorialBG: UIImageView!
+    @IBOutlet weak var tutorialSkipButton: UIButton!
     @IBOutlet weak var tutorialLaunchGif: UIImageView!
     @IBOutlet weak var tutorialLaunchLogo: UIImageView!
     @IBOutlet weak var tutorialGifView: UIImageView!
-    @IBOutlet weak var tutorialLaunchButton: UIButton!   // 0
-    @IBOutlet weak var tutorialSkipButton: UIButton!     // 1
-    @IBOutlet weak var tutorialLeftButton: UIButton!     // 2
-    @IBOutlet weak var tutorialRightButton: UIButton!    // 3
-    @IBOutlet weak var tutorialStartButton: UIButton!    // 4
-    @IBOutlet weak var tutorialFlowCircleStackView: UIStackView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var launchButton: UIButton!
+    @IBOutlet weak var leftButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var flowCircleStackView: UIStackView!
     @IBOutlet weak var tutirialLogoGif: UIImageView!
     @IBOutlet weak var tutorialLogo: UIImageView!
     var tutorialState: Int = 0
@@ -44,20 +46,22 @@ class TutorialViewController: UIViewController {
     private func initializeTutorial() {
         tutorialView.isHidden = false
         tutorialBG.image = UIImage(named: "launch_bg")
+        tutorialSkipButton.isHidden = true
         tutorialLaunchGif.isHidden = false
         tutorialLaunchGif.loadGif(name: "Tutorial Gif/logoGif_1")
         tutorialLaunchLogo.isHidden = false
         tutorialGifView.isHidden = true
-        tutorialLaunchButton.isHidden = false
-        tutorialSkipButton.isHidden = true
-        tutorialLeftButton.isHidden = true
-        tutorialRightButton.isHidden = true
-        tutorialStartButton.isHidden = true
-        tutorialFlowCircleStackView.isHidden = true
+        titleLabel.isHidden = true
+        descriptionLabel.isHidden = true
+        launchButton.isHidden = false
+        leftButton.isHidden = true
+        rightButton.isHidden = true
+        startButton.isHidden = true
+        flowCircleStackView.isHidden = true
         tutirialLogoGif.isHidden = true
         tutorialLogo.isHidden = true
         tutorialState = 1
-        tutorialFlowAnimation(tutorialState)
+        setTutorialScreen(on: tutorialState)
     }
     
     private func registerGestureRecognizers() {
@@ -77,56 +81,32 @@ class TutorialViewController: UIViewController {
     
     @IBAction func tutorialFlowControlButton(_ sender: UIButton) {
         
-        if sender == tutorialLaunchButton {
+        if sender == launchButton {
+            tutorialSkipButton.isHidden = false
             tutorialLaunchGif.isHidden = true
             tutorialLaunchLogo.isHidden = true
             tutorialGifView.isHidden = false
             tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_1")
-            tutorialLaunchButton.isHidden = true
-            tutorialSkipButton.isHidden = false
-            tutorialRightButton.isHidden = false
-            tutorialFlowCircleStackView.isHidden = false
+            titleLabel.isHidden = false
+            descriptionLabel.isHidden = false
+            launchButton.isHidden = true
+            rightButton.isHidden = false
+            flowCircleStackView.isHidden = false
             tutirialLogoGif.isHidden = false
             tutirialLogoGif.loadGif(name: "Tutorial Gif/logoGif_2")
             tutorialLogo.isHidden = false
             tutorialState = 1
         }
         
-        if sender == tutorialRightButton {
-            if tutorialState == 4 {
-                
-            } else if tutorialState == 3 {
-                tutorialState += 1
-                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-                tutorialRightButton.isHidden = true
-                tutorialStartButton.isHidden = false
-            } else {
-                tutorialState += 1
-                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-                tutorialLeftButton.isHidden = false
-            }
-            
-            tutorialFlowAnimation(tutorialState)
+        if sender == leftButton {
+            swipeRight()
         }
         
-        if sender == tutorialLeftButton {
-            if tutorialState == 1 {
-                
-            } else if tutorialState == 2 {
-                tutorialState -= 1
-                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-                tutorialLeftButton.isHidden = true
-            } else {
-                tutorialState -= 1
-                tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-                tutorialRightButton.isHidden = false
-                tutorialStartButton.isHidden = true
-            }
-            
-            tutorialFlowAnimation(tutorialState)
+        if sender == rightButton {
+            swipeLeft()
         }
         
-        if (sender == tutorialSkipButton) || (sender == tutorialStartButton) {
+        if (sender == tutorialSkipButton) || (sender == startButton) {
             UIView.animate(withDuration: 0.2, animations: {
                 self.tutorialView.alpha = 0.0
             })
@@ -137,15 +117,22 @@ class TutorialViewController: UIViewController {
         }
     }
     
-    private func tutorialFlowAnimation(_ onIndex: Int) {
-        let subviews = tutorialFlowCircleStackView.subviews.map { view in
+    private func setTutorialScreen(on idx: Int) {
+        tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(idx)")
+        titleLabel.text = "Tutorial_Title_\(idx)".localized
+        descriptionLabel.text = "Tutorial_Description_\(idx)".localized
+        tutorialFlowAnimation(on: idx)
+    }
+    
+    private func tutorialFlowAnimation(on idx: Int) {
+        let subviews = flowCircleStackView.subviews.map { view in
             view as? UIImageView
         }
         for subview in subviews {
             subview?.image = #imageLiteral(resourceName: "tutorial_off")
         }
         
-        let onIndex = onIndex - 1
+        let onIndex = idx - 1
         subviews[onIndex]?.alpha = 0.0
         
         UIView.animate(withDuration: 0.1, animations: {
@@ -155,41 +142,31 @@ class TutorialViewController: UIViewController {
     }
     
     @objc
-    func swipeRight(gestureRecognizer: UISwipeGestureRecognizer) {
-        
-        if tutorialState == 1 {
-            
-        } else if tutorialState == 2 {
-            tutorialState -= 1
-            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-            tutorialLeftButton.isHidden = true
-        } else if (tutorialState == 3) || (tutorialState == 4) {
-            tutorialState -= 1
-            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-            tutorialRightButton.isHidden = false
-            tutorialStartButton.isHidden = true
+    func swipeLeft() {
+        if tutorialState == 3 {
+            tutorialState += 1
+            rightButton.isHidden = true
+            startButton.isHidden = false
+        } else if (tutorialState == 2) || (tutorialState == 1) {
+            tutorialState += 1
+            leftButton.isHidden = false
         }
         
-        tutorialFlowAnimation(tutorialState)
+        setTutorialScreen(on: tutorialState)
     }
     
     @objc
-    func swipeLeft(gestureRecognizer: UISwipeGestureRecognizer) {
-        
-        if tutorialState == 4 {
-            
-        } else if tutorialState == 3 {
-            tutorialState += 1
-            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-            tutorialRightButton.isHidden = true
-            tutorialStartButton.isHidden = false
-        } else if (tutorialState == 2) || (tutorialState == 1) {
-            tutorialState += 1
-            tutorialGifView.loadGif(name: "Tutorial Gif/tutorialGif_\(tutorialState)")
-            tutorialLeftButton.isHidden = false
+    func swipeRight() {
+        if tutorialState == 2 {
+            tutorialState -= 1
+            leftButton.isHidden = true
+        } else if (tutorialState == 3) || (tutorialState == 4) {
+            tutorialState -= 1
+            rightButton.isHidden = false
+            startButton.isHidden = true
         }
         
-        tutorialFlowAnimation(tutorialState)
+        setTutorialScreen(on: tutorialState)
     }
     
 }

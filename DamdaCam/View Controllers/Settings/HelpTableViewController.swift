@@ -19,8 +19,8 @@ class HelpTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
         guard let font = Properties.shared.font.regular(15.0) else { return }
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
-        navigationBar.barTintColor = Properties.shared.color.white
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: UIColor(named: "darkGray") ?? UIColor.darkGray]
+        navigationBar.barTintColor = UIColor(named: "white")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

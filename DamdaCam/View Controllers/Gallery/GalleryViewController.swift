@@ -32,8 +32,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         
         guard let font = Properties.shared.font.regular(15.0) else { return }
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
-        navigationBar.barTintColor = Properties.shared.color.white
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: UIColor(named: "darkGray") ?? UIColor.darkGray]
+        navigationBar.barTintColor = UIColor(named: "white")
         
         // delegate, datasource set
         self.galleryCollectionView.delegate = self

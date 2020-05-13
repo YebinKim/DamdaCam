@@ -121,7 +121,7 @@ extension ARMotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         self.previewLayer = videoPreviewLayer
         
         videoPreviewLayer.name = "CameraPreview"
-        videoPreviewLayer.backgroundColor = Properties.shared.color.black.cgColor
+        videoPreviewLayer.backgroundColor = UIColor(named: "black")?.cgColor
         videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         if let previewRootLayer = self.previewView?.layer {
@@ -193,7 +193,7 @@ extension ARMotionViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let title = UILabel()
         title.font = Properties.shared.font.regular(15.0)
-        title.textColor = Properties.shared.color.darkGray
+        title.textColor = UIColor(named: "darkGray")
         title.text = String(row)
         title.textAlignment = .center
         
@@ -241,7 +241,7 @@ extension ARMotionViewController: UICollectionViewDelegate, UICollectionViewData
             
             arMotionCell.layer.shadowOpacity = 0.6
             arMotionCell.layer.shadowRadius = 1
-            arMotionCell.layer.shadowColor = Properties.shared.color.darkGray.cgColor
+            arMotionCell.layer.shadowColor = UIColor(named: "darkGray")?.cgColor
             arMotionCell.layer.shadowOffset = CGSize(width: 1, height: 1)
             
             if myARMotionButton.isSelected {

@@ -18,7 +18,7 @@ class MakingARViewController: UIViewController {
     
     var lastPoint: CGPoint!
     var lineSize: CGFloat = 2.0
-    var lineColor = Properties.shared.color.white.cgColor
+    var lineColor = UIColor(named: "white")?.cgColor
     
     @IBOutlet var drawingView: UIImageView!
     
@@ -198,7 +198,7 @@ class MakingARViewController: UIViewController {
     }
     
     private func initializePaletteView() {
-        addBackView(view: paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: paletteView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
         
         paletteView.alpha = 0.0
         paletteView.layer.cornerRadius = 10
@@ -208,7 +208,7 @@ class MakingARViewController: UIViewController {
     }
     
     private func initializeBrushView() {
-        addBackView(view: brushView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: brushView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
         
         brushView.alpha = 0.0
         brushView.layer.cornerRadius = 10
@@ -217,13 +217,13 @@ class MakingARViewController: UIViewController {
     }
     
     private func initializefigureView() {
-        addBackView(view: figureView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: figureView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
         
         figureView.alpha = 0.0
         figureView.layer.cornerRadius = 10
         figureFillButton.isSelected = true
-        figureWidthTitle.textColor = Properties.shared.color.text_disable
-        figureWidthLabel.textColor = Properties.shared.color.text_disable
+        figureWidthTitle.textColor = UIColor(named: "text_disable")
+        figureWidthLabel.textColor = UIColor(named: "text_disable")
         figureWidthSlider.isEnabled = false
         figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         figureShape = "Rectangle"
@@ -338,12 +338,12 @@ class MakingARViewController: UIViewController {
             } else if brushBasicButton.isSelected {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 선 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(lineColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(lineColor ?? UIColor.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 0.0, color: UIColor.clear.cgColor)
             } else {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 네온 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(Properties.shared.color.white.cgColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(UIColor(named: "white")?.cgColor ?? UIColor.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 7.0, color: lineColor)
             }
             
@@ -382,12 +382,12 @@ class MakingARViewController: UIViewController {
             } else if brushBasicButton.isSelected {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 선 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(lineColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(lineColor ?? UIColor.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 0.0, color: UIColor.clear.cgColor)
             } else {
                 (UIGraphicsGetCurrentContext())!.setBlendMode(CGBlendMode.normal)
                 // 네온 색상을 설정
-                UIGraphicsGetCurrentContext()?.setStrokeColor(Properties.shared.color.white.cgColor)
+                UIGraphicsGetCurrentContext()?.setStrokeColor(UIColor(named: "white")?.cgColor ?? UIColor.white.cgColor)
                 UIGraphicsGetCurrentContext()?.setShadow(offset: CGSize(width: 0.0, height: 0.0), blur: 7.0, color: lineColor)
             }
             
@@ -637,7 +637,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {
+    func addBackView(view: UIView, color: UIColor?, alpha: CGFloat, cornerRadius: CGFloat) {
         let backView = UIView()
         backView.frame = view.bounds
         backView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -860,7 +860,7 @@ class MakingARViewController: UIViewController {
             shapeLayer.shadowRadius = 0
             shapeLayer.shadowOpacity = 0
         } else {
-            shapeLayer.strokeColor = Properties.shared.color.white.cgColor
+            shapeLayer.strokeColor = UIColor(named: "white")?.cgColor
             shapeLayer.shadowOffset = .zero
             shapeLayer.shadowColor = colorPicker.selectedColor.cgColor
             shapeLayer.shadowRadius = 7
@@ -906,12 +906,12 @@ class MakingARViewController: UIViewController {
     // Figure Set
     @IBAction func figureStateTapped(_ sender: UIButton) {
         if sender == figureFillButton {
-            figureWidthTitle.textColor = Properties.shared.color.text_disable
-            figureWidthLabel.textColor = Properties.shared.color.text_disable
+            figureWidthTitle.textColor = UIColor(named: "text_disable")
+            figureWidthLabel.textColor = UIColor(named: "text_disable")
             figureWidthSlider.isEnabled = false
         } else {
-            figureWidthTitle.textColor = Properties.shared.color.white
-            figureWidthLabel.textColor = Properties.shared.color.white
+            figureWidthTitle.textColor = UIColor(named: "white")
+            figureWidthLabel.textColor = UIColor(named: "white")
             figureWidthSlider.isEnabled = true
         }
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()

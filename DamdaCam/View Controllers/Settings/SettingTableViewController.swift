@@ -29,8 +29,8 @@ class SettingTableViewController: UITableViewController {
         
         guard let font = Properties.shared.font.regular(15.0) else { return }
         
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
-        self.navigationController!.navigationBar.barTintColor = Properties.shared.color.white
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: UIColor(named: "darkGray") ?? UIColor.darkGray]
+        self.navigationController!.navigationBar.barTintColor = UIColor(named: "white")
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -409,18 +409,18 @@ class ARDrawingUIViewController: UIViewController {
         self.drawingPenButton.backgroundColor = colorPicker.selectedColor
         self.drawingPenButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         self.drawingPenButton.layer.borderWidth = 2
-        self.drawingPenButton.layer.borderColor = Properties.shared.color.drawingPen_border.cgColor
+        self.drawingPenButton.layer.borderColor = UIColor(named: "drawingPen_border")?.cgColor
         
         self.drawingPenOne.layer.cornerRadius = 11
-        self.drawingPenOne.backgroundColor = Properties.shared.color.drawingPen_blue
+        self.drawingPenOne.backgroundColor = UIColor(named: "drawingPen_blue")
         self.drawingPenOne.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
         self.drawingPenTwo.layer.cornerRadius = 11
-        self.drawingPenTwo.backgroundColor = Properties.shared.color.drawingPen_green
+        self.drawingPenTwo.backgroundColor = UIColor(named: "drawingPen_yellow")
         self.drawingPenTwo.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
         self.drawingPenThree.layer.cornerRadius = 11
-        self.drawingPenThree.backgroundColor = Properties.shared.color.drawingPen_red
+        self.drawingPenThree.backgroundColor = UIColor(named: "drawingPen_red")
         self.drawingPenThree.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
     }
     
@@ -439,16 +439,16 @@ class ARDrawingUIViewController: UIViewController {
         self.threeClipButton.dropShadow(state: true)
         self.plusClipButton.dropShadow(state: true)
         
-        self.oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
-        self.plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: false)
+        self.oneClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: false)
+        self.twoClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: false)
+        self.threeClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: false)
+        self.plusClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: false)
         
         self.plusClipPicker.selectRow(5, inComponent: 0, animated: false)
         
         let secLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         secLabel.font = Properties.shared.font.bold(13.0)
-        secLabel.textColor = Properties.shared.color.darkGray
+        secLabel.textColor = UIColor(named: "darkGray")
         secLabel.text = "m"
         secLabel.sizeToFit()
         secLabel.frame = CGRect(x: 81.0, y: 49.0, width: secLabel.bounds.width, height: secLabel.bounds.height)
@@ -456,7 +456,7 @@ class ARDrawingUIViewController: UIViewController {
         
         let minLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         minLabel.font = Properties.shared.font.bold(13.0)
-        minLabel.textColor = Properties.shared.color.darkGray
+        minLabel.textColor = UIColor(named: "darkGray")
         minLabel.text = "s"
         minLabel.sizeToFit()
         minLabel.frame = CGRect(x: 210.0, y: 49.0, width: minLabel.bounds.width, height: minLabel.bounds.height)
@@ -479,7 +479,7 @@ class ARDrawingUIViewController: UIViewController {
         
         self.menuView.isHidden = true
         self.menuView.alpha = 0.0
-        addBackView(view: self.menuView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 0)
+        addBackView(view: self.menuView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 0)
         
         self.initializeTextView()
         self.initializeFigureView()
@@ -500,7 +500,7 @@ class ARDrawingUIViewController: UIViewController {
         
         self.textDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         
-        addBackView(view: self.textView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: self.textView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
     }
     
     private func initializeFigureView() {
@@ -509,13 +509,13 @@ class ARDrawingUIViewController: UIViewController {
         self.figureView.layer.cornerRadius = 10
         
         self.figureFillButton.isSelected = true
-        self.figureWidthTitle.textColor = Properties.shared.color.text_disable
-        self.figureWidthLabel.textColor = Properties.shared.color.text_disable
+        self.figureWidthTitle.textColor = UIColor(named: "text_disable")
+        self.figureWidthLabel.textColor = UIColor(named: "text_disable")
         self.figureWidthSlider.isEnabled = false
         self.figureWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         figureDepthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         
-        addBackView(view: self.figureView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: self.figureView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
     }
     
     private func initializeBrushView() {
@@ -526,7 +526,7 @@ class ARDrawingUIViewController: UIViewController {
         self.brushBasicButton.isSelected = true
         self.brushWidthSlider.setThumbImage(UIImage(named: "thumb_slider"), for: .normal)
         
-        addBackView(view: self.brushView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: self.brushView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
     }
     
     private func initializePalleteView() {
@@ -542,7 +542,7 @@ class ARDrawingUIViewController: UIViewController {
         self.previewPaletteView.layer.cornerRadius = 18
         self.previewPaletteView.dropShadow()
         
-        addBackView(view: self.paletteView, color: Properties.shared.color.black, alpha: 0.6, cornerRadius: 10)
+        addBackView(view: self.paletteView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 10)
     }
     
     func updateUIIcon() {
@@ -558,8 +558,8 @@ class ARDrawingUIViewController: UIViewController {
             self.galleryButton.dropShadow(state: true)
             self.menuButton.dropShadow(state: true)
             
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.white
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.white
+            self.recordModePhoto.titleLabel?.textColor = UIColor(named: "white")
+            self.recordModeVideo.titleLabel?.textColor = UIColor(named: "white")
             
             self.recordMoveButton.isHidden = false
             
@@ -575,8 +575,8 @@ class ARDrawingUIViewController: UIViewController {
             self.galleryButton.dropShadow(state: false)
             self.menuButton.dropShadow(state: false)
             
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            self.recordModePhoto.titleLabel?.textColor = UIColor(named: "darkGray")
+            self.recordModeVideo.titleLabel?.textColor = UIColor(named: "darkGray")
             
             self.recordMoveButton.isHidden = true
             
@@ -592,8 +592,8 @@ class ARDrawingUIViewController: UIViewController {
             self.galleryButton.dropShadow(state: false)
             self.menuButton.dropShadow(state: false)
             
-            self.recordModePhoto.titleLabel?.textColor = Properties.shared.color.darkGray
-            self.recordModeVideo.titleLabel?.textColor = Properties.shared.color.darkGray
+            self.recordModePhoto.titleLabel?.textColor = UIColor(named: "darkGray")
+            self.recordModeVideo.titleLabel?.textColor = UIColor(named: "darkGray")
             
             self.recordMoveButton.isHidden = true
         }
@@ -728,21 +728,21 @@ class ARDrawingUIViewController: UIViewController {
     
     @IBAction func selectedDrawingPen(_ sender: UIButton) {
         if sender == drawingPenOne {
-            pickedColor = Properties.shared.color.drawingPen_blue
+            pickedColor = UIColor(named: "drawingPen_blue") ?? UIColor.white
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
             self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenTwo {
-            pickedColor = Properties.shared.color.drawingPen_green
+            pickedColor = UIColor(named: "drawingPen_yellow") ?? UIColor.white
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
             self.delegate?.setStrokeColor(pickedColor.cgColor)
         }
         
         if sender == drawingPenThree {
-            pickedColor = Properties.shared.color.drawingPen_red
+            pickedColor = UIColor(named: "drawingPen_red") ?? UIColor.white
             colorPicker.selectedColor = pickedColor
             drawingPenButton.backgroundColor = pickedColor
             self.delegate?.setStrokeColor(pickedColor.cgColor)
@@ -878,35 +878,35 @@ class ARDrawingUIViewController: UIViewController {
     
     func clipButtonStateCheck() {
         if oneClipState {
-            oneClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
-            oneClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
+            oneClipButton.setTitleColor(UIColor(named: "white"), for: .normal)
+            oneClipButton.applyGradient(colors: [UIColor(named: "main_blue")?.cgColor, UIColor(named: "main_pink")?.cgColor], state: true)
         } else {
-            oneClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
-            oneClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
+            oneClipButton.setTitleColor(UIColor(named: "darkGray"), for: .normal)
+            oneClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: true)
         }
         
         if twoClipState {
-            twoClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
-            twoClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
+            twoClipButton.setTitleColor(UIColor(named: "white"), for: .normal)
+            twoClipButton.applyGradient(colors: [UIColor(named: "main_blue")?.cgColor, UIColor(named: "main_pink")?.cgColor], state: true)
         } else {
-            twoClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
-            twoClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
+            twoClipButton.setTitleColor(UIColor(named: "darkGray"), for: .normal)
+            twoClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: true)
         }
         
         if threeClipState {
-            threeClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
-            threeClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
+            threeClipButton.setTitleColor(UIColor(named: "white"), for: .normal)
+            threeClipButton.applyGradient(colors: [UIColor(named: "main_blue")?.cgColor, UIColor(named: "main_pink")?.cgColor], state: true)
         } else {
-            threeClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
-            threeClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
+            threeClipButton.setTitleColor(UIColor(named: "darkGray"), for: .normal)
+            threeClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: true)
         }
         
         if plusClipState {
-            plusClipButton.setTitleColor(Properties.shared.color.white, for: .normal)
-            plusClipButton.applyGradient(colors: [Properties.shared.color.main_blue.cgColor, Properties.shared.color.main_pink.cgColor], state: true)
+            plusClipButton.setTitleColor(UIColor(named: "white"), for: .normal)
+            plusClipButton.applyGradient(colors: [UIColor(named: "main_blue")?.cgColor, UIColor(named: "main_pink")?.cgColor], state: true)
         } else {
-            plusClipButton.setTitleColor(Properties.shared.color.darkGray, for: .normal)
-            plusClipButton.applyGradient(colors: [Properties.shared.color.white.cgColor, Properties.shared.color.white.cgColor], state: true)
+            plusClipButton.setTitleColor(UIColor(named: "darkGray"), for: .normal)
+            plusClipButton.applyGradient(colors: [UIColor(named: "white")?.cgColor, UIColor(named: "white")?.cgColor], state: true)
         }
     }
     
@@ -1021,7 +1021,7 @@ class ARDrawingUIViewController: UIViewController {
         recordingTimer = nil
     }
     
-    func addBackView(view: UIView, color: UIColor, alpha: CGFloat, cornerRadius: CGFloat) {
+    func addBackView(view: UIView, color: UIColor?, alpha: CGFloat, cornerRadius: CGFloat) {
         let backView = UIView()
         backView.frame = view.bounds
         backView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -1473,12 +1473,12 @@ class ARDrawingUIViewController: UIViewController {
     // Figure Set
     @IBAction func figureStateTapped(_ sender: UIButton) {
         if sender == figureFillButton {
-            figureWidthTitle.textColor = Properties.shared.color.text_disable
-            figureWidthLabel.textColor = Properties.shared.color.text_disable
+            figureWidthTitle.textColor = UIColor(named: "text_disable")
+            figureWidthLabel.textColor = UIColor(named: "text_disable")
             figureWidthSlider.isEnabled = false
         } else {
-            figureWidthTitle.textColor = Properties.shared.color.white
-            figureWidthLabel.textColor = Properties.shared.color.white
+            figureWidthTitle.textColor = UIColor(named: "white")
+            figureWidthLabel.textColor = UIColor(named: "white")
             figureWidthSlider.isEnabled = true
         }
         figurePreview.layer.sublayers?[0].removeFromSuperlayer()
@@ -1614,7 +1614,7 @@ class ARDrawingUIViewController: UIViewController {
             shapeLayer.shadowRadius = 0
             shapeLayer.shadowOpacity = 0
         } else {
-            shapeLayer.strokeColor = Properties.shared.color.white.cgColor
+            shapeLayer.strokeColor = UIColor(named: "white")?.cgColor
             shapeLayer.shadowOffset = .zero
             shapeLayer.shadowColor = colorPicker.selectedColor.cgColor
             shapeLayer.shadowRadius = 7

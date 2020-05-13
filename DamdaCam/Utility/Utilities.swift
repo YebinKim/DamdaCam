@@ -644,12 +644,12 @@ extension UIViewController {
 
 extension UIButton {
     
-    func applyGradient(colors: [CGColor], state: Bool) {
+    func applyGradient(colors: [CGColor?], state: Bool) {
         if state {
             self.layer.sublayers?[0].removeFromSuperlayer()
             
             let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = colors
+            gradientLayer.colors = colors as [Any]
             gradientLayer.startPoint = CGPoint(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint(x: 1, y: 1)
             gradientLayer.frame = self.bounds
@@ -657,7 +657,7 @@ extension UIButton {
             self.layer.insertSublayer(gradientLayer, at: 0)
         } else {
             let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = colors
+            gradientLayer.colors = colors as [Any]
             gradientLayer.startPoint = CGPoint(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint(x: 1, y: 1)
             gradientLayer.frame = self.bounds

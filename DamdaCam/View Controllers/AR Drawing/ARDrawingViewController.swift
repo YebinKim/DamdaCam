@@ -18,7 +18,7 @@ class ARDrawingViewController: UIViewController {
     lazy var sceneView: ARSCNView = {
         let sceneView = ARSCNView()
         sceneView.frame = self.view.frame
-        sceneView.translatesAutoresizingMaskIntoConstraints = true
+        sceneView.translatesAutoresizingMaskIntoConstraints = false
         
         return sceneView
     }()

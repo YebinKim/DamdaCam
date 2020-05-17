@@ -12,7 +12,6 @@ final class Properties {
     
     static let shared = Properties()
     
-    let color = Color()
     let font = Font()
     
 }

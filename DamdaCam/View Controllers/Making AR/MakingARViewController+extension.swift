@@ -25,7 +25,7 @@ extension MakingARViewController: UICollectionViewDataSource, UICollectionViewDe
         } else {
             CustomColor.customColor.backgroundColor = UIColor.clear
             CustomColor.customColor.layer.borderWidth = 1
-            CustomColor.customColor.layer.borderColor = Properties.shared.color.gray.cgColor
+            CustomColor.customColor.layer.borderColor = UIColor(named: "gray")?.cgColor
         }
         
         return CustomColor

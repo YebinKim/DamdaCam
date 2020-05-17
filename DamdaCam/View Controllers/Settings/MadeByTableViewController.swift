@@ -22,8 +22,8 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         guard let font = Properties.shared.font.regular(15.0) else { return }
         
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: Properties.shared.color.darkGray]
-        navigationBar.barTintColor = Properties.shared.color.white
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, .foregroundColor: UIColor(named: "darkGray") ?? UIColor.darkGray]
+        navigationBar.barTintColor = UIColor(named: "white")
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -36,9 +36,9 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.backgroundColor = Properties.shared.color.white
+            headerView.backgroundColor = UIColor(named: "white")
             headerView.textLabel?.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
-            headerView.textLabel?.textColor = Properties.shared.color.lightGray
+            headerView.textLabel?.textColor = UIColor(named: "lightGray")
         }
     }
     
@@ -55,11 +55,11 @@ class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.textLabel!.text = myLove[indexPath.row]
         cell.textLabel!.font = UIFont(name: "NotoSansCJKkr-Regular", size: 15.0)
-        cell.textLabel!.textColor = Properties.shared.color.lightGray
+        cell.textLabel!.textColor = UIColor(named: "lightGray")
         
         cell.detailTextLabel!.text = mySunshine[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "NotoSansCJKkr-Regular", size: 10.0)
-        cell.detailTextLabel!.textColor = Properties.shared.color.lightGray
+        cell.detailTextLabel!.textColor = UIColor(named: "lightGray")
         
         return cell
     }

@@ -44,11 +44,13 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tracking_icon" translatesAutoresizingMaskIntoConstraints="NO" id="YkI-iO-Ysb">
                                         <rect key="frame" x="122.5" y="0.0" width="100" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="YkI-iO-Ysb" secondAttribute="height" multiplier="2:1" id="GeX-AE-Mir"/>
+                                            <constraint firstAttribute="width" constant="100" id="aWG-NE-mhv"/>
+                                        </constraints>
                                     </imageView>
-                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-s2-0Pz">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-s2-0Pz">
                                         <rect key="frame" x="81" y="78" width="213" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="그림을 그릴 장소를 찾는 중입니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qH-3t-mEV">
                                                 <rect key="frame" x="0.0" y="-0.5" width="213" height="37"/>
@@ -59,12 +61,20 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9sd-s2-0Pz" secondAttribute="height" multiplier="213:37" id="8TY-ig-QhO"/>
+                                            <constraint firstAttribute="width" constant="213" id="hdZ-yg-U7s"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="8Pw-Mw-Lwk"/>
                                     <constraint firstAttribute="width" secondItem="zss-qo-9GW" secondAttribute="height" multiplier="5:2" id="H7k-j2-cU0"/>
+                                    <constraint firstItem="YkI-iO-Ysb" firstAttribute="centerX" secondItem="zss-qo-9GW" secondAttribute="centerX" constant="-15" id="ZgC-QM-P0K"/>
+                                    <constraint firstItem="9sd-s2-0Pz" firstAttribute="centerY" secondItem="zss-qo-9GW" secondAttribute="centerY" constant="21.5" id="iNZ-RO-XJA"/>
+                                    <constraint firstItem="9sd-s2-0Pz" firstAttribute="centerX" secondItem="zss-qo-9GW" secondAttribute="centerX" id="o4e-y4-kzh"/>
+                                    <constraint firstItem="YkI-iO-Ysb" firstAttribute="centerY" secondItem="zss-qo-9GW" secondAttribute="centerY" constant="-50" id="sCK-4z-sq8"/>
                                 </constraints>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMd-Yx-K8V">
@@ -72,12 +82,14 @@
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-al-c9p" customClass="DrawPromptView" customModule="DamdaCam" customModuleProvider="target">
                                         <rect key="frame" x="112.5" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="byL-fn-QTW"/>
+                                            <constraint firstAttribute="width" secondItem="J1a-al-c9p" secondAttribute="height" multiplier="1:1" id="fJl-Wg-78J"/>
+                                        </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNM-WY-GGW">
                                         <rect key="frame" x="13" y="78" width="249" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="화면에 손을 대고 이리저리 움직여보세요." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwM-bH-61l">
                                                 <rect key="frame" x="0.0" y="-0.5" width="249" height="37"/>
@@ -91,11 +103,19 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="GNM-WY-GGW" secondAttribute="height" multiplier="249:37" id="6q4-AR-udc"/>
+                                            <constraint firstAttribute="width" constant="249" id="p2f-NI-UCZ"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="GNM-WY-GGW" firstAttribute="centerX" secondItem="OMd-Yx-K8V" secondAttribute="centerX" id="0TH-cE-RIZ"/>
+                                    <constraint firstItem="J1a-al-c9p" firstAttribute="centerY" secondItem="OMd-Yx-K8V" secondAttribute="centerY" constant="-50" id="aaG-Hh-CP7"/>
+                                    <constraint firstItem="GNM-WY-GGW" firstAttribute="centerY" secondItem="OMd-Yx-K8V" secondAttribute="centerY" constant="21.5" id="f4z-2n-snD"/>
                                     <constraint firstAttribute="width" secondItem="OMd-Yx-K8V" secondAttribute="height" multiplier="11:6" id="fgd-08-yKJ"/>
+                                    <constraint firstItem="J1a-al-c9p" firstAttribute="centerX" secondItem="OMd-Yx-K8V" secondAttribute="centerX" id="xb1-4G-QTX"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background4" translatesAutoresizingMaskIntoConstraints="NO" id="1x8-fa-NOa">
@@ -1382,7 +1402,7 @@
                                     <constraint firstAttribute="width" constant="316" id="lmK-aA-chn"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAW-wr-2Uz">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAW-wr-2Uz">
                                 <rect key="frame" x="87.5" y="214.5" width="200" height="200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sge-64-qer" customClass="RadialPaletteControl" customModule="FlexColorPicker">

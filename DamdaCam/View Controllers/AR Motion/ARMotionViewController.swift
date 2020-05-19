@@ -232,8 +232,6 @@ class ARMotionViewController: UIViewController {
         self.initializeARMotionView()
         self.initializeFilterView()
         
-        self.previewLayer?.frame = self.view.bounds
-        
         self.session = self.setupAVCaptureSession()
         
         self.halfWidth = self.view.bounds.width / 2
@@ -244,6 +242,8 @@ class ARMotionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.previewLayer?.frame = self.view.bounds
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

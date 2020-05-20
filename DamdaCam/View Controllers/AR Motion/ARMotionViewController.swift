@@ -62,6 +62,7 @@ class ARMotionViewController: UIViewController {
     var selectedMode: Bool = true // true -> photo, false -> video
     var videoState: Bool = false
     @IBOutlet var modeSelected: UIView!
+    @IBOutlet weak var modeSelectedCenterConstraint: NSLayoutConstraint!
     
     var takePhoto = false
     let fileOutput = AVCaptureMovieFileOutput()
@@ -562,11 +563,13 @@ class ARMotionViewController: UIViewController {
         return .portrait
     }
     
-    @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
         self.changeModePhoto()
     }
     
-    @objc func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
         self.changeModeVideo()
     }
     
@@ -587,22 +590,26 @@ class ARMotionViewController: UIViewController {
     }
     
     func changeModePhoto() {
+        guard !selectedMode else { return }
+        
+        modeSelectedCenterConstraint.constant += modeSelected.frame.width / 2.0
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.modeSelected.center += CGPoint(x: 58.0, y: 0.0)
+            self.view.layoutIfNeeded()
         })
         
         clipButton.isHidden = true
-        
         selectedMode = true
     }
     
     func changeModeVideo() {
+        guard selectedMode else { return }
+        
+        modeSelectedCenterConstraint.constant -= modeSelected.frame.width / 2.0
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.modeSelected.center -= CGPoint(x: 58.0, y: 0.0)
+            self.view.layoutIfNeeded()
         })
         
         clipButton.isHidden = false
-        
         selectedMode = false
     }
     
@@ -616,7 +623,7 @@ class ARMotionViewController: UIViewController {
     
     @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.recordViewBottomConstraint.constant = -130
+            self.recordViewBottomConstraint.constant = self.recordView.frame.height * (2.0 / 3.0)
             self.view.layoutIfNeeded()
         })
     }

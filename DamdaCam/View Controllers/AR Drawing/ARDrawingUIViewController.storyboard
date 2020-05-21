@@ -42,7 +42,7 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zss-qo-9GW">
                                 <rect key="frame" x="0.0" y="258.5" width="375" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tracking_icon" translatesAutoresizingMaskIntoConstraints="NO" id="YkI-iO-Ysb">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tracking_icon" translatesAutoresizingMaskIntoConstraints="NO" id="YkI-iO-Ysb">
                                         <rect key="frame" x="122.5" y="0.0" width="100" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YkI-iO-Ysb" secondAttribute="height" multiplier="2:1" id="GeX-AE-Mir"/>
@@ -80,7 +80,7 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMd-Yx-K8V">
                                 <rect key="frame" x="50" y="258.5" width="275" height="150"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-al-c9p" customClass="DrawPromptView" customModule="DamdaCam" customModuleProvider="target">
+                                    <view userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-al-c9p" customClass="DrawPromptView" customModule="DamdaCam" customModuleProvider="target">
                                         <rect key="frame" x="112.5" y="0.0" width="50" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -88,7 +88,7 @@
                                             <constraint firstAttribute="width" secondItem="J1a-al-c9p" secondAttribute="height" multiplier="1:1" id="fJl-Wg-78J"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNM-WY-GGW">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNM-WY-GGW">
                                         <rect key="frame" x="13" y="78" width="249" height="37"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="화면에 손을 대고 이리저리 움직여보세요." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwM-bH-61l">
@@ -179,8 +179,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYV-0G-LsK">
-                                        <rect key="frame" x="290" y="72" width="34" height="34"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYV-0G-LsK">
+                                        <rect key="frame" x="288" y="72.5" width="34" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="NYV-0G-LsK" secondAttribute="height" multiplier="1:1" id="D74-nj-mco"/>
                                         </constraints>
@@ -190,8 +190,8 @@
                                             <action selector="menuTapped:" destination="ptr-uY-WL2" eventType="touchUpInside" id="iD1-zG-DJ5"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="메뉴" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6So-ht-XbQ">
-                                        <rect key="frame" x="297" y="106" width="18" height="15"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메뉴" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6So-ht-XbQ">
+                                        <rect key="frame" x="296" y="106.5" width="18" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="6So-ht-XbQ" secondAttribute="height" multiplier="6:5" id="VFs-p5-7aE"/>
                                         </constraints>
@@ -252,7 +252,6 @@
                                     <constraint firstItem="DA5-Wq-4l5" firstAttribute="centerX" secondItem="DmM-MU-wdd" secondAttribute="centerX" id="JYG-wX-sCW"/>
                                     <constraint firstItem="DA5-Wq-4l5" firstAttribute="centerY" secondItem="DmM-MU-wdd" secondAttribute="centerY" id="Jci-Ka-S5d"/>
                                     <constraint firstItem="6So-ht-XbQ" firstAttribute="centerX" secondItem="NYV-0G-LsK" secondAttribute="centerX" id="Ln3-PP-77j"/>
-                                    <constraint firstItem="6So-ht-XbQ" firstAttribute="top" secondItem="NYV-0G-LsK" secondAttribute="bottom" id="MGJ-vw-lDU"/>
                                     <constraint firstItem="zed-fe-l6V" firstAttribute="centerX" secondItem="80k-w2-vlg" secondAttribute="centerX" constant="27.5" id="NtE-Yh-diY"/>
                                     <constraint firstItem="0My-MI-WU0" firstAttribute="width" secondItem="80k-w2-vlg" secondAttribute="width" multiplier="0.282667" id="UGZ-La-B7x"/>
                                     <constraint firstItem="zed-fe-l6V" firstAttribute="width" secondItem="80k-w2-vlg" secondAttribute="width" multiplier="0.293333" id="VXp-dj-i1t"/>
@@ -265,6 +264,7 @@
                                     <constraint firstAttribute="trailing" secondItem="NYV-0G-LsK" secondAttribute="trailing" constant="53" id="ojc-Ju-OGS"/>
                                     <constraint firstItem="DmM-MU-wdd" firstAttribute="centerX" secondItem="0My-MI-WU0" secondAttribute="centerX" id="qcC-45-vTV"/>
                                     <constraint firstAttribute="bottom" secondItem="zed-fe-l6V" secondAttribute="bottom" constant="14" id="sRP-x2-EPv"/>
+                                    <constraint firstItem="6So-ht-XbQ" firstAttribute="top" secondItem="NYV-0G-LsK" secondAttribute="bottom" id="sfO-dT-Ls8"/>
                                     <constraint firstItem="NYV-0G-LsK" firstAttribute="width" secondItem="80k-w2-vlg" secondAttribute="width" multiplier="0.0906667" id="vcg-8W-Ayc"/>
                                     <constraint firstAttribute="width" secondItem="80k-w2-vlg" secondAttribute="height" multiplier="125:58" id="yzb-Gr-tL7"/>
                                     <constraint firstItem="NYV-0G-LsK" firstAttribute="centerY" secondItem="0My-MI-WU0" secondAttribute="centerY" constant="1.5" id="zQN-b2-igz"/>
@@ -394,7 +394,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSX-XT-BYP">
-                                <rect key="frame" x="13" y="13" width="24" height="24"/>
+                                <rect key="frame" x="24" y="20" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="jSX-XT-BYP" secondAttribute="height" multiplier="1:1" id="oQi-cs-hIU"/>
                                 </constraints>
@@ -1434,8 +1434,8 @@
                             <constraint firstItem="zss-qo-9GW" firstAttribute="centerY" secondItem="wMF-su-ZgU" secondAttribute="centerY" id="54X-3A-GSq"/>
                             <constraint firstItem="1x8-fa-NOa" firstAttribute="centerY" secondItem="wMF-su-ZgU" secondAttribute="centerY" constant="54.5" id="5lk-Wl-CCU"/>
                             <constraint firstItem="IXz-iH-SQK" firstAttribute="trailing" secondItem="0aY-Wj-N2s" secondAttribute="trailing" id="6L6-uj-J3g"/>
-                            <constraint firstItem="Tok-QJ-nfX" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="13" id="6Yw-3F-Wnd"/>
-                            <constraint firstItem="jSX-XT-BYP" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="13" id="6kP-Ts-XaK"/>
+                            <constraint firstItem="Tok-QJ-nfX" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="16" id="6Yw-3F-Wnd"/>
+                            <constraint firstItem="jSX-XT-BYP" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="16" id="6kP-Ts-XaK"/>
                             <constraint firstItem="H41-kY-cHg" firstAttribute="centerY" secondItem="wMF-su-ZgU" secondAttribute="centerY" id="8dc-fG-2iB"/>
                             <constraint firstItem="5jM-pj-uXo" firstAttribute="top" secondItem="2KG-Sa-DAh" secondAttribute="bottom" constant="20" id="8ml-LV-TfI"/>
                             <constraint firstItem="Rn3-rZ-014" firstAttribute="centerX" secondItem="wMF-su-ZgU" secondAttribute="centerX" id="9y7-PZ-n8x"/>
@@ -1445,11 +1445,11 @@
                             <constraint firstItem="2KG-Sa-DAh" firstAttribute="centerX" secondItem="wMF-su-ZgU" secondAttribute="centerX" id="KO3-5A-oLf"/>
                             <constraint firstItem="Ymh-Np-nTu" firstAttribute="centerX" secondItem="wMF-su-ZgU" secondAttribute="centerX" id="KqF-tk-qTx"/>
                             <constraint firstItem="YfY-5w-niQ" firstAttribute="trailing" secondItem="0aY-Wj-N2s" secondAttribute="trailing" id="Lbg-fo-gZ3"/>
-                            <constraint firstItem="0aY-Wj-N2s" firstAttribute="trailing" secondItem="Tok-QJ-nfX" secondAttribute="trailing" constant="13" id="MKF-QE-iPq"/>
+                            <constraint firstItem="0aY-Wj-N2s" firstAttribute="trailing" secondItem="Tok-QJ-nfX" secondAttribute="trailing" constant="24" id="MKF-QE-iPq"/>
                             <constraint firstItem="Ymh-Np-nTu" firstAttribute="centerY" secondItem="wMF-su-ZgU" secondAttribute="centerY" id="Ntb-xU-7u7"/>
                             <constraint firstItem="OdY-0a-uHj" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" id="PN3-9V-s2V"/>
                             <constraint firstItem="OMd-Yx-K8V" firstAttribute="centerY" secondItem="wMF-su-ZgU" secondAttribute="centerY" id="SCM-8d-jZj"/>
-                            <constraint firstItem="jSX-XT-BYP" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" constant="13" id="SKO-FV-9tV"/>
+                            <constraint firstItem="jSX-XT-BYP" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" constant="24" id="SKO-FV-9tV"/>
                             <constraint firstItem="Lol-Qy-bP8" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" id="TxN-pg-whA"/>
                             <constraint firstItem="lAW-wr-2Uz" firstAttribute="centerX" secondItem="wMF-su-ZgU" secondAttribute="centerX" id="ULJ-TP-mNm"/>
                             <constraint firstItem="OdY-0a-uHj" firstAttribute="trailing" secondItem="0aY-Wj-N2s" secondAttribute="trailing" id="Ydd-rh-QeK"/>
@@ -1457,7 +1457,7 @@
                             <constraint firstItem="IXz-iH-SQK" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" id="beQ-Y4-e8g"/>
                             <constraint firstItem="eg4-O5-XoR" firstAttribute="leading" secondItem="0aY-Wj-N2s" secondAttribute="leading" constant="26" id="bqc-HV-jKz"/>
                             <constraint firstItem="80k-w2-vlg" firstAttribute="bottom" secondItem="wMF-su-ZgU" secondAttribute="bottom" id="cla-kY-tzI"/>
-                            <constraint firstItem="2KG-Sa-DAh" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="13" id="cqD-zn-kpX"/>
+                            <constraint firstItem="2KG-Sa-DAh" firstAttribute="top" secondItem="0aY-Wj-N2s" secondAttribute="top" constant="16" id="cqD-zn-kpX"/>
                             <constraint firstItem="YfY-5w-niQ" firstAttribute="bottom" secondItem="0aY-Wj-N2s" secondAttribute="bottom" id="d54-9N-Zlj"/>
                             <constraint firstAttribute="bottom" secondItem="Agj-ZV-FDT" secondAttribute="bottom" constant="183" id="fte-cX-oDv"/>
                             <constraint firstItem="OMd-Yx-K8V" firstAttribute="width" secondItem="wMF-su-ZgU" secondAttribute="width" multiplier="0.733333" id="gVh-Cf-1wq"/>

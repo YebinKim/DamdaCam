@@ -324,6 +324,15 @@ class ARDrawingUIViewController: UIViewController {
         
         // Menu Set
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.textButtonCenter = self.menuTextButton.center
+            self.figureButtonCenter = self.menuFigureButton.center
+            self.brushButtonCenter = self.menuBrushButton.center
+            self.paletteButtonCenter = self.menuPaletteButton.center
+            self.textLabelCenter = self.menuTextLabel.center
+            self.figureLabelCenter = self.menuFigureLabel.center
+            self.brushLabelCenter = self.menuBrushLabel.center
+            self.paletteLabelCenter = self.menuPaletteLabel.center
+            
             self.buttonAnimation(button: self.menuTextButton, label: self.menuTextLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
             self.buttonAnimation(button: self.menuFigureButton, label: self.menuFigureLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
             self.buttonAnimation(button: self.menuBrushButton, label: self.menuBrushLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
@@ -465,14 +474,6 @@ class ARDrawingUIViewController: UIViewController {
     }
     
     private func initializeMenuView() {
-        self.textButtonCenter = self.menuTextButton.center
-        self.figureButtonCenter = self.menuFigureButton.center
-        self.brushButtonCenter = self.menuBrushButton.center
-        self.paletteButtonCenter = self.menuPaletteButton.center
-        self.textLabelCenter = self.menuTextLabel.center
-        self.figureLabelCenter = self.menuFigureLabel.center
-        self.brushLabelCenter = self.menuBrushLabel.center
-        self.paletteLabelCenter = self.menuPaletteLabel.center
         self.menuTextLabel.alpha = 0.0
         self.menuFigureLabel.alpha = 0.0
         self.menuBrushLabel.alpha = 0.0

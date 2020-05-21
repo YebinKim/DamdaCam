@@ -109,10 +109,16 @@ class ARMotionViewController: UIViewController {
     var arMotionButtonState: Bool = false
     var filterButtonState: Bool = false
     
-    let tapBackView: UIView = {
+    lazy var tapBackView: UIView = {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        self.view.addSubview(view)
+        
+        view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
         return view
     }()
@@ -228,7 +234,7 @@ class ARMotionViewController: UIViewController {
         // Set menu view
         self.initializeMenuView()
         // Set Tap Gesture View on ARMotionView and FilterView
-        self.initializeTapBackView()
+        self.tapBackView.isHidden = true
         
         self.initializeARMotionView()
         self.initializeFilterView()
@@ -261,9 +267,19 @@ class ARMotionViewController: UIViewController {
         self.menuButtonStateCheck()
         self.menuXButtonOn.alpha = 1.0
         
-        self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.makingARButtonCenter = self.menuMakingARButton.center
+            self.arMotionButtonCenter = self.menuARMotionButton.center
+            self.filterButtonCenter = self.menuFilterButton.center
+            self.makingARLabelCenter = self.menuMakingARLabel.center
+            self.arMotionLabelCenter = self.menuARMotionLabel.center
+            self.filterLabelCenter = self.menuFilterLabel.center
+            
+            self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        }
+       
         self.menuView.alpha = 0.0
         
         // ARmotion Set
@@ -284,6 +300,7 @@ class ARMotionViewController: UIViewController {
         self.session?.startRunning()
         
         self.view.bringSubviewToFront(iconView)
+        self.view.bringSubviewToFront(menuView)
         self.view.bringSubviewToFront(tapBackView)
         
         self.view.isUserInteractionEnabled = true
@@ -372,12 +389,6 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeMenuView() {
-        self.makingARButtonCenter = self.menuMakingARButton.center
-        self.arMotionButtonCenter = self.menuARMotionButton.center
-        self.filterButtonCenter = self.menuFilterButton.center
-        self.makingARLabelCenter = self.menuMakingARLabel.center
-        self.arMotionLabelCenter = self.menuARMotionLabel.center
-        self.filterLabelCenter = self.menuFilterLabel.center
         self.menuMakingARLabel.alpha = 0.0
         self.menuARMotionLabel.alpha = 0.0
         self.menuFilterLabel.alpha = 0.0
@@ -385,11 +396,6 @@ class ARMotionViewController: UIViewController {
         self.menuView.isHidden = true
         self.menuView.alpha = 0.0
         addBackView(view: menuView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 0)
-    }
-    
-    private func initializeTapBackView() {
-        self.view.addSubview(self.tapBackView)
-        self.tapBackView.isHidden = true
     }
     
     private func initializeARMotionView() {

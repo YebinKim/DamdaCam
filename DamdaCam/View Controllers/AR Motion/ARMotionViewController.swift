@@ -125,6 +125,7 @@ class ARMotionViewController: UIViewController {
     
     // arMotion View
     @IBOutlet var arMotionView: UIView!
+    @IBOutlet weak var arMotionViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var deleteARMotionButton: UIButton!
     @IBOutlet var myARMotionButton: UIButton!
     @IBOutlet var allARMotionButton: UIButton!
@@ -302,6 +303,8 @@ class ARMotionViewController: UIViewController {
         self.view.bringSubviewToFront(iconView)
         self.view.bringSubviewToFront(menuView)
         self.view.bringSubviewToFront(tapBackView)
+        self.view.bringSubviewToFront(arMotionView)
+        self.view.bringSubviewToFront(filterBackView)
         
         self.view.isUserInteractionEnabled = true
     }
@@ -333,7 +336,7 @@ class ARMotionViewController: UIViewController {
         let dismissMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         self.menuView.addGestureRecognizer(dismissMenuView)
         
-        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissCollection))
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissARMotionView))
         self.tapBackView.addGestureRecognizer(dismissCollectionView)
     }
     
@@ -538,7 +541,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerARMotionViewGestureRecognizers() {
-        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
+        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissARMotionView))
         swipeARMotionView.direction = .down
         self.arMotionView.addGestureRecognizer(swipeARMotionView)
         
@@ -554,7 +557,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerFilterViewGestureRecognizers() {
-        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
+        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissARMotionView))
         swipeFilterView.direction = .down
         filterView.addGestureRecognizer(swipeFilterView)
     }
@@ -1462,30 +1465,22 @@ class ARMotionViewController: UIViewController {
     }
     
     // Menu Set
-    @objc func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
+    @objc
+    func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
     }
     
-    @objc func dismissCollection(gestureRecognizer: Any) {
+    @objc
+    func dismissARMotionView() {
         XbuttonTapped(menuXButtonOn)
         
         if arMotionViewState {
             arMotionViewState = false
             
-            UIView.animate(withDuration: 0.2, animations: {
-                self.buttonHide(state: true)
-                self.arMotionView.center += CGPoint(x: 0, y: 230)
-                
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-        if arMotionViewState {
-            arMotionViewState = false
+            arMotionViewTopConstraint.constant = arMotionView.frame.height
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
-                self.arMotionView.center += CGPoint(x: 0, y: 230)
                 
                 self.view.layoutIfNeeded()
             })
@@ -1590,11 +1585,13 @@ class ARMotionViewController: UIViewController {
         arMotionButtonState = true
         filterButtonState = false
         
+        arMotionViewTopConstraint.constant = -arMotionView.frame.height
+        
         UIView.animate(withDuration: 0.2) {
             self.menuView.alpha = 0.0
             self.buttonHide(state: true)
-            self.arMotionView.center -= CGPoint(x: 0, y: 230)
             self.arMotionViewState = true
+            self.arMotionView.layoutIfNeeded()
         }
         
         self.menuButtonStateCheck()

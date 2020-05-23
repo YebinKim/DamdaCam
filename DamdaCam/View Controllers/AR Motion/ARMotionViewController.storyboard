@@ -684,6 +684,7 @@
                         <outlet property="arMotionCollectionView" destination="5Jj-78-cQy" id="cAj-Y8-mV4"/>
                         <outlet property="arMotionView" destination="zYt-bo-8QJ" id="zqI-xi-vhI"/>
                         <outlet property="arMotionViewFlowLayout" destination="g2M-Aw-4ZR" id="1aM-mJ-mfL"/>
+                        <outlet property="arMotionViewTopConstraint" destination="u3N-bB-7Tp" id="aHq-OL-pq6"/>
                         <outlet property="bgARMotionButton" destination="jcJ-HN-lxl" id="NGA-xl-RF7"/>
                         <outlet property="changeButton" destination="X72-nM-WkF" id="Usg-XB-G21"/>
                         <outlet property="clipButton" destination="dgI-Ly-8rU" id="fQZ-w1-V9I"/>

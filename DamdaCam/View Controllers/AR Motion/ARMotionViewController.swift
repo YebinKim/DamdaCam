@@ -140,6 +140,7 @@ class ARMotionViewController: UIViewController {
     // Filter View
     @IBOutlet var filterView: UIView!
     @IBOutlet var filterBackView: UIView!
+    @IBOutlet weak var filterBackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var filterPowerSlider: UISlider!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
@@ -335,9 +336,6 @@ class ARMotionViewController: UIViewController {
         // menu set
         let dismissMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         self.menuView.addGestureRecognizer(dismissMenuView)
-        
-        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissARMotionView))
-        self.tapBackView.addGestureRecognizer(dismissCollectionView)
     }
     
     private func initializeARView() {
@@ -557,7 +555,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerFilterViewGestureRecognizers() {
-        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissARMotionView))
+        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissfilterBackView))
         swipeFilterView.direction = .down
         filterView.addGestureRecognizer(swipeFilterView)
     }
@@ -1471,7 +1469,7 @@ class ARMotionViewController: UIViewController {
     }
     
     @objc
-    func dismissARMotionView() {
+    func dismissARMotionView(gestureRecognizer: UIGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
         
         if arMotionViewState {
@@ -1481,7 +1479,22 @@ class ARMotionViewController: UIViewController {
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
-                
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @objc
+    func dismissfilterBackView(gestureRecognizer: UIGestureRecognizer) {
+        XbuttonTapped(menuXButtonOn)
+        
+        if filterButtonState {
+            filterButtonState = false
+            
+            filterBackViewTopConstraint.constant = filterBackView.frame.height
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.buttonHide(state: true)
                 self.view.layoutIfNeeded()
             })
         }
@@ -1579,6 +1592,8 @@ class ARMotionViewController: UIViewController {
         let indexPaths = [IndexPath]()
         arMotionCollectionView.reloadItems(at: indexPaths)
         
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissARMotionView))
+        self.tapBackView.addGestureRecognizer(dismissCollectionView)
         tapBackView.isHidden = false
         
         makingARButtonState = false
@@ -1597,18 +1612,22 @@ class ARMotionViewController: UIViewController {
         self.menuButtonStateCheck()
     }
     
-    @IBAction func fiterbuttonTapped(_ sender: UIButton) {
+    @IBAction func filterbuttonTapped(_ sender: UIButton) {
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissfilterBackView))
+        self.tapBackView.addGestureRecognizer(dismissCollectionView)
         tapBackView.isHidden = false
         
         makingARButtonState = false
         arMotionButtonState = false
         filterButtonState = true
         
+        filterBackViewTopConstraint.constant = -filterBackView.frame.height
+        
         UIView.animate(withDuration: 0.2) {
             self.menuView.alpha = 0.0
             self.buttonHide(state: true)
-            self.filterBackView.center -= CGPoint(x: 0, y: 207.5)
             self.filterViewState = true
+            self.filterBackView.layoutIfNeeded()
         }
         
         self.menuButtonStateCheck()

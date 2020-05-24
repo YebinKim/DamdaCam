@@ -746,7 +746,7 @@
                         <outlet property="recordModeVideo" destination="FAq-8v-w9h" id="B5t-cL-I0w"/>
                         <outlet property="recordMoveButton" destination="K4h-1v-Whp" id="M50-x2-lf4"/>
                         <outlet property="recordView" destination="Wav-ew-Faj" id="USl-AA-s9g"/>
-                        <outlet property="recordViewBottomConstraint" destination="5mI-68-QK5" id="i08-Zm-BBe"/>
+                        <outlet property="recordViewBottomConstraint" destination="O5D-VZ-7Ku" id="Inr-1p-ETB"/>
                         <outlet property="settingButton" destination="A9y-7z-3fg" id="2z1-fo-tIB"/>
                         <outlet property="threeClipButton" destination="CsL-7j-wdQ" id="SJt-Ym-8C8"/>
                         <outlet property="twoClipButton" destination="iQc-YW-Ker" id="YBS-O4-hut"/>

@@ -628,14 +628,16 @@ class ARMotionViewController: UIViewController {
         self.changeModeVideo()
     }
     
-    @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = self.recordView.frame.height * (2.0 / 3.0)
             self.view.layoutIfNeeded()
         })
     }
     
-    @objc func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = 0
             self.view.layoutIfNeeded()

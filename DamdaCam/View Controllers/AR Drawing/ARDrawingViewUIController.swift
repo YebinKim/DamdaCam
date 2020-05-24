@@ -623,14 +623,16 @@ class ARDrawingUIViewController: UIViewController {
         self.changeModeVideo()
     }
     
-    @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = self.recordView.frame.height * (2.0 / 3.0)
             self.view.layoutIfNeeded()
         })
     }
     
-    @objc func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = 0
             self.view.layoutIfNeeded()
@@ -803,7 +805,12 @@ class ARDrawingUIViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -825,7 +832,12 @@ class ARDrawingUIViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -847,7 +859,12 @@ class ARDrawingUIViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -867,17 +884,23 @@ class ARDrawingUIViewController: UIViewController {
         
         clipButtonStateCheck()
         
+        var clipViewFrame: CGRect = CGRect.zero
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
-            clipViewDivideBar.isHidden = true
-            plusClipPicker.isHidden = true
-            clipViewState = false
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height / 3)
         } else {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height * 3)
-            clipViewDivideBar.isHidden = false
-            plusClipPicker.isHidden = false
-            clipViewState = true
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height * 3)
         }
+        clipView.layer.frame = clipViewFrame
+        
+        clipViewDivideBar.isHidden = clipViewState
+        plusClipPicker.isHidden = clipViewState
+        clipViewState = !clipViewState
     }
     
     func clipButtonStateCheck() {

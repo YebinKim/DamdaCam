@@ -1353,7 +1353,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1375,7 +1380,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1397,7 +1407,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1417,17 +1432,23 @@ class ARMotionViewController: UIViewController {
         
         clipButtonStateCheck()
         
+        var clipViewFrame: CGRect = CGRect.zero
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
-            clipViewDivideBar.isHidden = true
-            plusClipPicker.isHidden = true
-            clipViewState = false
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height / 3)
         } else {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height * 3)
-            clipViewDivideBar.isHidden = false
-            plusClipPicker.isHidden = false
-            clipViewState = true
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height * 3)
         }
+        clipView.layer.frame = clipViewFrame
+        
+        clipViewDivideBar.isHidden = clipViewState
+        plusClipPicker.isHidden = clipViewState
+        clipViewState = !clipViewState
     }
     
     func clipButtonStateCheck() {

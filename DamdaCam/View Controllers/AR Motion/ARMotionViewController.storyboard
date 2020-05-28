@@ -301,8 +301,7 @@
                                         </constraints>
                                         <state key="normal" image="ic_makingAR_off"/>
                                         <connections>
-                                            <action selector="makingARButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="Zkd-at-jvv"/>
-                                            <action selector="makingARbuttonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="jnM-TN-dWd"/>
+                                            <action selector="makingARButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="o7B-2S-1sd"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메이킹 AR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHJ-Mm-eMN">
@@ -323,7 +322,7 @@
                                         </constraints>
                                         <state key="normal" image="ic_arMotion_off"/>
                                         <connections>
-                                            <action selector="arMotionbuttonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="s1W-hz-shj"/>
+                                            <action selector="arMotionButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="eRL-WS-wy8"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AR 모션" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gfi-8C-M2I">
@@ -344,7 +343,7 @@
                                         </constraints>
                                         <state key="normal" image="ic_filter_off"/>
                                         <connections>
-                                            <action selector="filterbuttonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="sst-TX-zYN"/>
+                                            <action selector="filterButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="bbZ-rO-zD1"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="필터" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AW-ZF-P70">

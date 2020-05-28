@@ -289,7 +289,7 @@ class ARMotionViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             if self.toARMotionNO {
-                self.arMotionbuttonTapped(self.menuARMotionButton)
+                self.arMotionButtonTapped(self.menuARMotionButton)
                 self.toARMotionNO = false
             }
             
@@ -582,10 +582,6 @@ class ARMotionViewController: UIViewController {
     
     @IBAction func changeButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func makingARButtonTapped(_ sender: UIButton) {
-        self.navigationController?.pushFromStoryboard(MakingARViewController.identifier)
     }
     
     @IBAction func settingButtonTapped(_ sender: UIButton) {
@@ -1603,15 +1599,17 @@ class ARMotionViewController: UIViewController {
         }
     }
     
-    @IBAction func makingARbuttonTapped(_ sender: UIButton) {
+    @IBAction func makingARButtonTapped(_ sender: UIButton) {
         makingARButtonState = true
         arMotionButtonState = false
         filterButtonState = false
         
         self.menuButtonStateCheck()
+        
+        self.navigationController?.pushFromStoryboard(MakingARViewController.identifier)
     }
     
-    @IBAction func arMotionbuttonTapped(_ sender: UIButton) {
+    @IBAction func arMotionButtonTapped(_ sender: UIButton) {
         let indexPaths = [IndexPath]()
         arMotionCollectionView.reloadItems(at: indexPaths)
         
@@ -1635,7 +1633,7 @@ class ARMotionViewController: UIViewController {
         self.menuButtonStateCheck()
     }
     
-    @IBAction func filterbuttonTapped(_ sender: UIButton) {
+    @IBAction func filterButtonTapped(_ sender: UIButton) {
         let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissfilterBackView))
         self.tapBackView.addGestureRecognizer(dismissCollectionView)
         tapBackView.isHidden = false

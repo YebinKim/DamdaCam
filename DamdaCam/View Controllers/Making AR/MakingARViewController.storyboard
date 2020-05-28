@@ -23,7 +23,7 @@
         <scene sceneID="6Jn-vv-zyA">
             <objects>
                 <viewController storyboardIdentifier="MakingARView" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dqn-Rl-wot" customClass="MakingARViewController" customModule="DamdaCam" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="hCL-Sj-hZR">
+                    <view key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="hCL-Sj-hZR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

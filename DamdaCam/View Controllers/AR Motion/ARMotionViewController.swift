@@ -187,7 +187,7 @@ class ARMotionViewController: UIViewController {
         var array = [UIImage]()
         
         for kind in FaceARMotion.Kind.allCases {
-            if let image = UIImage(named: "FaceAR_\(kind)") {
+            if let image = UIImage(named: "faceAR_\(kind)") {
                 array.append(image)
             }
         }
@@ -203,7 +203,7 @@ class ARMotionViewController: UIViewController {
         var array = [UIImage]()
         
         for kind in BGARMotion.Kind.allCases {
-            if let image = UIImage(named: "BGAR_\(kind)") {
+            if let image = UIImage(named: "bgAR_\(kind)") {
                 array.append(image)
             }
         }

@@ -1730,7 +1730,7 @@ class ARMotionViewController: UIViewController {
     }
     
     @IBAction func filterPowerSet(_ sender: UISlider) {
-        filterBack.alpha = CGFloat(sender.value)
+        
     }
     
 }

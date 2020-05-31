@@ -153,12 +153,6 @@ class ARMotionViewController: UIViewController {
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
     
-    @IBOutlet var filterBack: UIView!
-    @IBOutlet var filterTemp1: UIButton!
-    @IBOutlet var filterTemp2: UIButton!
-    @IBOutlet var filterTemp3: UIButton!
-    @IBOutlet var filterTemp4: UIButton!
-    
     // AVCapture variables to hold sequence data
     var session: AVCaptureSession?
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -420,36 +414,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeFilterView() {
-        let BGFilter = UIView()
-        BGFilter.frame = self.filterView.bounds
-        BGFilter.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGFilter.backgroundColor = UIColor(named: "background_view")
-        
-        let BGfilterBar = UIView()
-        BGfilterBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGfilterBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGfilterBar.backgroundColor = UIColor(named: "background_bar")
-        
-        self.filterView.addSubview(BGFilter)
-        self.filterView.sendSubviewToBack(BGFilter)
-        self.filterView.addSubview(BGfilterBar)
-        self.filterView.sendSubviewToBack(BGfilterBar)
-        
         self.initializeFilterCollectionView()
-        
-        // FIXME: Temp Spec
-        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
-                                                state: false)
-        
-        filterBack.isUserInteractionEnabled = false
-        filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
         
         self.registerFilterViewGestureRecognizers()
     }
@@ -1761,29 +1726,6 @@ class ARMotionViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.arMotionCollectionView.reloadData()
-        }
-    }
-    
-    @IBAction func filterTempAction(_ sender: UIButton) {
-        // FIXME: Temp Spec
-        if sender == filterTemp1 {
-            filterPowerSlider.isHidden = true
-            filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)
-        } else if sender == filterTemp2 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                   state: true)
-        } else if sender == filterTemp3 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                   state: true)
-        } else if sender == filterTemp4 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
-                                                   state: true)
         }
     }
     

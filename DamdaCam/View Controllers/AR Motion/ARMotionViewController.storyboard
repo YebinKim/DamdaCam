@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -406,10 +407,122 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYt-bo-8QJ">
                                 <rect key="frame" x="0.0" y="667" width="375" height="230"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-78-cQy">
-                                        <rect key="frame" x="0.0" y="38" width="375" height="192"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ue-EY-0BD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1D-yr-jxn">
+                                                <rect key="frame" x="15" y="11" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="w1D-yr-jxn" secondAttribute="height" multiplier="1:1" id="fAX-5M-sxh"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_delete"/>
+                                                <connections>
+                                                    <action selector="arMotionDeleteButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="vJg-0g-rCu"/>
+                                                </connections>
+                                            </button>
+                                            <view alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Ws-7pU">
+                                                <rect key="frame" x="59" y="9" width="1" height="28"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="qSD-Ws-7pU" secondAttribute="height" multiplier="1:28" id="Wxr-9a-XpM"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaT-8L-91E">
+                                                <rect key="frame" x="89" y="11" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="iaT-8L-91E" secondAttribute="height" multiplier="1:1" id="glD-0g-1Av"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_favorites_off">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" image="ic_favorites_on"/>
+                                                <connections>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="0r0-iG-dQJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vP2-Ap-0nA">
+                                                <rect key="frame" x="143" y="9" width="28" height="28"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="vP2-Ap-0nA" secondAttribute="height" multiplier="1:1" id="fm6-Vn-HEM"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="ALL">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" title="ALL">
+                                                    <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="ikF-c3-9L7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-HM-dhw">
+                                                <rect key="frame" x="200" y="9" width="28" height="28"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="gTF-HM-dhw" secondAttribute="height" multiplier="1:1" id="5Y3-JG-JYS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="얼굴">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" title="얼굴">
+                                                    <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="aGw-YB-8b8"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcJ-HN-lxl">
+                                                <rect key="frame" x="260" y="9" width="28" height="28"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="jcJ-HN-lxl" secondAttribute="height" multiplier="1:1" id="Kf2-mk-Dhy"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="배경">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" title="배경">
+                                                    <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="XGc-hW-YG7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="background_bar"/>
+                                        <constraints>
+                                            <constraint firstItem="gTF-HM-dhw" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.608696" id="02k-y0-MEu"/>
+                                            <constraint firstItem="qSD-Ws-7pU" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="59" id="3qb-bn-bjH"/>
+                                            <constraint firstItem="qSD-Ws-7pU" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.608696" id="4nz-dh-ocO"/>
+                                            <constraint firstItem="w1D-yr-jxn" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.521739" id="5sF-Re-5mF"/>
+                                            <constraint firstItem="vP2-Ap-0nA" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.608696" id="8en-Tk-Ji8"/>
+                                            <constraint firstItem="w1D-yr-jxn" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="15" id="BDV-Aa-OWg"/>
+                                            <constraint firstItem="iaT-8L-91E" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="89" id="CjC-hI-nns"/>
+                                            <constraint firstItem="gTF-HM-dhw" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="E5D-qh-pWu"/>
+                                            <constraint firstItem="jcJ-HN-lxl" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="LNw-ro-vQL"/>
+                                            <constraint firstItem="jcJ-HN-lxl" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="260" id="RRG-IS-pIc"/>
+                                            <constraint firstItem="gTF-HM-dhw" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="200" id="Xjw-9q-Vtd"/>
+                                            <constraint firstItem="vP2-Ap-0nA" firstAttribute="leading" secondItem="5ue-EY-0BD" secondAttribute="leading" constant="143" id="Xwx-Wb-W2L"/>
+                                            <constraint firstItem="jcJ-HN-lxl" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.608696" id="Ywm-kd-Ei1"/>
+                                            <constraint firstItem="w1D-yr-jxn" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="ag3-2I-GJE"/>
+                                            <constraint firstItem="vP2-Ap-0nA" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="atw-Cm-feh"/>
+                                            <constraint firstItem="iaT-8L-91E" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="tzW-Rr-ESn"/>
+                                            <constraint firstItem="iaT-8L-91E" firstAttribute="height" secondItem="5ue-EY-0BD" secondAttribute="height" multiplier="0.521739" id="uhL-Ef-xMN"/>
+                                            <constraint firstItem="qSD-Ws-7pU" firstAttribute="centerY" secondItem="5ue-EY-0BD" secondAttribute="centerY" id="xq2-py-lVg"/>
+                                        </constraints>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-78-cQy">
+                                        <rect key="frame" x="0.0" y="46" width="375" height="184"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="375" id="Z7U-S3-2rt"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="22" minimumInteritemSpacing="22" id="g2M-Aw-4ZR">
                                             <size key="itemSize" width="39" height="39"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -438,82 +551,18 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1D-yr-jxn">
-                                        <rect key="frame" x="15" y="10" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="ic_delete"/>
-                                        <connections>
-                                            <action selector="arMotionDeleteButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="vJg-0g-rCu"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaT-8L-91E">
-                                        <rect key="frame" x="89" y="10" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="ic_favorites_off">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="selected" image="ic_favorites_on"/>
-                                        <connections>
-                                            <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="0r0-iG-dQJ"/>
-                                        </connections>
-                                    </button>
-                                    <view alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Ws-7pU">
-                                        <rect key="frame" x="59" y="8" width="1" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vP2-Ap-0nA">
-                                        <rect key="frame" x="86" y="8" width="28" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="ALL">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="selected" title="ALL">
-                                            <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="ikF-c3-9L7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-HM-dhw">
-                                        <rect key="frame" x="144" y="8" width="28" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="얼굴">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="selected" title="얼굴">
-                                            <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="aGw-YB-8b8"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcJ-HN-lxl">
-                                        <rect key="frame" x="202" y="8" width="28" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="8"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="배경">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="selected" title="배경">
-                                            <color key="titleColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="XGc-hW-YG7"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="background_view"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zYt-bo-8QJ" secondAttribute="height" multiplier="75:46" id="N7G-cW-WN5"/>
+                                    <constraint firstItem="5ue-EY-0BD" firstAttribute="top" secondItem="zYt-bo-8QJ" secondAttribute="top" id="NA8-22-Am5"/>
+                                    <constraint firstItem="5Jj-78-cQy" firstAttribute="top" secondItem="5ue-EY-0BD" secondAttribute="bottom" id="QPn-EE-pXz"/>
+                                    <constraint firstItem="5Jj-78-cQy" firstAttribute="leading" secondItem="zYt-bo-8QJ" secondAttribute="leading" id="TNl-Kf-1YR"/>
+                                    <constraint firstItem="5ue-EY-0BD" firstAttribute="leading" secondItem="zYt-bo-8QJ" secondAttribute="leading" id="XDG-y0-rq1"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Jj-78-cQy" secondAttribute="trailing" id="XNp-nW-IWt"/>
+                                    <constraint firstAttribute="trailing" secondItem="5ue-EY-0BD" secondAttribute="trailing" id="lxs-Mc-9ch"/>
+                                    <constraint firstItem="5ue-EY-0BD" firstAttribute="height" secondItem="zYt-bo-8QJ" secondAttribute="height" multiplier="0.2" id="s6u-qq-UmO"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Jj-78-cQy" secondAttribute="bottom" id="w8n-li-IIn"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bav-m5-9JP">
@@ -575,7 +624,7 @@
                                                 </cells>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="필터" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owl-7p-vX1">
-                                                <rect key="frame" x="175.5" y="10.5" width="24" height="20"/>
+                                                <rect key="frame" x="175.5" y="10.5" width="24" height="15.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="4lJ-EX-ckG"/>
                                                 </constraints>
@@ -774,5 +823,11 @@
         <image name="record_button" width="72" height="72"/>
         <image name="record_icon" width="60" height="60"/>
         <image name="record_move_icon" width="31" height="6"/>
+        <namedColor name="background_bar">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.40000000596046448" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="background_view">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

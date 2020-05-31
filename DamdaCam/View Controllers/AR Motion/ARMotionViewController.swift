@@ -400,21 +400,6 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeARMotionView() {
-        let BGBlack = UIView()
-        BGBlack.frame = self.arMotionView.bounds
-        BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBlack.backgroundColor = UIColor(named: "background_view")
-        
-        let BGBar = UIView()
-        BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBar.backgroundColor = UIColor(named: "background_bar")
-        
-        self.arMotionView.addSubview(BGBlack)
-        self.arMotionView.sendSubviewToBack(BGBlack)
-        self.arMotionView.addSubview(BGBar)
-        self.arMotionView.sendSubviewToBack(BGBar)
-        
         self.initializeARMotionButton()
         self.arMotionSelectButtonTapped(self.allARMotionButton)
         
@@ -429,9 +414,9 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeARMotionButton() {
-        self.allARMotionButton.layer.cornerRadius = 14
-        self.faceARMotionButton.layer.cornerRadius = 14
-        self.bgARMotionButton.layer.cornerRadius = 14
+        allARMotionButton.layer.cornerRadius = allARMotionButton.frame.width / 2
+        faceARMotionButton.layer.cornerRadius = faceARMotionButton.frame.width / 2
+        bgARMotionButton.layer.cornerRadius = bgARMotionButton.frame.width / 2
     }
     
     private func initializeFilterView() {

@@ -43,7 +43,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qI3-4d-Fth">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rr-Ge-97C">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rr-Ge-97C">
                                         <rect key="frame" x="28" y="604" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="6N4-ix-pJT"/>
@@ -54,7 +54,7 @@
                                             <action selector="ARMotionbuttonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="h5S-OU-Hv7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mh-xt-3K4">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mh-xt-3K4">
                                         <rect key="frame" x="83" y="548" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="Q8B-OA-ptH"/>
@@ -65,7 +65,7 @@
                                             <action selector="palettebuttonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="dGo-Pi-msQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTs-lJ-G3N">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTs-lJ-G3N">
                                         <rect key="frame" x="164" y="525" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="dTs-lJ-G3N" secondAttribute="height" multiplier="1:1" id="exo-1F-3AK"/>
@@ -76,7 +76,7 @@
                                             <action selector="brushbuttonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="zCw-Ib-BK1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYg-EE-Guz">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYg-EE-Guz">
                                         <rect key="frame" x="245" y="548" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="Sun-FE-2bg"/>
@@ -87,7 +87,7 @@
                                             <action selector="figurebuttonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="7uo-lh-3lT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09K-J3-Lsl">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09K-J3-Lsl">
                                         <rect key="frame" x="300" y="604" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="09K-J3-Lsl" secondAttribute="height" multiplier="1:1" id="ENj-0c-hID"/>
@@ -98,7 +98,7 @@
                                             <action selector="eraserbuttonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="FQS-gv-VgB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3H-jU-29V">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3H-jU-29V">
                                         <rect key="frame" x="156.5" y="632" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="e3H-jU-29V" secondAttribute="height" multiplier="1:1" id="0Ob-7V-or6"/>
@@ -110,7 +110,7 @@
                                             <action selector="drawerButtonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="QTq-Dc-g1W"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir5-Xv-6pP">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir5-Xv-6pP">
                                         <rect key="frame" x="156.5" y="632" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ir5-Xv-6pP" secondAttribute="height" multiplier="1:1" id="WuA-F9-qCb"/>

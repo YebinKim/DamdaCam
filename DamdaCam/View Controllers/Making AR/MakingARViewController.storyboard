@@ -31,7 +31,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makingAR_Model" translatesAutoresizingMaskIntoConstraints="NO" id="fx0-I5-vZ3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makingAR_model" translatesAutoresizingMaskIntoConstraints="NO" id="fx0-I5-vZ3">
                                 <rect key="frame" x="-50" y="127" width="475" height="760"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fx0-I5-vZ3" secondAttribute="height" multiplier="5:8" id="6cB-zA-NPp"/>
@@ -1026,7 +1026,7 @@
         <image name="ic_figure_off" width="46" height="46"/>
         <image name="ic_palette_off" width="46" height="46"/>
         <image name="ic_x_wh" width="24" height="24"/>
-        <image name="makingAR_Model" width="821" height="1321"/>
+        <image name="makingAR_model" width="821" height="1321"/>
         <image name="palette_gray" width="29" height="20"/>
         <image name="transparentCheck1" width="1046" height="333"/>
         <image name="transparentCheck2" width="1046" height="483"/>

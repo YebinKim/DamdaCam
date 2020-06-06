@@ -863,6 +863,9 @@
                                                 <state key="normal" title="NO">
                                                     <color key="titleColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="saveNoButtonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="pVo-M8-lhG"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UWH-Ge-1Z4">
                                                 <rect key="frame" x="155" y="0.0" width="155" height="56"/>
@@ -871,6 +874,9 @@
                                                 <state key="normal" title="YES">
                                                     <color key="titleColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="saveYesButtonTapped:" destination="dqn-Rl-wot" eventType="touchUpInside" id="JhA-P1-BWJ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

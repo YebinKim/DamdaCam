@@ -65,6 +65,7 @@
 		3EF7966C23E9A94900C56DDB /* FaceARMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7966A23E9A94900C56DDB /* FaceARMotion.swift */; };
 		3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7967323E9AD0A00C56DDB /* BGARMotion.swift */; };
 		3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */; };
+		445AA517248CE56500CD9268 /* NSNotification+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445AA516248CE56500CD9268 /* NSNotification+extension.swift */; };
 		44B147AB24712BFF0027163F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44B147AD24712BFF0027163F /* Localizable.strings */; };
 		44B147B1247139340027163F /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B147B0247139340027163F /* DamdaData.swift */; };
 		44B147B324713F300027163F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B147B224713F300027163F /* Color.xcassets */; };
@@ -138,6 +139,7 @@
 		3EFCD65A21AE33D900D51C0C /* DamdaCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamdaCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFCD65D21AE33D900D51C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EFCD66921AE33DA00D51C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		445AA516248CE56500CD9268 /* NSNotification+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+extension.swift"; sourceTree = "<group>"; };
 		44B147AC24712BFF0027163F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44B147AE24712C160027163F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44B147B0247139340027163F /* DamdaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DamdaData.swift; path = DamdaCam/Model/CoreData/DamdaData.swift; sourceTree = SOURCE_ROOT; };
@@ -243,6 +245,7 @@
 				3E38F61523DAF291002AAAB4 /* Utilities.swift */,
 				3EF7963E23E6A59300C56DDB /* Properties.swift */,
 				3EF7964223E6B25C00C56DDB /* Font.swift */,
+				445AA516248CE56500CD9268 /* NSNotification+extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
 				3EF7964323E6B25C00C56DDB /* Font.swift in Sources */,
 				3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */,
+				445AA517248CE56500CD9268 /* NSNotification+extension.swift in Sources */,
 				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
 				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
 				3EE77A9523F91F8600C8C777 /* ARMotionViewController+extension.swift in Sources */,

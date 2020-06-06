@@ -134,8 +134,7 @@ class ARMotionViewController: UIViewController {
     @IBOutlet var arMotionCollectionView: UICollectionView!
     @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
     var arMotionViewState: Bool = false
-    var toARMotionNO: Bool = false // toarMotionNO
-    var toARMotionYES: Bool = false // toarMotionYES
+    var applyMakingARMotion: Bool?
     
     // Filter View
     @IBOutlet var filterView: UIView!
@@ -222,25 +221,27 @@ class ARMotionViewController: UIViewController {
         self.view.isUserInteractionEnabled = false
         
         // Set ARSCNView
-        self.initializeARView()
+        initializeARView()
         // Set Record Button
-        self.initializeRecordButton()
+        initializeRecordButton()
         // Set clip View
-        self.initializeClipView()
+        initializeClipView()
         // Set menu view
-        self.initializeMenuView()
+        initializeMenuView()
         // Set Tap Gesture View on ARMotionView and FilterView
-        self.tapBackView.isHidden = true
+        tapBackView.isHidden = true
         
-        self.initializeARMotionView()
-        self.initializeFilterView()
+        initializeARMotionView()
+        initializeFilterView()
         
-        self.session = self.setupAVCaptureSession()
+        addObservers()
         
-        self.halfWidth = self.view.bounds.width / 2
-        self.halfHeight = self.view.bounds.height / 2
+        session = setupAVCaptureSession()
         
-        self.registerUIGestureRecognizers()
+        halfWidth = self.view.bounds.width / 2
+        halfHeight = self.view.bounds.height / 2
+        
+        registerUIGestureRecognizers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -282,15 +283,12 @@ class ARMotionViewController: UIViewController {
         self.arMotionCreate()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            if self.toARMotionNO {
-                self.arMotionButtonTapped(self.menuARMotionButton)
-                self.toARMotionNO = false
-            }
-            
-            if self.toARMotionYES {
+            if self.applyMakingARMotion == true {
                 self.arMotionSelected_newMakingAR()
-                self.toARMotionYES = false
+            } else if self.applyMakingARMotion == false {
+                self.arMotionButtonTapped(self.menuARMotionButton)
             }
+            self.applyMakingARMotion = nil
         }
         
         self.session?.startRunning()
@@ -330,6 +328,11 @@ class ARMotionViewController: UIViewController {
         // menu set
         let dismissMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         self.menuView.addGestureRecognizer(dismissMenuView)
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeMakingARView), name: NSNotification.Name.showARMotionView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeMakingARView), name: NSNotification.Name.applyMakingARMotion, object: nil)
     }
     
     private func initializeARView() {
@@ -520,16 +523,6 @@ class ARMotionViewController: UIViewController {
         return .portrait
     }
     
-    @objc
-    func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.changeModePhoto()
-    }
-    
-    @objc
-    func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.changeModeVideo()
-    }
-    
     @IBAction func changeButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -575,6 +568,16 @@ class ARMotionViewController: UIViewController {
     }
     
     @objc
+    func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.changeModePhoto()
+    }
+    
+    @objc
+    func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.changeModeVideo()
+    }
+    
+    @objc
     func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = self.recordView.frame.height * (2.0 / 3.0)
@@ -588,6 +591,12 @@ class ARMotionViewController: UIViewController {
             self.recordViewBottomConstraint.constant = 0
             self.view.layoutIfNeeded()
         })
+    }
+    
+    @objc
+    func changeMakingARView(_ notification: Notification) {
+        guard let applyMakingARMotion = notification.object as? Bool else { return }
+        self.applyMakingARMotion = applyMakingARMotion
     }
     
     func configureAccessibility() {

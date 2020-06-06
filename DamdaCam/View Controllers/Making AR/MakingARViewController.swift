@@ -1156,15 +1156,13 @@ class MakingARViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toARMotionNO" {
-            guard let destVC = segue.destination as? ARMotionViewController else { return }
-            destVC.toARMotionNO = true
-        }
-        
-        if segue.identifier == "toARMotionYES" {
-            guard let destVC = segue.destination as? ARMotionViewController else { return }
-            destVC.toARMotionYES = true
-        }
+    @IBAction func saveNoButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name.showARMotionView, object: false)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func saveYesButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name.applyMakingARMotion, object: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

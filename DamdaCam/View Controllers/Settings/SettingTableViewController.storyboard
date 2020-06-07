@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GDe-BT-7ok">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GDe-BT-7ok">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,18 +25,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydi-nR-g6N">
-                                                    <rect key="frame" x="313" y="6" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydi-nR-g6N">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="플래시" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL1-P0-c0f">
-                                                    <rect key="frame" x="17" y="11" width="70" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="플래시" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL1-P0-c0f">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ydi-nR-g6N" secondAttribute="trailing" constant="16" id="P5J-k0-4q9"/>
+                                                <constraint firstItem="ydi-nR-g6N" firstAttribute="centerY" secondItem="Odt-pk-f3p" secondAttribute="centerY" id="ZsW-Gx-brC"/>
+                                                <constraint firstItem="oL1-P0-c0f" firstAttribute="centerY" secondItem="Odt-pk-f3p" secondAttribute="centerY" id="a8A-WX-OuG"/>
+                                                <constraint firstItem="oL1-P0-c0f" firstAttribute="leading" secondItem="Odt-pk-f3p" secondAttribute="leadingMargin" id="wUL-6y-oU7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="J8L-YO-k69">
@@ -46,21 +50,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="와이드" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wm-cx-Ce3">
-                                                    <rect key="frame" x="315" y="11" width="45" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="와이드" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wm-cx-Ce3">
+                                                    <rect key="frame" x="320" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="화면비율" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-dd-dfb">
-                                                    <rect key="frame" x="17" y="11" width="70" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="화면비율" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-dd-dfb">
+                                                    <rect key="frame" x="16" y="11" width="52" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="5Wm-cx-Ce3" secondAttribute="trailing" constant="16" id="6LV-M2-DOt"/>
+                                                <constraint firstItem="5Wm-cx-Ce3" firstAttribute="centerY" secondItem="179-B6-Vj0" secondAttribute="centerY" id="SGC-lf-4yE"/>
+                                                <constraint firstItem="3Q3-dd-dfb" firstAttribute="leading" secondItem="179-B6-Vj0" secondAttribute="leadingMargin" id="Ylm-cD-gCn"/>
+                                                <constraint firstItem="3Q3-dd-dfb" firstAttribute="centerY" secondItem="179-B6-Vj0" secondAttribute="centerY" id="zhz-gp-JQ1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -74,14 +82,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="도움말" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnu-o1-lh2">
-                                                    <rect key="frame" x="17" y="11" width="70" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="도움말" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnu-o1-lh2">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vnu-o1-lh2" firstAttribute="leading" secondItem="NxR-u8-DXB" secondAttribute="leadingMargin" id="haQ-Lj-MSU"/>
+                                                <constraint firstItem="vnu-o1-lh2" firstAttribute="centerY" secondItem="NxR-u8-DXB" secondAttribute="centerY" id="ymd-nN-hj8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="UlV-xv-2XK">
@@ -91,14 +102,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Open Source License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWH-ab-fwO">
-                                                    <rect key="frame" x="17" y="11" width="150" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Source License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWH-ab-fwO">
+                                                    <rect key="frame" x="16" y="11" width="144" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vWH-ab-fwO" firstAttribute="leading" secondItem="1ee-bz-wmc" secondAttribute="leadingMargin" id="OA2-I0-Sza"/>
+                                                <constraint firstItem="vWH-ab-fwO" firstAttribute="centerY" secondItem="1ee-bz-wmc" secondAttribute="centerY" id="aIh-ST-hEx"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -112,14 +126,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="서울여자대학교 디지털미디어학과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfa-bw-hcy">
-                                                    <rect key="frame" x="17" y="11" width="199" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울여자대학교 디지털미디어학과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfa-bw-hcy">
+                                                    <rect key="frame" x="16" y="11" width="199" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Nfa-bw-hcy" firstAttribute="leading" secondItem="a3Q-th-ye1" secondAttribute="leadingMargin" id="7fL-xh-6gi"/>
+                                                <constraint firstItem="Nfa-bw-hcy" firstAttribute="centerY" secondItem="a3Q-th-ye1" secondAttribute="centerY" id="8VA-vE-0Th"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="1Br-0V-46f">
@@ -129,14 +146,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="김예빈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXG-Kk-YpM">
-                                                    <rect key="frame" x="17" y="11" width="39" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김예빈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXG-Kk-YpM">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fXG-Kk-YpM" firstAttribute="centerY" secondItem="eq9-70-7aJ" secondAttribute="centerY" id="7L4-0e-Y4c"/>
+                                                <constraint firstItem="fXG-Kk-YpM" firstAttribute="leading" secondItem="eq9-70-7aJ" secondAttribute="leadingMargin" id="vca-lK-FLL"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="1Qh-S1-Xzw">
@@ -146,14 +166,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="김지연" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJp-UV-xqu">
-                                                    <rect key="frame" x="17" y="11" width="39" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김지연" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJp-UV-xqu">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="OJp-UV-xqu" firstAttribute="leading" secondItem="g71-9q-J2G" secondAttribute="leadingMargin" id="8zk-jo-KlM"/>
+                                                <constraint firstItem="OJp-UV-xqu" firstAttribute="centerY" secondItem="g71-9q-J2G" secondAttribute="centerY" id="aOr-q2-au2"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="f2a-EO-1ng">
@@ -163,14 +186,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="안다은" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2w-Mm-G76">
-                                                    <rect key="frame" x="17" y="11" width="39" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="안다은" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2w-Mm-G76">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="G2w-Mm-G76" firstAttribute="centerY" secondItem="xeS-mw-pcJ" secondAttribute="centerY" id="OvB-Mj-Uam"/>
+                                                <constraint firstItem="G2w-Mm-G76" firstAttribute="leading" secondItem="xeS-mw-pcJ" secondAttribute="leadingMargin" id="a6j-UG-PwG"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetUpCell" id="9vo-4n-Xjc">
@@ -180,14 +206,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이정은" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kri-hh-72p">
-                                                    <rect key="frame" x="17" y="11" width="39" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이정은" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kri-hh-72p">
+                                                    <rect key="frame" x="16" y="11" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kri-hh-72p" firstAttribute="leading" secondItem="5do-ON-rHe" secondAttribute="leadingMargin" id="kvf-gU-eKb"/>
+                                                <constraint firstItem="kri-hh-72p" firstAttribute="centerY" secondItem="5do-ON-rHe" secondAttribute="centerY" id="qzE-F3-XHw"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

@@ -38,7 +38,7 @@ class MakingARViewController: UIViewController {
     @IBOutlet var menuBrushButton: UIButton!
     @IBOutlet var menuFigureButton: UIButton!
     @IBOutlet var menuEraserButton: UIButton!
-    var drawerButtonCenter: CGPoint = CGPoint(x: 187.5, y: 605.5)
+    var drawerButtonCenter: CGPoint!
     var ARMotionButtonCenter: CGPoint!
     var paletteButtonCenter: CGPoint!
     var brushButtonCenter: CGPoint!
@@ -125,6 +125,13 @@ class MakingARViewController: UIViewController {
         previewPaletteView.dropShadow()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.drawerButtonCenter = self.menuDrawerButton.center - CGPoint(x: 0, y: 60)
+            self.ARMotionButtonCenter = self.menuARMotionButton.center
+            self.paletteButtonCenter = self.menuPaletteButton.center
+            self.brushButtonCenter = self.menuBrushButton.center
+            self.figureButtonCenter = self.menuFigureButton.center
+            self.eraserButtonCenter = self.menuEraserButton.center
+            
             self.buttonAnimation(button: self.menuARMotionButton, position: self.drawerButtonCenter, size: 0.5)
             self.buttonAnimation(button: self.menuPaletteButton, position: self.drawerButtonCenter, size: 0.5)
             self.buttonAnimation(button: self.menuBrushButton, position: self.drawerButtonCenter, size: 0.5)
@@ -161,11 +168,6 @@ class MakingARViewController: UIViewController {
         menuFigureButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         menuEraserButton.dropShadow(opacity: 0.16, radius: 10.0, offset: CGSize(width: 1, height: 1))
         
-        ARMotionButtonCenter = menuARMotionButton.center
-        paletteButtonCenter = menuPaletteButton.center
-        brushButtonCenter = menuBrushButton.center
-        figureButtonCenter = menuFigureButton.center
-        eraserButtonCenter = menuEraserButton.center
         backView.isHidden = true
         backView.alpha = 0.0
         
@@ -1151,18 +1153,16 @@ class MakingARViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toARMotionNO" {
-            guard let destVC = segue.destination as? ARMotionViewController else { return }
-            destVC.toARMotionNO = true
-        }
-        
-        if segue.identifier == "toARMotionYES" {
-            guard let destVC = segue.destination as? ARMotionViewController else { return }
-            destVC.toARMotionYES = true
-        }
+    @IBAction func saveNoButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name.showARMotionView, object: false)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func saveYesButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name.applyMakingARMotion, object: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

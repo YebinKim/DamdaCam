@@ -62,6 +62,7 @@ class ARMotionViewController: UIViewController {
     var selectedMode: Bool = true // true -> photo, false -> video
     var videoState: Bool = false
     @IBOutlet var modeSelected: UIView!
+    @IBOutlet weak var modeSelectedCenterConstraint: NSLayoutConstraint!
     
     var takePhoto = false
     let fileOutput = AVCaptureMovieFileOutput()
@@ -108,16 +109,23 @@ class ARMotionViewController: UIViewController {
     var arMotionButtonState: Bool = false
     var filterButtonState: Bool = false
     
-    let tapBackView: UIView = {
+    lazy var tapBackView: UIView = {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 375, height: 437)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        self.view.addSubview(view)
+        
+        view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
         return view
     }()
     
     // arMotion View
     @IBOutlet var arMotionView: UIView!
+    @IBOutlet weak var arMotionViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var deleteARMotionButton: UIButton!
     @IBOutlet var myARMotionButton: UIButton!
     @IBOutlet var allARMotionButton: UIButton!
@@ -126,12 +134,12 @@ class ARMotionViewController: UIViewController {
     @IBOutlet var arMotionCollectionView: UICollectionView!
     @IBOutlet weak var arMotionViewFlowLayout: UICollectionViewFlowLayout!
     var arMotionViewState: Bool = false
-    var toARMotionNO: Bool = false // toarMotionNO
-    var toARMotionYES: Bool = false // toarMotionYES
+    var applyMakingARMotion: Bool?
     
     // Filter View
     @IBOutlet var filterView: UIView!
     @IBOutlet var filterBackView: UIView!
+    @IBOutlet weak var filterBackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var filterPowerSlider: UISlider!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var filterViewFlowLayout: UICollectionViewFlowLayout!
@@ -143,12 +151,6 @@ class ARMotionViewController: UIViewController {
     //                                     "CIPhotoEffectChrome", "CIPhotoEffectTransfer"].sorted(by: >)
     let filterContext = CIContext()
     var selectedFilter = CIFilter(name: "CIComicEffect")
-    
-    @IBOutlet var filterBack: UIView!
-    @IBOutlet var filterTemp1: UIButton!
-    @IBOutlet var filterTemp2: UIButton!
-    @IBOutlet var filterTemp3: UIButton!
-    @IBOutlet var filterTemp4: UIButton!
     
     // AVCapture variables to hold sequence data
     var session: AVCaptureSession?
@@ -178,7 +180,7 @@ class ARMotionViewController: UIViewController {
         var array = [UIImage]()
         
         for kind in FaceARMotion.Kind.allCases {
-            if let image = UIImage(named: "FaceAR_\(kind)") {
+            if let image = UIImage(named: "faceAR_\(kind)") {
                 array.append(image)
             }
         }
@@ -194,7 +196,7 @@ class ARMotionViewController: UIViewController {
         var array = [UIImage]()
         
         for kind in BGARMotion.Kind.allCases {
-            if let image = UIImage(named: "BGAR_\(kind)") {
+            if let image = UIImage(named: "bgAR_\(kind)") {
                 array.append(image)
             }
         }
@@ -219,31 +221,33 @@ class ARMotionViewController: UIViewController {
         self.view.isUserInteractionEnabled = false
         
         // Set ARSCNView
-        self.initializeARView()
+        initializeARView()
         // Set Record Button
-        self.initializeRecordButton()
+        initializeRecordButton()
         // Set clip View
-        self.initializeClipView()
+        initializeClipView()
         // Set menu view
-        self.initializeMenuView()
+        initializeMenuView()
         // Set Tap Gesture View on ARMotionView and FilterView
-        self.initializeTapBackView()
+        tapBackView.isHidden = true
         
-        self.initializeARMotionView()
-        self.initializeFilterView()
+        initializeARMotionView()
+        initializeFilterView()
         
-        self.previewLayer?.frame = self.view.bounds
+        addObservers()
         
-        self.session = self.setupAVCaptureSession()
+        session = setupAVCaptureSession()
         
-        self.halfWidth = self.view.bounds.width / 2
-        self.halfHeight = self.view.bounds.height / 2
+        halfWidth = self.view.bounds.width / 2
+        halfHeight = self.view.bounds.height / 2
         
-        self.registerUIGestureRecognizers()
+        registerUIGestureRecognizers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.previewLayer?.frame = self.view.bounds
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -260,30 +264,40 @@ class ARMotionViewController: UIViewController {
         self.menuButtonStateCheck()
         self.menuXButtonOn.alpha = 1.0
         
-        self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
-        self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.makingARButtonCenter = self.menuMakingARButton.center
+            self.arMotionButtonCenter = self.menuARMotionButton.center
+            self.filterButtonCenter = self.menuFilterButton.center
+            self.makingARLabelCenter = self.menuMakingARLabel.center
+            self.arMotionLabelCenter = self.menuARMotionLabel.center
+            self.filterLabelCenter = self.menuFilterLabel.center
+            
+            self.buttonAnimation(button: self.menuMakingARButton, label: self.menuMakingARLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuARMotionButton, label: self.menuARMotionLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+            self.buttonAnimation(button: self.menuFilterButton, label: self.menuFilterLabel, buttonPosition: self.menuXButton.center, size: 0.5, labelPosition: self.menuXButton.center)
+        }
+       
         self.menuView.alpha = 0.0
         
         // ARmotion Set
         self.arMotionCreate()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            if self.toARMotionNO {
-                self.arMotionbuttonTapped(self.menuARMotionButton)
-                self.toARMotionNO = false
-            }
-            
-            if self.toARMotionYES {
+            if self.applyMakingARMotion == true {
                 self.arMotionSelected_newMakingAR()
-                self.toARMotionYES = false
+            } else if self.applyMakingARMotion == false {
+                self.arMotionButtonTapped(self.menuARMotionButton)
             }
+            self.applyMakingARMotion = nil
         }
         
         self.session?.startRunning()
         
         self.view.bringSubviewToFront(iconView)
+        self.view.bringSubviewToFront(menuView)
         self.view.bringSubviewToFront(tapBackView)
+        self.view.bringSubviewToFront(arMotionView)
+        self.view.bringSubviewToFront(filterBackView)
         
         self.view.isUserInteractionEnabled = true
     }
@@ -314,9 +328,11 @@ class ARMotionViewController: UIViewController {
         // menu set
         let dismissMenuView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         self.menuView.addGestureRecognizer(dismissMenuView)
-        
-        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissCollection))
-        self.tapBackView.addGestureRecognizer(dismissCollectionView)
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeMakingARView), name: NSNotification.Name.showARMotionView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeMakingARView), name: NSNotification.Name.applyMakingARMotion, object: nil)
     }
     
     private func initializeARView() {
@@ -371,12 +387,6 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeMenuView() {
-        self.makingARButtonCenter = self.menuMakingARButton.center
-        self.arMotionButtonCenter = self.menuARMotionButton.center
-        self.filterButtonCenter = self.menuFilterButton.center
-        self.makingARLabelCenter = self.menuMakingARLabel.center
-        self.arMotionLabelCenter = self.menuARMotionLabel.center
-        self.filterLabelCenter = self.menuFilterLabel.center
         self.menuMakingARLabel.alpha = 0.0
         self.menuARMotionLabel.alpha = 0.0
         self.menuFilterLabel.alpha = 0.0
@@ -386,27 +396,7 @@ class ARMotionViewController: UIViewController {
         addBackView(view: menuView, color: UIColor(named: "black"), alpha: 0.6, cornerRadius: 0)
     }
     
-    private func initializeTapBackView() {
-        self.view.addSubview(self.tapBackView)
-        self.tapBackView.isHidden = true
-    }
-    
     private func initializeARMotionView() {
-        let BGBlack = UIView()
-        BGBlack.frame = self.arMotionView.bounds
-        BGBlack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBlack.backgroundColor = UIColor(named: "background_view")
-        
-        let BGBar = UIView()
-        BGBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGBar.backgroundColor = UIColor(named: "background_bar")
-        
-        self.arMotionView.addSubview(BGBlack)
-        self.arMotionView.sendSubviewToBack(BGBlack)
-        self.arMotionView.addSubview(BGBar)
-        self.arMotionView.sendSubviewToBack(BGBar)
-        
         self.initializeARMotionButton()
         self.arMotionSelectButtonTapped(self.allARMotionButton)
         
@@ -421,42 +411,13 @@ class ARMotionViewController: UIViewController {
     }
     
     private func initializeARMotionButton() {
-        self.allARMotionButton.layer.cornerRadius = 14
-        self.faceARMotionButton.layer.cornerRadius = 14
-        self.bgARMotionButton.layer.cornerRadius = 14
+        allARMotionButton.layer.cornerRadius = allARMotionButton.frame.width / 2
+        faceARMotionButton.layer.cornerRadius = faceARMotionButton.frame.width / 2
+        bgARMotionButton.layer.cornerRadius = bgARMotionButton.frame.width / 2
     }
     
     private func initializeFilterView() {
-        let BGFilter = UIView()
-        BGFilter.frame = self.filterView.bounds
-        BGFilter.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGFilter.backgroundColor = UIColor(named: "background_view")
-        
-        let BGfilterBar = UIView()
-        BGfilterBar.frame = CGRect(x: 0, y: 0, width: 375, height: 44)
-        BGfilterBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        BGfilterBar.backgroundColor = UIColor(named: "background_bar")
-        
-        self.filterView.addSubview(BGFilter)
-        self.filterView.sendSubviewToBack(BGFilter)
-        self.filterView.addSubview(BGfilterBar)
-        self.filterView.sendSubviewToBack(BGfilterBar)
-        
         self.initializeFilterCollectionView()
-        
-        // FIXME: Temp Spec
-        filterTemp2.applyGradient_rect(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp3.applyGradient_rect(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                state: false)
-        filterTemp4.applyGradient_rect(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
-                                                UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
-                                                state: false)
-        
-        filterBack.isUserInteractionEnabled = false
-        filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: false)
         
         self.registerFilterViewGestureRecognizers()
     }
@@ -531,7 +492,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerARMotionViewGestureRecognizers() {
-        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
+        let swipeARMotionView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissARMotionView))
         swipeARMotionView.direction = .down
         self.arMotionView.addGestureRecognizer(swipeARMotionView)
         
@@ -547,7 +508,7 @@ class ARMotionViewController: UIViewController {
     }
     
     private func registerFilterViewGestureRecognizers() {
-        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissCollection))
+        let swipeFilterView: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismissfilterBackView))
         swipeFilterView.direction = .down
         filterView.addGestureRecognizer(swipeFilterView)
     }
@@ -562,20 +523,8 @@ class ARMotionViewController: UIViewController {
         return .portrait
     }
     
-    @objc func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.changeModePhoto()
-    }
-    
-    @objc func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.changeModeVideo()
-    }
-    
     @IBAction func changeButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func makingARButtonTapped(_ sender: UIButton) {
-        self.navigationController?.pushFromStoryboard(MakingARViewController.identifier)
     }
     
     @IBAction func settingButtonTapped(_ sender: UIButton) {
@@ -587,22 +536,26 @@ class ARMotionViewController: UIViewController {
     }
     
     func changeModePhoto() {
+        guard !selectedMode else { return }
+        
+        modeSelectedCenterConstraint.constant += modeSelected.frame.width / 2.0
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.modeSelected.center += CGPoint(x: 58.0, y: 0.0)
+            self.view.layoutIfNeeded()
         })
         
         clipButton.isHidden = true
-        
         selectedMode = true
     }
     
     func changeModeVideo() {
+        guard selectedMode else { return }
+        
+        modeSelectedCenterConstraint.constant -= modeSelected.frame.width / 2.0
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.modeSelected.center -= CGPoint(x: 58.0, y: 0.0)
+            self.view.layoutIfNeeded()
         })
         
         clipButton.isHidden = false
-        
         selectedMode = false
     }
     
@@ -614,18 +567,36 @@ class ARMotionViewController: UIViewController {
         self.changeModeVideo()
     }
     
-    @objc func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func modePhoto(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.changeModePhoto()
+    }
+    
+    @objc
+    func modeVideo(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.changeModeVideo()
+    }
+    
+    @objc
+    func recordButtonDown(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
-            self.recordViewBottomConstraint.constant = -130
+            self.recordViewBottomConstraint.constant = self.recordView.frame.height * (2.0 / 3.0)
             self.view.layoutIfNeeded()
         })
     }
     
-    @objc func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc
+    func recordButtonUp(gestureRecognizer: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: Double(0.5), animations: {
             self.recordViewBottomConstraint.constant = 0
             self.view.layoutIfNeeded()
         })
+    }
+    
+    @objc
+    func changeMakingARView(_ notification: Notification) {
+        guard let applyMakingARMotion = notification.object as? Bool else { return }
+        self.applyMakingARMotion = applyMakingARMotion
     }
     
     func configureAccessibility() {
@@ -1337,7 +1308,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1359,7 +1335,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1381,7 +1362,12 @@ class ARMotionViewController: UIViewController {
         clipButtonStateCheck()
         
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
+            let clipViewFrame: CGRect = CGRect(x: clipView.frame.minX,
+                                               y: clipView.frame.minY,
+                                               width: clipView.frame.width,
+                                               height: clipView.frame.height / 3)
+            clipView.layer.frame = clipViewFrame
+            
             clipViewDivideBar.isHidden = true
             plusClipPicker.isHidden = true
             clipViewState = false
@@ -1401,17 +1387,23 @@ class ARMotionViewController: UIViewController {
         
         clipButtonStateCheck()
         
+        var clipViewFrame: CGRect = CGRect.zero
         if clipViewState {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height / 3)
-            clipViewDivideBar.isHidden = true
-            plusClipPicker.isHidden = true
-            clipViewState = false
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height / 3)
         } else {
-            clipView.layer.frame = CGRect(x: 54.5, y: 56, width: clipView.frame.width, height: clipView.frame.height * 3)
-            clipViewDivideBar.isHidden = false
-            plusClipPicker.isHidden = false
-            clipViewState = true
+            clipViewFrame = CGRect(x: clipView.frame.minX,
+                                   y: clipView.frame.minY,
+                                   width: clipView.frame.width,
+                                   height: clipView.frame.height * 3)
         }
+        clipView.layer.frame = clipViewFrame
+        
+        clipViewDivideBar.isHidden = clipViewState
+        plusClipPicker.isHidden = clipViewState
+        clipViewState = !clipViewState
     }
     
     func clipButtonStateCheck() {
@@ -1449,31 +1441,38 @@ class ARMotionViewController: UIViewController {
     }
     
     // Menu Set
-    @objc func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
+    @objc
+    func dismissMenu(gestureRecognizer: UITapGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
     }
     
-    @objc func dismissCollection(gestureRecognizer: Any) {
+    @objc
+    func dismissARMotionView(gestureRecognizer: UIGestureRecognizer) {
         XbuttonTapped(menuXButtonOn)
         
         if arMotionViewState {
             arMotionViewState = false
             
-            UIView.animate(withDuration: 0.2, animations: {
-                self.buttonHide(state: true)
-                self.arMotionView.center += CGPoint(x: 0, y: 230)
-                
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-        if arMotionViewState {
-            arMotionViewState = false
+            arMotionViewTopConstraint.constant = arMotionView.frame.height
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonHide(state: true)
-                self.arMotionView.center += CGPoint(x: 0, y: 230)
-                
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @objc
+    func dismissfilterBackView(gestureRecognizer: UIGestureRecognizer) {
+        XbuttonTapped(menuXButtonOn)
+        
+        if filterButtonState {
+            filterButtonState = false
+            
+            filterBackViewTopConstraint.constant = filterBackView.frame.height
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.buttonHide(state: true)
                 self.view.layoutIfNeeded()
             })
         }
@@ -1559,46 +1558,56 @@ class ARMotionViewController: UIViewController {
         }
     }
     
-    @IBAction func makingARbuttonTapped(_ sender: UIButton) {
+    @IBAction func makingARButtonTapped(_ sender: UIButton) {
         makingARButtonState = true
         arMotionButtonState = false
         filterButtonState = false
         
         self.menuButtonStateCheck()
+        
+        self.navigationController?.pushFromStoryboard(MakingARViewController.identifier)
     }
     
-    @IBAction func arMotionbuttonTapped(_ sender: UIButton) {
+    @IBAction func arMotionButtonTapped(_ sender: UIButton) {
         let indexPaths = [IndexPath]()
         arMotionCollectionView.reloadItems(at: indexPaths)
         
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissARMotionView))
+        self.tapBackView.addGestureRecognizer(dismissCollectionView)
         tapBackView.isHidden = false
         
         makingARButtonState = false
         arMotionButtonState = true
         filterButtonState = false
         
+        arMotionViewTopConstraint.constant = -arMotionView.frame.height
+        
         UIView.animate(withDuration: 0.2) {
             self.menuView.alpha = 0.0
             self.buttonHide(state: true)
-            self.arMotionView.center -= CGPoint(x: 0, y: 230)
             self.arMotionViewState = true
+            self.arMotionView.layoutIfNeeded()
         }
         
         self.menuButtonStateCheck()
     }
     
-    @IBAction func fiterbuttonTapped(_ sender: UIButton) {
+    @IBAction func filterButtonTapped(_ sender: UIButton) {
+        let dismissCollectionView: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissfilterBackView))
+        self.tapBackView.addGestureRecognizer(dismissCollectionView)
         tapBackView.isHidden = false
         
         makingARButtonState = false
         arMotionButtonState = false
         filterButtonState = true
         
+        filterBackViewTopConstraint.constant = -filterBackView.frame.height
+        
         UIView.animate(withDuration: 0.2) {
             self.menuView.alpha = 0.0
             self.buttonHide(state: true)
-            self.filterBackView.center -= CGPoint(x: 0, y: 207.5)
             self.filterViewState = true
+            self.filterBackView.layoutIfNeeded()
         }
         
         self.menuButtonStateCheck()
@@ -1729,31 +1738,8 @@ class ARMotionViewController: UIViewController {
         }
     }
     
-    @IBAction func filterTempAction(_ sender: UIButton) {
-        // FIXME: Temp Spec
-        if sender == filterTemp1 {
-            filterPowerSlider.isHidden = true
-            filterBack.applyGradient_view(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor], state: true)
-        } else if sender == filterTemp2 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                   state: true)
-        } else if sender == filterTemp3 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 254/255, green: 156/255, blue: 255/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 16/255, green: 208/255, blue: 255/255, alpha: 0.5).cgColor],
-                                                   state: true)
-        } else if sender == filterTemp4 {
-            filterPowerSlider.isHidden = false
-            filterBack.applyGradient_view(colors: [UIColor(red: 5/255, green: 17/255, blue: 133/255, alpha: 0.5).cgColor,
-                                                   UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3).cgColor],
-                                                   state: true)
-        }
-    }
-    
     @IBAction func filterPowerSet(_ sender: UISlider) {
-        filterBack.alpha = CGFloat(sender.value)
+        
     }
     
 }

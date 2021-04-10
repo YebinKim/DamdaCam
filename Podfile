@@ -7,9 +7,6 @@ target 'DamdaCam' do
 
   # Pods for DamdaCam
 
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-	pod 'lottie-ios'
-
   # Pods for GoogleAR frameworks
 	pod 'ARCore',  '~> 1.4'
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ye0-II-Qix">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ye0-II-Qix">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,7 +52,7 @@
                                     <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNr-Mg-jzZ">
                                         <rect key="frame" x="54.5" y="60" width="266" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaD-RB-5su">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaD-RB-5su">
                                                 <rect key="frame" x="17" y="12" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,7 +64,7 @@
                                                     <action selector="clipOneButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="TfU-7p-LhH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQc-YW-Ker">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQc-YW-Ker">
                                                 <rect key="frame" x="81" y="12" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,7 +76,7 @@
                                                     <action selector="clipTwoButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="dsR-75-9bB"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CsL-7j-wdQ">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CsL-7j-wdQ">
                                                 <rect key="frame" x="145" y="12" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -88,7 +88,7 @@
                                                     <action selector="clipThreeButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="eIU-wM-Zq9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35o-M4-mvA">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35o-M4-mvA">
                                                 <rect key="frame" x="209" y="12" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,7 +186,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="kR1-eT-k03" secondAttribute="height" multiplier="1:1" id="rfm-Tp-pAb"/>
                                                 </constraints>
-                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="tintColor" systemColor="darkTextColor"/>
                                                 <state key="normal" image="ic_menu_wh"/>
                                                 <connections>
                                                     <action selector="menuTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="7Bh-RS-MgS"/>
@@ -204,7 +204,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tnw-hq-yyw">
                                                 <rect key="frame" x="160" y="135" width="110" height="25"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqF-IU-unE">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqF-IU-unE">
                                                         <rect key="frame" x="14" y="2.5" width="25" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="nqF-IU-unE" secondAttribute="height" multiplier="5:4" id="RIn-yp-CLN"/>
@@ -217,7 +217,7 @@
                                                             <action selector="photoButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="W9d-Yq-zcU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAq-8v-w9h">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAq-8v-w9h">
                                                         <rect key="frame" x="68" y="2.5" width="35" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="FAq-8v-w9h" secondAttribute="height" multiplier="7:4" id="wfK-bA-ZtR"/>
@@ -437,7 +437,7 @@
                                                     <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="0r0-iG-dQJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vP2-Ap-0nA">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vP2-Ap-0nA">
                                                 <rect key="frame" x="143" y="9" width="28" height="28"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -455,7 +455,7 @@
                                                     <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="ikF-c3-9L7"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-HM-dhw">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-HM-dhw">
                                                 <rect key="frame" x="200" y="9" width="28" height="28"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -473,7 +473,7 @@
                                                     <action selector="arMotionSelectButtonTapped:" destination="Ye0-II-Qix" eventType="touchUpInside" id="aGw-YB-8b8"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcJ-HN-lxl">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcJ-HN-lxl">
                                                 <rect key="frame" x="260" y="9" width="28" height="28"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.38" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -666,6 +666,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="oXF-j2-i5K"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jZp-Au-8T4" firstAttribute="top" secondItem="LLp-eX-yOu" secondAttribute="top" id="212-RI-Bgq"/>
@@ -687,7 +688,6 @@
                             <constraint firstItem="bav-m5-9JP" firstAttribute="width" secondItem="LLp-eX-yOu" secondAttribute="width" id="xOO-7V-gd0"/>
                             <constraint firstItem="bav-m5-9JP" firstAttribute="centerX" secondItem="LLp-eX-yOu" secondAttribute="centerX" id="zVo-kL-vWo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="oXF-j2-i5K"/>
                     </view>
                     <navigationItem key="navigationItem" id="NW2-Ae-7H8"/>
                     <connections>
@@ -768,5 +768,8 @@
         <namedColor name="background_view">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

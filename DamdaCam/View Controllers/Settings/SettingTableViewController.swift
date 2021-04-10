@@ -8,9 +8,11 @@
 
 import UIKit
 
-class SettingTableViewController: UITableViewController {
+final class SettingTableViewController: UITableViewController {
 
-    static let identifier: String = "SettingTableViewController"
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     let numSection: [Int] = [2, 2, 5]
     @IBOutlet var timerLabel: UILabel!

@@ -14,9 +14,11 @@ import SceneKit
 import Metron
 import CoreData
 
-class ARMotionViewController: UIViewController {
+final class ARMotionViewController: UIViewController {
 
-    static let identifier: String = "ARMotionViewController"
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     let arView = SCNView()
     let arScene = SCNScene()

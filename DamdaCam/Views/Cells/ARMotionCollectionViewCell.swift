@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ARMotionCollectionViewCell: UICollectionViewCell {
+final class ARMotionCollectionViewCell: UICollectionViewCell {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
+
     @IBOutlet weak var previewImage: UIImageView!
     
     override var isSelected: Bool {

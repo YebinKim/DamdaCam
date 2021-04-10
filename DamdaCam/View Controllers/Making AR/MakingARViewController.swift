@@ -10,9 +10,11 @@ import UIKit
 import CoreData
 import FlexColorPicker
 
-class MakingARViewController: UIViewController {
+final class MakingARViewController: UIViewController {
 
-    static let identifier: String = "MakingARViewController"
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     var localRecords: [NSManagedObject] = []
     
@@ -715,7 +717,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var customControl1: AbstractColorControl? {
+    @IBOutlet var customControl1: AbstractColorControl? {
         get {
             return colorPicker.customControl1
         }
@@ -724,7 +726,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var redSlider: RedSliderControl? {
+    @IBOutlet var redSlider: RedSliderControl? {
         get {
             return colorPicker.redSlider
         }
@@ -733,7 +735,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var greenSlider: GreenSliderControl? {
+    @IBOutlet var greenSlider: GreenSliderControl? {
         get {
             return colorPicker.greenSlider
         }
@@ -742,7 +744,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var blueSlider: BlueSliderControl? {
+    @IBOutlet var blueSlider: BlueSliderControl? {
         get {
             return colorPicker.blueSlider
         }
@@ -757,7 +759,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var saturationSlider: SaturationSliderControl? {
+    @IBOutlet var saturationSlider: SaturationSliderControl? {
         get {
             return colorPicker.saturationSlider
         }
@@ -766,7 +768,7 @@ class MakingARViewController: UIViewController {
         }
     }
     
-    @IBOutlet open var brightnessSlider: BrightnessSliderControl? {
+    @IBOutlet var brightnessSlider: BrightnessSliderControl? {
         get {
             return colorPicker.brightnessSlider
         }
@@ -1092,7 +1094,7 @@ class MakingARViewController: UIViewController {
     }
     
     // Preview Palette Set
-    @IBOutlet open var radialHsbPalette: RadialPaletteControl? {
+    @IBOutlet var radialHsbPalette: RadialPaletteControl? {
         get {
             return colorPicker.radialHsbPalette
         }

@@ -8,7 +8,12 @@
 
 import UIKit
 
-class CustomPaletteCollectionViewCell: UICollectionViewCell {
+final class CustomPaletteCollectionViewCell: UICollectionViewCell {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     @IBOutlet var customColor: UIView!
     
     override var isSelected: Bool {

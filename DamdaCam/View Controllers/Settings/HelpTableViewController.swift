@@ -8,9 +8,11 @@
 
 import UIKit
 
-class HelpTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    static let identifier: String = "HelpTableViewController"
+final class HelpTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     @IBOutlet var navigationBar: UINavigationBar!
     

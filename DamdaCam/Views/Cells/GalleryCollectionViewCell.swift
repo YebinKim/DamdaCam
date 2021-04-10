@@ -8,7 +8,11 @@
 
 import UIKit
 
-class GalleryCollectionViewCell: UICollectionViewCell {
+final class GalleryCollectionViewCell: UICollectionViewCell {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     @IBOutlet weak var galleryImageView: UIImageView!
     

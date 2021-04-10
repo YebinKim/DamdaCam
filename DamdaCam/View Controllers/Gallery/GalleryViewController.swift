@@ -9,11 +9,11 @@
 import UIKit
 import Photos
 
-private let reuseIdentifier = "ImageCell"
+final class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    static let identifier: String = "GalleryViewController"
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet weak var galleryCollectionView: UICollectionView!
@@ -140,7 +140,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Configure the cell
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.identifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell() }
         
         // cell frame CGSize만큼 asset 을 설정하여 photoImageView에 set
         let asset: PHAsset = self.assetsFetchResults![indexPath.item]

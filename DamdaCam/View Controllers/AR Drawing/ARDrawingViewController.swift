@@ -11,9 +11,11 @@ import SceneKit
 import ARKit
 import ReplayKit
 
-class ARDrawingViewController: UIViewController {
-    
-    static let identifier: String = "ARDrawingViewController"
+final class ARDrawingViewController: UIViewController {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     lazy var sceneView: ARSCNView = {
         let sceneView = ARSCNView()

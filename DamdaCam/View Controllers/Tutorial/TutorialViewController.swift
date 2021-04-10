@@ -9,8 +9,10 @@
 import UIKit
 
 class TutorialViewController: UIViewController {
-    
-    static let identifier: String = "TutorialViewController"
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     // Tutorial View
     @IBOutlet weak var tutorialView: UIView!

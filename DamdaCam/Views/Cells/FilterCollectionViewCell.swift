@@ -8,7 +8,12 @@
 
 import UIKit
 
-class FilterCollectionViewCell: UICollectionViewCell {
+final class FilterCollectionViewCell: UICollectionViewCell {
+
+    static var identifier: String {
+        return String(describing: self)
+    }
+
     @IBOutlet var filterPreviewImage: UIImageView!
     @IBOutlet var filterNameLabel: UILabel!
     

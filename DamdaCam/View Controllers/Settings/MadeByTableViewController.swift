@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class MadeByTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    static let identifier: String = "MadeByTableViewController"
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     @IBOutlet var navigationBar: UINavigationBar!
     

@@ -66,6 +66,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
                 })
             case .restricted:
                 print(authorizationStatusOfPhoto)
+
+            default:
+                print(authorizationStatusOfPhoto)
             }
         }
     }

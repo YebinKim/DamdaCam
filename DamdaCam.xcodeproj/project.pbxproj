@@ -25,14 +25,11 @@
 		3E38F60923DAEEB0002AAAB4 /* SettingTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */; };
 		3E38F60B23DAEED8002AAAB4 /* GalleryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60A23DAEED8002AAAB4 /* GalleryViewController.storyboard */; };
 		3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E38F60C23DAF0C1002AAAB4 /* TutorialViewController.storyboard */; };
-		3E38F61623DAF291002AAAB4 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61423DAF290002AAAB4 /* Styles.swift */; };
-		3E38F61723DAF291002AAAB4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61523DAF291002AAAB4 /* Utilities.swift */; };
 		3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61823DAF29F002AAAB4 /* UISliderColorControl.swift */; };
 		3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61923DAF29F002AAAB4 /* RadialHuePalette.swift */; };
 		3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61A23DAF29F002AAAB4 /* HueColorSliderDelegate.swift */; };
 		3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F61B23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift */; };
 		3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62023DAF2A5002AAAB4 /* ISRadioButton.swift */; };
-		3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */; };
 		3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */; };
 		3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */; };
 		3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E38F62823DAF2B8002AAAB4 /* BiquadFilter.swift */; };
@@ -65,6 +62,21 @@
 		44B147AB24712BFF0027163F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44B147AD24712BFF0027163F /* Localizable.strings */; };
 		44B147B324713F300027163F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B147B224713F300027163F /* Color.xcassets */; };
 		B61ABE0AEDC8E3BE41109F7D /* Pods_DamdaCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C760A83E40B767083E564D3 /* Pods_DamdaCam.framework */; };
+		C3321326262244C3001AAD4E /* SCNVector3+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3321325262244C3001AAD4E /* SCNVector3+Extension.swift */; };
+		C332132E26224629001AAD4E /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332132D26224629001AAD4E /* CGPoint+Extension.swift */; };
+		C33213312622464D001AAD4E /* CGSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33213302622464D001AAD4E /* CGSize+Extension.swift */; };
+		C332133526224783001AAD4E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332133426224783001AAD4E /* UIView+Extension.swift */; };
+		C3321338262247CF001AAD4E /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3321337262247CF001AAD4E /* UIImageView+Extension.swift */; };
+		C332133C2622481C001AAD4E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332133B2622481C001AAD4E /* String+Extension.swift */; };
+		C332133F2622483A001AAD4E /* CGColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332133E2622483A001AAD4E /* CGColor+Extension.swift */; };
+		C332134226224877001AAD4E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332134126224877001AAD4E /* UIColor+Extension.swift */; };
+		C3321345262248A8001AAD4E /* SCNNode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3321344262248A8001AAD4E /* SCNNode+Extension.swift */; };
+		C332134826224903001AAD4E /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332134726224903001AAD4E /* Int+Extension.swift */; };
+		C332134B26224945001AAD4E /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332134A26224945001AAD4E /* UITextView+Extension.swift */; };
+		C332134E26224979001AAD4E /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332134D26224979001AAD4E /* UIButton+Extension.swift */; };
+		C3321353262249FF001AAD4E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3321352262249FF001AAD4E /* UIImage+Extension.swift */; };
+		C332135826224A67001AAD4E /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332135726224A67001AAD4E /* UINavigationController+Extension.swift */; };
+		C332135C26224AC3001AAD4E /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332135B26224AC3001AAD4E /* UIViewController+Extension.swift */; };
 		C396673B2621D6F300CEBBF9 /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C396673A2621D6F300CEBBF9 /* DamdaData.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,14 +100,11 @@
 		3E38F60823DAEEB0002AAAB4 /* SettingTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingTableViewController.storyboard; sourceTree = "<group>"; };
 		3E38F60A23DAEED8002AAAB4 /* GalleryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GalleryViewController.storyboard; sourceTree = "<group>"; };
 		3E38F60C23DAF0C1002AAAB4 /* TutorialViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialViewController.storyboard; sourceTree = "<group>"; };
-		3E38F61423DAF290002AAAB4 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		3E38F61523DAF291002AAAB4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3E38F61823DAF29F002AAAB4 /* UISliderColorControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderColorControl.swift; sourceTree = "<group>"; };
 		3E38F61923DAF29F002AAAB4 /* RadialHuePalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialHuePalette.swift; sourceTree = "<group>"; };
 		3E38F61A23DAF29F002AAAB4 /* HueColorSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HueColorSliderDelegate.swift; sourceTree = "<group>"; };
 		3E38F61B23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialHueColorPaletteDelegate.swift; sourceTree = "<group>"; };
 		3E38F62023DAF2A5002AAAB4 /* ISRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISRadioButton.swift; sourceTree = "<group>"; };
-		3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
 		3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawPromptView.swift; sourceTree = "<group>"; };
 		3E38F62823DAF2B8002AAAB4 /* BiquadFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiquadFilter.swift; sourceTree = "<group>"; };
@@ -139,6 +148,21 @@
 		44B147B224713F300027163F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		7A2FF700FA191457E5E0427B /* Pods-DamdaCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamdaCam.release.xcconfig"; path = "Pods/Target Support Files/Pods-DamdaCam/Pods-DamdaCam.release.xcconfig"; sourceTree = "<group>"; };
 		9C760A83E40B767083E564D3 /* Pods_DamdaCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamdaCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3321325262244C3001AAD4E /* SCNVector3+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extension.swift"; sourceTree = "<group>"; };
+		C332132D26224629001AAD4E /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
+		C33213302622464D001AAD4E /* CGSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extension.swift"; sourceTree = "<group>"; };
+		C332133426224783001AAD4E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		C3321337262247CF001AAD4E /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		C332133B2622481C001AAD4E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		C332133E2622483A001AAD4E /* CGColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Extension.swift"; sourceTree = "<group>"; };
+		C332134126224877001AAD4E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		C3321344262248A8001AAD4E /* SCNNode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extension.swift"; sourceTree = "<group>"; };
+		C332134726224903001AAD4E /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		C332134A26224945001AAD4E /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		C332134D26224979001AAD4E /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		C3321352262249FF001AAD4E /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		C332135726224A67001AAD4E /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		C332135B26224AC3001AAD4E /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		C396673A2621D6F300CEBBF9 /* DamdaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamdaData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -235,8 +259,6 @@
 				3E38F61323DAF262002AAAB4 /* Custom Buttons */,
 				3E38F61123DAF254002AAAB4 /* Custom Views */,
 				3E38F61023DAF24D002AAAB4 /* Line Drawing */,
-				3E38F61423DAF290002AAAB4 /* Styles.swift */,
-				3E38F61523DAF291002AAAB4 /* Utilities.swift */,
 				3EF7963E23E6A59300C56DDB /* Properties.swift */,
 				3EF7964223E6B25C00C56DDB /* Font.swift */,
 				445AA516248CE56500CD9268 /* NSNotification+extension.swift */,
@@ -260,7 +282,6 @@
 			children = (
 				3E38F62423DAF2B2002AAAB4 /* DrawPromptView.swift */,
 				3E38F62323DAF2B2002AAAB4 /* ProgressView.swift */,
-				3E38F62223DAF2B2002AAAB4 /* TooltipView.swift */,
 				3E217BE323FD79DC00A419C7 /* FigureDrawView.swift */,
 			);
 			path = "Custom Views";
@@ -361,6 +382,7 @@
 				C39667392621D6C300CEBBF9 /* Database */,
 				3EF1060123B7201400CCB7E1 /* Resources */,
 				44B147A824712BC30027163F /* String */,
+				C332135626224A33001AAD4E /* Extension */,
 				3E38F60F23DAF239002AAAB4 /* Utility */,
 				3EF105F723B71FB200CCB7E1 /* thirdPartyLicenses.html */,
 				3EFCD66921AE33DA00D51C0C /* Info.plist */,
@@ -375,6 +397,28 @@
 				44B147AD24712BFF0027163F /* Localizable.strings */,
 			);
 			name = String;
+			sourceTree = "<group>";
+		};
+		C332135626224A33001AAD4E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C332133B2622481C001AAD4E /* String+Extension.swift */,
+				C332134726224903001AAD4E /* Int+Extension.swift */,
+				C332132D26224629001AAD4E /* CGPoint+Extension.swift */,
+				C33213302622464D001AAD4E /* CGSize+Extension.swift */,
+				C332133E2622483A001AAD4E /* CGColor+Extension.swift */,
+				C332134126224877001AAD4E /* UIColor+Extension.swift */,
+				C332133426224783001AAD4E /* UIView+Extension.swift */,
+				C332134D26224979001AAD4E /* UIButton+Extension.swift */,
+				C332134A26224945001AAD4E /* UITextView+Extension.swift */,
+				C3321337262247CF001AAD4E /* UIImageView+Extension.swift */,
+				C3321352262249FF001AAD4E /* UIImage+Extension.swift */,
+				C332135B26224AC3001AAD4E /* UIViewController+Extension.swift */,
+				C332135726224A67001AAD4E /* UINavigationController+Extension.swift */,
+				C3321325262244C3001AAD4E /* SCNVector3+Extension.swift */,
+				C3321344262248A8001AAD4E /* SCNNode+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C39667392621D6C300CEBBF9 /* Database */ = {
@@ -573,42 +617,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C332134226224877001AAD4E /* UIColor+Extension.swift in Sources */,
 				3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */,
+				C332135826224A67001AAD4E /* UINavigationController+Extension.swift in Sources */,
 				3EF7966C23E9A94900C56DDB /* FaceARMotion.swift in Sources */,
+				C332134826224903001AAD4E /* Int+Extension.swift in Sources */,
 				3ED5BB9C23E30FC100ABC30E /* Figure.swift in Sources */,
+				C332133526224783001AAD4E /* UIView+Extension.swift in Sources */,
+				C3321338262247CF001AAD4E /* UIImageView+Extension.swift in Sources */,
+				C332134E26224979001AAD4E /* UIButton+Extension.swift in Sources */,
 				3E38F61E23DAF29F002AAAB4 /* HueColorSliderDelegate.swift in Sources */,
 				3EF105FE23B7200100CCB7E1 /* NodeRender.metal in Sources */,
 				3EF105E623B71FA500CCB7E1 /* CustomPaletteCollectionViewCell.swift in Sources */,
+				C33213312622464D001AAD4E /* CGSize+Extension.swift in Sources */,
 				3E38F60323DAE825002AAAB4 /* ARDrawingViewUIController.swift in Sources */,
 				3E38F5FD23DAE729002AAAB4 /* SettingTableViewController.swift in Sources */,
 				3E38F5F023DAE710002AAAB4 /* ARDrawingViewController+extension.swift in Sources */,
-				3E38F62523DAF2B2002AAAB4 /* TooltipView.swift in Sources */,
 				3EF105E523B71FA500CCB7E1 /* ARMotionCollectionViewCell.swift in Sources */,
 				3E217BE423FD79DC00A419C7 /* FigureDrawView.swift in Sources */,
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
 				3EF7964323E6B25C00C56DDB /* Font.swift in Sources */,
 				3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */,
 				445AA517248CE56500CD9268 /* NSNotification+extension.swift in Sources */,
+				C3321353262249FF001AAD4E /* UIImage+Extension.swift in Sources */,
 				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
 				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
+				C3321326262244C3001AAD4E /* SCNVector3+Extension.swift in Sources */,
+				C3321345262248A8001AAD4E /* SCNNode+Extension.swift in Sources */,
 				3EE77A9523F91F8600C8C777 /* ARMotionViewController+extension.swift in Sources */,
 				3E38F5FF23DAE72E002AAAB4 /* TutorialViewController.swift in Sources */,
 				3E38F5FC23DAE729002AAAB4 /* MadeByTableViewController.swift in Sources */,
 				3E38F62C23DAF2B8002AAAB4 /* BiquadFilter.swift in Sources */,
-				3E38F61623DAF291002AAAB4 /* Styles.swift in Sources */,
 				3EF105E823B71FA500CCB7E1 /* GalleryCollectionViewCell.swift in Sources */,
+				C332135C26224AC3001AAD4E /* UIViewController+Extension.swift in Sources */,
 				3E217BE223FD797100A419C7 /* MakingARViewController+extension.swift in Sources */,
 				3E38F62E23DAF2B9002AAAB4 /* LineGeometry.swift in Sources */,
+				C332132E26224629001AAD4E /* CGPoint+Extension.swift in Sources */,
 				3EF1060023B7200100CCB7E1 /* Stroke.swift in Sources */,
 				3E38F5F523DAE71F002AAAB4 /* MakingARViewController.swift in Sources */,
-				3E38F61723DAF291002AAAB4 /* Utilities.swift in Sources */,
+				C332134B26224945001AAD4E /* UITextView+Extension.swift in Sources */,
 				3EF105E723B71FA500CCB7E1 /* FilterCollectionViewCell.swift in Sources */,
 				3ED4BDD9227ECB2B0031E99A /* DamdaCamCoreData.xcdatamodeld in Sources */,
 				3EF7963F23E6A59300C56DDB /* Properties.swift in Sources */,
+				C332133F2622483A001AAD4E /* CGColor+Extension.swift in Sources */,
 				3E38F61F23DAF29F002AAAB4 /* RadialHueColorPaletteDelegate.swift in Sources */,
 				3E38F62723DAF2B2002AAAB4 /* DrawPromptView.swift in Sources */,
 				3EFCD65E21AE33D900D51C0C /* AppDelegate.swift in Sources */,
 				3EC3FFAE23F9123B006ED8D0 /* ARDrawingUIViewController+extension.swift in Sources */,
+				C332133C2622481C001AAD4E /* String+Extension.swift in Sources */,
 				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
 				3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */,
 				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,

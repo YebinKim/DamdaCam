@@ -77,6 +77,14 @@
 		C3321353262249FF001AAD4E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3321352262249FF001AAD4E /* UIImage+Extension.swift */; };
 		C332135826224A67001AAD4E /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332135726224A67001AAD4E /* UINavigationController+Extension.swift */; };
 		C332135C26224AC3001AAD4E /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332135B26224AC3001AAD4E /* UIViewController+Extension.swift */; };
+		C3917B7026ACB01C00418272 /* MenuTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3917B6F26ACB01C00418272 /* MenuTextView.swift */; };
+		C3917B7226ACB05400418272 /* MenuFigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3917B7126ACB05400418272 /* MenuFigureView.swift */; };
+		C3917B7426ACB05E00418272 /* MenuBrushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3917B7326ACB05E00418272 /* MenuBrushView.swift */; };
+		C3917B7626ACB06500418272 /* MenuPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3917B7526ACB06500418272 /* MenuPaletteView.swift */; };
+		C3917B8026ACB3AE00418272 /* MenuTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3917B7F26ACB3AE00418272 /* MenuTextView.xib */; };
+		C3917B8226ACBB5900418272 /* MenuFigureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3917B8126ACBB5900418272 /* MenuFigureView.xib */; };
+		C3917B8426ACBB6400418272 /* MenuBrushView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3917B8326ACBB6400418272 /* MenuBrushView.xib */; };
+		C3917B8626ACBB7B00418272 /* MenuPaletteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3917B8526ACBB7B00418272 /* MenuPaletteView.xib */; };
 		C396673B2621D6F300CEBBF9 /* DamdaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C396673A2621D6F300CEBBF9 /* DamdaData.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +171,14 @@
 		C3321352262249FF001AAD4E /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		C332135726224A67001AAD4E /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		C332135B26224AC3001AAD4E /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		C3917B6F26ACB01C00418272 /* MenuTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTextView.swift; sourceTree = "<group>"; };
+		C3917B7126ACB05400418272 /* MenuFigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFigureView.swift; sourceTree = "<group>"; };
+		C3917B7326ACB05E00418272 /* MenuBrushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBrushView.swift; sourceTree = "<group>"; };
+		C3917B7526ACB06500418272 /* MenuPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPaletteView.swift; sourceTree = "<group>"; };
+		C3917B7F26ACB3AE00418272 /* MenuTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuTextView.xib; sourceTree = "<group>"; };
+		C3917B8126ACBB5900418272 /* MenuFigureView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuFigureView.xib; sourceTree = "<group>"; };
+		C3917B8326ACBB6400418272 /* MenuBrushView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuBrushView.xib; sourceTree = "<group>"; };
+		C3917B8526ACBB7B00418272 /* MenuPaletteView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuPaletteView.xib; sourceTree = "<group>"; };
 		C396673A2621D6F300CEBBF9 /* DamdaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamdaData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,6 +325,7 @@
 		3EF105AC23B71EA100CCB7E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C3917B6C26ACAFF400418272 /* MenuViews */,
 				3EF105DC23B71F7D00CCB7E1 /* Cells */,
 			);
 			name = Views;
@@ -421,6 +438,53 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		C3917B6826ACAF8100418272 /* MenuTextView */ = {
+			isa = PBXGroup;
+			children = (
+				C3917B6F26ACB01C00418272 /* MenuTextView.swift */,
+				C3917B7F26ACB3AE00418272 /* MenuTextView.xib */,
+			);
+			name = MenuTextView;
+			sourceTree = "<group>";
+		};
+		C3917B6926ACAFCA00418272 /* MenuFigureView */ = {
+			isa = PBXGroup;
+			children = (
+				C3917B7126ACB05400418272 /* MenuFigureView.swift */,
+				C3917B8126ACBB5900418272 /* MenuFigureView.xib */,
+			);
+			name = MenuFigureView;
+			sourceTree = "<group>";
+		};
+		C3917B6A26ACAFD700418272 /* MenuBrushView */ = {
+			isa = PBXGroup;
+			children = (
+				C3917B7326ACB05E00418272 /* MenuBrushView.swift */,
+				C3917B8326ACBB6400418272 /* MenuBrushView.xib */,
+			);
+			name = MenuBrushView;
+			sourceTree = "<group>";
+		};
+		C3917B6B26ACAFE500418272 /* MenuPaletteView */ = {
+			isa = PBXGroup;
+			children = (
+				C3917B7526ACB06500418272 /* MenuPaletteView.swift */,
+				C3917B8526ACBB7B00418272 /* MenuPaletteView.xib */,
+			);
+			name = MenuPaletteView;
+			sourceTree = "<group>";
+		};
+		C3917B6C26ACAFF400418272 /* MenuViews */ = {
+			isa = PBXGroup;
+			children = (
+				C3917B6826ACAF8100418272 /* MenuTextView */,
+				C3917B6926ACAFCA00418272 /* MenuFigureView */,
+				C3917B6A26ACAFD700418272 /* MenuBrushView */,
+				C3917B6B26ACAFE500418272 /* MenuPaletteView */,
+			);
+			name = MenuViews;
+			sourceTree = "<group>";
+		};
 		C39667392621D6C300CEBBF9 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,12 +588,16 @@
 				3E38F63423DAFDE8002AAAB4 /* LaunchScreen.storyboard in Resources */,
 				3EF1060923B7202900CCB7E1 /* Fonts in Resources */,
 				3EF1060C23B7202900CCB7E1 /* BGAR.scnassets in Resources */,
+				C3917B8026ACB3AE00418272 /* MenuTextView.xib in Resources */,
 				3EF1060A23B7202900CCB7E1 /* Tutorial Gif in Resources */,
 				3E38F60D23DAF0C1002AAAB4 /* TutorialViewController.storyboard in Resources */,
+				C3917B8226ACBB5900418272 /* MenuFigureView.xib in Resources */,
+				C3917B8426ACBB6400418272 /* MenuBrushView.xib in Resources */,
 				44B147AB24712BFF0027163F /* Localizable.strings in Resources */,
 				3E38F60123DAE7FD002AAAB4 /* ARDrawingUIViewController.storyboard in Resources */,
 				3EF1060E23B7202900CCB7E1 /* Assets.xcassets in Resources */,
 				3EF105FF23B7200100CCB7E1 /* NodeTechnique.plist in Resources */,
+				C3917B8626ACBB7B00418272 /* MenuPaletteView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +686,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C332134226224877001AAD4E /* UIColor+Extension.swift in Sources */,
+				C3917B7626ACB06500418272 /* MenuPaletteView.swift in Sources */,
 				3E38F62D23DAF2B8002AAAB4 /* Shaders.metal in Sources */,
 				C332135826224A67001AAD4E /* UINavigationController+Extension.swift in Sources */,
 				3EF7966C23E9A94900C56DDB /* FaceARMotion.swift in Sources */,
@@ -637,11 +706,13 @@
 				3E217BE423FD79DC00A419C7 /* FigureDrawView.swift in Sources */,
 				3E38F61D23DAF29F002AAAB4 /* RadialHuePalette.swift in Sources */,
 				3EF7964323E6B25C00C56DDB /* Font.swift in Sources */,
+				C3917B7226ACB05400418272 /* MenuFigureView.swift in Sources */,
 				3EF7967423E9AD0B00C56DDB /* BGARMotion.swift in Sources */,
 				445AA517248CE56500CD9268 /* NSNotification+extension.swift in Sources */,
 				C3321353262249FF001AAD4E /* UIImage+Extension.swift in Sources */,
 				3E38F61C23DAF29F002AAAB4 /* UISliderColorControl.swift in Sources */,
 				3E38F5FB23DAE729002AAAB4 /* HelpTableViewController.swift in Sources */,
+				C3917B7426ACB05E00418272 /* MenuBrushView.swift in Sources */,
 				C3321326262244C3001AAD4E /* SCNVector3+Extension.swift in Sources */,
 				C3321345262248A8001AAD4E /* SCNNode+Extension.swift in Sources */,
 				3EE77A9523F91F8600C8C777 /* ARMotionViewController+extension.swift in Sources */,
@@ -668,6 +739,7 @@
 				3E38F62123DAF2A5002AAAB4 /* ISRadioButton.swift in Sources */,
 				3E30338723EC48B90058E875 /* ARDrawingViewController.swift in Sources */,
 				3E38F5F723DAE724002AAAB4 /* GalleryViewController.swift in Sources */,
+				C3917B7026ACB01C00418272 /* MenuTextView.swift in Sources */,
 				3E38F5F323DAE718002AAAB4 /* ARMotionViewController.swift in Sources */,
 				3E38F62623DAF2B2002AAAB4 /* ProgressView.swift in Sources */,
 				C396673B2621D6F300CEBBF9 /* DamdaData.swift in Sources */,

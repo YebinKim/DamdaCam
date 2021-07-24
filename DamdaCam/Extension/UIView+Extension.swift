@@ -10,6 +10,24 @@ import UIKit
 
 extension UIView {
 
+    @discardableResult
+    func initFromNib<T: UIView>() -> T? {
+        let nibName: String = String(describing: type(of: self))
+        guard let contentView = Bundle(for: type(of: self)).loadNibNamed(nibName, owner: self, options: nil)?.first as? T else {
+            return nil
+        }
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+        return contentView
+    }
+
     func dropShadow(
         opacity: Float = 0.15,
         radius: CGFloat = 1.0,
